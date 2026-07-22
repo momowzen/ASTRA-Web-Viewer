@@ -259,7 +259,6 @@ document.getElementById('nav').addEventListener('click',e=>{
   document.querySelectorAll('.tab-content').forEach(x=>x.classList.remove('active'))
   b.classList.add('active');document.getElementById('tab-'+b.dataset.tab).classList.add('active')
 })
-$('langBtn').onclick=langNext
 
 
 function rNext(){
@@ -309,6 +308,8 @@ function rAll(){rNext();rUpcoming();rSched();rInt();rNextCd()}
 function rBosses(){rSched();rInt()}
 
 const $=(id)=>document.getElementById(id)
+
+$('langBtn').onclick=langNext
 
 function setOnline(on){
   const d=$('status'),t=$('statusText')
