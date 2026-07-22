@@ -37,8 +37,6 @@
   .tab-content{flex:1;min-height:0;display:none;gap:8px}
   .tab-content.active{display:flex;flex-direction:column}
 
-  .dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex:1;min-height:0}
-  .dash-col{display:flex;flex-direction:column;gap:8px;min-height:0}
   .panel{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;overflow-y:auto;min-height:0}
   .panel-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim);margin-bottom:6px;display:flex;align-items:center;justify-content:space-between}
   .panel-title .sub{color:var(--text-muted);font-weight:400}
@@ -295,7 +293,7 @@ function rSched(){
   const by=order.map(d=>({d,n:t('days')[d],es:[]}));
   for(const b of schedB())for(const w of b.wr){const col=by.find(x=>x.d===w.d);if(col)col.es.push({b,t:p2(w.h)+':'+p2(w.m)})}
   for(const d of by)d.es.sort((a,b)=>a.t.localeCompare(b.t))
-  $('schedGrid').innerHTML=by.map(d=>'<div class="sched-day'+(d.d===cd?' tdy':'')+'"><div class="sched-dlbl">'+d.n+'</div>'+(d.es.length?d.es.map(e=>'<div class="sched-boss"><span class="nm">'+e.b.name+'</span><span class="tm">'+e.t+'</span></div>').join(''):'<div class="sched-empty">--</div>')+'</div>').join('')
+  $('schedGrid').innerHTML=by.map(d=>'<div class="sched-day'+(d.d===cd?' tdy':'')+'"><div class="sched-dlbl">'+d.n+'</div>'+(d.es.length?d.es.map(e=>'<div class="sched-boss"><span class="nm">'+bn(e.b)+'</span><span class="tm">'+e.t+'</span></div>').join(''):'<div class="sched-empty">--</div>')+'</div>').join('')
 }
 
 function rInt(){
