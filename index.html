@@ -297,7 +297,7 @@ function rSched(){
 }
 
 function rInt(){
-  const n=now();$('ivGrid').innerHTML=grpInt().map(g=>'<div class="iv-card"><div class="iv-hdr"><span>'+t('every')+' '+fmtInt(g.s)+'</span><span class="ct">'+g.b.length+'</span></div>'+g.b.map(b=>{const t=timers[b.id]?.endTime,al=t&&t>n;return'<div class="iv-row"><span class="nm">'+bn(b)+'</span><span style="display:flex;align-items:center;gap:5px"><span class="lv">'+t('lv')+b.lvl+'</span><span class="tm '+(al?'live':'na')+'">'+(al?fmtShort(t-n):'--')+'</span></span></div>'}).join('')+'</div>').join('')
+  const n=now();$('ivGrid').innerHTML=grpInt().map(g=>'<div class="iv-card"><div class="iv-hdr"><span>'+t('every')+' '+fmtInt(g.s)+'</span><span class="ct">'+g.b.length+'</span></div>'+g.b.map(b=>{const et=timers[b.id]?.endTime,al=et&&et>n;return'<div class="iv-row"><span class="nm">'+bn(b)+'</span><span style="display:flex;align-items:center;gap:5px"><span class="lv">'+t('lv')+b.lvl+'</span><span class="tm '+(al?'live':'na')+'">'+(al?fmtShort(et-n):'--')+'</span></span></div>'}).join('')+'</div>').join('')
 }
 
 function rAll(){rNext();rUpcoming();rSched();rInt();rNextCd()}
@@ -310,9 +310,9 @@ const $=(id)=>document.getElementById(id)
 $('langBtn').onclick=langNext
 
 function setOnline(on){
-  const d=$('status'),t=$('statusText')
-  d.querySelector('.status-dot').className='status-dot '+(on?'on':'off')
-  t.textContent=on?t('live'):t('offline')
+  const el=$('status'),st=$('statusText')
+  el.querySelector('.status-dot').className='status-dot '+(on?'on':'off')
+  st.textContent=on?t('live'):t('offline')
 }
 
 async function loadData(){
