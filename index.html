@@ -67,14 +67,16 @@
   .u-rem{font-size:10px;color:var(--text-muted);font-variant-numeric:tabular-nums;white-space:nowrap}
   .empty{color:var(--text-muted);font-size:11px;font-style:italic;padding:4px 0}
 
-  .sched-grid{grid-template-columns:repeat(7,1fr);gap:4px}
-  .sched-col{display:flex;flex-direction:column;gap:3px;min-height:0}
-  .sched-hdr{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--purple);text-align:center;padding:3px 0;border-bottom:1px solid var(--border)}
-  .sched-hdr.tdy{color:var(--gold)}
-  .sched-boss{font-size:10px;padding:2px 5px;background:var(--bg3);border-radius:3px;display:flex;justify-content:space-between;align-items:center}
+  .sched-grid{display:flex;flex-direction:column;gap:2px;overflow-y:auto;min-height:0}
+  .sched-day{display:flex;align-items:center;gap:6px;padding:3px 6px;border-radius:4px;background:var(--bg3)}
+  .sched-day.tdy{background:var(--bg4);outline:1px solid var(--gold-dim)}
+  .sched-dlbl{font-size:10px;font-weight:700;color:var(--purple);min-width:32px;text-transform:uppercase}
+  .sched-day.tdy .sched-dlbl{color:var(--gold)}
+  .sched-bosses{display:flex;gap:4px;flex-wrap:wrap;flex:1}
+  .sched-boss{font-size:10px;padding:1px 6px;background:var(--bg2);border-radius:3px;display:flex;gap:4px;align-items:center}
   .sched-boss .nm{color:var(--text)}
   .sched-boss .tm{color:var(--text-dim);font-variant-numeric:tabular-nums;font-size:9px}
-  .sched-empty{font-size:9px;color:var(--text-muted);font-style:italic;text-align:center;padding:4px 0}
+  .sched-empty{font-size:10px;color:var(--text-muted);font-style:italic}
 
   .iv-grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:5px}
   .iv-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:8px 10px}
@@ -92,13 +94,11 @@
   @media(max-width:800px){
     .dash-grid{grid-template-columns:1fr}
     .split2{grid-template-columns:1fr}
-    .sched-grid{grid-template-columns:repeat(4,1fr)}
   }
   @media(max-width:500px){
     .app{padding:6px 8px;gap:4px}
     .brand{font-size:12px}
     .nav button{padding:4px 8px;font-size:10px}
-    .sched-grid{grid-template-columns:repeat(2,1fr)}
   }
 </style>
 </head>
@@ -146,7 +146,7 @@
     <div class="split2">
       <div class="panel">
         <div class="panel-title"><span class="tag tag-schedule" style="font-size:9px;padding:1px 7px;border-radius:3px;background:rgba(154,127,207,.12);color:var(--purple);font-weight:600">Schedule</span> Weekly Calendar</div>
-        <div class="sched-grid" id="schedGrid" style="flex:1;display:grid;min-height:0"></div>
+        <div class="sched-grid" id="schedGrid" style="flex:1;min-height:0"></div>
       </div>
       <div class="panel">
         <div class="panel-title"><span class="tag tag-interval" style="font-size:9px;padding:1px 7px;border-radius:3px;background:rgba(0,200,255,.12);color:var(--cyan);font-weight:600">Interval</span> Respawn Groups</div>
@@ -273,7 +273,7 @@ function rSched(){
   for(const b of schedB())for(const w of b.wr)by[w.d].es.push({b,t:p2(w.h)+':'+p2(w.m)})
   for(const d of by)d.es.sort((a,b)=>a.t.localeCompare(b.t))
   by.sort((a,b)=>((a.d-cd+7)%7)-((b.d-cd+7)%7))
-  $('schedGrid').innerHTML=by.map(d=>'<div class="sched-col"><div class="sched-hdr'+(d.d===cd?' tdy':'')+'">'+d.n+(d.d===cd?' (T)':'')+'</div>'+(d.es.length?d.es.map(e=>'<div class="sched-boss"><span class="nm">'+e.b.name+'</span><span class="tm">'+e.t+'</span></div>').join(''):'<div class="sched-empty">--</div>')+'</div>').join('')
+  $('schedGrid').innerHTML=by.map(d=>'<div class="sched-day'+(d.d===cd?' tdy':'')+'"><span class="sched-dlbl">'+d.n+'</span><div class="sched-bosses">'+(d.es.length?d.es.map(e=>'<span class="sched-boss"><span class="nm">'+e.b.name+'</span><span class="tm">'+e.t+'</span></span>').join(''):'<span class="sched-empty">--</span>')+'</div></div>').join('')
 }
 
 function rInt(){
