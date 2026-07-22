@@ -67,16 +67,15 @@
   .u-rem{font-size:10px;color:var(--text-muted);font-variant-numeric:tabular-nums;white-space:nowrap}
   .empty{color:var(--text-muted);font-size:11px;font-style:italic;padding:4px 0}
 
-  .sched-grid{display:flex;flex-direction:column;gap:2px;overflow-y:auto;min-height:0}
-  .sched-day{display:flex;align-items:center;gap:6px;padding:3px 6px;border-radius:4px;background:var(--bg3)}
-  .sched-day.tdy{background:var(--bg4);outline:1px solid var(--gold-dim)}
-  .sched-dlbl{font-size:10px;font-weight:700;color:var(--purple);min-width:32px;text-transform:uppercase}
-  .sched-day.tdy .sched-dlbl{color:var(--gold)}
-  .sched-bosses{display:flex;gap:4px;flex-wrap:wrap;flex:1}
-  .sched-boss{font-size:10px;padding:1px 6px;background:var(--bg2);border-radius:3px;display:flex;gap:4px;align-items:center}
+  .sched-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;overflow-y:auto;min-height:0;align-content:start;padding:2px 0}
+  .sched-day{background:var(--bg3);border-radius:6px;padding:8px 10px;border:1px solid transparent}
+  .sched-day.tdy{border-color:var(--gold-dim);background:var(--bg4)}
+  .sched-dlbl{font-size:11px;font-weight:800;color:var(--purple);text-transform:uppercase;margin-bottom:5px;padding-bottom:3px;border-bottom:1px solid var(--border);letter-spacing:.5px}
+  .sched-day.tdy .sched-dlbl{color:var(--gold);border-bottom-color:var(--gold-dim)}
+  .sched-boss{font-size:11px;padding:3px 0;display:flex;justify-content:space-between;align-items:center}
   .sched-boss .nm{color:var(--text)}
-  .sched-boss .tm{color:var(--text-dim);font-variant-numeric:tabular-nums;font-size:9px}
-  .sched-empty{font-size:10px;color:var(--text-muted);font-style:italic}
+  .sched-boss .tm{color:var(--text-dim);font-variant-numeric:tabular-nums}
+  .sched-empty{font-size:11px;color:var(--text-muted);font-style:italic;padding:6px 0}
 
   .iv-grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:5px}
   .iv-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:8px 10px}
@@ -273,7 +272,7 @@ function rSched(){
   for(const b of schedB())for(const w of b.wr)by[w.d].es.push({b,t:p2(w.h)+':'+p2(w.m)})
   for(const d of by)d.es.sort((a,b)=>a.t.localeCompare(b.t))
   by.sort((a,b)=>((a.d-cd+7)%7)-((b.d-cd+7)%7))
-  $('schedGrid').innerHTML=by.map(d=>'<div class="sched-day'+(d.d===cd?' tdy':'')+'"><span class="sched-dlbl">'+d.n+'</span><div class="sched-bosses">'+(d.es.length?d.es.map(e=>'<span class="sched-boss"><span class="nm">'+e.b.name+'</span><span class="tm">'+e.t+'</span></span>').join(''):'<span class="sched-empty">--</span>')+'</div></div>').join('')
+  $('schedGrid').innerHTML=by.map(d=>'<div class="sched-day'+(d.d===cd?' tdy':'')+'"><div class="sched-dlbl">'+d.n+'</div>'+(d.es.length?d.es.map(e=>'<div class="sched-boss"><span class="nm">'+e.b.name+'</span><span class="tm">'+e.t+'</span></div>').join(''):'<div class="sched-empty">--</div>')+'</div>').join('')
 }
 
 function rInt(){
