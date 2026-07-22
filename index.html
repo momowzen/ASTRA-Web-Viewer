@@ -67,17 +67,17 @@
   .u-rem{font-size:10px;color:var(--text-muted);font-variant-numeric:tabular-nums;white-space:nowrap}
   .empty{color:var(--text-muted);font-size:11px;font-style:italic;padding:4px 0}
 
-  .sched-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;flex:1;min-height:0}
-  .sched-col{display:flex;flex-direction:column;gap:4px;min-height:0}
-  .sched-hdr{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--purple);text-align:center;padding:4px 0;border-bottom:1px solid var(--border)}
+  .sched-grid{grid-template-columns:repeat(7,1fr);gap:4px}
+  .sched-col{display:flex;flex-direction:column;gap:3px;min-height:0}
+  .sched-hdr{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--purple);text-align:center;padding:3px 0;border-bottom:1px solid var(--border)}
   .sched-hdr.tdy{color:var(--gold)}
-  .sched-boss{font-size:11px;padding:3px 6px;background:var(--bg3);border-radius:3px;display:flex;justify-content:space-between;align-items:center}
+  .sched-boss{font-size:10px;padding:2px 5px;background:var(--bg3);border-radius:3px;display:flex;justify-content:space-between;align-items:center}
   .sched-boss .nm{color:var(--text)}
-  .sched-boss .tm{color:var(--text-dim);font-variant-numeric:tabular-nums;font-size:10px}
-  .sched-empty{font-size:10px;color:var(--text-muted);font-style:italic;text-align:center;padding:8px 0}
+  .sched-boss .tm{color:var(--text-dim);font-variant-numeric:tabular-nums;font-size:9px}
+  .sched-empty{font-size:9px;color:var(--text-muted);font-style:italic;text-align:center;padding:4px 0}
 
-  .iv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:6px;flex:1;min-height:0;align-content:start;overflow-y:auto;padding:2px 0}
-  .iv-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:10px 12px}
+  .iv-grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:5px}
+  .iv-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:8px 10px}
   .iv-hdr{font-size:11px;font-weight:700;color:var(--cyan);margin-bottom:4px;padding-bottom:3px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
   .iv-hdr .ct{font-size:10px;color:var(--text-muted);font-weight:400}
   .iv-row{display:flex;justify-content:space-between;align-items:center;padding:3px 0;font-size:12px}
@@ -91,8 +91,8 @@
 
   @media(max-width:800px){
     .dash-grid{grid-template-columns:1fr}
-    .sched-grid{grid-template-columns:repeat(4,1fr)}
     .split2{grid-template-columns:1fr}
+    .sched-grid{grid-template-columns:repeat(4,1fr)}
   }
   @media(max-width:500px){
     .app{padding:6px 8px;gap:4px}
@@ -108,8 +108,7 @@
     <div class="brand">ASTRA BOSS TIMER</div>
     <nav class="nav" id="nav">
       <button class="active" data-tab="dash">Dashboard</button>
-      <button data-tab="sched">Schedule</button>
-      <button data-tab="interval">Interval</button>
+      <button data-tab="bosses">Bosses</button>
     </nav>
     <div class="header-right">
       <span class="status" id="status"><span class="status-dot off"></span><span id="statusText">--</span></span>
@@ -143,12 +142,17 @@
     </div>
   </div>
 
-  <div class="tab-content" id="tab-sched">
-    <div class="sched-grid" id="schedGrid"></div>
-  </div>
-
-  <div class="tab-content" id="tab-interval">
-    <div class="iv-grid" id="ivGrid"></div>
+  <div class="tab-content" id="tab-bosses">
+    <div class="split2">
+      <div class="panel">
+        <div class="panel-title"><span class="tag tag-schedule" style="font-size:9px;padding:1px 7px;border-radius:3px;background:rgba(154,127,207,.12);color:var(--purple);font-weight:600">Schedule</span> Weekly Calendar</div>
+        <div class="sched-grid" id="schedGrid" style="flex:1;display:grid;min-height:0"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-title"><span class="tag tag-interval" style="font-size:9px;padding:1px 7px;border-radius:3px;background:rgba(0,200,255,.12);color:var(--cyan);font-weight:600">Interval</span> Respawn Groups</div>
+        <div class="iv-grid" id="ivGrid" style="flex:1;display:grid;min-height:0;overflow-y:auto;align-content:start;padding:2px 0"></div>
+      </div>
+    </div>
   </div>
 
   <div class="export-info" id="exportInfo"></div>
@@ -278,6 +282,9 @@ function rInt(){
 
 function rAll(){rNext();rUpcoming();rSched();rInt();rNextCd()}
 
+// Separated for refresh intervals
+function rBosses(){rSched();rInt()}
+
 const $=(id)=>document.getElementById(id)
 
 function setOnline(on,msg){
@@ -298,7 +305,7 @@ async function loadData(){
 
 loadData();rAll()
 setInterval(loadData,30000)
-setInterval(()=>{rUpcoming();rSched()},15000)
+setInterval(()=>{rUpcoming();rBosses()},15000)
 </script>
 </body>
 </html>
