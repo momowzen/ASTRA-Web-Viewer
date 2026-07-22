@@ -28,6 +28,7 @@
   .nav button:hover{color:var(--text)}
   .nav button.active{background:var(--bg4);color:var(--gold);box-shadow:0 1px 4px rgba(0,0,0,.3)}
   .header-right{margin-left:auto;display:flex;align-items:center;gap:14px;flex-shrink:0}
+  .lang-btn{background:var(--bg3);border:1px solid var(--border);color:var(--text-dim);padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font)}.lang-btn:hover{color:var(--text);border-color:var(--gold-dim)}.lang-btn::first-letter{color:var(--gold)}
   .status{font-size:11px;display:flex;align-items:center;gap:5px;color:var(--text-dim)}
   .status-dot{width:6px;height:6px;border-radius:50%;display:inline-block}
   .status-dot.on{background:var(--green)}
@@ -103,12 +104,13 @@
 <body>
 <div class="app">
   <header class="header">
-    <div class="brand">ASTRA BOSS TIMER</div>
+    <div class="brand" id="brand">ASTRA BOSS TIMER</div>
     <nav class="nav" id="nav">
-      <button class="active" data-tab="dash">Dashboard</button>
-      <button data-tab="bosses">Bosses</button>
+      <button class="active" data-tab="dash" id="navDash">Dashboard</button>
+      <button data-tab="bosses" id="navBosses">Bosses</button>
     </nav>
     <div class="header-right">
+      <button class="lang-btn" id="langBtn">EN</button>
       <span class="status" id="status"><span class="status-dot off"></span><span id="statusText">--</span></span>
     </div>
   </header>
@@ -117,7 +119,7 @@
     <div class="next-card">
       <div class="next-l">
         <div>
-          <div class="next-lbl">Next Spawn</div>
+          <div class="next-lbl" id="nextLbl">Next Spawn</div>
           <div class="next-name" id="nextName">--</div>
           <div class="next-meta"><span class="next-lv" id="nextLv"></span><span class="next-tag" id="nextTag"></span></div>
         </div>
@@ -129,11 +131,11 @@
     </div>
     <div class="split2">
       <div class="panel">
-        <div class="panel-title">Today <span class="sub" id="todayDate"></span></div>
+        <div class="panel-title"><span id="todayLbl">Today</span> <span class="sub" id="todayDate"></span></div>
         <div id="todayList"></div>
       </div>
       <div class="panel">
-        <div class="panel-title">Tomorrow <span class="sub" id="tomorrowDate"></span></div>
+        <div class="panel-title"><span id="tomorrowLbl">Tomorrow</span> <span class="sub" id="tomorrowDate"></span></div>
         <div id="tomorrowList"></div>
       </div>
     </div>
@@ -142,11 +144,11 @@
   <div class="tab-content" id="tab-bosses">
     <div class="split2">
       <div class="panel">
-        <div class="panel-title"><span class="tag tag-schedule" style="font-size:9px;padding:1px 7px;border-radius:3px;background:rgba(154,127,207,.12);color:var(--purple);font-weight:600">Schedule</span> Weekly Calendar</div>
+        <div class="panel-title"><span class="tag tag-schedule" id="schedTag" style="font-size:9px;padding:1px 7px;border-radius:3px;background:rgba(154,127,207,.12);color:var(--purple);font-weight:600">Schedule</span> <span id="schedTitle">Weekly Calendar</span></div>
         <div class="sched-grid" id="schedGrid" style="flex:1;min-height:0"></div>
       </div>
       <div class="panel">
-        <div class="panel-title"><span class="tag tag-interval" style="font-size:9px;padding:1px 7px;border-radius:3px;background:rgba(0,200,255,.12);color:var(--cyan);font-weight:600">Interval</span> Respawn Groups</div>
+        <div class="panel-title"><span class="tag tag-interval" id="ivTag" style="font-size:9px;padding:1px 7px;border-radius:3px;background:rgba(0,200,255,.12);color:var(--cyan);font-weight:600">Interval</span> <span id="ivTitle">Respawn Groups</span></div>
         <div class="iv-grid" id="ivGrid" style="flex:1;display:grid;min-height:0;overflow-y:auto;align-content:start;padding:2px 0"></div>
       </div>
     </div>
@@ -198,8 +200,35 @@ const BOSSES=[
   {id:"Tumier",name:"Tumier",lvl:140,wr:[{d:0,h:20,m:0}]},
   {id:"Lucus",name:"Lucus",lvl:145,wr:[{d:6,h:23,m:0}]}
 ];
-const DLABELS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
 const TO=9*3600000;
+const LANG={
+  en:{brand:'ASTRA BOSS TIMER',dash:'Dashboard',bosses:'Bosses',live:'Live',offline:'Offline',nextSpawn:'Next Spawn',today:'Today',tomorrow:'Tomorrow',noSpawns:'No spawns',schedTag:'Schedule',schedTitle:'Weekly Calendar',ivTag:'Interval',ivTitle:'Respawn Groups',every:'Every',lv:'Lv.',spawned:'SPAWNED',now:'Now',updated:'Updated',ago:'ago',days:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],bosses:['Venatus','Viorent','Ego','Clemantis','Livera','Araneo','Undomiel','Saphirus','Neutro','Lady Dalia','General Aquleus','Thymele','Amentis','Baron Braudmore','Milavy','Wannitas','Metus','Duplican','Shuliar','Ringor','Roderick','Gareth','Titore','Larba','Catena','Auraq','Secreta','Ordo','Asta','Supore','Chaiflock','Benji','Libitina','Rakajeth','Icaruthia','Motti','Camalia','Nevaeh','Tumier','Lucus']},
+  ja:{brand:'アストラ ボス タイマー',dash:'ダッシュボード',bosses:'ボス',live:'オンライン',offline:'オフライン',nextSpawn:'次のスポーン',today:'今日',tomorrow:'明日',noSpawns:'スポーンなし',schedTag:'スケジュール',schedTitle:'週間カレンダー',ivTag:'インターバル',ivTitle:'再出現グループ',every:'毎',lv:'Lv.',spawned:'出現中',now:'今',updated:'更新',ago:'前',days:['日','月','火','水','木','金','土'],bosses:['ベナトゥス','ビオレント','エゴ','クレメンティス','リベラ','アラネオ','アンドゥミエル','サピルス','ネウトロ','レディ·ダリア','将軍アクレウス','テュメレ','アメンティス','ブラウドモア','ミラベ','ワニタス','メトゥス','デュプリカン','シュライヤー','リンゴル','ロデリック','ガレス','ティトル','ラルバ','カテナ','アウラーク','セクレタ','オルド','アスタ','スポル','シャイフロック','ベンジー','リビティーナ','ラカゼス','イカルシア','モティ','カマリア','ネバ','トゥミエル','ルクス']},
+  ko:{brand:'아스트라 보스 타이머',dash:'대시보드',bosses:'보스',live:'온라인',offline:'오프라인',nextSpawn:'다음 스폰',today:'오늘',tomorrow:'내일',noSpawns:'스폰 없음',schedTag:'일정',schedTitle:'주간 캘린더',ivTag:'간격',ivTitle:'재등장 그룹',every:'매',lv:'레벨',spawned:'출현중',now:'지금',updated:'업데이트',ago:'전',days:['일','월','화','수','목','금','토'],bosses:['베나투스','비오렌트','에고','클레멘티스','리베라','아라네오','안두미엘','사피루스','네우트로','레이디 달리아','장군 아클레우스','튜메레','아멘티스','남작 브라우드모어','미라베','와니타스','메투스','듀플리칸','슈라이어','링고르','로데릭','가레스','티토르','라르바','카테나','아우라크','세크레타','오르도','아스타','스포르','샤이플록','벤지','리비티나','라카제스','이카루시아','모티','카말리아','네바','투미엘','루크스']}
+};
+let lang='en';
+function t(k){return LANG[lang][k]||k}
+function bn(b){const i=BOSSES.indexOf(b);return LANG[lang].bosses[i]||b.name}
+function langNext(){
+  const ls=['en','ja','ko'];
+  lang=ls[(ls.indexOf(lang)+1)%ls.length];
+  localStorage.setItem('astralang',lang);
+  applyLang();rAll()
+}
+function applyLang(){
+  $('brand').textContent=t('brand');
+  $('navDash').textContent=t('dash');
+  $('navBosses').textContent=t('bosses');
+  $('nextLbl').textContent=t('nextSpawn');
+  $('todayLbl').textContent=t('today');
+  $('tomorrowLbl').textContent=t('tomorrow');
+  $('schedTag').textContent=t('schedTag');
+  $('schedTitle').textContent=t('schedTitle');
+  $('ivTag').textContent=t('ivTag');
+  $('ivTitle').textContent=t('ivTitle');
+  $('langBtn').textContent=lang.toUpperCase();
+}
 
 let timers={};
 let nxtBoss=null,nxtTime=null;
@@ -210,8 +239,8 @@ function now(){return Date.now()}
 function fmt(ms){return new Date(ms).toLocaleString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:true,timeZone:'Asia/Tokyo'})}
 function fmtD(ms){return new Date(ms).toLocaleDateString('en-US',{month:'short',day:'numeric',timeZone:'Asia/Tokyo'})}
 function fmtT(ms){return new Date(ms).toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',hour12:true,timeZone:'Asia/Tokyo'})}
-function fmtDur(ms){if(ms<=0)return'SPAWNED';const s=Math.floor(ms/1000),d=Math.floor(s/86400),h=Math.floor((s%86400)/3600),m=Math.floor((s%3600)/60);return d?`${d}d ${h}h`:h?`${h}h ${m}m`:`${m}m ${p2(s%60)}s`}
-function fmtShort(ms){if(ms<=0)return'Now';const s=Math.floor(ms/1000),d=Math.floor(s/86400),h=Math.floor((s%86400)/3600),m=Math.floor((s%3600)/60);return d?`${d}d ${h}h`:h?`${h}h ${m}m`:`${m}m`}
+function fmtDur(ms){if(ms<=0)return t('spawned');const s=Math.floor(ms/1000),d=Math.floor(s/86400),h=Math.floor((s%86400)/3600),m=Math.floor((s%3600)/60);return d?`${d}d ${h}h`:h?`${h}h ${m}m`:`${m}m ${p2(s%60)}s`}
+function fmtShort(ms){if(ms<=0)return t('now');const s=Math.floor(ms/1000),d=Math.floor(s/86400),h=Math.floor((s%86400)/3600),m=Math.floor((s%3600)/60);return d?`${d}d ${h}h`:h?`${h}h ${m}m`:`${m}m`}
 function fmtInt(s){const h=Math.floor(s/3600),m=Math.floor((s%3600)/60);return m?`${h}h ${m}m`:`${h}h`}
 
 function nextSpawn(b){
@@ -230,14 +259,15 @@ document.getElementById('nav').addEventListener('click',e=>{
   document.querySelectorAll('.tab-content').forEach(x=>x.classList.remove('active'))
   b.classList.add('active');document.getElementById('tab-'+b.dataset.tab).classList.add('active')
 })
+$('langBtn').onclick=langNext
 
 
 function rNext(){
   let bb=null,bs=null,cn=now();
   for(const b of BOSSES){const n=nextSpawn(b);if(n&&n.getTime()>cn&&(!bs||n.getTime()<bs.getTime())){bs=n;bb=b}}
   if(bb&&bs){
-    $('nextName').textContent=bb.name;$('nextLv').textContent='Lv.'+bb.lvl
-    const isInt=!!bb.rs;$('nextTag').textContent=isInt?'Interval':'Schedule'
+    $('nextName').textContent=bn(bb);$('nextLv').textContent=t('lv')+bb.lvl
+    const isInt=!!bb.rs;$('nextTag').textContent=isInt?t('ivTag'):t('schedTag')
     $('nextTag').className='next-tag '+(isInt?'iv':'sc')
     $('nextAt').textContent=fmtT(bs.getTime())+' '+fmtD(bs.getTime())
     nxtBoss=bb;nxtTime=bs
@@ -255,22 +285,22 @@ function rUpcoming(){
   const td=[],tm=[];
   for(const b of BOSSES){const x=nextSpawn(b);if(x){const t=x.getTime();if(t>=n&&t<tt)td.push({b,t});else if(t>=tt&&t<ta)tm.push({b,t})}}
   td.sort((a,b)=>a.t-b.t);tm.sort((a,b)=>a.t-b.t)
-  const hl=(l,id)=>{const e=$(id);if(!l.length){e.innerHTML='<div class="empty">No spawns</div>';return}
-    e.innerHTML=l.map(x=>'<div class="u-entry"><div class="u-info"><span class="u-name">'+x.b.name+'</span><span class="u-lv">Lv.'+x.b.lvl+'</span></div><div style="display:flex;align-items:center;gap:8px"><span class="u-rem">'+fmtShort(x.t-n)+'</span><span class="u-time">'+fmtT(x.t)+'</span></div></div>').join('')}
+  const hl=(l,id)=>{const e=$(id);if(!l.length){e.innerHTML='<div class="empty">'+t('noSpawns')+'</div>';return}
+    e.innerHTML=l.map(x=>'<div class="u-entry"><div class="u-info"><span class="u-name">'+bn(x.b)+'</span><span class="u-lv">'+t('lv')+x.b.lvl+'</span></div><div style="display:flex;align-items:center;gap:8px"><span class="u-rem">'+fmtShort(x.t-n)+'</span><span class="u-time">'+fmtT(x.t)+'</span></div></div>').join('')}
   hl(td,'todayList');hl(tm,'tomorrowList')
 }
 
 function rSched(){
   const j=new Date(now()+TO),cd=j.getUTCDay();
   const order=[1,2,3,4,5,6,0];
-  const by=order.map(d=>({d,n:DLABELS[d],es:[]}));
+  const by=order.map(d=>({d,n:t('days')[d],es:[]}));
   for(const b of schedB())for(const w of b.wr){const col=by.find(x=>x.d===w.d);if(col)col.es.push({b,t:p2(w.h)+':'+p2(w.m)})}
   for(const d of by)d.es.sort((a,b)=>a.t.localeCompare(b.t))
   $('schedGrid').innerHTML=by.map(d=>'<div class="sched-day'+(d.d===cd?' tdy':'')+'"><div class="sched-dlbl">'+d.n+'</div>'+(d.es.length?d.es.map(e=>'<div class="sched-boss"><span class="nm">'+e.b.name+'</span><span class="tm">'+e.t+'</span></div>').join(''):'<div class="sched-empty">--</div>')+'</div>').join('')
 }
 
 function rInt(){
-  const n=now();$('ivGrid').innerHTML=grpInt().map(g=>'<div class="iv-card"><div class="iv-hdr"><span>Every '+fmtInt(g.s)+'</span><span class="ct">'+g.b.length+'</span></div>'+g.b.map(b=>{const t=timers[b.id]?.endTime,al=t&&t>n;return'<div class="iv-row"><span class="nm">'+b.name+'</span><span style="display:flex;align-items:center;gap:5px"><span class="lv">Lv.'+b.lvl+'</span><span class="tm '+(al?'live':'na')+'">'+(al?fmtShort(t-n):'--')+'</span></span></div>'}).join('')+'</div>').join('')
+  const n=now();$('ivGrid').innerHTML=grpInt().map(g=>'<div class="iv-card"><div class="iv-hdr"><span>'+t('every')+' '+fmtInt(g.s)+'</span><span class="ct">'+g.b.length+'</span></div>'+g.b.map(b=>{const t=timers[b.id]?.endTime,al=t&&t>n;return'<div class="iv-row"><span class="nm">'+bn(b)+'</span><span style="display:flex;align-items:center;gap:5px"><span class="lv">'+t('lv')+b.lvl+'</span><span class="tm '+(al?'live':'na')+'">'+(al?fmtShort(t-n):'--')+'</span></span></div>'}).join('')+'</div>').join('')
 }
 
 function rAll(){rNext();rUpcoming();rSched();rInt();rNextCd()}
@@ -283,7 +313,7 @@ const $=(id)=>document.getElementById(id)
 function setOnline(on){
   const d=$('status'),t=$('statusText')
   d.querySelector('.status-dot').className='status-dot '+(on?'on':'off')
-  t.textContent=on?'Live':'Offline'
+  t.textContent=on?t('live'):t('offline')
 }
 
 async function loadData(){
@@ -292,11 +322,11 @@ async function loadData(){
     if(!r.ok)throw Error(r.status)
     const d=await r.json()
     if(d.timers){timers=d.timers;rAll();setOnline(true)}
-    if(d.exportedAt){const age=Math.floor((now()-d.exportedAt)/60000);$('exportInfo').textContent='Updated '+age+'m ago'}
+    if(d.exportedAt){const age=Math.floor((now()-d.exportedAt)/60000);$('exportInfo').textContent=t('updated')+' '+age+'m '+t('ago')}
   }catch(e){setOnline(false);rAll()}
 }
 
-loadData();rAll()
+lang=localStorage.getItem('astralang')||'en';applyLang();loadData();rAll()
 setInterval(loadData,30000)
 setInterval(()=>{rUpcoming();rBosses()},15000)
 </script>
