@@ -66,7 +66,7 @@
   .u-rem{font-size:10px;color:var(--text-muted);font-variant-numeric:tabular-nums;white-space:nowrap}
   .empty{color:var(--text-muted);font-size:11px;font-style:italic;padding:4px 0}
 
-  .sched-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;overflow-y:auto;min-height:0;align-content:start;padding:2px 0}
+  .sched-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:5px;overflow-y:auto;min-height:0;align-content:start;padding:2px 0}
   .sched-day{background:var(--bg3);border-radius:6px;padding:8px 10px;border:1px solid transparent}
   .sched-day.tdy{border-color:var(--gold-dim);background:var(--bg4)}
   .sched-dlbl{font-size:11px;font-weight:800;color:var(--purple);text-transform:uppercase;margin-bottom:5px;padding-bottom:3px;border-bottom:1px solid var(--border);letter-spacing:.5px}
