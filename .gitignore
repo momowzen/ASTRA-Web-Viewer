@@ -1,0 +1,6 @@
+node_modules/
+.env
+service-account.json
+discord-bot/
+start-hidden.vbs
+start.bat

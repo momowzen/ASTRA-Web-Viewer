@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ASTRA BOSS TIMER</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --bg:#080c14;--bg2:#0f1520;--bg3:#161e2e;--bg4:#1c2640;
+    --border:#1e2d4a;--gold:#e8b830;--gold-dim:#8a7020;
+    --cyan:#00c8ff;--cyan-dim:#007799;--green:#3acf6e;
+    --red:#e84949;--orange:#e88820;--purple:#9a7fcf;
+    --text:#cdd9e8;--text-dim:#6a7f9e;--text-muted:#3d4f6a;
+    --text-bright:#eef3fa;--radius:8px;--font:'Segoe UI',system-ui,sans-serif;
+  }
+  html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--bg);color:var(--text)}
+  ::-webkit-scrollbar{width:4px}
+  ::-webkit-scrollbar-track{background:transparent}
+  ::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+
+  .app{height:100vh;display:flex;flex-direction:column;padding:10px 14px;gap:8px;max-width:1500px;margin:0 auto;width:100%}
+
+  .header{display:flex;align-items:center;gap:12px;flex-shrink:0;padding:0 4px}
+  .brand{font-size:15px;font-weight:800;letter-spacing:.5px;background:linear-gradient(135deg,var(--gold),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;white-space:nowrap}
+  .nav{display:flex;gap:2px;background:var(--bg2);border-radius:6px;padding:2px;border:1px solid var(--border)}
+  .nav button{background:none;border:none;color:var(--text-dim);padding:5px 14px;border-radius:4px;font-size:12px;font-weight:600;cursor:pointer;transition:all .12s;font-family:var(--font);white-space:nowrap}
+  .nav button:hover{color:var(--text)}
+  .nav button.active{background:var(--bg4);color:var(--gold);box-shadow:0 1px 4px rgba(0,0,0,.3)}
+  .header-right{margin-left:auto;display:flex;align-items:center;gap:14px;flex-shrink:0}
+  .status{font-size:11px;display:flex;align-items:center;gap:5px;color:var(--text-dim)}
+  .status-dot{width:6px;height:6px;border-radius:50%;display:inline-block}
+  .status-dot.on{background:var(--green)}
+  .status-dot.off{background:var(--red)}
+  .clock{font-size:17px;font-weight:700;color:var(--cyan);font-variant-numeric:tabular-nums;letter-spacing:.3px}
+
+  .tab-content{flex:1;min-height:0;display:none;gap:8px}
+  .tab-content.active{display:flex;flex-direction:column}
+
+  /* === DASHBOARD TAB === */
+  .dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex:1;min-height:0}
+  .dash-col{display:flex;flex-direction:column;gap:8px;min-height:0}
+  .panel{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;overflow-y:auto;min-height:0}
+  .panel-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim);margin-bottom:6px;display:flex;align-items:center;justify-content:space-between}
+  .panel-title .sub{color:var(--text-muted);font-weight:400}
+  .panel-title .badge{font-size:9px;background:var(--bg3);color:var(--text-muted);padding:1px 7px;border-radius:8px;font-weight:600}
+
+  /* Next boss card */
+  .next-card{background:linear-gradient(135deg,#141c30,#0a0e17);border:1px solid var(--gold-dim);border-radius:var(--radius);padding:14px 16px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;gap:12px;position:relative;overflow:hidden}
+  .next-card::after{content:'';position:absolute;top:-40%;right:-10%;width:200px;height:200px;background:radial-gradient(circle,rgba(232,184,48,.06) 0%,transparent 70%);pointer-events:none}
+  .next-l{display:flex;align-items:center;gap:12px;z-index:1}
+  .next-lbl{font-size:9px;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold);font-weight:600}
+  .next-name{font-size:20px;font-weight:800;color:var(--text-bright)}
+  .next-meta{display:flex;gap:6px;align-items:center;margin-top:2px}
+  .next-tag{font-size:9px;padding:1px 7px;border-radius:3px;font-weight:600}
+  .next-tag.iv{background:rgba(0,200,255,.12);color:var(--cyan)}
+  .next-tag.sc{background:rgba(154,127,207,.12);color:var(--purple)}
+  .next-lv{font-size:10px;color:var(--text-dim);background:var(--bg3);padding:1px 7px;border-radius:3px}
+  .next-r{text-align:right;z-index:1;flex-shrink:0}
+  .next-cd{font-size:26px;font-weight:800;color:var(--gold);font-variant-numeric:tabular-nums;line-height:1}
+  .next-at{font-size:11px;color:var(--text-dim);margin-top:2px}
+
+  /* Upcoming */
+  .split2{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex:1;min-height:0}
+  .u-entry{display:flex;align-items:center;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(30,45,74,.4);gap:6px}
+  .u-entry:last-child{border-bottom:none}
+  .u-info{display:flex;align-items:center;gap:6px;min-width:0}
+  .u-name{font-size:12px;font-weight:600;color:var(--text-bright);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .u-lv{font-size:9px;color:var(--text-muted);background:var(--bg3);padding:0 5px;border-radius:2px;flex-shrink:0}
+  .u-time{font-size:11px;color:var(--cyan);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .u-rem{font-size:10px;color:var(--text-muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .empty{color:var(--text-muted);font-size:11px;font-style:italic;padding:4px 0}
+
+  /* === SCHEDULE TAB === */
+  .sched-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;flex:1;min-height:0}
+  .sched-col{display:flex;flex-direction:column;gap:4px;min-height:0}
+  .sched-hdr{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--purple);text-align:center;padding:4px 0;border-bottom:1px solid var(--border)}
+  .sched-hdr.tdy{color:var(--gold)}
+  .sched-boss{font-size:11px;padding:3px 6px;background:var(--bg3);border-radius:3px;display:flex;justify-content:space-between;align-items:center}
+  .sched-boss .nm{color:var(--text)}
+  .sched-boss .tm{color:var(--text-dim);font-variant-numeric:tabular-nums;font-size:10px}
+  .sched-empty{font-size:10px;color:var(--text-muted);font-style:italic;text-align:center;padding:8px 0}
+
+  /* === INTERVAL TAB === */
+  .iv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:6px;flex:1;min-height:0;align-content:start;overflow-y:auto;padding:2px 0}
+  .iv-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:10px 12px}
+  .iv-hdr{font-size:11px;font-weight:700;color:var(--cyan);margin-bottom:4px;padding-bottom:3px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+  .iv-hdr .ct{font-size:10px;color:var(--text-muted);font-weight:400}
+  .iv-row{display:flex;justify-content:space-between;align-items:center;padding:3px 0;font-size:12px}
+  .iv-row .nm{color:var(--text-bright);font-weight:600}
+  .iv-row .lv{font-size:10px;color:var(--text-dim)}
+  .iv-row .tm{font-size:10px}
+  .iv-row .tm.live{color:var(--gold)}
+  .iv-row .tm.na{color:var(--text-muted)}
+
+  /* offline banner */
+  .offline{display:none;flex-shrink:0;text-align:center;font-size:11px;color:var(--red);background:rgba(232,73,73,.08);border:1px solid rgba(232,73,73,.2);border-radius:6px;padding:6px 12px}
+  .offline code{background:var(--bg3);padding:1px 6px;border-radius:3px;color:var(--gold);font-size:10px}
+
+  @media(max-width:800px){
+    .dash-grid{grid-template-columns:1fr}
+    .sched-grid{grid-template-columns:repeat(4,1fr)}
+    .split2{grid-template-columns:1fr}
+  }
+  @media(max-width:500px){
+    .app{padding:6px 8px;gap:4px}
+    .brand{font-size:12px}
+    .nav button{padding:4px 8px;font-size:10px}
+    .sched-grid{grid-template-columns:repeat(2,1fr)}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="header">
+    <div class="brand">ASTRA BOSS TIMER</div>
+    <nav class="nav" id="nav">
+      <button class="active" data-tab="dash">Dashboard</button>
+      <button data-tab="sched">Schedule</button>
+      <button data-tab="interval">Interval</button>
+    </nav>
+    <div class="header-right">
+      <span class="status" id="status"><span class="status-dot off"></span><span id="statusText">Offline</span></span>
+      <span class="clock" id="clock">--:--</span>
+    </div>
+  </header>
+
+  <div class="offline" id="offline">
+    Server offline &mdash; run <code>npm start</code> then open <code>http://localhost:3001</code>
+  </div>
+
+  <!-- Dashboard -->
+  <div class="tab-content active" id="tab-dash">
+    <div class="next-card">
+      <div class="next-l">
+        <div>
+          <div class="next-lbl">Next Spawn</div>
+          <div class="next-name" id="nextName">--</div>
+          <div class="next-meta"><span class="next-lv" id="nextLv"></span><span class="next-tag" id="nextTag"></span></div>
+        </div>
+      </div>
+      <div class="next-r">
+        <div class="next-cd" id="nextCd">--:--:--</div>
+        <div class="next-at" id="nextAt"></div>
+      </div>
+    </div>
+
+    <div class="split2">
+      <div class="panel">
+        <div class="panel-title">Today <span class="sub" id="todayDate"></span></div>
+        <div id="todayList"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-title">Tomorrow <span class="sub" id="tomorrowDate"></span></div>
+        <div id="tomorrowList"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Schedule -->
+  <div class="tab-content" id="tab-sched">
+    <div class="sched-grid" id="schedGrid"></div>
+  </div>
+
+  <!-- Interval -->
+  <div class="tab-content" id="tab-interval">
+    <div class="iv-grid" id="ivGrid"></div>
+  </div>
+</div>
+
+<script>
+const BOSSES=[
+  {id:"Venatus",name:"Venatus",lvl:60,rs:36000},
+  {id:"Viorent",name:"Viorent",lvl:65,rs:36000},
+  {id:"Ego",name:"Ego",lvl:70,rs:75600},
+  {id:"Clemantis",name:"Clemantis",lvl:70,wr:[{d:1,h:12,m:30},{d:4,h:20,m:0}]},
+  {id:"Livera",name:"Livera",lvl:75,rs:86400},
+  {id:"Araneo",name:"Araneo",lvl:75,rs:86400},
+  {id:"Undomiel",name:"Undomiel",lvl:80,rs:86400},
+  {id:"Saphirus",name:"Saphirus",lvl:80,wr:[{d:0,h:18,m:0},{d:2,h:12,m:30}]},
+  {id:"Neutro",name:"Neutro",lvl:80,wr:[{d:2,h:20,m:0},{d:4,h:12,m:30}]},
+  {id:"LadyDalia",name:"Lady Dalia",lvl:85,rs:64800},
+  {id:"GeneralAquleus",name:"General Aquleus",lvl:85,rs:104400},
+  {id:"Thymele",name:"Thymele",lvl:85,wr:[{d:1,h:20,m:0},{d:3,h:12,m:30}]},
+  {id:"Amentis",name:"Amentis",lvl:88,rs:104400},
+  {id:"BaronBraudmore",name:"Baron Braudmore",lvl:88,rs:115200},
+  {id:"Milavy",name:"Milavy",lvl:90,wr:[{d:6,h:16,m:0}]},
+  {id:"Wannitas",name:"Wannitas",lvl:93,rs:172800},
+  {id:"Metus",name:"Metus",lvl:93,rs:172800},
+  {id:"Duplican",name:"Duplican",lvl:93,rs:172800},
+  {id:"Shuliar",name:"Shuliar",lvl:95,rs:126000},
+  {id:"Ringor",name:"Ringor",lvl:95,wr:[{d:6,h:18,m:0}]},
+  {id:"Roderick",name:"Roderick",lvl:95,wr:[{d:5,h:20,m:0}]},
+  {id:"Gareth",name:"Gareth",lvl:98,rs:115200},
+  {id:"Titore",name:"Titore",lvl:98,rs:133200},
+  {id:"Larba",name:"Larba",lvl:98,rs:126000},
+  {id:"Catena",name:"Catena",lvl:100,rs:126000},
+  {id:"Auraq",name:"Auraq",lvl:100,wr:[{d:5,h:23,m:0},{d:3,h:22,m:0}]},
+  {id:"Secreta",name:"Secreta",lvl:100,rs:223200},
+  {id:"Ordo",name:"Ordo",lvl:100,rs:223200},
+  {id:"Asta",name:"Asta",lvl:100,rs:223200},
+  {id:"Supore",name:"Supore",lvl:100,rs:223200},
+  {id:"Chaiflock",name:"Chaiflock",lvl:120,wr:[{d:0,h:16,m:0}]},
+  {id:"Benji",name:"Benji",lvl:120,wr:[{d:0,h:22,m:0}]},
+  {id:"Libitina",name:"Libitina",lvl:130,wr:[{d:1,h:22,m:0},{d:6,h:22,m:0}]},
+  {id:"Rakajeth",name:"Rakajeth",lvl:130,wr:[{d:2,h:23,m:0},{d:0,h:20,m:0}]},
+  {id:"Icaruthia",name:"Icaruthia",lvl:135,wr:[{d:2,h:22,m:0},{d:5,h:22,m:0}]},
+  {id:"Motti",name:"Motti",lvl:135,wr:[{d:3,h:20,m:0},{d:6,h:20,m:0}]},
+  {id:"Camalia",name:"Camalia",lvl:135,wr:[{d:4,h:22,m:0}]},
+  {id:"Nevaeh",name:"Nevaeh",lvl:140,wr:[{d:0,h:23,m:0}]},
+  {id:"Tumier",name:"Tumier",lvl:140,wr:[{d:0,h:20,m:0}]},
+  {id:"Lucus",name:"Lucus",lvl:145,wr:[{d:6,h:23,m:0}]}
+];
+const DAYS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const TO=9*3600000;
+const API=window.location.origin;
+
+let timers={};
+let nxtBoss=null,nxtTime=null;
+
+const $=(id,d)=>d||document.getElementById(id);
+
+function p2(n){return String(n).padStart(2,'0')}
+function now(){return Date.now()}
+
+function fmt(ms){return new Date(ms).toLocaleString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:true,timeZone:'Asia/Tokyo'})}
+function fmtD(ms){return new Date(ms).toLocaleDateString('en-US',{month:'short',day:'numeric',timeZone:'Asia/Tokyo'})}
+function fmtT(ms){return new Date(ms).toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',hour12:true,timeZone:'Asia/Tokyo'})}
+function fmtDur(ms){if(ms<=0)return'SPAWNED';const s=Math.floor(ms/1000),d=Math.floor(s/86400),h=Math.floor((s%86400)/3600),m=Math.floor((s%3600)/60);return d?`${d}d ${h}h`:h?`${h}h ${m}m`:`${m}m ${p2(s%60)}s`}
+function fmtShort(ms){if(ms<=0)return'Now';const s=Math.floor(ms/1000),d=Math.floor(s/86400),h=Math.floor((s%86400)/3600),m=Math.floor((s%3600)/60);return d?`${d}d ${h}h`:h?`${h}h ${m}m`:`${m}m`}
+function fmtInt(s){const h=Math.floor(s/3600),m=Math.floor((s%3600)/60);return m?`${h}h ${m}m`:`${h}h`}
+
+function nextSpawn(b){
+  const t=timers[b.id];
+  if(b.rs){return t?.endTime?new Date(t.endTime):null}
+  if(b.wr){const n=now(),base=new Date(n+TO);let best=null;for(const w of b.wr){const c=new Date(base),del=(w.d+7-base.getUTCDay())%7;c.setUTCDate(base.getUTCDate()+del);c.setUTCHours(w.h,w.m,0,0);let r=c.getTime()-TO;if(r<n)r+=604800000;if(!best||r<best)best=r}return best?new Date(best):null}
+  return null
+}
+function schedB(){return BOSSES.filter(b=>b.wr)}
+function intB(){return BOSSES.filter(b=>b.rs)}
+function grpInt(){const g={};for(const b of intB()){const k=b.rs;if(!g[k])g[k]={s:k,b:[]};g[k].b.push(b)}return Object.values(g).sort((a,b)=>a.s-b.s)}
+
+// Tab switching
+document.getElementById('nav').addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return
+  document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'))
+  document.querySelectorAll('.tab-content').forEach(x=>x.classList.remove('active'))
+  b.classList.add('active');document.getElementById('tab-'+b.dataset.tab).classList.add('active')
+})
+
+// Clock
+setInterval(()=>{
+  const j=new Date(now()+TO)
+  document.getElementById('clock').textContent=p2(j.getUTCHours())+':'+p2(j.getUTCMinutes())
+},1000)
+
+// Renderers
+function rNext(){
+  let bb=null,bs=null,cn=now();
+  for(const b of BOSSES){const n=nextSpawn(b);if(n&&n.getTime()>cn&&(!bs||n.getTime()<bs.getTime())){bs=n;bb=b}}
+  if(bb&&bs){
+    $('nextName').textContent=bb.name;$('nextLv').textContent='Lv.'+bb.lvl
+    const isInt=!!bb.rs;$('nextTag').textContent=isInt?'Interval':'Schedule'
+    $('nextTag').className='next-tag '+(isInt?'iv':'sc')
+    $('nextAt').textContent=fmtT(bs.getTime())+' '+fmtD(bs.getTime())
+    nxtBoss=bb;nxtTime=bs
+  }else{$('nextName').textContent='--';$('nextLv').textContent='';$('nextTag').textContent='';$('nextAt').textContent='';nxtBoss=null;nxtTime=null}
+}
+function rNextCd(){
+  if(nxtTime){const r=Math.max(0,nxtTime.getTime()-now());$('nextCd').textContent=fmtDur(r)}else $('nextCd').textContent='--:--:--'
+}
+setInterval(rNextCd,1000)
+
+function rUpcoming(){
+  const n=now(),j=new Date(n+TO);
+  const ts=new Date(Date.UTC(j.getUTCFullYear(),j.getUTCMonth(),j.getUTCDate())).getTime()-TO,tt=ts+86400000,ta=ts+172800000;
+  $('todayDate').textContent=fmtD(ts);$('tomorrowDate').textContent=fmtD(tt)
+  const td=[],tm=[];
+  for(const b of BOSSES){const x=nextSpawn(b);if(x){const t=x.getTime();if(t>=n&&t<tt)td.push({b,t});else if(t>=tt&&t<ta)tm.push({b,t})}}
+  td.sort((a,b)=>a.t-b.t);tm.sort((a,b)=>a.t-b.t)
+  const hl=(l,id)=>{const e=$(id);if(!l.length){e.innerHTML='<div class="empty">No spawns</div>';return}
+    e.innerHTML=l.map(x=>'<div class="u-entry"><div class="u-info"><span class="u-name">'+x.b.name+'</span><span class="u-lv">Lv.'+x.b.lvl+'</span></div><div style="display:flex;align-items:center;gap:8px"><span class="u-rem">'+fmtShort(x.t-n)+'</span><span class="u-time">'+fmtT(x.t)+'</span></div></div>').join('')}
+  hl(td,'todayList');hl(tm,'tomorrowList')
+}
+
+function rSched(){
+  const j=new Date(now()+TO),cd=j.getUTCDay();
+  const by=DAYS.map((n,i)=>({d:i,n,es:[]}));
+  for(const b of schedB())for(const w of b.wr)by[w.d].es.push({b,t:p2(w.h)+':'+p2(w.m)})
+  for(const d of by)d.es.sort((a,b)=>a.t.localeCompare(b.t))
+  by.sort((a,b)=>((a.d-cd+7)%7)-((b.d-cd+7)%7))
+  $('schedGrid').innerHTML=by.map(d=>'<div class="sched-col"><div class="sched-hdr'+(d.d===cd?' tdy':'')+'">'+d.n+(d.d===cd?' (T)':'')+'</div>'+(d.es.length?d.es.map(e=>'<div class="sched-boss"><span class="nm">'+e.b.name+'</span><span class="tm">'+e.t+'</span></div>').join(''):'<div class="sched-empty">--</div>')+'</div>').join('')
+}
+
+function rInt(){
+  const n=now();$('ivGrid').innerHTML=grpInt().map(g=>'<div class="iv-card"><div class="iv-hdr"><span>Every '+fmtInt(g.s)+'</span><span class="ct">'+g.b.length+'</span></div>'+g.b.map(b=>{const t=timers[b.id]?.endTime,al=t&&t>n;return'<div class="iv-row"><span class="nm">'+b.name+'</span><span style="display:flex;align-items:center;gap:5px"><span class="lv">Lv.'+b.lvl+'</span><span class="tm '+(al?'live':'na')+'">'+(al?fmtShort(t-n):'--')+'</span></span></div>'}).join('')+'</div>').join('')
+}
+
+function rAll(){rNext();rUpcoming();rSched();rInt();rNextCd()}
+
+function setOnline(on){
+  const d=$('status'),t=$('statusText'),s=$('offline')
+  if(on){d.querySelector('.status-dot').className='status-dot on';t.textContent='Live';s.style.display='none'}
+  else{d.querySelector('.status-dot').className='status-dot off';t.textContent='Offline'}
+}
+
+// Init: fetch once then SSE stream
+async function initFetch(){
+  try{
+    if(window.location.protocol==='file:')throw Error('file')
+    const r=await fetch(API+'/api/timers'),d=await r.json()
+    if(d.timers){timers=d.timers;rAll();setOnline(true)}
+  }catch(e){setOnline(false);rAll()}
+}
+
+function initSSE(){
+  if(window.location.protocol==='file:')return
+  const es=new EventSource(API+'/api/timers/stream')
+  es.onmessage=e=>{
+    try{
+      const d=JSON.parse(e.data)
+      if(d.timers){timers=d.timers;rAll();setOnline(true)}
+    }catch(_){}
+  }
+  es.onerror=()=>setOnline(false)
+}
+
+initFetch();initSSE();rAll()
+setInterval(()=>{rUpcoming();rSched()},15000)
+</script>
+</body>
+</html>
