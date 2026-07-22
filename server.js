@@ -6,6 +6,7 @@ const { readFileSync } = require('fs');
 const { join } = require('path');
 
 const serviceAccount = JSON.parse(
+  process.env.FIREBASE_SERVICE_ACCOUNT ||
   readFileSync(join(__dirname, 'service-account.json'), 'utf8')
 );
 admin.initializeApp({ credential: admin.cert(serviceAccount) });
