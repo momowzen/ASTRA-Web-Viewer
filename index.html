@@ -32,7 +32,6 @@
   .status-dot{width:6px;height:6px;border-radius:50%;display:inline-block}
   .status-dot.on{background:var(--green)}
   .status-dot.off{background:var(--red)}
-  .clock{font-size:17px;font-weight:700;color:var(--cyan);font-variant-numeric:tabular-nums;letter-spacing:.3px}
 
   .tab-content{flex:1;min-height:0;display:none;gap:8px}
   .tab-content.active{display:flex;flex-direction:column}
@@ -111,7 +110,6 @@
     </nav>
     <div class="header-right">
       <span class="status" id="status"><span class="status-dot off"></span><span id="statusText">--</span></span>
-      <span class="clock" id="clock">--:--</span>
     </div>
   </header>
 
@@ -200,7 +198,7 @@ const BOSSES=[
   {id:"Tumier",name:"Tumier",lvl:140,wr:[{d:0,h:20,m:0}]},
   {id:"Lucus",name:"Lucus",lvl:145,wr:[{d:6,h:23,m:0}]}
 ];
-const DAYS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const DLABELS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 const TO=9*3600000;
 
 let timers={};
@@ -233,10 +231,6 @@ document.getElementById('nav').addEventListener('click',e=>{
   b.classList.add('active');document.getElementById('tab-'+b.dataset.tab).classList.add('active')
 })
 
-setInterval(()=>{
-  const j=new Date(now()+TO)
-  document.getElementById('clock').textContent=p2(j.getUTCHours())+':'+p2(j.getUTCMinutes())
-},1000)
 
 function rNext(){
   let bb=null,bs=null,cn=now();
@@ -268,10 +262,10 @@ function rUpcoming(){
 
 function rSched(){
   const j=new Date(now()+TO),cd=j.getUTCDay();
-  const by=DAYS.map((n,i)=>({d:i,n,es:[]}));
-  for(const b of schedB())for(const w of b.wr)by[w.d].es.push({b,t:p2(w.h)+':'+p2(w.m)})
+  const order=[1,2,3,4,5,6,0];
+  const by=order.map(d=>({d,n:DLABELS[d],es:[]}));
+  for(const b of schedB())for(const w of b.wr){const col=by.find(x=>x.d===w.d);if(col)col.es.push({b,t:p2(w.h)+':'+p2(w.m)})}
   for(const d of by)d.es.sort((a,b)=>a.t.localeCompare(b.t))
-  by.sort((a,b)=>((a.d-cd+7)%7)-((b.d-cd+7)%7))
   $('schedGrid').innerHTML=by.map(d=>'<div class="sched-day'+(d.d===cd?' tdy':'')+'"><div class="sched-dlbl">'+d.n+'</div>'+(d.es.length?d.es.map(e=>'<div class="sched-boss"><span class="nm">'+e.b.name+'</span><span class="tm">'+e.t+'</span></div>').join(''):'<div class="sched-empty">--</div>')+'</div>').join('')
 }
 
@@ -286,10 +280,10 @@ function rBosses(){rSched();rInt()}
 
 const $=(id)=>document.getElementById(id)
 
-function setOnline(on,msg){
+function setOnline(on){
   const d=$('status'),t=$('statusText')
   d.querySelector('.status-dot').className='status-dot '+(on?'on':'off')
-  t.textContent=msg||(on?'Live':'Offline')
+  t.textContent=on?'Live':'Offline'
 }
 
 async function loadData(){
@@ -297,7 +291,7 @@ async function loadData(){
     const r=await fetch('data.json?_='+now())
     if(!r.ok)throw Error(r.status)
     const d=await r.json()
-    if(d.timers){timers=d.timers;rAll();setOnline(true,Object.keys(timers).length+' timers')}
+    if(d.timers){timers=d.timers;rAll();setOnline(true)}
     if(d.exportedAt){const age=Math.floor((now()-d.exportedAt)/60000);$('exportInfo').textContent='Updated '+age+'m ago'}
   }catch(e){setOnline(false);rAll()}
 }
