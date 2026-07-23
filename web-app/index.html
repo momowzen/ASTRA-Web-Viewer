@@ -49,7 +49,7 @@
   .next-cd{font-size:22px;font-weight:800;color:var(--gold);font-variant-numeric:tabular-nums;line-height:1}
   .next-at{font-size:10px;color:var(--text-dim);margin-top:1px}
 
-  .main-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto 1fr;gap:6px;flex:1;min-height:0}
+  .main-grid{display:grid;grid-template-columns:1fr 1.5fr;grid-template-rows:1fr 1fr;grid-auto-flow:column;gap:6px;flex:1;min-height:0}
   .panel{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:8px 10px;overflow-y:auto;min-height:0;display:flex;flex-direction:column}
   .panel-title{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim);margin-bottom:5px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:6px}
   .panel-title .sub{color:var(--text-muted);font-weight:400;font-size:9px}
@@ -87,7 +87,7 @@
   .footer{font-size:9px;color:var(--text-muted);text-align:center;padding:2px 0 0;flex-shrink:0}
 
   @media(max-width:900px){
-    .main-grid{grid-template-columns:1fr;grid-template-rows:auto}
+    .main-grid{grid-template-columns:1fr;grid-template-rows:auto;grid-auto-flow:row}
     .panel{max-height:35vh}
   }
 </style>
@@ -184,9 +184,9 @@ const BOSSES=[
 
 const TO=9*3600000;
 const LANG={
-  en:{brand:'ASTRA BOSS TIMER',dash:'Dashboard',bsTab:'Bosses',live:'Live',offline:'Offline',nextSpawn:'Next Spawn',today:'Today',tomorrow:'Tomorrow',noSpawns:'No spawns',schedTag:'Schedule',schedTitle:'Weekly Calendar',ivTag:'Interval',ivTitle:'Respawn Groups',every:'Every',lv:'Lv.',spawned:'SPAWNED',now:'Now',updated:'Updated',ago:'ago',days:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],nm:['Venatus','Viorent','Ego','Clemantis','Livera','Araneo','Undomiel','Saphirus','Neutro','Lady Dalia','General Aquleus','Thymele','Amentis','Baron Braudmore','Milavy','Wannitas','Metus','Duplican','Shuliar','Ringor','Roderick','Gareth','Titore','Larba','Catena','Auraq','Secreta','Ordo','Asta','Supore','Chaiflock','Benji','Libitina','Rakajeth','Icaruthia','Motti','Camalia','Nevaeh','Tumier','Lucus']},
-  ja:{brand:'アストラ ボス タイマー',dash:'ダッシュボード',bsTab:'ボス',live:'オンライン',offline:'オフライン',nextSpawn:'次のスポーン',today:'今日',tomorrow:'明日',noSpawns:'スポーンなし',schedTag:'スケジュール',schedTitle:'週間カレンダー',ivTag:'インターバル',ivTitle:'再出現グループ',every:'毎',lv:'Lv.',spawned:'出現中',now:'今',updated:'更新',ago:'前',days:['日','月','火','水','木','金','土'],nm:['ベナトゥス','ビオレント','エゴ','クレメンティス','リベラ','アラネオ','アンドゥミエル','サピルス','ネウトロ','レディ·ダリア','将軍アクレウス','テュメレ','アメンティス','ブラウドモア','ミラベ','ワニタス','メトゥス','デュプリカン','シュライヤー','リンゴル','ロデリック','ガレス','ティトル','ラルバ','カテナ','アウラーク','セクレタ','オルド','アスタ','スポル','シャイフロック','ベンジー','リビティーナ','ラカゼス','イカルシア','モティ','カマリア','ネバ','トゥミエル','ルクス']},
-  ko:{brand:'아스트라 보스 타이머',dash:'대시보드',bsTab:'보스',live:'온라인',offline:'오프라인',nextSpawn:'다음 스폰',today:'오늘',tomorrow:'내일',noSpawns:'스폰 없음',schedTag:'일정',schedTitle:'주간 캘린더',ivTag:'간격',ivTitle:'재등장 그룹',every:'매',lv:'레벨',spawned:'출현중',now:'지금',updated:'업데이트',ago:'전',days:['일','월','화','수','목','금','토'],nm:['베나투스','비오렌트','에고','클레멘티스','리베라','아라네오','안두미엘','사피루스','네우트로','레이디 달리아','장군 아클레우스','튜메레','아멘티스','남작 브라우드모어','미라베','와니타스','메투스','듀플리칸','슈라이어','링고르','로데릭','가레스','티토르','라르바','카테나','아우라크','세크레타','오르도','아스타','스포르','샤이플록','벤지','리비티나','라카제스','이카루시아','모티','카말리아','네바','투미엘','루크스']}
+  en:{brand:'ASTRA BOSS TIMER',dash:'Dashboard',bsTab:'Bosses',live:'Live',offline:'Offline',nextSpawn:'Next Spawn',today:'Today',tomorrow:'Tomorrow',noSpawns:'No spawns',schedTag:'Schedule',schedTitle:'Weekly',ivTag:'Interval',ivTitle:'Respawn Groups',every:'Every',lv:'Lv.',spawned:'SPAWNED',now:'Now',updated:'Updated',ago:'ago',days:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],nm:['Venatus','Viorent','Ego','Clemantis','Livera','Araneo','Undomiel','Saphirus','Neutro','Lady Dalia','General Aquleus','Thymele','Amentis','Baron Braudmore','Milavy','Wannitas','Metus','Duplican','Shuliar','Ringor','Roderick','Gareth','Titore','Larba','Catena','Auraq','Secreta','Ordo','Asta','Supore','Chaiflock','Benji','Libitina','Rakajeth','Icaruthia','Motti','Camalia','Nevaeh','Tumier','Lucus']},
+  ja:{brand:'ASTRA ボス タイマー',dash:'ダッシュボード',bsTab:'ボス',live:'オンライン',offline:'オフライン',nextSpawn:'次のスポーン',today:'今日',tomorrow:'明日',noSpawns:'スポーンなし',schedTag:'スケジュール',schedTitle:'週間',ivTag:'インターバル',ivTitle:'再出現グループ',every:'毎',lv:'Lv.',spawned:'出現中',now:'今',updated:'更新',ago:'前',days:['日','月','火','水','木','金','土'],nm:['ベナトゥス','ビオレント','エゴ','クレメンティス','リベラ','アラネオ','アンドゥミエル','サピルス','ネウトロ','レディ·ダリア','将軍アクレウス','テュメレ','アメンティス','ブラウドモア','ミラベ','ワニタス','メトゥス','デュプリカン','シュライヤー','リンゴル','ロデリック','ガレス','ティトル','ラルバ','カテナ','アウラーク','セクレタ','オルド','アスタ','スポル','シャイフロック','ベンジー','リビティーナ','ラカゼス','イカルシア','モティ','カマリア','ネバ','トゥミエル','ルクス']},
+  ko:{brand:'ASTRA 보스 타이머',dash:'대시보드',bsTab:'보스',live:'온라인',offline:'오프라인',nextSpawn:'다음 스폰',today:'오늘',tomorrow:'내일',noSpawns:'스폰 없음',schedTag:'일정',schedTitle:'주간',ivTag:'간격',ivTitle:'재등장 그룹',every:'매',lv:'레벨',spawned:'출현중',now:'지금',updated:'업데이트',ago:'전',days:['일','월','화','수','목','금','토'],nm:['베나투스','비오렌트','에고','클레멘티스','리베라','아라네오','안두미엘','사피루스','네우트로','레이디 달리아','장군 아클레우스','튜메레','아멘티스','남작 브라우드모어','미라베','와니타스','메투스','듀플리칸','슈라이어','링고르','로데릭','가레스','티토르','라르바','카테나','아우라크','세크레타','오르도','아스타','스포르','샤이플록','벤지','리비티나','라카제스','이카루시아','모티','카말리아','네바','투미엘','루크스']}
 };
 let lang='en';
 function t(k){return LANG[lang][k]||k}
