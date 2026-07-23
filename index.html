@@ -7,95 +7,88 @@
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
   :root{
-    --bg:#080c14;--bg2:#0f1520;--bg3:#161e2e;--bg4:#1c2640;
+    --bg:#070a10;--bg2:#0d121c;--bg3:#141b2a;--bg4:#1a2338;
     --border:#1e2d4a;--gold:#e8b830;--gold-dim:#8a7020;
     --cyan:#00c8ff;--cyan-dim:#007799;--green:#3acf6e;
     --red:#e84949;--orange:#e88820;--purple:#9a7fcf;
     --text:#cdd9e8;--text-dim:#6a7f9e;--text-muted:#3d4f6a;
-    --text-bright:#eef3fa;--radius:8px;--font:'Segoe UI',system-ui,sans-serif;
+    --text-bright:#eef3fa;--radius:6px;--font:'Segoe UI',system-ui,sans-serif;
   }
   html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--bg);color:var(--text)}
-  ::-webkit-scrollbar{width:4px}
+  ::-webkit-scrollbar{width:3px;height:3px}
   ::-webkit-scrollbar-track{background:transparent}
   ::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
 
-  .app{height:100vh;display:flex;flex-direction:column;padding:10px 14px;gap:8px;max-width:1500px;margin:0 auto;width:100%}
+  .app{height:100vh;display:flex;flex-direction:column;padding:8px 12px;gap:6px;max-width:1600px;margin:0 auto;width:100%}
 
-  .header{display:flex;align-items:center;gap:12px;flex-shrink:0;padding:0 4px;flex-wrap:wrap}
-  .brand{font-size:15px;font-weight:800;letter-spacing:.5px;background:linear-gradient(135deg,var(--gold),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;white-space:nowrap}
-  .nav{display:flex;gap:2px;background:var(--bg2);border-radius:6px;padding:2px;border:1px solid var(--border)}
-  .nav button{background:none;border:none;color:var(--text-dim);padding:5px 14px;border-radius:4px;font-size:12px;font-weight:600;cursor:pointer;transition:all .12s;font-family:var(--font);white-space:nowrap}
-  .nav button:hover{color:var(--text)}
-  .nav button.active{background:var(--bg4);color:var(--gold);box-shadow:0 1px 4px rgba(0,0,0,.3)}
-  .header-right{margin-left:auto;display:flex;align-items:center;gap:14px;flex-shrink:0}
-  .lang-btn{background:var(--bg3);border:1px solid var(--border);color:var(--text-dim);padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font)}.lang-btn:hover{color:var(--text);border-color:var(--gold-dim)}.lang-btn::first-letter{color:var(--gold)}
-  .status{font-size:11px;display:flex;align-items:center;gap:5px;color:var(--text-dim)}
-  .status-dot{width:6px;height:6px;border-radius:50%;display:inline-block}
-  .status-dot.on{background:var(--green)}
-  .status-dot.off{background:var(--red)}
+  .header{display:flex;align-items:center;justify-content:space-between;flex-shrink:0;padding:0 2px}
+  .brand{font-size:14px;font-weight:800;letter-spacing:.5px;background:linear-gradient(135deg,var(--gold),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;white-space:nowrap}
+  .header-right{display:flex;align-items:center;gap:8px}
 
-  .tab-content{flex:1;min-height:0;display:none;gap:8px}
-  .tab-content.active{display:flex;flex-direction:column}
+  .live-pill{display:inline-flex;align-items:center;gap:5px;padding:2px 8px;border-radius:12px;background:var(--bg3);border:1px solid var(--border);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.3px}
+  .live-pill .dot{width:5px;height:5px;border-radius:50%;background:currentColor}
+  .live-pill.on{color:var(--green);border-color:rgba(58,207,110,.4);background:rgba(58,207,110,.08)}
+  .live-pill.off{color:var(--red);border-color:rgba(232,73,73,.4);background:rgba(232,73,73,.08)}
+  .live-pill.on .dot{box-shadow:0 0 6px var(--green);animation:pulse 1.5s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
-  .panel{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;overflow-y:auto;min-height:0}
-  .panel-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim);margin-bottom:6px;display:flex;align-items:center;justify-content:space-between}
-  .panel-title .sub{color:var(--text-muted);font-weight:400}
+  .lang-pill{background:var(--bg3);border:1px solid var(--border);color:var(--text-dim);padding:2px 8px;border-radius:12px;font-size:10px;font-weight:800;cursor:pointer;font-family:var(--font);min-width:28px;text-align:center;transition:all .12s}
+  .lang-pill:hover{color:var(--gold);border-color:var(--gold-dim)}
 
-  .next-card{background:linear-gradient(135deg,#141c30,#0a0e17);border:1px solid var(--gold-dim);border-radius:var(--radius);padding:14px 16px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;gap:12px;position:relative;overflow:hidden}
-  .next-card::after{content:'';position:absolute;top:-40%;right:-10%;width:200px;height:200px;background:radial-gradient(circle,rgba(232,184,48,.06) 0%,transparent 70%);pointer-events:none}
-  .next-l{display:flex;align-items:center;gap:12px;z-index:1}
-  .next-lbl{font-size:9px;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold);font-weight:600}
-  .next-name{font-size:20px;font-weight:800;color:var(--text-bright)}
-  .next-meta{display:flex;gap:6px;align-items:center;margin-top:2px}
-  .next-tag{font-size:9px;padding:1px 7px;border-radius:3px;font-weight:600}
+  .next-card{background:linear-gradient(135deg,#141c30,#0a0e17);border:1px solid var(--gold-dim);border-radius:var(--radius);padding:10px 14px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;gap:12px;position:relative;overflow:hidden}
+  .next-card::after{content:'';position:absolute;top:-40%;right:-10%;width:160px;height:160px;background:radial-gradient(circle,rgba(232,184,48,.06) 0%,transparent 70%);pointer-events:none}
+  .next-l{display:flex;align-items:center;gap:10px;z-index:1}
+  .next-lbl{font-size:8px;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold);font-weight:700}
+  .next-name{font-size:18px;font-weight:800;color:var(--text-bright)}
+  .next-meta{display:flex;gap:5px;align-items:center;margin-top:1px}
+  .next-tag{font-size:8px;padding:1px 6px;border-radius:3px;font-weight:700}
   .next-tag.iv{background:rgba(0,200,255,.12);color:var(--cyan)}
   .next-tag.sc{background:rgba(154,127,207,.12);color:var(--purple)}
-  .next-lv{font-size:10px;color:var(--text-dim);background:var(--bg3);padding:1px 7px;border-radius:3px}
+  .next-lv{font-size:9px;color:var(--text-dim);background:var(--bg3);padding:1px 6px;border-radius:3px}
   .next-r{text-align:right;z-index:1;flex-shrink:0}
-  .next-cd{font-size:26px;font-weight:800;color:var(--gold);font-variant-numeric:tabular-nums;line-height:1}
-  .next-at{font-size:11px;color:var(--text-dim);margin-top:2px}
+  .next-cd{font-size:22px;font-weight:800;color:var(--gold);font-variant-numeric:tabular-nums;line-height:1}
+  .next-at{font-size:10px;color:var(--text-dim);margin-top:1px}
 
-  .split2{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex:1;min-height:0}
-  .u-entry{display:flex;align-items:center;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(30,45,74,.4);gap:6px}
-  .u-entry:last-child{border-bottom:none}
-  .u-info{display:flex;align-items:center;gap:6px;min-width:0}
-  .u-name{font-size:12px;font-weight:600;color:var(--text-bright);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .u-lv{font-size:9px;color:var(--text-muted);background:var(--bg3);padding:0 5px;border-radius:2px;flex-shrink:0}
-  .u-time{font-size:11px;color:var(--cyan);font-variant-numeric:tabular-nums;white-space:nowrap}
-  .u-rem{font-size:10px;color:var(--text-muted);font-variant-numeric:tabular-nums;white-space:nowrap}
-  .empty{color:var(--text-muted);font-size:11px;font-style:italic;padding:4px 0}
+  .main-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto 1fr;gap:6px;flex:1;min-height:0}
+  .panel{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:8px 10px;overflow-y:auto;min-height:0;display:flex;flex-direction:column}
+  .panel-title{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim);margin-bottom:5px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:6px}
+  .panel-title .sub{color:var(--text-muted);font-weight:400;font-size:9px}
 
-  .sched-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:5px;overflow-y:auto;min-height:0;align-content:start;padding:2px 0}
-  .sched-day{background:var(--bg3);border-radius:6px;padding:8px 10px;border:1px solid transparent}
+  .sched-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:4px;overflow-y:auto;min-height:0;align-content:start}
+  .sched-day{background:var(--bg3);border-radius:4px;padding:6px 8px;border:1px solid transparent}
   .sched-day.tdy{border-color:var(--gold-dim);background:var(--bg4)}
-  .sched-dlbl{font-size:11px;font-weight:800;color:var(--purple);text-transform:uppercase;margin-bottom:5px;padding-bottom:3px;border-bottom:1px solid var(--border);letter-spacing:.5px}
+  .sched-dlbl{font-size:10px;font-weight:800;color:var(--purple);text-transform:uppercase;margin-bottom:3px;padding-bottom:2px;border-bottom:1px solid var(--border);letter-spacing:.5px}
   .sched-day.tdy .sched-dlbl{color:var(--gold);border-bottom-color:var(--gold-dim)}
-  .sched-boss{font-size:11px;padding:3px 0;display:flex;justify-content:space-between;align-items:center}
+  .sched-boss{font-size:10px;padding:2px 0;display:flex;justify-content:space-between;align-items:center}
   .sched-boss .nm{color:var(--text)}
-  .sched-boss .tm{color:var(--text-dim);font-variant-numeric:tabular-nums}
-  .sched-empty{font-size:11px;color:var(--text-muted);font-style:italic;padding:6px 0}
+  .sched-boss .tm{color:var(--text-dim);font-variant-numeric:tabular-nums;font-size:9px}
+  .sched-empty{font-size:10px;color:var(--text-muted);font-style:italic;padding:4px 0}
 
-  .iv-grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:5px}
-  .iv-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:8px 10px}
-  .iv-hdr{font-size:11px;font-weight:700;color:var(--cyan);margin-bottom:4px;padding-bottom:3px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
-  .iv-hdr .ct{font-size:10px;color:var(--text-muted);font-weight:400}
-  .iv-row{display:flex;justify-content:space-between;align-items:center;padding:3px 0;font-size:12px}
+  .u-entry{display:flex;align-items:center;justify-content:space-between;padding:3px 0;border-bottom:1px solid rgba(30,45,74,.4);gap:5px}
+  .u-entry:last-child{border-bottom:none}
+  .u-info{display:flex;align-items:center;gap:5px;min-width:0}
+  .u-name{font-size:11px;font-weight:600;color:var(--text-bright);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .u-lv{font-size:8px;color:var(--text-muted);background:var(--bg3);padding:0 4px;border-radius:2px;flex-shrink:0}
+  .u-time{font-size:10px;color:var(--cyan);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .u-rem{font-size:9px;color:var(--text-muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .empty{color:var(--text-muted);font-size:10px;font-style:italic;padding:4px 0}
+
+  .iv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:4px;overflow-y:auto;min-height:0;align-content:start}
+  .iv-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:6px 8px}
+  .iv-hdr{font-size:10px;font-weight:700;color:var(--cyan);margin-bottom:3px;padding-bottom:2px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+  .iv-hdr .ct{font-size:9px;color:var(--text-muted);font-weight:400}
+  .iv-row{display:flex;justify-content:space-between;align-items:center;padding:2px 0;font-size:11px}
   .iv-row .nm{color:var(--text-bright);font-weight:600}
-  .iv-row .lv{font-size:10px;color:var(--text-dim)}
-  .iv-row .tm{font-size:10px}
+  .iv-row .lv{font-size:9px;color:var(--text-dim)}
+  .iv-row .tm{font-size:9px}
   .iv-row .tm.live{color:var(--gold)}
   .iv-row .tm.na{color:var(--text-muted)}
 
-  .export-info{font-size:10px;color:var(--text-muted);text-align:center;padding:4px 0 0;flex-shrink:0}
+  .footer{font-size:9px;color:var(--text-muted);text-align:center;padding:2px 0 0;flex-shrink:0}
 
-  @media(max-width:800px){
-    .dash-grid{grid-template-columns:1fr}
-    .split2{grid-template-columns:1fr}
-  }
-  @media(max-width:500px){
-    .app{padding:6px 8px;gap:4px}
-    .brand{font-size:12px}
-    .nav button{padding:4px 8px;font-size:10px}
+  @media(max-width:900px){
+    .main-grid{grid-template-columns:1fr;grid-template-rows:auto}
+    .panel{max-height:35vh}
   }
 </style>
 </head>
@@ -103,56 +96,46 @@
 <div class="app">
   <header class="header">
     <div class="brand" id="brand">ASTRA BOSS TIMER</div>
-    <nav class="nav" id="nav">
-      <button class="active" data-tab="dash" id="navDash">Dashboard</button>
-      <button data-tab="bosses" id="navBosses">Bosses</button>
-    </nav>
     <div class="header-right">
-      <button class="lang-btn" id="langBtn">EN</button>
-      <span class="status" id="status"><span class="status-dot off"></span><span id="statusText">--</span></span>
+      <span class="live-pill off" id="livePill"><span class="dot"></span><span id="liveText">--</span></span>
+      <button class="lang-pill" id="langBtn">EN</button>
     </div>
   </header>
 
-  <div class="tab-content active" id="tab-dash">
-    <div class="next-card">
-      <div class="next-l">
-        <div>
-          <div class="next-lbl" id="nextLbl">Next Spawn</div>
-          <div class="next-name" id="nextName">--</div>
-          <div class="next-meta"><span class="next-lv" id="nextLv"></span><span class="next-tag" id="nextTag"></span></div>
-        </div>
-      </div>
-      <div class="next-r">
-        <div class="next-cd" id="nextCd">--:--:--</div>
-        <div class="next-at" id="nextAt"></div>
+  <div class="next-card">
+    <div class="next-l">
+      <div>
+        <div class="next-lbl" id="nextLbl">Next Spawn</div>
+        <div class="next-name" id="nextName">--</div>
+        <div class="next-meta"><span class="next-lv" id="nextLv"></span><span class="next-tag" id="nextTag"></span></div>
       </div>
     </div>
-    <div class="split2">
-      <div class="panel">
-        <div class="panel-title"><span id="todayLbl">Today</span> <span class="sub" id="todayDate"></span></div>
-        <div id="todayList"></div>
-      </div>
-      <div class="panel">
-        <div class="panel-title"><span id="tomorrowLbl">Tomorrow</span> <span class="sub" id="tomorrowDate"></span></div>
-        <div id="tomorrowList"></div>
-      </div>
+    <div class="next-r">
+      <div class="next-cd" id="nextCd">--:--:--</div>
+      <div class="next-at" id="nextAt"></div>
     </div>
   </div>
 
-  <div class="tab-content" id="tab-bosses">
-    <div class="split2">
-      <div class="panel">
-        <div class="panel-title"><span class="tag tag-schedule" id="schedTag" style="font-size:9px;padding:1px 7px;border-radius:3px;background:rgba(154,127,207,.12);color:var(--purple);font-weight:600">Schedule</span> <span id="schedTitle">Weekly Calendar</span></div>
-        <div class="sched-grid" id="schedGrid" style="flex:1;min-height:0"></div>
-      </div>
-      <div class="panel">
-        <div class="panel-title"><span class="tag tag-interval" id="ivTag" style="font-size:9px;padding:1px 7px;border-radius:3px;background:rgba(0,200,255,.12);color:var(--cyan);font-weight:600">Interval</span> <span id="ivTitle">Respawn Groups</span></div>
-        <div class="iv-grid" id="ivGrid" style="flex:1;display:grid;min-height:0;overflow-y:auto;align-content:start;padding:2px 0"></div>
-      </div>
+  <div class="main-grid">
+    <div class="panel">
+      <div class="panel-title"><span id="todayLbl">Today</span> <span class="sub" id="todayDate"></span></div>
+      <div id="todayList"></div>
+    </div>
+    <div class="panel">
+      <div class="panel-title"><span id="tomorrowLbl">Tomorrow</span> <span class="sub" id="tomorrowDate"></span></div>
+      <div id="tomorrowList"></div>
+    </div>
+    <div class="panel">
+      <div class="panel-title"><span id="schedTitle">Schedule</span></div>
+      <div class="sched-grid" id="schedGrid"></div>
+    </div>
+    <div class="panel">
+      <div class="panel-title"><span id="ivTitle">Interval</span></div>
+      <div class="iv-grid" id="ivGrid"></div>
     </div>
   </div>
 
-  <div class="export-info" id="exportInfo"></div>
+  <div class="footer" id="exportInfo"></div>
 </div>
 
 <script>
@@ -215,17 +198,17 @@ function langNext(){
   applyLang();rAll()
 }
 function applyLang(){
+  document.title=t('brand');
   $('brand').textContent=t('brand');
-  $('navDash').textContent=t('dash');
-  $('navBosses').textContent=t('bsTab');
   $('nextLbl').textContent=t('nextSpawn');
   $('todayLbl').textContent=t('today');
   $('tomorrowLbl').textContent=t('tomorrow');
-  $('schedTag').textContent=t('schedTag');
   $('schedTitle').textContent=t('schedTitle');
-  $('ivTag').textContent=t('ivTag');
   $('ivTitle').textContent=t('ivTitle');
   $('langBtn').textContent=lang.toUpperCase();
+  const lp=$('livePill'),lt=$('liveText');
+  const isOn=lp.classList.contains('on');
+  lt.textContent=isOn?t('live'):t('offline');
 }
 
 let timers={};
@@ -250,14 +233,6 @@ function nextSpawn(b){
 function schedB(){return BOSSES.filter(b=>b.wr)}
 function intB(){return BOSSES.filter(b=>b.rs)}
 function grpInt(){const g={};for(const b of intB()){const k=b.rs;if(!g[k])g[k]={s:k,b:[]};g[k].b.push(b)}return Object.values(g).sort((a,b)=>a.s-b.s)}
-
-document.getElementById('nav').addEventListener('click',e=>{
-  const b=e.target.closest('button');if(!b)return
-  document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'))
-  document.querySelectorAll('.tab-content').forEach(x=>x.classList.remove('active'))
-  b.classList.add('active');document.getElementById('tab-'+b.dataset.tab).classList.add('active')
-})
-
 
 function rNext(){
   let bb=null,bs=null,cn=now();
@@ -302,17 +277,14 @@ function rInt(){
 
 function rAll(){rNext();rUpcoming();rSched();rInt();rNextCd()}
 
-// Separated for refresh intervals
-function rBosses(){rSched();rInt()}
-
 const $=(id)=>document.getElementById(id)
 
 $('langBtn').onclick=langNext
 
 function setOnline(on){
-  const el=$('status'),st=$('statusText')
-  el.querySelector('.status-dot').className='status-dot '+(on?'on':'off')
-  st.textContent=on?t('live'):t('offline')
+  const lp=$('livePill'),lt=$('liveText')
+  lp.className='live-pill '+(on?'on':'off')
+  lt.textContent=on?t('live'):t('offline')
 }
 
 async function loadData(){
@@ -327,7 +299,7 @@ async function loadData(){
 
 lang=localStorage.getItem('astralang')||'en';applyLang();loadData();rAll()
 setInterval(loadData,30000)
-setInterval(()=>{rUpcoming();rBosses()},15000)
+setInterval(()=>{rUpcoming();rSched();rInt()},15000)
 </script>
 </body>
 </html>
