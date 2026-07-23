@@ -224,7 +224,7 @@ function toggleAlarm(){
   localStorage.setItem('astraalarm',alarmOn?'1':'0');
   updateAlarmBtn();
   if(!alarmOn&&window.speechSynthesis)window.speechSynthesis.cancel();
-  if(alarmOn){ttsSpoken.clear();ttsArmed.clear()}
+  if(alarmOn){ttsSpoken.clear();ttsArmed.clear();if(window.speechSynthesis){window.speechSynthesis.getVoices();window.speechSynthesis.speak(new SpeechSynthesisUtterance(''))}}
 }
 function updateAlarmBtn(){
   const b=$('alarmBtn');
