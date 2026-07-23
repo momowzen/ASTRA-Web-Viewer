@@ -32,8 +32,8 @@
   .live-pill.on .dot{box-shadow:0 0 6px var(--green);animation:pulse 1.5s infinite}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
-  .lang-pill{background:var(--bg3);border:1px solid var(--border);color:var(--text-dim);padding:2px 8px;border-radius:12px;font-size:10px;font-weight:800;cursor:pointer;font-family:var(--font);min-width:28px;text-align:center;transition:all .12s}
-  .lang-pill:hover{color:var(--gold);border-color:var(--gold-dim)}
+  .lang-pill{background:var(--bg3);border:1px solid var(--border);color:var(--text-dim);padding:2px 6px;border-radius:12px;font-size:14px;line-height:1;cursor:pointer;font-family:var(--font);min-width:26px;text-align:center;transition:all .12s}
+  .lang-pill:hover{border-color:var(--gold-dim);background:var(--bg4)}
 
   .next-card{background:linear-gradient(135deg,#141c30,#0a0e17);border:1px solid var(--gold-dim);border-radius:var(--radius);padding:10px 14px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;gap:12px;position:relative;overflow:hidden}
   .next-card::after{content:'';position:absolute;top:-40%;right:-10%;width:160px;height:160px;background:radial-gradient(circle,rgba(232,184,48,.06) 0%,transparent 70%);pointer-events:none}
@@ -98,7 +98,7 @@
     <div class="brand" id="brand">ASTRA BOSS TIMER</div>
     <div class="header-right">
       <span class="live-pill off" id="livePill"><span class="dot"></span><span id="liveText">--</span></span>
-      <button class="lang-pill" id="langBtn">EN</button>
+      <button class="lang-pill" id="langBtn">🇺🇸</button>
     </div>
   </header>
 
@@ -197,6 +197,7 @@ function langNext(){
   localStorage.setItem('astralang',lang);
   applyLang();rAll()
 }
+const FLAGS={en:'🇺🇸',ja:'🇯🇵',ko:'🇰🇷'};
 function applyLang(){
   document.title=t('brand');
   $('brand').textContent=t('brand');
@@ -205,7 +206,7 @@ function applyLang(){
   $('tomorrowLbl').textContent=t('tomorrow');
   $('schedTitle').textContent=t('schedTitle');
   $('ivTitle').textContent=t('ivTitle');
-  $('langBtn').textContent=lang.toUpperCase();
+  $('langBtn').textContent=FLAGS[lang];
   const lp=$('livePill'),lt=$('liveText');
   const isOn=lp.classList.contains('on');
   lt.textContent=isOn?t('live'):t('offline');
