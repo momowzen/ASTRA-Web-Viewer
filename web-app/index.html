@@ -308,7 +308,9 @@ function rNext(){
     $('nextTag').className='next-tag '+(isInt?'iv':'sc')
     $('nextAt').textContent=fmtT(bs.getTime())+' '+fmtD(bs.getTime())
     nxtBoss=bb;nxtTime=bs
-  }else{$('nextName').textContent='--';$('nextLv').textContent='';$('nextTag').textContent='';$('nextAt').textContent='';nxtBoss=null;nxtTime=null}
+  }else if(!nxtBoss||(nxtTime&&nxtTime.getTime()>cn)){
+    $('nextName').textContent='--';$('nextLv').textContent='';$('nextTag').textContent='';$('nextAt').textContent='';nxtBoss=null;nxtTime=null
+  }
 }
 function rNextCd(){
   if(nxtTime){const r=Math.max(0,nxtTime.getTime()-now());$('nextCd').textContent=fmtDur(r)}else $('nextCd').textContent='--:--:--'
