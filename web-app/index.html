@@ -234,18 +234,18 @@ function toggleAlarm(){
   localStorage.setItem('astraalarm',alarmOn?'1':'0');
   updateAlarmBtn();
   if(!alarmOn&&window.speechSynthesis)window.speechSynthesis.cancel();
-  if(alarmOn){ttsSpoken.clear();ttsArmed.clear();if(window.speechSynthesis){window.speechSynthesis.getVoices();window.speechSynthesis.speak(new SpeechSynthesisUtterance(''))}}
+  if(alarmOn){ttsSpoken.clear();ttsArmed.clear();if(window.speechSynthesis){syncVoices();window.speechSynthesis.speak(new SpeechSynthesisUtterance(''))}}
 }
 function updateAlarmBtn(){
   const b=$('alarmBtn');
   b.textContent=alarmOn?'🔊':'🔇';
   b.classList.toggle('on',alarmOn);
 }
+let ttsVoices=[];
 function ttsVoice(){
   if(!window.speechSynthesis)return null;
-  const voices=window.speechSynthesis.getVoices();
   const want={en:'en-US',ja:'ja-JP',ko:'ko-KR'}[lang];
-  return voices.find(v=>v.lang===want)||voices.find(v=>v.lang.startsWith(lang))||null;
+  return ttsVoices.find(v=>v.lang===want)||ttsVoices.find(v=>v.lang.startsWith(lang))||null;
 }
 function speak(text,enText){
   if(!window.speechSynthesis||!text)return;
@@ -362,7 +362,9 @@ function listenData(){
   },()=>setOnline(false));
 }
 
-lang=localStorage.getItem('astralang')||'en';alarmOn=localStorage.getItem('astraalarm')==='1';applyLang();updateAlarmBtn();if(window.speechSynthesis){window.speechSynthesis.getVoices();window.speechSynthesis.addEventListener('voiceschanged',()=>window.speechSynthesis.getVoices())}listenData();rAll()
+function syncVoices(){if(window.speechSynthesis){const v=window.speechSynthesis.getVoices();if(v.length)ttsVoices=v}}
+if(window.speechSynthesis){syncVoices();window.speechSynthesis.addEventListener('voiceschanged',syncVoices)}
+lang=localStorage.getItem('astralang')||'en';alarmOn=localStorage.getItem('astraalarm')==='1';applyLang();updateAlarmBtn();listenData();rAll()
 setInterval(()=>{rNext();rUpcoming();rSched();rInt()},15000)
 setInterval(ttsCheck,3000)
 </script>
