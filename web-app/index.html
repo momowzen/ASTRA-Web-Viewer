@@ -63,17 +63,14 @@
   .sched-dlbl{font-size:10px;font-weight:800;color:var(--purple);text-transform:uppercase;margin-bottom:3px;padding-bottom:2px;border-bottom:1px solid var(--border);letter-spacing:.5px}
   .sched-day.tdy .sched-dlbl{color:var(--gold);border-bottom-color:var(--gold-dim)}
   .sched-boss{font-size:10px;padding:2px 0;display:flex;justify-content:space-between;align-items:center}
-  .sched-boss .nm{color:var(--text)}
+  .sched-boss .nm{color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
   .sched-boss .tm{color:var(--text-dim);font-variant-numeric:tabular-nums;font-size:9px}
   .sched-empty{font-size:10px;color:var(--text-muted);font-style:italic;padding:4px 0}
 
   .u-entry{display:flex;align-items:center;justify-content:space-between;padding:3px 0;border-bottom:1px solid rgba(30,45,74,.4);gap:5px}
   .u-entry:last-child{border-bottom:none}
-  .u-info{display:flex;align-items:center;gap:5px;min-width:0}
-  .u-name{font-size:11px;font-weight:600;color:var(--text-bright);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .u-lv{font-size:8px;color:var(--text-muted);background:var(--bg3);padding:0 4px;border-radius:2px;flex-shrink:0}
-  .u-time{font-size:10px;color:var(--cyan);font-variant-numeric:tabular-nums;white-space:nowrap}
-  .u-rem{font-size:9px;color:var(--text-muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.u-name{font-size:11px;font-weight:600;color:var(--text-bright);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.u-time{font-size:10px;color:var(--cyan);font-variant-numeric:tabular-nums;white-space:nowrap}
   .empty{color:var(--text-muted);font-size:10px;font-style:italic;padding:4px 0}
 
   .iv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:4px;overflow-y:auto;min-height:0;align-content:start}
@@ -81,7 +78,7 @@
   .iv-hdr{font-size:10px;font-weight:700;color:var(--cyan);margin-bottom:3px;padding-bottom:2px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
   .iv-hdr .ct{font-size:9px;color:var(--text-muted);font-weight:400}
   .iv-row{display:flex;justify-content:space-between;align-items:center;padding:2px 0;font-size:11px}
-  .iv-row .nm{color:var(--text-bright);font-weight:600}
+  .iv-row .nm{color:var(--text-bright);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
   .iv-row .lv{font-size:9px;color:var(--text-dim)}
   .iv-row .tm{font-size:9px}
   .iv-row .tm.live{color:var(--gold)}
@@ -315,7 +312,7 @@ function rUpcoming(){
   for(const b of BOSSES){const x=nextSpawn(b);if(x){const t=x.getTime();if(t>=n&&t<tt)td.push({b,t});else if(t>=tt&&t<ta)tm.push({b,t})}}
   td.sort((a,b)=>a.t-b.t);tm.sort((a,b)=>a.t-b.t)
   const hl=(l,id)=>{const e=$(id);if(!l.length){e.innerHTML='<div class="empty">'+t('noSpawns')+'</div>';return}
-    e.innerHTML=l.map(x=>'<div class="u-entry"><div class="u-info"><span class="u-name">'+bn(x.b)+'</span><span class="u-lv">'+t('lv')+x.b.lvl+'</span></div><div style="display:flex;align-items:center;gap:8px"><span class="u-rem">'+fmtShort(x.t-n)+'</span><span class="u-time">'+fmtT(x.t)+'</span></div></div>').join('')}
+    e.innerHTML=l.map(x=>'<div class="u-entry"><span class="u-name">'+bn(x.b)+'</span><span class="u-time">'+fmtT(x.t)+'</span></div>').join('')}
   hl(td,'todayList');hl(tm,'tomorrowList')
 }
 
