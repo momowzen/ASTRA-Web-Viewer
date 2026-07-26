@@ -343,37 +343,18 @@ function setOnline(on){
   lt.textContent=on?t('live'):t('offline')
 }
 
-const SRV=localStorage.getItem('astraServer')||'';
-function ep(p){return SRV?SRV+p:p.replace(/^\//,'')}
-
-let pollTimer=null;
-async function pollData(){
+async function loadData(){
   try{
-    const r=await fetch(ep('/data.json')+'?_='+now());
-    if(!r.ok)throw Error(r.status);
-    const d=await r.json();
+    const r=await fetch('data.json?_='+now())
+    if(!r.ok)throw Error(r.status)
+    const d=await r.json()
     if(d.timers){timers=d.timers;rAll();ttsCheck();setOnline(true)}
-  }catch(e){setOnline(false)}
-}
-function startPoll(){
-  if(pollTimer)return;
-  pollData();pollTimer=setInterval(pollData,60000);
+    if(d.exportedAt){const age=Math.floor((now()-d.exportedAt)/60000);$('exportInfo').textContent=t('updated')+' '+age+'m '+t('ago')}
+  }catch(e){setOnline(false);rAll()}
 }
 
-function connectSSE(){
-  const es=new EventSource(ep('/api/timers/stream'));
-  es.onopen=()=>{setOnline(true);if(pollTimer){clearInterval(pollTimer);pollTimer=null}};
-  es.onmessage=e=>{
-    try{
-      const d=JSON.parse(e.data);
-      if(d.timers){timers=d.timers;rAll();ttsCheck();setOnline(true)}
-      if(d.error){setOnline(false)}
-    }catch(e){}
-  };
-  es.onerror=()=>{es.close();setOnline(false);startPoll()};
-}
-
-lang=localStorage.getItem('astralang')||'en';alarmOn=localStorage.getItem('astraalarm')==='1';applyLang();updateAlarmBtn();if(window.speechSynthesis){window.speechSynthesis.getVoices();window.speechSynthesis.addEventListener('voiceschanged',()=>window.speechSynthesis.getVoices())}connectSSE();rAll()
+lang=localStorage.getItem('astralang')||'en';alarmOn=localStorage.getItem('astraalarm')==='1';applyLang();updateAlarmBtn();if(window.speechSynthesis){window.speechSynthesis.getVoices();window.speechSynthesis.addEventListener('voiceschanged',()=>window.speechSynthesis.getVoices())}loadData();rAll()
+setInterval(loadData,30000)
 setInterval(()=>{rNext();rUpcoming();rSched();rInt()},15000)
 setInterval(ttsCheck,3000)
 </script>
