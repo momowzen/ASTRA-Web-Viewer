@@ -343,9 +343,26 @@ function setOnline(on){
   lt.textContent=on?t('live'):t('offline')
 }
 
+const SRV=localStorage.getItem('astraServer')||'';
+function ep(p){return SRV?SRV+p:p.replace(/^\//,'')}
+
+let pollTimer=null;
+async function pollData(){
+  try{
+    const r=await fetch(ep('/data.json')+'?_='+now());
+    if(!r.ok)throw Error(r.status);
+    const d=await r.json();
+    if(d.timers){timers=d.timers;rAll();ttsCheck();setOnline(true)}
+  }catch(e){setOnline(false)}
+}
+function startPoll(){
+  if(pollTimer)return;
+  pollData();pollTimer=setInterval(pollData,60000);
+}
+
 function connectSSE(){
-  const es=new EventSource('/api/timers/stream');
-  es.onopen=()=>setOnline(true);
+  const es=new EventSource(ep('/api/timers/stream'));
+  es.onopen=()=>{setOnline(true);if(pollTimer){clearInterval(pollTimer);pollTimer=null}};
   es.onmessage=e=>{
     try{
       const d=JSON.parse(e.data);
@@ -353,7 +370,7 @@ function connectSSE(){
       if(d.error){setOnline(false)}
     }catch(e){}
   };
-  es.onerror=()=>setOnline(false);
+  es.onerror=()=>{es.close();setOnline(false);startPoll()};
 }
 
 lang=localStorage.getItem('astralang')||'en';alarmOn=localStorage.getItem('astraalarm')==='1';applyLang();updateAlarmBtn();if(window.speechSynthesis){window.speechSynthesis.getVoices();window.speechSynthesis.addEventListener('voiceschanged',()=>window.speechSynthesis.getVoices())}connectSSE();rAll()
