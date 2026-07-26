@@ -139,7 +139,18 @@
   <div class="footer" id="exportInfo"></div>
 </div>
 
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
 <script>
+firebase.initializeApp({
+  apiKey: "AIzaSyAboQqH7BmtLCO0ciHUvgGIUOU6SMzHnzo",
+  authDomain: "astra-boss-timer-759e5.firebaseapp.com",
+  projectId: "astra-boss-timer-759e5",
+  storageBucket: "astra-boss-timer-759e5.firebasestorage.app",
+  messagingSenderId: "136730864029",
+  appId: "1:136730864029:web:62fc717006db8f36e8e774"
+});
+const db=firebase.firestore();
 const BOSSES=[
   {id:"Venatus",name:"Venatus",lvl:60,rs:36000},
   {id:"Viorent",name:"Viorent",lvl:65,rs:36000},
@@ -343,18 +354,13 @@ function setOnline(on){
   lt.textContent=on?t('live'):t('offline')
 }
 
-async function loadData(){
-  try{
-    const r=await fetch('data.json?_='+now())
-    if(!r.ok)throw Error(r.status)
-    const d=await r.json()
-    if(d.timers){timers=d.timers;rAll();ttsCheck();setOnline(true)}
-    if(d.exportedAt){const age=Math.floor((now()-d.exportedAt)/60000);$('exportInfo').textContent=t('updated')+' '+age+'m '+t('ago')}
-  }catch(e){setOnline(false);rAll()}
+function listenData(){
+  db.doc('timers/global').onSnapshot(snap=>{
+    if(snap.exists){timers=snap.data().timers||{};rAll();ttsCheck();setOnline(true)}
+  },()=>setOnline(false));
 }
 
-lang=localStorage.getItem('astralang')||'en';alarmOn=localStorage.getItem('astraalarm')==='1';applyLang();updateAlarmBtn();if(window.speechSynthesis){window.speechSynthesis.getVoices();window.speechSynthesis.addEventListener('voiceschanged',()=>window.speechSynthesis.getVoices())}loadData();rAll()
-setInterval(loadData,30000)
+lang=localStorage.getItem('astralang')||'en';alarmOn=localStorage.getItem('astraalarm')==='1';applyLang();updateAlarmBtn();if(window.speechSynthesis){window.speechSynthesis.getVoices();window.speechSynthesis.addEventListener('voiceschanged',()=>window.speechSynthesis.getVoices())}listenData();rAll()
 setInterval(()=>{rNext();rUpcoming();rSched();rInt()},15000)
 setInterval(ttsCheck,3000)
 </script>
