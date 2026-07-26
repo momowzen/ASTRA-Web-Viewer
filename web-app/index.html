@@ -244,14 +244,13 @@ function ttsVoice(){
   if(!window.speechSynthesis)return null;
   const voices=window.speechSynthesis.getVoices();
   const want={en:'en-US',ja:'ja-JP',ko:'ko-KR'}[lang];
-  return voices.find(v=>v.lang===want)||voices.find(v=>v.lang.startsWith(lang))||voices[0]||null;
+  return voices.find(v=>v.lang===want)||voices.find(v=>v.lang.startsWith(lang))||null;
 }
-function speak(text){
+function speak(text,enText){
   if(!window.speechSynthesis||!text)return;
-  const u=new SpeechSynthesisUtterance(text);
   const v=ttsVoice();
-  if(v&&v.lang.startsWith(lang))u.voice=v;
-  u.lang={en:'en-US',ja:'ja-JP',ko:'ko-KR'}[lang];
+  const u=new SpeechSynthesisUtterance(v?text:(enText||text));
+  if(v){u.voice=v;u.lang=v.lang}else{u.lang='en-US'}
   u.rate=1;u.pitch=1;
   window.speechSynthesis.speak(u);
 }
@@ -266,12 +265,12 @@ function ttsCheck(){
     if(rem>0&&rem<=5*60000){
       const m=Math.ceil(rem/60000);
       const key=`${b.id}_${tm.endTime}_${m}`;
-      if(!ttsSpoken.has(key)){ttsSpoken.add(key);speak(t('ttsIn')(bn(b),m))}
+      if(!ttsSpoken.has(key)){ttsSpoken.add(key);speak(t('ttsIn')(bn(b),m),`${b.name} will respawn in ${m} minute${m!==1?'s':''}.`)}
     }else if(rem<=0&&rem>-60000){
       const armedEnd=ttsArmed.get(b.id);
       if(armedEnd===tm.endTime){
         const key=`${b.id}_${tm.endTime}_spawned`;
-        if(!ttsSpoken.has(key)){ttsSpoken.add(key);speak(t('ttsSpawned')(bn(b)));ttsArmed.delete(b.id)}
+        if(!ttsSpoken.has(key)){ttsSpoken.add(key);speak(t('ttsSpawned')(bn(b)),`${b.name} has respawned.`);ttsArmed.delete(b.id)}
       }
     }
   }
