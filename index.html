@@ -357,7 +357,7 @@ function connectSSE(){
 }
 
 lang=localStorage.getItem('astralang')||'en';alarmOn=localStorage.getItem('astraalarm')==='1';applyLang();updateAlarmBtn();if(window.speechSynthesis){window.speechSynthesis.getVoices();window.speechSynthesis.addEventListener('voiceschanged',()=>window.speechSynthesis.getVoices())}connectSSE();rAll()
-setInterval(()=>{rUpcoming();rSched();rInt()},15000)
+setInterval(()=>{rNext();rUpcoming();rSched();rInt()},15000)
 setInterval(ttsCheck,3000)
 </script>
 </body>
