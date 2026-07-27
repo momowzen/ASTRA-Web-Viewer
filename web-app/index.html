@@ -134,10 +134,18 @@
   .hc-sk-lbl{font-size:9px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px}
   .hc-sk-txt{font-size:10px;color:var(--text-secondary);line-height:1.4}
   .hc-tags{display:flex;gap:3px;flex-wrap:wrap}
-  .hc-tag{font-size:7px;padding:2px 6px;border-radius:var(--radius-sm);font-weight:700;text-transform:uppercase;letter-spacing:.4px;background:var(--bg-overlay);color:var(--text-secondary);border:1px solid var(--border-subtle)}
+  .hc-tag{font-size:7px;padding:2px 6px;border-radius:var(--radius-sm);font-weight:700;text-transform:uppercase;letter-spacing:.4px;border:1px solid var(--border-subtle)}
+  .hc-tag.Combat{background:rgba(248,81,73,0.12);color:#f85149}
+  .hc-tag.Recon{background:rgba(163,113,247,0.12);color:#a371f7}
+  .hc-tag.Defense{background:rgba(88,166,255,0.12);color:#58a6ff}
+  .hc-tag.Spell{background:rgba(57,210,192,0.12);color:#39d2c0}
+  .hc-tag.Enhance{background:rgba(210,153,29,0.12);color:#d2991d}
+  .hc-tag.Support{background:rgba(63,185,80,0.12);color:#3fb950}
+  .hc-tag.Vitality{background:rgba(248,81,73,0.12);color:#ff6b6b}
+  .hc-tag.Trick{background:rgba(163,113,247,0.12);color:#b39af7}
   .hc-pairs{display:flex;flex-direction:column;gap:3px}
   .hc-pair{display:flex;gap:4px}
-  .hc-pair-sk{font-size:8px;color:var(--text-secondary);padding:2px 6px;border-radius:3px;background:var(--bg-overlay);display:inline-flex;align-items:center;gap:3px;white-space:nowrap}
+  .hc-pair-sk{font-size:8px;color:var(--text-secondary);padding:2px 8px;border-radius:3px;background:var(--bg-overlay);display:inline-flex;align-items:center;gap:3px;white-space:nowrap;min-width:72px;justify-content:center;text-align:center}
   .hc-type-icon{width:10px;height:10px}
   .hc-ps-Enhance{background:rgba(210,153,29,0.08);color:#d2991d}
   .hc-ps-Trick{background:rgba(163,113,247,0.08);color:#b39af7}
@@ -462,7 +470,7 @@ function rHidden(){
   const left=[],right=[];
   cls.forEach((c,i)=>{(i%2===0?left:right).push(c)});
   const rc=(list)=>list.map(c=>{
-    const tags=c.tags.map(t=>'<span class="hc-tag">'+t+'</span>').join('');
+    const tags=c.tags.map(t=>'<span class="hc-tag '+t+'">'+t+'</span>').join('');
     const pairs=c.pairs.map(p=>'<div class="hc-pair">'+p.skills.map(s=>'<span class="hc-pair-sk hc-ps-'+s.type+'"><img class="hc-type-icon" src="assets/'+s.type.toLowerCase()+'.png" alt=""> '+s.name+'</span>').join('')+'</div>').join('');
     const mils=c.milestones.map(m=>'<div class="hc-milestone"><span class="hc-milvl">'+m.lvl+'</span><span class="hc-mils-desc">'+m.desc.replace(/(\+\d+(?:\.\d+)?%?)/g,'<span class="ms-val">$1</span>')+'</span></div>').join('');
     return'<div class="hc-card" tabindex="0"><div class="hc-card-hdr"><div class="hc-cicon"><img src="assets/'+c.className+'.png" alt="" class="hc-img"></div><span class="hc-cname">'+c.className+'</span></div><div class="hc-card-body"><div class="hc-sk-box"><div class="hc-sk-lbl">'+c.skillName+'</div><div class="hc-sk-txt">'+c.skill+'</div></div><div class="hc-tags">'+tags+'</div><div class="hc-pairs">'+pairs+'</div><div class="hc-mils">'+mils+'</div></div></div>'
