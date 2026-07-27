@@ -49,6 +49,15 @@
   .alarm-btn.on{color:var(--gold);border-color:var(--border-gold);background:rgba(210,153,29,0.08)}
   .alarm-btn.on:hover{border-color:rgba(210,153,29,0.4)}
 
+  /* Nav */
+  .nav{display:flex;gap:0;flex-shrink:0;background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:3px;overflow:hidden}
+  .nav-btn{appearance:none;background:transparent;border:none;color:var(--text-secondary);font-size:11px;font-weight:600;font-family:'Rajdhani',var(--font);padding:5px 16px;border-radius:var(--radius);cursor:pointer;transition:all var(--transition);text-transform:uppercase;letter-spacing:.8px;white-space:nowrap}
+  .nav-btn:hover{color:var(--text-primary);background:var(--bg-elevated)}
+  .nav-btn.active{color:var(--text-primary);background:var(--bg-elevated);box-shadow:var(--shadow)}
+
+  .page{display:none;flex:1;min-height:0;flex-direction:column;gap:8px}
+  .page.active{display:flex}
+
   /* Next Spawn Banner */
   .next-card{background:linear-gradient(135deg,var(--bg-elevated),var(--bg-surface));border:1px solid var(--border-gold);border-radius:var(--radius-lg);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;gap:16px;position:relative;overflow:hidden;box-shadow:var(--shadow);transition:border-color var(--transition)}
   .next-card::after{content:'';position:absolute;top:-50%;right:-15%;width:200px;height:200px;background:radial-gradient(circle,rgba(210,153,29,0.04) 0%,transparent 70%);pointer-events:none}
@@ -66,7 +75,7 @@
   @keyframes countPulse{0%,100%{color:var(--gold)}50%{color:#f0c040}}
 
   /* Main Grid */
-  .main-grid{display:grid;grid-template-columns:1fr 1.5fr;grid-template-rows:1fr 1fr;grid-auto-flow:column;gap:8px;flex:1;min-height:0}
+  .main-grid{display:grid;grid-template-columns:1fr 1.5fr;grid-template-rows:1fr 1fr;grid-auto-flow:column;gap:8px;min-height:0}
   .panel{background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:10px 12px;min-height:0;display:flex;flex-direction:column;box-shadow:var(--shadow)}
   .panel-title{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--text-secondary);flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:6px;background:var(--bg-surface);padding:0 0 10px 0;border-bottom:1px solid var(--border-subtle)}
   .panel-title .sub{color:var(--text-tertiary);font-weight:400;font-size:9px}
@@ -171,6 +180,12 @@
     </div>
   </header>
 
+  <nav class="nav">
+    <button class="nav-btn active" data-page="tracker" id="navTracker">TRACKER</button>
+    <button class="nav-btn" data-page="hidden" id="navHidden">HIDDEN CLASS</button>
+  </nav>
+
+  <div class="page active" id="pageTracker">
   <div class="next-card">
     <div class="next-l">
       <div>
@@ -203,10 +218,13 @@
       <div class="ig-grid" id="ivGrid"></div>
     </div>
   </div>
+  </div>
 
-  <div class="hc-section">
+  <div class="page" id="pageHidden">
+  <div class="hc-section" style="flex:1;max-height:none">
     <div class="hc-header" id="hcTitle">HIDDEN CLASS</div>
     <div class="hc-grid" id="hiddenList"></div>
+  </div>
   </div>
 
   <div class="status-bar" id="exportInfo"></div>
@@ -269,9 +287,9 @@ const BOSSES=[
 
 const TO=9*3600000;
 const LANG={
-  en:{brand:'ASTRA BOSS TIMER',dash:'Dashboard',bsTab:'Bosses',live:'Live',offline:'Offline',nextSpawn:'Next Spawn',today:'Today',tomorrow:'Tomorrow',noSpawns:'No spawns',schedTag:'Schedule',schedTitle:'Weekly',ivTag:'Interval',ivTitle:'Respawn Groups',every:'Every',lv:'Lv.',spawned:'SPAWNED',now:'Now',updated:'Updated',ago:'ago',hiddenClass:'HIDDEN CLASS',days:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],nm:['Venatus','Viorent','Ego','Clemantis','Livera','Araneo','Undomiel','Saphirus','Neutro','Lady Dalia','General Aquleus','Thymele','Amentis','Baron Braudmore','Milavy','Wannitas','Metus','Duplican','Shuliar','Ringor','Roderick','Gareth','Titore','Larba','Catena','Auraq','Secreta','Ordo','Asta','Supore','Chaiflock','Benji','Libitina','Rakajeth','Icaruthia','Motti','Camalia','Nevaeh','Tumier','Lucus'],ttsIn:(n,m)=>`${n} will respawn in ${m} minute${m!==1?'s':''}.`,ttsSpawned:n=>`${n} has respawned.`},
-  ja:{brand:'ASTRA ボス タイマー',dash:'ダッシュボード',bsTab:'ボス',live:'オンライン',offline:'オフライン',nextSpawn:'次のスポーン',today:'今日',tomorrow:'明日',noSpawns:'スポーンなし',schedTag:'スケジュール',schedTitle:'週間',ivTag:'インターバル',ivTitle:'再出現グループ',every:'毎',lv:'Lv.',spawned:'出現中',now:'今',updated:'更新',ago:'前',hiddenClass:'ヒドゥンクラス',days:['日','月','火','水','木','金','土'],nm:['ベナトゥス','ビオレント','エゴ','クレメンティス','リベラ','アラネオ','アンドゥミエル','サピルス','ネウトロ','レディ·ダリア','将軍アクレウス','テュメレ','アメンティス','ブラウドモア','ミラベ','ワニタス','メトゥス','デュプリカン','シュライヤー','リンゴル','ロデリック','ガレス','ティトル','ラルバ','カテナ','アウラーク','セクレタ','オルド','アスタ','スポル','シャイフロック','ベンジー','リビティーナ','ラカゼス','イカルシア','モティ','カマリア','ネバ','トゥミエル','ルクス'],ttsIn:(n,m)=>`${n}が${m}分後に出現します。`,ttsSpawned:n=>`${n}が出現しました。`},
-  ko:{brand:'ASTRA 보스 타이머',dash:'대시보드',bsTab:'보스',live:'온라인',offline:'오프라인',nextSpawn:'다음 스폰',today:'오늘',tomorrow:'내일',noSpawns:'스폰 없음',schedTag:'일정',schedTitle:'주간',ivTag:'간격',ivTitle:'재등장 그룹',every:'매',lv:'레벨',spawned:'출현중',now:'지금',updated:'업데이트',ago:'전',hiddenClass:'히든 클래스',days:['일','월','화','수','목','금','토'],nm:['베나투스','비오렌트','에고','클레멘티스','리베라','아라네오','안두미엘','사피루스','네우트로','레이디 달리아','장군 아클레우스','튜메레','아멘티스','남작 브라우드모어','미라베','와니타스','메투스','듀플리칸','슈라이어','링고르','로데릭','가레스','티토르','라르바','카테나','아우라크','세크레타','오르도','아스타','스포르','샤이플록','벤지','리비티나','라카제스','이카루시아','모티','카말리아','네바','투미엘','루크스'],ttsIn:(n,m)=>`${n}${koParticle(n,'subj')} ${m}분 후에 출현합니다.`,ttsSpawned:n=>`${n}${koParticle(n,'subj')} 출현했습니다.`}
+  en:{brand:'ASTRA BOSS TIMER',dash:'Dashboard',bsTab:'Bosses',live:'Live',offline:'Offline',nextSpawn:'Next Spawn',today:'Today',tomorrow:'Tomorrow',noSpawns:'No spawns',schedTag:'Schedule',schedTitle:'Weekly',ivTag:'Interval',ivTitle:'Respawn Groups',every:'Every',lv:'Lv.',spawned:'SPAWNED',now:'Now',updated:'Updated',ago:'ago',tracker:'TRACKER',hiddenClass:'HIDDEN CLASS',days:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],nm:['Venatus','Viorent','Ego','Clemantis','Livera','Araneo','Undomiel','Saphirus','Neutro','Lady Dalia','General Aquleus','Thymele','Amentis','Baron Braudmore','Milavy','Wannitas','Metus','Duplican','Shuliar','Ringor','Roderick','Gareth','Titore','Larba','Catena','Auraq','Secreta','Ordo','Asta','Supore','Chaiflock','Benji','Libitina','Rakajeth','Icaruthia','Motti','Camalia','Nevaeh','Tumier','Lucus'],ttsIn:(n,m)=>`${n} will respawn in ${m} minute${m!==1?'s':''}.`,ttsSpawned:n=>`${n} has respawned.`},
+  ja:{brand:'ASTRA ボス タイマー',dash:'ダッシュボード',bsTab:'ボス',live:'オンライン',offline:'オフライン',nextSpawn:'次のスポーン',today:'今日',tomorrow:'明日',noSpawns:'スポーンなし',schedTag:'スケジュール',schedTitle:'週間',ivTag:'インターバル',ivTitle:'再出現グループ',every:'毎',lv:'Lv.',spawned:'出現中',now:'今',updated:'更新',ago:'前',tracker:'トラッカー',hiddenClass:'ヒドゥンクラス',days:['日','月','火','水','木','金','土'],nm:['ベナトゥス','ビオレント','エゴ','クレメンティス','リベラ','アラネオ','アンドゥミエル','サピルス','ネウトロ','レディ·ダリア','将軍アクレウス','テュメレ','アメンティス','ブラウドモア','ミラベ','ワニタス','メトゥス','デュプリカン','シュライヤー','リンゴル','ロデリック','ガレス','ティトル','ラルバ','カテナ','アウラーク','セクレタ','オルド','アスタ','スポル','シャイフロック','ベンジー','リビティーナ','ラカゼス','イカルシア','モティ','カマリア','ネバ','トゥミエル','ルクス'],ttsIn:(n,m)=>`${n}が${m}分後に出現します。`,ttsSpawned:n=>`${n}が出現しました。`},
+  ko:{brand:'ASTRA 보스 타이머',dash:'대시보드',bsTab:'보스',live:'온라인',offline:'오프라인',nextSpawn:'다음 스폰',today:'오늘',tomorrow:'내일',noSpawns:'스폰 없음',schedTag:'일정',schedTitle:'주간',ivTag:'간격',ivTitle:'재등장 그룹',every:'매',lv:'레벨',spawned:'출현중',now:'지금',updated:'업데이트',ago:'전',tracker:'트래커',hiddenClass:'히든 클래스',days:['일','월','화','수','목','금','토'],nm:['베나투스','비오렌트','에고','클레멘티스','리베라','아라네오','안두미엘','사피루스','네우트로','레이디 달리아','장군 아클레우스','튜메레','아멘티스','남작 브라우드모어','미라베','와니타스','메투스','듀플리칸','슈라이어','링고르','로데릭','가레스','티토르','라르바','카테나','아우라크','세크레타','오르도','아스타','스포르','샤이플록','벤지','리비티나','라카제스','이카루시아','모티','카말리아','네바','투미엘','루크스'],ttsIn:(n,m)=>`${n}${koParticle(n,'subj')} ${m}분 후에 출현합니다.`,ttsSpawned:n=>`${n}${koParticle(n,'subj')} 출현했습니다.`}
 };
 let lang='en';
 function t(k){return LANG[lang][k]||k}
@@ -293,6 +311,8 @@ function applyLang(){
   $('schedTitle').textContent=t('schedTitle');
   $('ivTitle').textContent=t('ivTitle');
   $('hcTitle').textContent=t('hiddenClass');
+  $('navTracker').textContent=t('tracker');
+  $('navHidden').textContent=t('hiddenClass');
   $('langBtn').textContent=FLAGS[lang];
   const lp=$('livePill'),lt=$('liveText');
   const isOn=lp.classList.contains('on');
@@ -440,6 +460,12 @@ const $=(id)=>document.getElementById(id)
 
 $('langBtn').onclick=langNext
 $('alarmBtn').onclick=toggleAlarm
+document.querySelectorAll('.nav-btn').forEach(btn=>btn.onclick=()=>{
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  $('page'+(btn.dataset.page==='tracker'?'Tracker':'Hidden')).classList.add('active');
+})
 
 function setOnline(on){
   const lp=$('livePill'),lt=$('liveText')
