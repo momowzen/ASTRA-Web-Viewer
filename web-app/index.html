@@ -121,16 +121,15 @@
   #pageHidden .hc-section{flex:1;max-height:none}
   .hc-section{background:var(--bg-surface);border:1px solid var(--border-gold);border-radius:var(--radius-lg);padding:12px 14px;overflow-y:auto;box-shadow:var(--shadow)}
   .hc-header{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold);margin-bottom:8px;font-family:'Rajdhani',var(--font);position:sticky;top:0;background:var(--bg-surface);z-index:1;padding-bottom:6px;border-bottom:1px solid var(--border-subtle)}
-  .hc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-  .hc-col{display:flex;flex-direction:column;gap:8px}
-  .hc-card{background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);overflow:hidden;transition:all var(--transition);cursor:default}
+  .hc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:stretch}
+  .hc-card{background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);overflow:hidden;transition:all var(--transition);cursor:default;display:flex;flex-direction:column}
   .hc-card:hover{border-color:var(--border-gold);box-shadow:var(--shadow);transform:translateY(-1px)}
   .hc-card-hdr{display:flex;align-items:center;gap:8px;padding:8px 10px 6px;border-bottom:1px solid var(--border-subtle)}
   .hc-cicon{width:28px;height:28px;border-radius:var(--radius);overflow:hidden;flex-shrink:0;background:var(--bg-overlay)}
   .hc-img{width:100%;height:100%;object-fit:cover}
   .hc-cname{font-size:13px;font-weight:700;color:var(--text-primary);font-family:'Rajdhani',var(--font);letter-spacing:.3px}
-  .hc-card-body{padding:8px 10px 10px;display:flex;flex-direction:column;gap:6px}
-  .hc-sk-box{background:var(--bg-overlay);border-radius:var(--radius);padding:6px 8px;border:1px solid var(--border-subtle)}
+  .hc-card-body{padding:8px 10px 10px;display:flex;flex-direction:column;gap:6px;flex:1}
+  .hc-sk-box{background:var(--bg-overlay);border-radius:var(--radius);padding:6px 8px;border:1px solid var(--border-subtle);flex-shrink:0}
   .hc-sk-lbl{font-size:9px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px}
   .hc-sk-txt{font-size:10px;color:var(--text-secondary);line-height:1.4}
   .hc-tags{display:flex;gap:3px;flex-wrap:wrap}
@@ -155,7 +154,7 @@
   .hc-ps-Combat{color:#e24d48}
   .hc-ps-Spell{color:#4d87f5}
   .hc-ps-Vitality{color:#6fc95e}
-  .hc-mils{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+  .hc-mils{display:grid;grid-template-columns:1fr 1fr;gap:2px;flex:1;align-content:start}
   .hc-milestone{display:flex;align-items:center;gap:4px;padding:2px 4px;border-radius:3px;background:var(--bg-overlay);font-size:8px}
   .hc-milvl{flex-shrink:0;font-size:7px;font-weight:700;color:var(--text-tertiary);background:var(--bg-elevated);padding:0 3px;border-radius:2px;min-width:22px;text-align:center}
   .hc-mils-desc{font-size:8px;color:var(--text-secondary);line-height:1.3}
@@ -466,16 +465,13 @@ const HIDDEN_CLASSES=[{className:"Sword Master",skillName:"Exalted Will",tags:["
 {className:"Harbinger of Storms",skillName:"Raging Storm",tags:["Defense","Spell","Support"],skill:"Summons a storm area that pulls targets, applies movement penalties, and grants immunity to status effects.",pairs:[{skills:[{name:"Mirror Shield",type:"Defense"},{name:"War Cry",type:"Vitality"}]},{skills:[{name:"Ice Spirit",type:"Enhance"},{name:"Power of Darkness",type:"Spell"}]},{skills:[{name:"Spread Venom",type:"Recon"},{name:"Magnetic Field",type:"Spell"}]}],milestones:[{lvl:100,desc:"Skill Damage +7%"},{lvl:200,desc:"Movement Speed +8%"},{lvl:300,desc:"Attack Speed +8%"},{lvl:400,desc:"Attack Power +70"},{lvl:500,desc:"Skill Damage +15%"},{lvl:600,desc:"+15% movement speed for 30 sec when landing attack skills."},{lvl:700,desc:"Attack Speed +5%"},{lvl:800,desc:"Increases the caster's Max HP, Defense Power, Attack Speed, and Movement Speed for 30 sec."}]},
 {className:"Goddess of Blessings",skillName:"Hands of the Goddess",tags:["Vitality","Enhance","Trick"],skill:"Increases Attack Power, Movement Speed, and Status Effects Resistance in a 15m area.",pairs:[{skills:[{name:"Create Zone",type:"Defense"},{name:"Lightning Spirit",type:"Enhance"}]},{skills:[{name:"Leech",type:"Vitality"},{name:"Time Haste",type:"Trick"}]},{skills:[{name:"Wanderer",type:"Trick"},{name:"Continuous Curing",type:"Support"}]}],milestones:[{lvl:100,desc:"Endurance +50"},{lvl:200,desc:"Movement Speed +8%"},{lvl:300,desc:"Attack Speed +8%"},{lvl:400,desc:"Attack Power +70"},{lvl:500,desc:"Defense +75 / Cooldown Reduction +10%"},{lvl:600,desc:"Landing attack skill grants AP/Defense and +10% attack speed for 1 minute."},{lvl:700,desc:"Attack Power +100 / Attack Speed +5%"},{lvl:800,desc:"Recovers HP of the caster and party members within a 10m radius equal to 10% of Max HP every 2 sec for 10 sec. Reduces Healing Received for 60 sec. [Recovery cannot exceed Max 5,000 per instance.]"}]}];
 function rHidden(){
-  const cls=HIDDEN_CLASSES;
-  const left=[],right=[];
-  cls.forEach((c,i)=>{(i%2===0?left:right).push(c)});
-  const rc=(list)=>list.map(c=>{
-    const tags=c.tags.map(t=>'<span class="hc-tag '+t+'">'+t+'</span>').join('');
+  $('hiddenList').innerHTML=HIDDEN_CLASSES.map(c=>{
+    const ts=new Set();c.pairs.forEach(p=>p.skills.forEach(s=>ts.add(s.type)));
+    const tags=[...ts].map(t=>'<span class="hc-tag '+t+'">'+t+'</span>').join('');
     const pairs=c.pairs.map(p=>'<div class="hc-pair">'+p.skills.map(s=>'<span class="hc-pair-sk hc-ps-'+s.type+'"><img class="hc-type-icon" src="assets/'+s.type.toLowerCase()+'.png" alt=""> '+s.name+'</span>').join('')+'</div>').join('');
     const mils=c.milestones.map(m=>'<div class="hc-milestone"><span class="hc-milvl">'+m.lvl+'</span><span class="hc-mils-desc">'+m.desc.replace(/(\+\d+(?:\.\d+)?%?)/g,'<span class="ms-val">$1</span>')+'</span></div>').join('');
     return'<div class="hc-card" tabindex="0"><div class="hc-card-hdr"><div class="hc-cicon"><img src="assets/'+c.className+'.png" alt="" class="hc-img"></div><span class="hc-cname">'+c.className+'</span></div><div class="hc-card-body"><div class="hc-sk-box"><div class="hc-sk-lbl">'+c.skillName+'</div><div class="hc-sk-txt">'+c.skill+'</div></div><div class="hc-tags">'+tags+'</div><div class="hc-pairs">'+pairs+'</div><div class="hc-mils">'+mils+'</div></div></div>'
-  }).join('');
-  $('hiddenList').innerHTML='<div class="hc-col">'+rc(left)+'</div><div class="hc-col">'+rc(right)+'</div>'
+  }).join('')
 }
 
 const $=(id)=>document.getElementById(id)
