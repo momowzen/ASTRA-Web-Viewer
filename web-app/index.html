@@ -34,7 +34,9 @@
 
   /* Header */
   .header{display:flex;align-items:center;justify-content:space-between;flex-shrink:0;padding:6px 4px 2px}
-  .brand{font-size:15px;font-weight:700;letter-spacing:.6px;background:linear-gradient(135deg,var(--gold) 20%,var(--accent) 80%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;user-select:none}
+  .brand{display:flex;align-items:center;gap:8px;user-select:none;flex-shrink:0}
+  .brand-logo{width:28px;height:28px;border-radius:4px;object-fit:cover}
+  .brand-text{font-size:15px;font-weight:700;letter-spacing:.6px;background:linear-gradient(135deg,var(--gold) 20%,var(--accent) 80%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
   .header-right{display:flex;align-items:center;gap:6px}
 
   .live-pill{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:20px;background:var(--bg-overlay);border:1px solid var(--border-default);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;transition:all var(--transition)}
@@ -164,7 +166,8 @@
   /* Mobile */
   @media(max-width:900px){
     .app{padding:6px 8px;gap:5px}
-    .brand{font-size:13px}
+    .brand-text{font-size:13px}
+    .brand-logo{width:22px;height:22px}
     .next-card{padding:10px 12px}
     .next-name{font-size:16px}
     .next-cd{font-size:20px}
@@ -191,7 +194,7 @@
 <body>
 <div class="app">
   <header class="header">
-    <div class="brand" id="brand">ASTRA BOSS TIMER</div>
+    <div class="brand" id="brand"><img src="assets/logo.png" alt="" class="brand-logo"><span class="brand-text">ASTRA</span></div>
     <div class="header-right">
       <span class="live-pill off" id="livePill"><span class="dot"></span><span id="liveText">--</span></span>
       <button class="alarm-btn" id="alarmBtn">🔇</button>
@@ -305,9 +308,9 @@ const BOSSES=[
 
 const TO=9*3600000;
 const LANG={
-  en:{brand:'ASTRA BOSS TIMER',dash:'Dashboard',bsTab:'Bosses',live:'Live',offline:'Offline',nextSpawn:'Next Spawn',today:'Today',tomorrow:'Tomorrow',noSpawns:'No spawns',schedTag:'Schedule',schedTitle:'Weekly',ivTag:'Interval',ivTitle:'Respawn Groups',every:'Every',lv:'Lv.',spawned:'SPAWNED',now:'Now',updated:'Updated',ago:'ago',tracker:'TRACKER',hiddenClass:'HIDDEN CLASS',days:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],nm:['Venatus','Viorent','Ego','Clemantis','Livera','Araneo','Undomiel','Saphirus','Neutro','Lady Dalia','General Aquleus','Thymele','Amentis','Baron Braudmore','Milavy','Wannitas','Metus','Duplican','Shuliar','Ringor','Roderick','Gareth','Titore','Larba','Catena','Auraq','Secreta','Ordo','Asta','Supore','Chaiflock','Benji','Libitina','Rakajeth','Icaruthia','Motti','Camalia','Nevaeh','Tumier','Lucus'],ttsIn:(n,m)=>`${n} will respawn in ${m} minute${m!==1?'s':''}.`,ttsSpawned:n=>`${n} has respawned.`},
-  ja:{brand:'ASTRA ボス タイマー',dash:'ダッシュボード',bsTab:'ボス',live:'オンライン',offline:'オフライン',nextSpawn:'次のスポーン',today:'今日',tomorrow:'明日',noSpawns:'スポーンなし',schedTag:'スケジュール',schedTitle:'週間',ivTag:'インターバル',ivTitle:'再出現グループ',every:'毎',lv:'Lv.',spawned:'出現中',now:'今',updated:'更新',ago:'前',tracker:'トラッカー',hiddenClass:'ヒドゥンクラス',days:['日','月','火','水','木','金','土'],nm:['ベナトゥス','ビオレント','エゴ','クレメンティス','リベラ','アラネオ','アンドゥミエル','サピルス','ネウトロ','レディ·ダリア','将軍アクレウス','テュメレ','アメンティス','ブラウドモア','ミラベ','ワニタス','メトゥス','デュプリカン','シュライヤー','リンゴル','ロデリック','ガレス','ティトル','ラルバ','カテナ','アウラーク','セクレタ','オルド','アスタ','スポル','シャイフロック','ベンジー','リビティーナ','ラカゼス','イカルシア','モティ','カマリア','ネバ','トゥミエル','ルクス'],ttsIn:(n,m)=>`${n}が${m}分後に出現します。`,ttsSpawned:n=>`${n}が出現しました。`},
-  ko:{brand:'ASTRA 보스 타이머',dash:'대시보드',bsTab:'보스',live:'온라인',offline:'오프라인',nextSpawn:'다음 스폰',today:'오늘',tomorrow:'내일',noSpawns:'스폰 없음',schedTag:'일정',schedTitle:'주간',ivTag:'간격',ivTitle:'재등장 그룹',every:'매',lv:'레벨',spawned:'출현중',now:'지금',updated:'업데이트',ago:'전',tracker:'트래커',hiddenClass:'히든 클래스',days:['일','월','화','수','목','금','토'],nm:['베나투스','비오렌트','에고','클레멘티스','리베라','아라네오','안두미엘','사피루스','네우트로','레이디 달리아','장군 아클레우스','튜메레','아멘티스','남작 브라우드모어','미라베','와니타스','메투스','듀플리칸','슈라이어','링고르','로데릭','가레스','티토르','라르바','카테나','아우라크','세크레타','오르도','아스타','스포르','샤이플록','벤지','리비티나','라카제스','이카루시아','모티','카말리아','네바','투미엘','루크스'],ttsIn:(n,m)=>`${n}${koParticle(n,'subj')} ${m}분 후에 출현합니다.`,ttsSpawned:n=>`${n}${koParticle(n,'subj')} 출현했습니다.`}
+  en:{brand:'ASTRA',dash:'Dashboard',bsTab:'Bosses',live:'Live',offline:'Offline',nextSpawn:'Next Spawn',today:'Today',tomorrow:'Tomorrow',noSpawns:'No spawns',schedTag:'Schedule',schedTitle:'Weekly',ivTag:'Interval',ivTitle:'Respawn Groups',every:'Every',lv:'Lv.',spawned:'SPAWNED',now:'Now',updated:'Updated',ago:'ago',tracker:'TRACKER',hiddenClass:'HIDDEN CLASS',days:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],nm:['Venatus','Viorent','Ego','Clemantis','Livera','Araneo','Undomiel','Saphirus','Neutro','Lady Dalia','General Aquleus','Thymele','Amentis','Baron Braudmore','Milavy','Wannitas','Metus','Duplican','Shuliar','Ringor','Roderick','Gareth','Titore','Larba','Catena','Auraq','Secreta','Ordo','Asta','Supore','Chaiflock','Benji','Libitina','Rakajeth','Icaruthia','Motti','Camalia','Nevaeh','Tumier','Lucus'],ttsIn:(n,m)=>`${n} will respawn in ${m} minute${m!==1?'s':''}.`,ttsSpawned:n=>`${n} has respawned.`},
+  ja:{brand:'ASTRA',dash:'ダッシュボード',bsTab:'ボス',live:'オンライン',offline:'オフライン',nextSpawn:'次のスポーン',today:'今日',tomorrow:'明日',noSpawns:'スポーンなし',schedTag:'スケジュール',schedTitle:'週間',ivTag:'インターバル',ivTitle:'再出現グループ',every:'毎',lv:'Lv.',spawned:'出現中',now:'今',updated:'更新',ago:'前',tracker:'トラッカー',hiddenClass:'ヒドゥンクラス',days:['日','月','火','水','木','金','土'],nm:['ベナトゥス','ビオレント','エゴ','クレメンティス','リベラ','アラネオ','アンドゥミエル','サピルス','ネウトロ','レディ·ダリア','将軍アクレウス','テュメレ','アメンティス','ブラウドモア','ミラベ','ワニタス','メトゥス','デュプリカン','シュライヤー','リンゴル','ロデリック','ガレス','ティトル','ラルバ','カテナ','アウラーク','セクレタ','オルド','アスタ','スポル','シャイフロック','ベンジー','リビティーナ','ラカゼス','イカルシア','モティ','カマリア','ネバ','トゥミエル','ルクス'],ttsIn:(n,m)=>`${n}が${m}分後に出現します。`,ttsSpawned:n=>`${n}が出現しました。`},
+  ko:{brand:'ASTRA',dash:'대시보드',bsTab:'보스',live:'온라인',offline:'오프라인',nextSpawn:'다음 스폰',today:'오늘',tomorrow:'내일',noSpawns:'스폰 없음',schedTag:'일정',schedTitle:'주간',ivTag:'간격',ivTitle:'재등장 그룹',every:'매',lv:'레벨',spawned:'출현중',now:'지금',updated:'업데이트',ago:'전',tracker:'트래커',hiddenClass:'히든 클래스',days:['일','월','화','수','목','금','토'],nm:['베나투스','비오렌트','에고','클레멘티스','리베라','아라네오','안두미엘','사피루스','네우트로','레이디 달리아','장군 아클레우스','튜메레','아멘티스','남작 브라우드모어','미라베','와니타스','메투스','듀플리칸','슈라이어','링고르','로데릭','가레스','티토르','라르바','카테나','아우라크','세크레타','오르도','아스타','스포르','샤이플록','벤지','리비티나','라카제스','이카루시아','모티','카말리아','네바','투미엘','루크스'],ttsIn:(n,m)=>`${n}${koParticle(n,'subj')} ${m}분 후에 출현합니다.`,ttsSpawned:n=>`${n}${koParticle(n,'subj')} 출현했습니다.`}
 };
 let lang='en';
 function t(k){return LANG[lang][k]||k}
@@ -322,7 +325,7 @@ function langNext(){
 const FLAGS={en:'🇺🇸',ja:'🇯🇵',ko:'🇰🇷'};
 function applyLang(){
   document.title=t('brand');
-  $('brand').textContent=t('brand');
+  $('brand').querySelector('.brand-text').textContent=t('brand');
   $('nextLbl').textContent=t('nextSpawn');
   $('todayLbl').textContent=t('today');
   $('tomorrowLbl').textContent=t('tomorrow');
