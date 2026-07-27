@@ -118,28 +118,40 @@
   .status-bar{font-size:9px;color:var(--text-tertiary);text-align:center;padding:4px 0 0;flex-shrink:0;letter-spacing:.3px}
 
   /* Hidden Class Guide */
-  .hc-section{flex-shrink:0;background:var(--bg-surface);border:1px solid var(--border-gold);border-radius:var(--radius-lg);padding:10px 14px;box-shadow:var(--shadow);max-height:220px;overflow-y:auto}
-  .hc-header{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold);margin-bottom:8px;font-family:'Rajdhani',var(--font);position:sticky;top:0;background:var(--bg-surface);z-index:1;padding-bottom:4px}
-  .hc-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-  .hc-card{background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:var(--radius);padding:8px 10px;transition:all var(--transition);cursor:default}
-  .hc-card:hover{border-color:var(--border-gold);transform:translateY(-1px);box-shadow:var(--shadow)}
-  .hc-card-row{display:flex;align-items:center;gap:6px;margin-bottom:4px}
-  .hc-card-name{font-size:13px;font-weight:700;color:var(--text-primary);white-space:nowrap}
-  .hc-card-skill{font-size:9px;color:var(--gold);font-weight:600}
-  .hc-card-tags{display:flex;gap:3px;margin-top:2px}
-  .hc-tag{font-size:7px;padding:1px 5px;border-radius:var(--radius-sm);font-weight:700;text-transform:uppercase;letter-spacing:.3px}
-  .hc-tag-Combat{background:rgba(248,81,73,0.12);color:var(--red)}
-  .hc-tag-Defense{background:rgba(88,166,255,0.12);color:var(--accent)}
-  .hc-tag-Recon{background:rgba(163,113,247,0.12);color:var(--purple)}
-  .hc-tag-Spell{background:rgba(57,210,192,0.12);color:var(--cyan)}
-  .hc-tag-Enhance{background:rgba(210,153,29,0.12);color:var(--gold)}
-  .hc-tag-Support{background:rgba(63,185,80,0.12);color:var(--green)}
-  .hc-tag-Vitality{background:rgba(248,81,73,0.12);color:#ff6b6b}
-  .hc-tag-Trick{background:rgba(163,113,247,0.12);color:#b39af7}
-  .hc-card-desc{font-size:10px;color:var(--text-secondary);line-height:1.4;margin-top:3px}
-  .hc-pairs{display:flex;gap:10px;margin-top:4px;flex-wrap:wrap}
-  .hc-pair-group{display:flex;gap:3px;align-items:center}
-  .hc-pair-sk{font-size:8px;color:var(--text-tertiary);padding:1px 4px;border-radius:3px;background:var(--bg-overlay);white-space:nowrap}
+  #pageHidden .hc-section{flex:1;max-height:none}
+  .hc-section{background:var(--bg-surface);border:1px solid var(--border-gold);border-radius:var(--radius-lg);padding:12px 14px;overflow-y:auto;box-shadow:var(--shadow)}
+  .hc-header{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold);margin-bottom:8px;font-family:'Rajdhani',var(--font);position:sticky;top:0;background:var(--bg-surface);z-index:1;padding-bottom:6px;border-bottom:1px solid var(--border-subtle)}
+  .hc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .hc-col{display:flex;flex-direction:column;gap:8px}
+  .hc-card{background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);overflow:hidden;transition:all var(--transition);cursor:default}
+  .hc-card:hover{border-color:var(--border-gold);box-shadow:var(--shadow);transform:translateY(-1px)}
+  .hc-card-hdr{display:flex;align-items:center;gap:8px;padding:8px 10px 6px;border-bottom:1px solid var(--border-subtle)}
+  .hc-cicon{width:28px;height:28px;border-radius:var(--radius);overflow:hidden;flex-shrink:0;background:var(--bg-overlay)}
+  .hc-img{width:100%;height:100%;object-fit:cover}
+  .hc-cname{font-size:13px;font-weight:700;color:var(--text-primary);font-family:'Rajdhani',var(--font);letter-spacing:.3px}
+  .hc-card-body{padding:8px 10px 10px;display:flex;flex-direction:column;gap:6px}
+  .hc-sk-box{background:var(--bg-overlay);border-radius:var(--radius);padding:6px 8px;border:1px solid var(--border-subtle)}
+  .hc-sk-lbl{font-size:9px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px}
+  .hc-sk-txt{font-size:10px;color:var(--text-secondary);line-height:1.4}
+  .hc-tags{display:flex;gap:3px;flex-wrap:wrap}
+  .hc-tag{font-size:7px;padding:2px 6px;border-radius:var(--radius-sm);font-weight:700;text-transform:uppercase;letter-spacing:.4px;background:var(--bg-overlay);color:var(--text-secondary);border:1px solid var(--border-subtle)}
+  .hc-pairs{display:flex;flex-direction:column;gap:3px}
+  .hc-pair{display:flex;gap:4px}
+  .hc-pair-sk{font-size:8px;color:var(--text-secondary);padding:2px 6px;border-radius:3px;background:var(--bg-overlay);display:inline-flex;align-items:center;gap:3px;white-space:nowrap}
+  .hc-type-icon{width:10px;height:10px}
+  .hc-ps-Enhance{background:rgba(210,153,29,0.08);color:#d2991d}
+  .hc-ps-Trick{background:rgba(163,113,247,0.08);color:#b39af7}
+  .hc-ps-Recon{background:rgba(163,113,247,0.08);color:#a371f7}
+  .hc-ps-Defense{background:rgba(88,166,255,0.08);color:#58a6ff}
+  .hc-ps-Support{background:rgba(63,185,80,0.08);color:#3fb950}
+  .hc-ps-Combat{background:rgba(248,81,73,0.08);color:#f85149}
+  .hc-ps-Spell{background:rgba(57,210,192,0.08);color:#39d2c0}
+  .hc-ps-Vitality{background:rgba(248,81,73,0.08);color:#ff6b6b}
+  .hc-mils{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+  .hc-milestone{display:flex;align-items:center;gap:4px;padding:2px 4px;border-radius:3px;background:var(--bg-overlay);font-size:8px}
+  .hc-milvl{flex-shrink:0;font-size:7px;font-weight:700;color:var(--text-tertiary);background:var(--bg-elevated);padding:0 3px;border-radius:2px;min-width:22px;text-align:center}
+  .hc-mils-desc{font-size:8px;color:var(--text-secondary);line-height:1.3}
+  .ms-val{color:var(--accent);font-weight:600}
 
   /* Mobile */
   @media(max-width:900px){
@@ -155,7 +167,6 @@
     .bc-tm{font-size:10px}
     .sc-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
     .ig-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
-    .hc-section{max-height:260px}
     .hc-grid{grid-template-columns:1fr}
   }
 
@@ -221,7 +232,7 @@
   </div>
 
   <div class="page" id="pageHidden">
-  <div class="hc-section" style="flex:1;max-height:none">
+  <div class="hc-section">
     <div class="hc-header" id="hcTitle">HIDDEN CLASS</div>
     <div class="hc-grid" id="hiddenList"></div>
   </div>
@@ -438,22 +449,25 @@ function rInt(){
 
 function rAll(){rNext();rUpcoming();rSched();rInt();rHidden();rNextCd()}
 
-const HIDDEN_CLASSES=[
-  {className:"Sword Master",skillName:"Exalted Will",tags:["Combat","Recon","Defense"],skill:"Basic Attacks have a 25% chance of dealing Extra Combined Damage.",pairs:[{skills:[{name:"Deathblow",type:"Enhance"},{name:"Time Haste",type:"Trick"}]},{skills:[{name:"Secreta's Talent",type:"Recon"},{name:"Parry",type:"Defense"}]},{skills:[{name:"Wild Dance",type:"Combat"},{name:"Deliberate Attack",type:"Support"}]}],milestones:["Melee Defense Penetration +50","Movement Speed +8%","Attack Speed +8%","Attack Power +70","Melee Attack +50 / All Damage +3.5%","On hit, reduce Damage Received for next 3 hits (10 sec).","Defense Power +100","Deals Combined Damage to the target, drains target's MP and Stamina."]},
-  {className:"Destroyer",skillName:"Land Crush",tags:["Combat","Spell","Enhance"],skill:"Jumps to target within 7m and deals Combined Damage around impact, gaining Damage Immunity for 3.5 sec.",pairs:[{skills:[{name:"Hellfire Weapon",type:"Enhance"},{name:"Honed Weaponry",type:"Recon"}]},{skills:[{name:"Blink",type:"Trick"},{name:"Power of Darkness",type:"Spell"}]},{skills:[{name:"Polish Weapon",type:"Combat"},{name:"Gamble",type:"Support"}]}],milestones:["Defense Penetration +50","Movement Speed +8%","Attack Speed +8%","Attack Power +70","Skill Damage +7% / Cooldown Decrease +10%","Landing Attack boosts Attack/Defense Power for 60 sec.","Attack Power +100 / Defense Power +100","Causes an Earthquake around the caster for 10 sec. Deals 50% extra Physical Damage and inflicts Stun."]},
-  {className:"Frost Knight",skillName:"Frost Curse",tags:["Spell","Combat","Vitality"],skill:"Deals Combined Damage in target area and inflicts Frozen for 4 sec; reducing Movement Speed for 10 sec.",pairs:[{skills:[{name:"Frost Weapon",type:"Spell"},{name:"Earth Shock",type:"Combat"}]},{skills:[{name:"Cutting Strike",type:"Enhance"},{name:"Life Tap",type:"Trick"}]},{skills:[{name:"Leech",type:"Vitality"},{name:"Anatomy",type:"Support"}]}],milestones:["Endurance Ignore +50","Movement Speed +8%","Attack Speed +8%","Attack Power +70","Critical Hit +100 / Critical Hit Damage +7%","At 50% HP or below, increases Endurance.","Attack Power +100","Causes an Ice Storm around the target for 10 sec. Deals Magic Damage and reduces Movement Speed."]},
-  {className:"Ancient Protector",skillName:"Ancient Protector",tags:["Vitality","Support","Spell"],skill:"Landing a Basic Attack can stack All Damage and Damage to Monsters up to 20 times.",pairs:[{skills:[{name:"Create Zone",type:"Defense"},{name:"Deliberate Attack",type:"Support"}]},{skills:[{name:"Overcome",type:"Vitality"},{name:"Fire Spirit",type:"Enhance"}]},{skills:[{name:"Spell Infusion",type:"Spell"},{name:"Wanderer",type:"Trick"}]}],milestones:["Defense Power +50","Movement Speed +8%","Attack Speed +8%","Attack Power +70","Defense Power +75 / Attack Power +100","Increases Attack/Defense Power per HP lost.","Defense Power +100 / Endurance +30","Increases All Damage of caster and allies within 10m radius for 30 sec."]},
-  {className:"Immortal Knight",skillName:"Immortality",tags:["Combat","Defense","Trick"],skill:"At very low HP, becomes Immortal briefly and recovers HP equal to a portion of max HP.",pairs:[{skills:[{name:"Chase",type:"Combat"},{name:"Defensive Stance",type:"Defense"}]},{skills:[{name:"Deathblow",type:"Enhance"},{name:"Supersense",type:"Recon"}]},{skills:[{name:"Install Bomb",type:"Trick"},{name:"Secreta's Talent",type:"Recon"}]}],milestones:["Defense Penetration +50","Movement Speed +8%","Attack Speed +8%","Attack Power +70","Attack Power +75 / Damage Received Decrease +3.5%","Landing Attack increases Accuracy and Critical Hit for 30 sec.","Defense Power +100","Grants Petrify to the caster for 5 sec."]},
-  {className:"Trinity",skillName:"Everlasting Flow",tags:["Enhance","Trick","Combat"],skill:"Basic attack has a chance to grant Attack Speed, Defense Penetration, and Critical Strike effects.",pairs:[{skills:[{name:"Cutting Strike",type:"Enhance"},{name:"Magic Ignition",type:"Vitality"}]},{skills:[{name:"Magic Circulation",type:"Vitality"},{name:"Supersense",type:"Recon"}]},{skills:[{name:"Weapon of Destruction",type:"Trick"},{name:"Weak Spot Analysis",type:"Support"}]}],milestones:["Defense Power +50","Movement Speed +8%","Attack Speed +8%","Attack Power +70","Attack Power +75 / All Damage +3.5%","Hitting Attack Skill grants AP, HP, and Crit for 1 minute.","Attack Power +100 / Attack Speed +5%","Deals Combined Damage around caster and inflicts Stun for 5 sec. (Up to 10 targets)"]},
-  {className:"Harbinger of Storms",skillName:"Raging Storm",tags:["Defense","Spell","Support"],skill:"Summons a storm area that pulls targets, applies movement penalties, and grants immunity to status effects.",pairs:[{skills:[{name:"Mirror Shield",type:"Defense"},{name:"War Cry",type:"Vitality"}]},{skills:[{name:"Ice Spirit",type:"Enhance"},{name:"Power of Darkness",type:"Spell"}]},{skills:[{name:"Spread Venom",type:"Recon"},{name:"Magnetic Field",type:"Spell"}]}],milestones:["Skill Damage +7%","Movement Speed +8%","Attack Speed +8%","Attack Power +70","Skill Damage +15%","+15% movement speed for 30 sec when landing attack skills.","Attack Speed +5%","Increases Max HP, Defense Power, Attack Speed, and Movement Speed for 30 sec."]},
-  {className:"Goddess of Blessings",skillName:"Hands of the Goddess",tags:["Vitality","Enhance","Trick"],skill:"Increases Attack Power, Movement Speed, and Status Effects Resistance in a 15m area.",pairs:[{skills:[{name:"Create Zone",type:"Defense"},{name:"Lightning Spirit",type:"Enhance"}]},{skills:[{name:"Leech",type:"Vitality"},{name:"Time Haste",type:"Trick"}]},{skills:[{name:"Wanderer",type:"Trick"},{name:"Continuous Curing",type:"Support"}]}],milestones:["Endurance +50","Movement Speed +8%","Attack Speed +8%","Attack Power +70","Defense +75 / Cooldown Reduction +10%","Landing attack skill grants AP/Defense and +10% attack speed for 1 minute.","Attack Power +100 / Attack Speed +5%","Recovers HP of caster and party members within 10m radius every 2 sec for 10 sec."]}
-];
+const HIDDEN_CLASSES=[{className:"Sword Master",skillName:"Exalted Will",tags:["Combat","Recon","Defense"],skill:"Basic Attacks have a 25% chance of dealing Extra Combined Damage.",pairs:[{skills:[{name:"Deathblow",type:"Enhance"},{name:"Time Haste",type:"Trick"}]},{skills:[{name:"Secreta's Talent",type:"Recon"},{name:"Parry",type:"Defense"}]},{skills:[{name:"Wild Dance",type:"Combat"},{name:"Deliberate Attack",type:"Support"}]}],milestones:[{lvl:100,desc:"Melee Defense Penetration +50"},{lvl:200,desc:"Movement Speed +8%"},{lvl:300,desc:"Attack Speed +8%"},{lvl:400,desc:"Attack Power +70"},{lvl:500,desc:"Melee Attack +50 / All Damage +3.5%"},{lvl:600,desc:"On hit, reduce Damage Received for next 3 hits (10 sec)."},{lvl:700,desc:"Defense Power +100"},{lvl:800,desc:"Deals Combined Damage to the target, and drains the target's MP and Stamina equal to 80% of Max MP and Max Stamina."}]},
+{className:"Destroyer",skillName:"Land Crush",tags:["Combat","Spell","Enhance"],skill:"Jumps to target within 7m and deals Combined Damage around impact, gaining Damage Immunity for 3.5 sec.",pairs:[{skills:[{name:"Hellfire Weapon",type:"Enhance"},{name:"Honed Weaponry",type:"Recon"}]},{skills:[{name:"Blink",type:"Trick"},{name:"Power of Darkness",type:"Spell"}]},{skills:[{name:"Polish Weapon",type:"Combat"},{name:"Gamble",type:"Support"}]}],milestones:[{lvl:100,desc:"Defense Penetration +50"},{lvl:200,desc:"Movement Speed +8%"},{lvl:300,desc:"Attack Speed +8%"},{lvl:400,desc:"Attack Power +70"},{lvl:500,desc:"Skill Damage +7% / Cooldown Decrease +10%"},{lvl:600,desc:"Landing Attack boosts Attack/Defense Power for 60 sec."},{lvl:700,desc:"Attack Power +100 / Defense Power +100"},{lvl:800,desc:"Causes an Earthquake around the caster for 10 sec. Deals 50% extra Physical Damage to targets within range every 2 sec, and inflicts Stun for 1 sec with a +80% chance. (Up to 20 targets)"}]},
+{className:"Frost Knight",skillName:"Frost Curse",tags:["Spell","Combat","Vitality"],skill:"Deals Combined Damage in target area and inflicts Frozen for 4 sec; reducing Movement Speed for 10 sec.",pairs:[{skills:[{name:"Frost Weapon",type:"Spell"},{name:"Earth Shock",type:"Combat"}]},{skills:[{name:"Cutting Strike",type:"Enhance"},{name:"Life Tap",type:"Trick"}]},{skills:[{name:"Leech",type:"Vitality"},{name:"Anatomy",type:"Support"}]}],milestones:[{lvl:100,desc:"Endurance Ignore +50"},{lvl:200,desc:"Movement Speed +8%"},{lvl:300,desc:"Attack Speed +8%"},{lvl:400,desc:"Attack Power +70"},{lvl:500,desc:"Critical Hit +100 / Critical Hit Damage +7%"},{lvl:600,desc:"At 50% HP or below, increases Endurance."},{lvl:700,desc:"Attack Power +100"},{lvl:800,desc:"Causes an Ice Storm around the target for 10 sec. Deals 50% extra Magic Damage to targets within range every second, and reduces Movement Speed for 3 sec. (Up to 20 targets)"}]},
+{className:"Ancient Protector",skillName:"Ancient Protector",tags:["Vitality","Support","Spell"],skill:"Landing a Basic Attack can stack All Damage and Damage to Monsters up to 20 times.",pairs:[{skills:[{name:"Create Zone",type:"Defense"},{name:"Deliberate Attack",type:"Support"}]},{skills:[{name:"Overcome",type:"Vitality"},{name:"Fire Spirit",type:"Enhance"}]},{skills:[{name:"Spell Infusion",type:"Spell"},{name:"Wanderer",type:"Trick"}]}],milestones:[{lvl:100,desc:"Defense Power +50"},{lvl:200,desc:"Movement Speed +8%"},{lvl:300,desc:"Attack Speed +8%"},{lvl:400,desc:"Attack Power +70"},{lvl:500,desc:"Defense Power +75 / Attack Power +100"},{lvl:600,desc:"Increases Attack/Defense Power per HP lost."},{lvl:700,desc:"Defense Power +100 / Endurance +30"},{lvl:800,desc:"Increases All Damage of the caster and allies within a 10m radius for 30 sec, and reduces Damage Received. (Up to 10 targets)"}]},
+{className:"Immortal Knight",skillName:"Immortality",tags:["Combat","Defense","Trick"],skill:"At very low HP, becomes Immortal briefly and recovers HP equal to a portion of max HP.",pairs:[{skills:[{name:"Chase",type:"Combat"},{name:"Defensive Stance",type:"Defense"}]},{skills:[{name:"Deathblow",type:"Enhance"},{name:"Supersense",type:"Recon"}]},{skills:[{name:"Install Bomb",type:"Trick"},{name:"Secreta's Talent",type:"Recon"}]}],milestones:[{lvl:100,desc:"Defense Penetration +50"},{lvl:200,desc:"Movement Speed +8%"},{lvl:300,desc:"Attack Speed +8%"},{lvl:400,desc:"Attack Power +70"},{lvl:500,desc:"Attack Power +75 / Damage Received Decrease +3.5%"},{lvl:600,desc:"Landing Attack increases Accuracy and Critical Hit for 30 sec."},{lvl:700,desc:"Defense Power +100"},{lvl:800,desc:"Grants Petrify to the caster for 5 sec."}]},
+{className:"Trinity",skillName:"Everlasting Flow",tags:["Enhance","Trick","Combat"],skill:"Basic attack has a chance to grant Attack Speed, Defense Penetration, and Critical Strike effects.",pairs:[{skills:[{name:"Cutting Strike",type:"Enhance"},{name:"Magic Ignition",type:"Vitality"}]},{skills:[{name:"Magic Circulation",type:"Vitality"},{name:"Supersense",type:"Recon"}]},{skills:[{name:"Weapon of Destruction",type:"Trick"},{name:"Weak Spot Analysis",type:"Support"}]}],milestones:[{lvl:100,desc:"Defense Power +50"},{lvl:200,desc:"Movement Speed +8%"},{lvl:300,desc:"Attack Speed +8%"},{lvl:400,desc:"Attack Power +70"},{lvl:500,desc:"Attack Power +75 / All Damage +3.5%"},{lvl:600,desc:"Hitting Attack Skill grants AP, HP, and Crit for 1 minute."},{lvl:700,desc:"Attack Power +100 / Attack Speed +5%"},{lvl:800,desc:"Deals Combined Damage around the caster and inflicts Stun for 5 sec with a +80% chance. (Up to 10 targets)"}]},
+{className:"Harbinger of Storms",skillName:"Raging Storm",tags:["Defense","Spell","Support"],skill:"Summons a storm area that pulls targets, applies movement penalties, and grants immunity to status effects.",pairs:[{skills:[{name:"Mirror Shield",type:"Defense"},{name:"War Cry",type:"Vitality"}]},{skills:[{name:"Ice Spirit",type:"Enhance"},{name:"Power of Darkness",type:"Spell"}]},{skills:[{name:"Spread Venom",type:"Recon"},{name:"Magnetic Field",type:"Spell"}]}],milestones:[{lvl:100,desc:"Skill Damage +7%"},{lvl:200,desc:"Movement Speed +8%"},{lvl:300,desc:"Attack Speed +8%"},{lvl:400,desc:"Attack Power +70"},{lvl:500,desc:"Skill Damage +15%"},{lvl:600,desc:"+15% movement speed for 30 sec when landing attack skills."},{lvl:700,desc:"Attack Speed +5%"},{lvl:800,desc:"Increases the caster's Max HP, Defense Power, Attack Speed, and Movement Speed for 30 sec."}]},
+{className:"Goddess of Blessings",skillName:"Hands of the Goddess",tags:["Vitality","Enhance","Trick"],skill:"Increases Attack Power, Movement Speed, and Status Effects Resistance in a 15m area.",pairs:[{skills:[{name:"Create Zone",type:"Defense"},{name:"Lightning Spirit",type:"Enhance"}]},{skills:[{name:"Leech",type:"Vitality"},{name:"Time Haste",type:"Trick"}]},{skills:[{name:"Wanderer",type:"Trick"},{name:"Continuous Curing",type:"Support"}]}],milestones:[{lvl:100,desc:"Endurance +50"},{lvl:200,desc:"Movement Speed +8%"},{lvl:300,desc:"Attack Speed +8%"},{lvl:400,desc:"Attack Power +70"},{lvl:500,desc:"Defense +75 / Cooldown Reduction +10%"},{lvl:600,desc:"Landing attack skill grants AP/Defense and +10% attack speed for 1 minute."},{lvl:700,desc:"Attack Power +100 / Attack Speed +5%"},{lvl:800,desc:"Recovers HP of the caster and party members within a 10m radius equal to 10% of Max HP every 2 sec for 10 sec. Reduces Healing Received for 60 sec. [Recovery cannot exceed Max 5,000 per instance.]"}]}];
 function rHidden(){
-  $('hiddenList').innerHTML=HIDDEN_CLASSES.map(c=>{
-    const tags=c.tags.map(t=>'<span class="hc-tag hc-tag-'+t+'">'+t+'</span>').join('');
-    const pairs=c.pairs.map(p=>'<div class="hc-pair-group">'+p.skills.map(s=>'<span class="hc-pair-sk">'+s.name+'</span>').join('<span style="font-size:7px;color:var(--text-tertiary);margin:0 1px">+</span>')+'</div>').join('');
-    return'<div class="hc-card"><div class="hc-card-row"><span class="hc-card-name">'+c.className+'</span><span class="hc-card-skill">'+c.skillName+'</span></div><div class="hc-card-tags">'+tags+'</div><div class="hc-card-desc">'+c.skill+'</div><div class="hc-pairs">'+pairs+'</div></div>'
-  }).join('')
+  const cls=HIDDEN_CLASSES;
+  const left=[],right=[];
+  cls.forEach((c,i)=>{(i%2===0?left:right).push(c)});
+  const rc=(list)=>list.map(c=>{
+    const tags=c.tags.map(t=>'<span class="hc-tag">'+t+'</span>').join('');
+    const pairs=c.pairs.map(p=>'<div class="hc-pair">'+p.skills.map(s=>'<span class="hc-pair-sk hc-ps-'+s.type+'"><img class="hc-type-icon" src="assets/'+s.type.toLowerCase()+'.png" alt=""> '+s.name+'</span>').join('')+'</div>').join('');
+    const mils=c.milestones.map(m=>'<div class="hc-milestone"><span class="hc-milvl">'+m.lvl+'</span><span class="hc-mils-desc">'+m.desc.replace(/(\+\d+(?:\.\d+)?%?)/g,'<span class="ms-val">$1</span>')+'</span></div>').join('');
+    return'<div class="hc-card" tabindex="0"><div class="hc-card-hdr"><div class="hc-cicon"><img src="assets/'+c.className+'.png" alt="" class="hc-img"></div><span class="hc-cname">'+c.className+'</span></div><div class="hc-card-body"><div class="hc-sk-box"><div class="hc-sk-lbl">'+c.skillName+'</div><div class="hc-sk-txt">'+c.skill+'</div></div><div class="hc-tags">'+tags+'</div><div class="hc-pairs">'+pairs+'</div><div class="hc-mils">'+mils+'</div></div></div>'
+  }).join('');
+  $('hiddenList').innerHTML='<div class="hc-col">'+rc(left)+'</div><div class="hc-col">'+rc(right)+'</div>'
 }
 
 const $=(id)=>document.getElementById(id)
