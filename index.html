@@ -674,7 +674,7 @@ function syncVoices(){
 }
 $('voiceBtn').onclick=()=>{$('voicePanel').classList.toggle('open');syncVoices()}
 document.addEventListener('change',e=>{if(e.target.classList.contains('voice-select')){localStorage.setItem('astraVoice_'+e.target.dataset.lang,e.target.value)}})
-if(window.speechSynthesis){syncVoices();window.speechSynthesis.addEventListener('voiceschanged',syncVoices)}
+if(window.speechSynthesis){window.speechSynthesis.getVoices();window.speechSynthesis.addEventListener('voiceschanged',()=>syncVoices());setTimeout(()=>syncVoices(),500)}
 lang=localStorage.getItem('astralang')||'en';alarmOn=localStorage.getItem('astraalarm')==='1';applyLang();updateAlarmBtn();listenData();loadHistory();rAll()
 setInterval(()=>{rNext();rUpcoming();rSched();rInt();rHidden()},15000)
 setInterval(loadHistory,60000)
