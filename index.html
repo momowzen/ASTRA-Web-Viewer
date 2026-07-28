@@ -81,7 +81,7 @@
   .panel{background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--radius);padding:6px 8px;min-height:0;display:flex;flex-direction:column;box-shadow:var(--shadow)}
   .panel-title{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-secondary);flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:4px;background:var(--bg-surface);padding:0 0 5px 0;border-bottom:1px solid var(--border-subtle)}
   .panel-title .sub{color:var(--text-tertiary);font-weight:400;font-size:9px}
-  #todayList,#tomorrowList,#historyList{overflow-y:auto;flex:1;min-height:0}
+  #upcomingList,#historyList{overflow-y:auto;flex:1;min-height:0}
 
   /* Boss Cards (Today / Tomorrow) */
   .bc{display:flex;align-items:center;justify-content:space-between;padding:7px 10px;margin-bottom:2px;border-radius:var(--radius);background:var(--bg-elevated);border:1px solid var(--border-subtle);transition:all var(--transition);cursor:default}
@@ -129,20 +129,6 @@
   .hist-type{font-size:8px;padding:1px 5px;border-radius:3px;font-weight:600;text-transform:uppercase;flex-shrink:0}
   .hist-type.killed{color:var(--red);background:rgba(248,81,73,0.08)}
   .hist-type.missed{color:var(--gold);background:rgba(210,153,29,0.08)}
-
-  /* Schedule Strip */
-  .sched-strip{flex-shrink:0;background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--radius);padding:4px 8px;box-shadow:var(--shadow);display:flex;align-items:center;gap:6px}
-  .sched-strip .panel-title{border-bottom:none;padding:0;font-size:8px;margin:0;flex-shrink:0;width:45px}
-  .sched-strip .sc-grid{display:flex;gap:3px;overflow-x:auto;min-height:0;flex:1}
-  .sched-strip .sc-day{display:flex;align-items:center;gap:2px;font-size:8px;padding:2px 4px;border-radius:3px;background:var(--bg-elevated);border:1px solid transparent;white-space:nowrap;flex-shrink:0}
-  .sched-strip .sc-tdy{border-color:var(--border-gold);background:rgba(210,153,29,0.05)}
-  .sched-strip .sc-hdr{font-size:7px;font-weight:700;color:var(--purple);text-transform:uppercase;flex-shrink:0}
-  .sched-strip .sc-tdy .sc-hdr{color:var(--gold)}
-  .sched-strip .sc-row{display:flex;gap:1px;align-items:center}
-  .sched-strip .sc-nm{font-size:7px;color:var(--text-primary);font-weight:500}
-  .sched-strip .sc-tm{font-size:6px;color:var(--text-secondary);font-family:var(--font-mono)}
-  .sched-strip .sc-empty{display:none}
-  .sched-strip .sc-day:not(.sc-tdy) .sc-row{opacity:.5}
 
   /* Hidden Class Guide */
   #pageHidden .hc-section{flex:1;min-height:0}
@@ -199,7 +185,6 @@
     .next-cd{font-size:20px}
     .main-grid{grid-template-columns:1fr;grid-template-rows:1fr 1fr;gap:4px}
     .panel:nth-child(3),.panel:nth-child(4){display:none}
-    .sched-strip .sc-day{font-size:7px;padding:1px 3px}
     .bc{padding:6px 8px}
     .bc-nm{font-size:11px}
     .bc-tm{font-size:10px}
@@ -251,25 +236,23 @@
 
   <div class="main-grid">
     <div class="panel">
-      <div class="panel-title"><span id="todayLbl">Today</span> <span class="sub" id="todayDate"></span></div>
-      <div id="todayList"></div>
-    </div>
-    <div class="panel">
-      <div class="panel-title"><span id="ivTitle">Interval</span></div>
+      <div class="panel-title"><span id="ivTitle">Live Bosses</span></div>
       <div class="ig-grid" id="ivGrid"></div>
     </div>
     <div class="panel">
-      <div class="panel-title"><span id="histLbl">Recent Activity</span></div>
-      <div class="hist-list" id="historyList"><div class="empty">Loading...</div></div>
+      <div class="panel-title"><span id="upcomingLbl">Upcoming</span> <span class="sub" id="upcomingSub"></span></div>
+      <div id="upcomingList"></div>
     </div>
     <div class="panel">
-      <div class="panel-title"><span id="tomorrowLbl">Tomorrow</span> <span class="sub" id="tomorrowDate"></span></div>
-      <div id="tomorrowList"></div>
+      <div class="panel-title"><span id="schedTitle">Weekly</span></div>
+      <div class="sc-grid" id="schedGrid"></div>
+    </div>
+    <div class="panel">
+      <div class="panel-title"><span id="histLbl">Activity</span></div>
+      <div class="hist-list" id="historyList"><div class="empty">Loading...</div></div>
     </div>
   </div>
   </div>
-
-  <div class="sched-strip">
     <div class="panel-title"><span id="schedTitle">Weekly</span></div>
     <div class="sc-grid" id="schedGrid"></div>
   </div>
@@ -342,9 +325,9 @@ const BOSSES=[
 
 const TO=9*3600000;
 const LANG={
-  en:{brand:'ASTRA',dash:'Dashboard',bsTab:'Bosses',live:'Live',offline:'Offline',nextSpawn:'Next Spawn',today:'Today',tomorrow:'Tomorrow',noSpawns:'No spawns',schedTag:'Schedule',schedTitle:'Weekly',ivTag:'Interval',ivTitle:'Respawn Groups',every:'Every',lv:'Lv.',spawned:'SPAWNED',now:'Now',updated:'Updated',ago:'ago',tracker:'TRACKER',hiddenClass:'HIDDEN CLASS',history:'Recent Activity',killed:'killed',missed:'missed',days:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],nm:['Venatus','Viorent','Ego','Clemantis','Livera','Araneo','Undomiel','Saphirus','Neutro','Lady Dalia','General Aquleus','Thymele','Amentis','Baron Braudmore','Milavy','Wannitas','Metus','Duplican','Shuliar','Ringor','Roderick','Gareth','Titore','Larba','Catena','Auraq','Secreta','Ordo','Asta','Supore','Chaiflock','Benji','Libitina','Rakajeth','Icaruthia','Motti','Camalia','Nevaeh','Tumier','Lucus'],ttsIn:(n,m)=>`${n} will respawn in ${m} minute${m!==1?'s':''}.`,ttsSpawned:n=>`${n} has respawned.`},
-  ja:{brand:'ASTRA',dash:'ダッシュボード',bsTab:'ボス',live:'オンライン',offline:'オフライン',nextSpawn:'次のスポーン',today:'今日',tomorrow:'明日',noSpawns:'スポーンなし',schedTag:'スケジュール',schedTitle:'週間',ivTag:'インターバル',ivTitle:'再出現グループ',every:'毎',lv:'Lv.',spawned:'出現中',now:'今',updated:'更新',ago:'前',tracker:'トラッカー',hiddenClass:'ヒドゥンクラス',history:'最近のアクティビティ',killed:'討伐',missed:'取り逃し',days:['日','月','火','水','木','金','土'],nm:['ベナトゥス','ビオレント','エゴ','クレメンティス','リベラ','アラネオ','アンドゥミエル','サピルス','ネウトロ','レディ·ダリア','将軍アクレウス','テュメレ','アメンティス','ブラウドモア','ミラベ','ワニタス','メトゥス','デュプリカン','シュライヤー','リンゴル','ロデリック','ガレス','ティトル','ラルバ','カテナ','アウラーク','セクレタ','オルド','アスタ','スポル','シャイフロック','ベンジー','リビティーナ','ラカゼス','イカルシア','モティ','カマリア','ネバ','トゥミエル','ルクス'],ttsIn:(n,m)=>`${n}が${m}分後に出現します。`,ttsSpawned:n=>`${n}が出現しました。`},
-  ko:{brand:'ASTRA',dash:'대시보드',bsTab:'보스',live:'온라인',offline:'오프라인',nextSpawn:'다음 스폰',today:'오늘',tomorrow:'내일',noSpawns:'스폰 없음',schedTag:'일정',schedTitle:'주간',ivTag:'간격',ivTitle:'재등장 그룹',every:'매',lv:'레벨',spawned:'출현중',now:'지금',updated:'업데이트',ago:'전',tracker:'트래커',hiddenClass:'히든 클래스',history:'최근 활동',killed:'처치',missed:'놓침',days:['일','월','화','수','목','금','토'],nm:['베나투스','비오렌트','에고','클레멘티스','리베라','아라네오','안두미엘','사피루스','네우트로','레이디 달리아','장군 아클레우스','튜메레','아멘티스','남작 브라우드모어','미라베','와니타스','메투스','듀플리칸','슈라이어','링고르','로데릭','가레스','티토르','라르바','카테나','아우라크','세크레타','오르도','아스타','스포르','샤이플록','벤지','리비티나','라카제스','이카루시아','모티','카말리아','네바','투미엘','루크스'],ttsIn:(n,m)=>`${n}${koParticle(n,'subj')} ${m}분 후에 출현합니다.`,ttsSpawned:n=>`${n}${koParticle(n,'subj')} 출현했습니다.`}
+  en:{brand:'ASTRA',dash:'Dashboard',bsTab:'Bosses',live:'Live',offline:'Offline',nextSpawn:'Next Spawn',upcoming:'Upcoming',today:'Today',tomorrow:'Tomorrow',noSpawns:'No spawns',schedTag:'Schedule',schedTitle:'Weekly',ivTag:'Interval',ivTitle:'Live Bosses',every:'Every',lv:'Lv.',spawned:'SPAWNED',now:'Now',updated:'Updated',ago:'ago',tracker:'TRACKER',hiddenClass:'HIDDEN CLASS',history:'Activity',killed:'killed',missed:'missed',days:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],nm:['Venatus','Viorent','Ego','Clemantis','Livera','Araneo','Undomiel','Saphirus','Neutro','Lady Dalia','General Aquleus','Thymele','Amentis','Baron Braudmore','Milavy','Wannitas','Metus','Duplican','Shuliar','Ringor','Roderick','Gareth','Titore','Larba','Catena','Auraq','Secreta','Ordo','Asta','Supore','Chaiflock','Benji','Libitina','Rakajeth','Icaruthia','Motti','Camalia','Nevaeh','Tumier','Lucus'],ttsIn:(n,m)=>`${n} will respawn in ${m} minute${m!==1?'s':''}.`,ttsSpawned:n=>`${n} has respawned.`},
+  ja:{brand:'ASTRA',dash:'ダッシュボード',bsTab:'ボス',live:'オンライン',offline:'オフライン',nextSpawn:'次のスポーン',upcoming:'予定',today:'今日',tomorrow:'明日',noSpawns:'スポーンなし',schedTag:'スケジュール',schedTitle:'週間',ivTag:'インターバル',ivTitle:'ライブボス',every:'毎',lv:'Lv.',spawned:'出現中',now:'今',updated:'更新',ago:'前',tracker:'トラッカー',hiddenClass:'ヒドゥンクラス',history:'アクティビティ',killed:'討伐',missed:'取り逃し',days:['日','月','火','水','木','金','土'],nm:['ベナトゥス','ビオレント','エゴ','クレメンティス','リベラ','アラネオ','アンドゥミエル','サピルス','ネウトロ','レディ·ダリア','将軍アクレウス','テュメレ','アメンティス','ブラウドモア','ミラベ','ワニタス','メトゥス','デュプリカン','シュライヤー','リンゴル','ロデリック','ガレス','ティトル','ラルバ','カテナ','アウラーク','セクレタ','オルド','アスタ','スポル','シャイフロック','ベンジー','リビティーナ','ラカゼス','イカルシア','モティ','カマリア','ネバ','トゥミエル','ルクス'],ttsIn:(n,m)=>`${n}が${m}分後に出現します。`,ttsSpawned:n=>`${n}が出現しました。`},
+  ko:{brand:'ASTRA',dash:'대시보드',bsTab:'보스',live:'온라인',offline:'오프라인',nextSpawn:'다음 스폰',upcoming:'예정',today:'오늘',tomorrow:'내일',noSpawns:'스폰 없음',schedTag:'일정',schedTitle:'주간',ivTag:'간격',ivTitle:'라이브 보스',every:'매',lv:'레벨',spawned:'출현중',now:'지금',updated:'업데이트',ago:'전',tracker:'트래커',hiddenClass:'히든 클래스',history:'활동',killed:'처치',missed:'놓침',days:['일','월','화','수','목','금','토'],nm:['베나투스','비오렌트','에고','클레멘티스','리베라','아라네오','안두미엘','사피루스','네우트로','레이디 달리아','장군 아클레우스','튜메레','아멘티스','남작 브라우드모어','미라베','와니타스','메투스','듀플리칸','슈라이어','링고르','로데릭','가레스','티토르','라르바','카테나','아우라크','세크레타','오르도','아스타','스포르','샤이플록','벤지','리비티나','라카제스','이카루시아','모티','카말리아','네바','투미엘','루크스'],ttsIn:(n,m)=>`${n}${koParticle(n,'subj')} ${m}분 후에 출현합니다.`,ttsSpawned:n=>`${n}${koParticle(n,'subj')} 출현했습니다.`}
 };
 let lang='en';
 function t(k){return LANG[lang][k]||k}
@@ -361,8 +344,7 @@ function applyLang(){
   document.title=t('brand');
   $('brand').querySelector('.brand-text').textContent=t('brand');
   $('nextLbl').textContent=t('nextSpawn');
-  $('todayLbl').textContent=t('today');
-  $('tomorrowLbl').textContent=t('tomorrow');
+  $('upcomingLbl').textContent=t('upcoming');
   $('schedTitle').textContent=t('schedTitle');
   $('ivTitle').textContent=t('ivTitle');
   $('histLbl').textContent=t('history');
@@ -467,15 +449,12 @@ function rNextCd(){
 setInterval(rNextCd,1000)
 
 function rUpcoming(){
-  const n=now(),j=new Date(n+TO);
-  const ts=new Date(Date.UTC(j.getUTCFullYear(),j.getUTCMonth(),j.getUTCDate())).getTime()-TO,tt=ts+86400000,ta=ts+172800000;
-  $('todayDate').textContent=fmtD(ts);$('tomorrowDate').textContent=fmtD(tt)
-  const td=[],tm=[];
-  for(const b of BOSSES){const x=nextSpawn(b);if(x){const t=x.getTime();if(t>=n&&t<tt)td.push({b,t});else if(t>=tt&&t<ta)tm.push({b,t})}}
-  td.sort((a,b)=>a.t-b.t);tm.sort((a,b)=>a.t-b.t)
-  const hl=(l,id)=>{const e=$(id);if(!l.length){e.innerHTML='<div class="empty">'+t('noSpawns')+'</div>';return}
-    e.innerHTML=l.map(x=>'<div class="bc"><span class="bc-nm">'+bn(x.b)+'</span><span class="bc-tm">'+fmtT(x.t)+'</span></div>').join('')}
-  hl(td,'todayList');hl(tm,'tomorrowList')
+  const n=now(),list=[];
+  for(const b of BOSSES){const x=nextSpawn(b);if(x&&x.getTime()>n)list.push({b,t:x.getTime()})}
+  list.sort((a,b)=>a.t-b.t)
+  const e=$('upcomingList');$('upcomingSub').textContent=list.length+' upcoming';
+  if(!list.length){e.innerHTML='<div class="empty">'+t('noSpawns')+'</div>';return}
+  e.innerHTML=list.map(x=>'<div class="bc"><span class="bc-nm">'+bn(x.b)+'</span><span class="bc-tm">'+fmtT(x.t)+'</span></div>').join('')
 }
 
 function rSched(){
