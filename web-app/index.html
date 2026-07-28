@@ -120,9 +120,9 @@
   .status-bar{font-size:9px;color:var(--text-tertiary);text-align:center;padding:4px 0 0;flex-shrink:0;letter-spacing:.3px}
 
   /* Hidden Class Guide */
-  #pageHidden .hc-section{flex:1}
-  .hc-section{background:#161b22;border:1px solid var(--border-gold);border-radius:var(--radius-lg);padding:12px 14px;overflow-y:auto;overflow-x:hidden;scrollbar-gutter:stable;box-shadow:var(--shadow)}
-  .hc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  #pageHidden .hc-section{flex:1;min-height:0}
+  .hc-section{background:#161b22;border:1px solid var(--border-gold);border-radius:var(--radius-lg);padding:12px 14px;min-height:0;display:flex;flex-direction:column;box-shadow:var(--shadow)}
+  .hc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;overflow-y:auto;flex:1;min-height:0}
   .hc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:stretch;align-content:start}
   .hc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:stretch}
   .hc-card{background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);overflow:hidden;transition:all var(--transition);cursor:default;display:flex;flex-direction:column}
