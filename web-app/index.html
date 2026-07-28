@@ -119,6 +119,18 @@
   /* Status Bar */
   .status-bar{font-size:9px;color:var(--text-tertiary);text-align:center;padding:4px 0 0;flex-shrink:0;letter-spacing:.3px}
 
+  /* History */
+  .hist-section{flex-shrink:0;background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:10px 12px;box-shadow:var(--shadow);max-height:140px;overflow-y:auto}
+  .hist-list{display:flex;flex-direction:column;gap:2px}
+  .hist-item{display:flex;align-items:center;gap:6px;padding:3px 6px;border-radius:var(--radius);font-size:10px}
+  .hist-item:hover{background:var(--bg-elevated)}
+  .hist-icon{font-size:10px;width:16px;text-align:center;flex-shrink:0}
+  .hist-name{color:var(--text-primary);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .hist-time{color:var(--text-secondary);margin-left:auto;flex-shrink:0;font-family:var(--font-mono);font-size:9px}
+  .hist-type{font-size:8px;padding:1px 5px;border-radius:3px;font-weight:600;text-transform:uppercase}
+  .hist-type.killed{color:var(--red);background:rgba(248,81,73,0.08)}
+  .hist-type.missed{color:var(--gold);background:rgba(210,153,29,0.08)}
+
   /* Hidden Class Guide */
   #pageHidden .hc-section{flex:1;min-height:0}
   .hc-section{background:#161b22;border:1px solid var(--border-gold);border-radius:var(--radius-lg);box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
@@ -243,6 +255,11 @@
   </div>
   </div>
 
+  <div class="hist-section">
+    <div class="panel-title"><span id="histLbl">Recent Activity</span></div>
+    <div class="hist-list" id="historyList"><div class="empty">Loading...</div></div>
+  </div>
+
   <div class="page" id="pageHidden">
   <div class="hc-section">
   <div class="hc-section-inner">
@@ -311,9 +328,9 @@ const BOSSES=[
 
 const TO=9*3600000;
 const LANG={
-  en:{brand:'ASTRA',dash:'Dashboard',bsTab:'Bosses',live:'Live',offline:'Offline',nextSpawn:'Next Spawn',today:'Today',tomorrow:'Tomorrow',noSpawns:'No spawns',schedTag:'Schedule',schedTitle:'Weekly',ivTag:'Interval',ivTitle:'Respawn Groups',every:'Every',lv:'Lv.',spawned:'SPAWNED',now:'Now',updated:'Updated',ago:'ago',tracker:'TRACKER',hiddenClass:'HIDDEN CLASS',days:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],nm:['Venatus','Viorent','Ego','Clemantis','Livera','Araneo','Undomiel','Saphirus','Neutro','Lady Dalia','General Aquleus','Thymele','Amentis','Baron Braudmore','Milavy','Wannitas','Metus','Duplican','Shuliar','Ringor','Roderick','Gareth','Titore','Larba','Catena','Auraq','Secreta','Ordo','Asta','Supore','Chaiflock','Benji','Libitina','Rakajeth','Icaruthia','Motti','Camalia','Nevaeh','Tumier','Lucus'],ttsIn:(n,m)=>`${n} will respawn in ${m} minute${m!==1?'s':''}.`,ttsSpawned:n=>`${n} has respawned.`},
-  ja:{brand:'ASTRA',dash:'ダッシュボード',bsTab:'ボス',live:'オンライン',offline:'オフライン',nextSpawn:'次のスポーン',today:'今日',tomorrow:'明日',noSpawns:'スポーンなし',schedTag:'スケジュール',schedTitle:'週間',ivTag:'インターバル',ivTitle:'再出現グループ',every:'毎',lv:'Lv.',spawned:'出現中',now:'今',updated:'更新',ago:'前',tracker:'トラッカー',hiddenClass:'ヒドゥンクラス',days:['日','月','火','水','木','金','土'],nm:['ベナトゥス','ビオレント','エゴ','クレメンティス','リベラ','アラネオ','アンドゥミエル','サピルス','ネウトロ','レディ·ダリア','将軍アクレウス','テュメレ','アメンティス','ブラウドモア','ミラベ','ワニタス','メトゥス','デュプリカン','シュライヤー','リンゴル','ロデリック','ガレス','ティトル','ラルバ','カテナ','アウラーク','セクレタ','オルド','アスタ','スポル','シャイフロック','ベンジー','リビティーナ','ラカゼス','イカルシア','モティ','カマリア','ネバ','トゥミエル','ルクス'],ttsIn:(n,m)=>`${n}が${m}分後に出現します。`,ttsSpawned:n=>`${n}が出現しました。`},
-  ko:{brand:'ASTRA',dash:'대시보드',bsTab:'보스',live:'온라인',offline:'오프라인',nextSpawn:'다음 스폰',today:'오늘',tomorrow:'내일',noSpawns:'스폰 없음',schedTag:'일정',schedTitle:'주간',ivTag:'간격',ivTitle:'재등장 그룹',every:'매',lv:'레벨',spawned:'출현중',now:'지금',updated:'업데이트',ago:'전',tracker:'트래커',hiddenClass:'히든 클래스',days:['일','월','화','수','목','금','토'],nm:['베나투스','비오렌트','에고','클레멘티스','리베라','아라네오','안두미엘','사피루스','네우트로','레이디 달리아','장군 아클레우스','튜메레','아멘티스','남작 브라우드모어','미라베','와니타스','메투스','듀플리칸','슈라이어','링고르','로데릭','가레스','티토르','라르바','카테나','아우라크','세크레타','오르도','아스타','스포르','샤이플록','벤지','리비티나','라카제스','이카루시아','모티','카말리아','네바','투미엘','루크스'],ttsIn:(n,m)=>`${n}${koParticle(n,'subj')} ${m}분 후에 출현합니다.`,ttsSpawned:n=>`${n}${koParticle(n,'subj')} 출현했습니다.`}
+  en:{brand:'ASTRA',dash:'Dashboard',bsTab:'Bosses',live:'Live',offline:'Offline',nextSpawn:'Next Spawn',today:'Today',tomorrow:'Tomorrow',noSpawns:'No spawns',schedTag:'Schedule',schedTitle:'Weekly',ivTag:'Interval',ivTitle:'Respawn Groups',every:'Every',lv:'Lv.',spawned:'SPAWNED',now:'Now',updated:'Updated',ago:'ago',tracker:'TRACKER',hiddenClass:'HIDDEN CLASS',history:'Recent Activity',killed:'killed',missed:'missed',days:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],nm:['Venatus','Viorent','Ego','Clemantis','Livera','Araneo','Undomiel','Saphirus','Neutro','Lady Dalia','General Aquleus','Thymele','Amentis','Baron Braudmore','Milavy','Wannitas','Metus','Duplican','Shuliar','Ringor','Roderick','Gareth','Titore','Larba','Catena','Auraq','Secreta','Ordo','Asta','Supore','Chaiflock','Benji','Libitina','Rakajeth','Icaruthia','Motti','Camalia','Nevaeh','Tumier','Lucus'],ttsIn:(n,m)=>`${n} will respawn in ${m} minute${m!==1?'s':''}.`,ttsSpawned:n=>`${n} has respawned.`},
+  ja:{brand:'ASTRA',dash:'ダッシュボード',bsTab:'ボス',live:'オンライン',offline:'オフライン',nextSpawn:'次のスポーン',today:'今日',tomorrow:'明日',noSpawns:'スポーンなし',schedTag:'スケジュール',schedTitle:'週間',ivTag:'インターバル',ivTitle:'再出現グループ',every:'毎',lv:'Lv.',spawned:'出現中',now:'今',updated:'更新',ago:'前',tracker:'トラッカー',hiddenClass:'ヒドゥンクラス',history:'最近のアクティビティ',killed:'討伐',missed:'取り逃し',days:['日','月','火','水','木','金','土'],nm:['ベナトゥス','ビオレント','エゴ','クレメンティス','リベラ','アラネオ','アンドゥミエル','サピルス','ネウトロ','レディ·ダリア','将軍アクレウス','テュメレ','アメンティス','ブラウドモア','ミラベ','ワニタス','メトゥス','デュプリカン','シュライヤー','リンゴル','ロデリック','ガレス','ティトル','ラルバ','カテナ','アウラーク','セクレタ','オルド','アスタ','スポル','シャイフロック','ベンジー','リビティーナ','ラカゼス','イカルシア','モティ','カマリア','ネバ','トゥミエル','ルクス'],ttsIn:(n,m)=>`${n}が${m}分後に出現します。`,ttsSpawned:n=>`${n}が出現しました。`},
+  ko:{brand:'ASTRA',dash:'대시보드',bsTab:'보스',live:'온라인',offline:'오프라인',nextSpawn:'다음 스폰',today:'오늘',tomorrow:'내일',noSpawns:'스폰 없음',schedTag:'일정',schedTitle:'주간',ivTag:'간격',ivTitle:'재등장 그룹',every:'매',lv:'레벨',spawned:'출현중',now:'지금',updated:'업데이트',ago:'전',tracker:'트래커',hiddenClass:'히든 클래스',history:'최근 활동',killed:'처치',missed:'놓침',days:['일','월','화','수','목','금','토'],nm:['베나투스','비오렌트','에고','클레멘티스','리베라','아라네오','안두미엘','사피루스','네우트로','레이디 달리아','장군 아클레우스','튜메레','아멘티스','남작 브라우드모어','미라베','와니타스','메투스','듀플리칸','슈라이어','링고르','로데릭','가레스','티토르','라르바','카테나','아우라크','세크레타','오르도','아스타','스포르','샤이플록','벤지','리비티나','라카제스','이카루시아','모티','카말리아','네바','투미엘','루크스'],ttsIn:(n,m)=>`${n}${koParticle(n,'subj')} ${m}분 후에 출현합니다.`,ttsSpawned:n=>`${n}${koParticle(n,'subj')} 출현했습니다.`}
 };
 let lang='en';
 function t(k){return LANG[lang][k]||k}
@@ -334,6 +351,7 @@ function applyLang(){
   $('tomorrowLbl').textContent=t('tomorrow');
   $('schedTitle').textContent=t('schedTitle');
   $('ivTitle').textContent=t('ivTitle');
+  $('histLbl').textContent=t('history');
   $('navTracker').textContent=t('tracker');
   $('navHidden').textContent=t('hiddenClass');
   $('langBtn').textContent=FLAGS[lang];
@@ -612,10 +630,29 @@ function listenData(){
   },()=>setOnline(false));
 }
 
+let histCache=[];
+async function loadHistory(){
+  try{
+    const snap=await db.collection('history').orderBy('timestamp','desc').limit(30).get();
+    histCache=snap.docs.map(d=>d.data());
+    rHistory();
+  }catch(e){}
+}
+function rHistory(){
+  $('historyList').innerHTML=histCache.length?histCache.map(h=>{
+    const b=BOSSES.find(x=>x.id===h.bossId);
+    const nm=b?bn(b):h.bossId;
+    const ic=h.type==='killed'?'💀':'⏰';
+    const tp=h.type==='killed'?t('killed'):t('missed');
+    return'<div class="hist-item"><span class="hist-icon">'+ic+'</span><span class="hist-name">'+nm+'</span><span class="hist-type '+h.type+'">'+tp+'</span><span class="hist-time">'+fmtT(h.timestamp)+' '+fmtD(h.timestamp)+'</span></div>'
+  }).join(''):'<div class="empty">'+t('noSpawns')+'</div>'
+}
+
 function syncVoices(){if(window.speechSynthesis){const v=window.speechSynthesis.getVoices();if(v.length)ttsVoices=v}}
 if(window.speechSynthesis){syncVoices();window.speechSynthesis.addEventListener('voiceschanged',syncVoices)}
-lang=localStorage.getItem('astralang')||'en';alarmOn=localStorage.getItem('astraalarm')==='1';applyLang();updateAlarmBtn();listenData();rAll()
+lang=localStorage.getItem('astralang')||'en';alarmOn=localStorage.getItem('astraalarm')==='1';applyLang();updateAlarmBtn();listenData();loadHistory();rAll()
 setInterval(()=>{rNext();rUpcoming();rSched();rInt();rHidden()},15000)
+setInterval(loadHistory,60000)
 setInterval(ttsCheck,3000)
 </script>
 </body>
