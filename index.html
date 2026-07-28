@@ -77,11 +77,11 @@
   @keyframes countPulse{0%,100%{color:var(--gold)}50%{color:#f0c040}}
 
   /* Main Grid */
-  .main-grid{display:grid;grid-template-columns:1fr 1.5fr;grid-template-rows:1fr 1fr;grid-auto-flow:column;gap:8px;min-height:0}
+  .main-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:8px;min-height:0}
   .panel{background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:10px 12px;min-height:0;display:flex;flex-direction:column;box-shadow:var(--shadow)}
   .panel-title{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--text-secondary);flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:6px;background:var(--bg-surface);padding:0 0 10px 0;border-bottom:1px solid var(--border-subtle)}
   .panel-title .sub{color:var(--text-tertiary);font-weight:400;font-size:9px}
-  #todayList,#tomorrowList{overflow-y:auto;flex:1;min-height:0}
+  #todayList,#tomorrowList,#historyList{overflow-y:auto;flex:1;min-height:0}
 
   /* Boss Cards (Today / Tomorrow) */
   .bc{display:flex;align-items:center;justify-content:space-between;padding:7px 10px;margin-bottom:2px;border-radius:var(--radius);background:var(--bg-elevated);border:1px solid var(--border-subtle);transition:all var(--transition);cursor:default}
@@ -119,17 +119,21 @@
   /* Status Bar */
   .status-bar{font-size:9px;color:var(--text-tertiary);text-align:center;padding:4px 0 0;flex-shrink:0;letter-spacing:.3px}
 
-  /* History */
-  .hist-section{flex-shrink:0;background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:10px 12px;box-shadow:var(--shadow);max-height:140px;overflow-y:auto}
-  .hist-list{display:flex;flex-direction:column;gap:2px}
+  /* History (inside panel) */
+  .hist-list{display:flex;flex-direction:column;gap:1px}
   .hist-item{display:flex;align-items:center;gap:6px;padding:3px 6px;border-radius:var(--radius);font-size:10px}
   .hist-item:hover{background:var(--bg-elevated)}
   .hist-icon{font-size:10px;width:16px;text-align:center;flex-shrink:0}
   .hist-name{color:var(--text-primary);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .hist-time{color:var(--text-secondary);margin-left:auto;flex-shrink:0;font-family:var(--font-mono);font-size:9px}
-  .hist-type{font-size:8px;padding:1px 5px;border-radius:3px;font-weight:600;text-transform:uppercase}
+  .hist-type{font-size:8px;padding:1px 5px;border-radius:3px;font-weight:600;text-transform:uppercase;flex-shrink:0}
   .hist-type.killed{color:var(--red);background:rgba(248,81,73,0.08)}
   .hist-type.missed{color:var(--gold);background:rgba(210,153,29,0.08)}
+
+  /* Schedule Strip */
+  .sched-strip{flex-shrink:0;background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:8px 12px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:4px}
+  .sched-strip .panel-title{border-bottom:none;padding:0}
+  .sched-strip .sc-grid{overflow:visible;overflow-y:auto;max-height:80px;grid-template-columns:repeat(7,1fr);gap:4px;min-height:0}
 
   /* Hidden Class Guide */
   #pageHidden .hc-section{flex:1;min-height:0}
@@ -184,8 +188,9 @@
     .next-card{padding:10px 12px}
     .next-name{font-size:16px}
     .next-cd{font-size:20px}
-    .main-grid{grid-template-columns:1fr;grid-template-rows:1fr 1fr;grid-auto-flow:row;gap:4px}
+    .main-grid{grid-template-columns:1fr;grid-template-rows:1fr 1fr;gap:4px}
     .panel:nth-child(3),.panel:nth-child(4){display:none}
+    .sched-strip .sc-grid{max-height:100px;grid-template-columns:repeat(4,1fr)}
     .bc{padding:6px 8px}
     .bc-nm{font-size:11px}
     .bc-tm{font-size:10px}
@@ -241,23 +246,23 @@
       <div id="todayList"></div>
     </div>
     <div class="panel">
-      <div class="panel-title"><span id="tomorrowLbl">Tomorrow</span> <span class="sub" id="tomorrowDate"></span></div>
-      <div id="tomorrowList"></div>
-    </div>
-    <div class="panel">
-      <div class="panel-title"><span id="schedTitle">Schedule</span></div>
-      <div class="sc-grid" id="schedGrid"></div>
-    </div>
-    <div class="panel">
       <div class="panel-title"><span id="ivTitle">Interval</span></div>
       <div class="ig-grid" id="ivGrid"></div>
+    </div>
+    <div class="panel">
+      <div class="panel-title"><span id="histLbl">Recent Activity</span></div>
+      <div class="hist-list" id="historyList"><div class="empty">Loading...</div></div>
+    </div>
+    <div class="panel">
+      <div class="panel-title"><span id="tomorrowLbl">Tomorrow</span> <span class="sub" id="tomorrowDate"></span></div>
+      <div id="tomorrowList"></div>
     </div>
   </div>
   </div>
 
-  <div class="hist-section">
-    <div class="panel-title"><span id="histLbl">Recent Activity</span></div>
-    <div class="hist-list" id="historyList"><div class="empty">Loading...</div></div>
+  <div class="sched-strip">
+    <div class="panel-title"><span id="schedTitle">Weekly</span></div>
+    <div class="sc-grid" id="schedGrid"></div>
   </div>
 
   <div class="page" id="pageHidden">
