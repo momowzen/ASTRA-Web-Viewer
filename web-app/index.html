@@ -33,7 +33,7 @@
   .app{height:100vh;display:flex;flex-direction:column;padding:6px 14px;gap:5px;max-width:1680px;margin:0 auto;width:100%}
 
   /* Header */
-  .header{display:flex;align-items:center;justify-content:space-between;flex-shrink:0;padding:2px 2px 0}
+  .header{display:flex;align-items:center;justify-content:space-between;flex-shrink:0;padding:2px 2px 0;position:relative}
   .brand{display:flex;align-items:center;gap:6px;user-select:none;flex-shrink:0}
   .brand-logo{width:22px;height:22px;border-radius:4px;object-fit:cover}
   .brand-text{font-size:14px;font-weight:700;letter-spacing:.5px;background:linear-gradient(135deg,var(--gold) 20%,var(--accent) 80%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
@@ -123,7 +123,7 @@
   /* Status Bar */
   .status-bar{font-size:9px;color:var(--text-tertiary);text-align:center;padding:4px 0 0;flex-shrink:0;letter-spacing:.3px}
   /* Voice Panel */
-  .voice-panel{position:fixed;top:50px;right:14px;background:var(--bg-elevated);border:1px solid var(--border-default);border-radius:var(--radius-lg);padding:10px 14px;box-shadow:var(--shadow-lg);z-index:100;display:none;min-width:280px}
+  .voice-panel{position:absolute;top:100%;right:0;background:var(--bg-elevated);border:1px solid var(--border-default);border-radius:var(--radius-lg);padding:10px 14px;box-shadow:var(--shadow-lg);z-index:100;display:none;min-width:280px}
   .voice-panel.open{display:block}
   .voice-panel-header{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-secondary);margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid var(--border-subtle)}
   .voice-row{display:flex;align-items:center;gap:6px;padding:3px 0;font-size:10px}
@@ -226,6 +226,10 @@
       <button class="lang-pill" id="langBtn">🇺🇸</button>
       <button class="voice-btn" id="voiceBtn">⚙️</button>
     </div>
+  <div class="voice-panel" id="voicePanel">
+    <div class="voice-panel-header">TTS Voice Selection</div>
+    <div id="voiceList"></div>
+  </div>
   </header>
 
   <nav class="nav">
@@ -277,11 +281,6 @@
   </div>
 
   <div class="status-bar" id="exportInfo"></div>
-</div>
-
-<div class="voice-panel" id="voicePanel">
-  <div class="voice-panel-header">TTS Voice Selection</div>
-  <div id="voiceList"></div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
