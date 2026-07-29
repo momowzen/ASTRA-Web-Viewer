@@ -109,6 +109,7 @@
   .ig-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:5px;overflow-y:auto;min-height:0;align-content:start}
   .ig-group{background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:var(--radius);padding:7px 9px;transition:all var(--transition)}
   .ig-group:hover{border-color:var(--border-default);box-shadow:var(--shadow)}
+  .ig-hl{border-color:var(--border-gold);background:linear-gradient(135deg,var(--bg-elevated),rgba(210,153,29,0.03))}
   .ig-hdr{font-size:10px;font-weight:700;color:var(--accent);margin-bottom:4px;padding-bottom:4px;border-bottom:1px solid var(--border-subtle);display:flex;justify-content:space-between;align-items:center}
   .ig-ct{font-size:9px;color:var(--text-tertiary);font-weight:400}
   .ig-row{display:flex;justify-content:space-between;align-items:center;padding:3px 2px;font-size:11px;gap:4px}
@@ -469,7 +470,7 @@ function rSched(){
 }
 
 function rInt(){
-  const n=now();$('ivGrid').innerHTML=grpInt().map(g=>'<div class="ig-group"><div class="ig-hdr"><span>'+t('every')+' '+fmtInt(g.s)+'</span><span class="ig-ct">'+g.b.length+'</span></div>'+g.b.map(b=>{const et=timers[b.id]?.endTime,al=et&&et>n;return'<div class="ig-row"><span class="ig-nm">'+bn(b)+'</span><span class="ig-tm '+(al?'ig-live':'ig-na')+'">'+(al?fmtShort(et-n):'--')+'</span></div>'}).join('')+'</div>').join('')
+  const n=now();$('ivGrid').innerHTML=grpInt().map(g=>'<div class="ig-group'+(nxtBoss&&g.b.includes(nxtBoss)?' ig-hl':'')+'"><div class="ig-hdr"><span>'+t('every')+' '+fmtInt(g.s)+'</span><span class="ig-ct">'+g.b.length+'</span></div>'+g.b.map(b=>{const et=timers[b.id]?.endTime,al=et&&et>n;return'<div class="ig-row"><span class="ig-nm">'+bn(b)+'</span><span class="ig-tm '+(al?'ig-live':'ig-na')+'">'+(al?fmtShort(et-n):'--')+'</span></div>'}).join('')+'</div>').join('')
 }
 
 function rAll(){rNext();rUpcoming();rSched();rInt();rHidden();rNextCd()}
