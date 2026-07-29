@@ -457,7 +457,7 @@ function rUpcoming(){
   const n=now(),list=[];
   for(const b of BOSSES){const x=nextSpawn(b);if(x&&x.getTime()>n)list.push({b,t:x.getTime()})}
   list.sort((a,b)=>a.t-b.t)
-  const e=$('upcomingList');$('upcomingSub').textContent=list.length+' upcoming';
+  const e=$('upcomingList');$('upcomingSub').textContent=list.length;
   if(!list.length){e.innerHTML='<div class="empty">'+t('noSpawns')+'</div>';return}
   e.innerHTML=list.map(x=>'<div class="bc"><span class="bc-nm">'+bn(x.b)+'</span><span class="bc-tm">'+fmtT(x.t)+'</span></div>').join('')
 }
