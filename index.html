@@ -33,7 +33,7 @@
   .app{height:100vh;display:flex;flex-direction:column;padding:6px 14px;gap:5px;max-width:1680px;margin:0 auto;width:100%}
 
   /* Header */
-  .header{display:flex;align-items:center;justify-content:space-between;flex-shrink:0;padding:2px 2px 0;position:relative}
+  .header{display:flex;align-items:center;justify-content:space-between;flex-shrink:0;padding:2px 2px 0}
   .brand{display:flex;align-items:center;gap:6px;user-select:none;flex-shrink:0}
   .brand-logo{width:22px;height:22px;border-radius:4px;object-fit:cover}
   .brand-text{font-size:14px;font-weight:700;letter-spacing:.5px;background:linear-gradient(135deg,var(--gold) 20%,var(--accent) 80%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
@@ -46,8 +46,8 @@
   .live-pill.on .dot{box-shadow:0 0 8px var(--green);animation:lpulse 2s infinite}
   @keyframes lpulse{0%,100%{opacity:1}50%{opacity:.3}}
 
-  .lang-pill,.alarm-btn,.voice-btn{appearance:none;background:var(--bg-overlay);border:1px solid var(--border-default);color:var(--text-secondary);padding:3px 8px;border-radius:20px;font-size:13px;line-height:1;cursor:pointer;font-family:var(--font);transition:all var(--transition)}
-  .lang-pill:hover,.alarm-btn:hover,.voice-btn:hover{border-color:var(--border-active);color:var(--text-primary);background:var(--bg-float);transform:translateY(-1px)}
+  .lang-pill,.alarm-btn{appearance:none;background:var(--bg-overlay);border:1px solid var(--border-default);color:var(--text-secondary);padding:3px 8px;border-radius:20px;font-size:13px;line-height:1;cursor:pointer;font-family:var(--font);transition:all var(--transition)}
+  .lang-pill:hover,.alarm-btn:hover{border-color:var(--border-active);color:var(--text-primary);background:var(--bg-float);transform:translateY(-1px)}
   .alarm-btn.on{color:var(--gold);border-color:var(--border-gold);background:rgba(210,153,29,0.08)}
   .alarm-btn.on:hover{border-color:rgba(210,153,29,0.4)}
 
@@ -122,15 +122,8 @@
 
   /* Status Bar */
   .status-bar{font-size:9px;color:var(--text-tertiary);text-align:center;padding:4px 0 0;flex-shrink:0;letter-spacing:.3px}
-  /* Voice Panel */
-  .voice-panel{position:absolute;top:100%;right:12px;background:var(--bg-elevated);border:1px solid var(--border-default);border-radius:var(--radius-lg);padding:10px 14px;box-shadow:var(--shadow-lg);z-index:100;display:none;min-width:280px}
-  .voice-panel.open{display:block}
-  .voice-panel-header{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-secondary);margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid var(--border-subtle)}
-  .voice-row{display:flex;align-items:center;gap:6px;padding:3px 0;font-size:10px}
-  .voice-lang{color:var(--text-primary);font-weight:600;width:30px;flex-shrink:0}
-  .voice-select{flex:1;min-width:0;background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--radius);color:var(--text-primary);font-size:10px;padding:3px 5px;font-family:var(--font);outline:none;cursor:pointer;width:auto}
-  .voice-select:focus{border-color:var(--accent)}
-  .voice-label{font-size:8px;color:var(--text-tertiary);padding:2px 0}
+
+  /* History (inside panel) */
 
   /* History (inside panel) */
   .hist-list{display:flex;flex-direction:column;gap:1px}
@@ -227,12 +220,7 @@
       <span class="live-pill off" id="livePill"><span class="dot"></span><span id="liveText">--</span></span>
       <button class="alarm-btn" id="alarmBtn">🔇</button>
       <button class="lang-pill" id="langBtn">🇺🇸</button>
-      <button class="voice-btn" id="voiceBtn">⚙️</button>
     </div>
-  <div class="voice-panel" id="voicePanel">
-    <div class="voice-panel-header">Voice Selection</div>
-    <div id="voiceList"></div>
-  </div>
   </header>
 
   <nav class="nav">
@@ -669,16 +657,7 @@ function syncVoices(){
   const v=window.speechSynthesis.getVoices();
   if(!v.length)return;
   ttsVoices=v;
-  const langs={en:'en-US',ja:'ja-JP',ko:'ko-KR'};
-  const names={en:'English',ja:'Japanese',ko:'Korean'};
-  $('voiceList').innerHTML=Object.keys(langs).map(l=>{
-    const ls=v.filter(x=>x.lang.startsWith(l));
-    const sv=localStorage.getItem('astraVoice_'+l)||'';
-    return'<div class="voice-row"><span class="voice-lang">'+names[l]+'</span><select class="voice-select" data-lang="'+l+'"><option value="">Default</option>'+ls.map(x=>'<option value="'+x.name+'"'+(x.name===sv?' selected':'')+'>'+x.name.split('(')[0].trim()+'</option>').join('')+'</select></div>'
-  }).join('')
 }
-$('voiceBtn').onclick=()=>{$('voicePanel').classList.toggle('open');syncVoices()}
-document.addEventListener('change',e=>{if(e.target.classList.contains('voice-select')){localStorage.setItem('astraVoice_'+e.target.dataset.lang,e.target.value)}})
 if(window.speechSynthesis){window.speechSynthesis.getVoices();window.speechSynthesis.addEventListener('voiceschanged',()=>syncVoices());setTimeout(()=>syncVoices(),500)}
 lang=localStorage.getItem('astralang')||'en';alarmOn=localStorage.getItem('astraalarm')==='1';applyLang();updateAlarmBtn();listenData();loadHistory();rAll()
 setInterval(()=>{rNext();rUpcoming();rSched();rInt();rHidden()},15000)
