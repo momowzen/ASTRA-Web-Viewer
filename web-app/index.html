@@ -369,8 +369,8 @@ function toggleAlarm(){
   alarmOn=!alarmOn;
   localStorage.setItem('astraalarm',alarmOn?'1':'0');
   updateAlarmBtn();
-  if(!alarmOn&&window.speechSynthesis)window.speechSynthesis.cancel();
-  if(alarmOn){ttsSpoken.clear();ttsArmed.clear();if(window.speechSynthesis){syncVoices();window.speechSynthesis.speak(new SpeechSynthesisUtterance(''))}}
+  if(!alarmOn)ttsCheckCancel();
+  if(alarmOn){ttsSpoken.clear();ttsArmed.clear();syncVoices()}
 }
 function updateAlarmBtn(){
   const b=$('alarmBtn');
@@ -390,13 +390,30 @@ function ttsVoice(){
 function speak(text,enText){
   if(!window.speechSynthesis||!text)return;
   const v=ttsVoice();
-  const u=new SpeechSynthesisUtterance(v?text:(enText||text));
-  if(v){u.voice=v;u.lang=v.lang}else{u.lang='en-US'}
-  u.rate=1;u.pitch=1;
-  window.speechSynthesis.speak(u);
+const TTS_SRV=localStorage.getItem('astraTtsServer')||'http://localhost:5050';
+const EDGE_VOICES={en:'en-US-AriaNeural',ko:'ko-KR-SunHiNeural',ja:'ja-JP-NanamiNeural'};
+let ttsAudio=null;
+async function speak(text,enText){
+  if(!text)return;
+  const txt=ttsVoice()?text:(enText||text);
+  const voice=EDGE_VOICES[lang]||EDGE_VOICES.en;
+  ttsCheckCancel();
+  try{
+    const r=await fetch(TTS_SRV+'/v1/audio/speech',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({input:txt,voice:voice,response_format:'mp3'})});
+    if(!r.ok)throw Error(r.status);
+    const b=await r.blob();const u=URL.createObjectURL(b);
+    if(ttsAudio){ttsAudio.pause();ttsAudio=null}
+    ttsAudio=new Audio(u);ttsAudio.volume=1;ttsAudio.play().catch(()=>{});
+  }catch(e){
+    if(!window.speechSynthesis)return;
+    const v=ttsVoice();const ut=new SpeechSynthesisUtterance(v?txt:(enText||txt));
+    if(v){ut.voice=v;ut.lang=v.lang}else{ut.lang='en-US'}
+    ut.rate=1;ut.pitch=1;window.speechSynthesis.speak(ut);
+  }
 }
+function ttsCheckCancel(){if(window.speechSynthesis)window.speechSynthesis.cancel();if(ttsAudio){ttsAudio.pause();ttsAudio=null}}
 function ttsCheck(){
-  if(!alarmOn||!window.speechSynthesis)return;
+  if(!alarmOn)return;
   const n=now();
   for(const b of BOSSES){
     const tm=timers[b.id];
