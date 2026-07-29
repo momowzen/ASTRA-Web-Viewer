@@ -390,9 +390,6 @@ function ttsVoice(){
 function speak(text,enText){
   if(!window.speechSynthesis||!text)return;
   const v=ttsVoice();
-function speak(text,enText){
-  if(!window.speechSynthesis||!text)return;
-  const v=ttsVoice();
   const u=new SpeechSynthesisUtterance(v?text:(enText||text));
   if(v){u.voice=v;u.lang=v.lang}else{u.lang='en-US'}
   u.rate=1;u.pitch=1;
