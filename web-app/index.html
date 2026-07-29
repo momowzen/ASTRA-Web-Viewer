@@ -395,7 +395,9 @@ function ttsVoice(){
   const sv=localStorage.getItem('astraVoice_'+lang);
   if(sv){const m=ttsVoices.find(v=>v.name===sv);if(m)return m}
   const want={en:'en-US',ja:'ja-JP',ko:'ko-KR'}[lang];
-  return ttsVoices.find(v=>v.lang===want)||ttsVoices.find(v=>v.lang.startsWith(lang))||null;
+  const edge={en:'en-US-AriaNeural',ko:'ko-KR-SunHiNeural',ja:'ja-JP-NanamiNeural'};
+  const m=ttsVoices.find(v=>v.name.includes(edge[lang]))||ttsVoices.find(v=>v.voiceURI===edge[lang])||ttsVoices.find(v=>v.lang===want)||ttsVoices.find(v=>v.lang.startsWith(lang));
+  return m||null;
 }
 function speak(text,enText){
   if(!window.speechSynthesis||!text)return;
