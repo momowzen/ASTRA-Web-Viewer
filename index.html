@@ -623,9 +623,15 @@ function setOnline(on){
 }
 
 function listenData(){
-  db.doc('timers/global').onSnapshot(snap=>{
+  db.doc('timers/global').onSnapshot({includeMetadataChanges:true},snap=>{
     if(snap.exists){timers=snap.data().timers||{};rAll();ttsCheck();setOnline(true)}
   },()=>setOnline(false));
+}
+async function pollData(){
+  try{
+    const snap=await db.doc('timers/global').get({source:'server'});
+    if(snap.exists){timers=snap.data().timers||{};rAll();ttsCheck();setOnline(true)}
+  }catch(e){setOnline(false)}
 }
 
 function syncVoices(){
@@ -635,8 +641,9 @@ function syncVoices(){
   ttsVoices=v;
 }
 if(window.speechSynthesis){window.speechSynthesis.getVoices();window.speechSynthesis.addEventListener('voiceschanged',()=>syncVoices());setTimeout(()=>syncVoices(),500)}
-lang=localStorage.getItem('astralang')||'en';alarmOn=localStorage.getItem('astraalarm')==='1';applyLang();updateAlarmBtn();listenData();rAll()
+lang=localStorage.getItem('astralang')||'en';alarmOn=localStorage.getItem('astraalarm')==='1';applyLang();updateAlarmBtn();listenData();pollData();rAll()
 setInterval(()=>{rNext();rUpcoming();rSched();rInt();rHidden()},15000)
+setInterval(pollData,30000)
 setInterval(ttsCheck,3000)
 </script>
 </body>
