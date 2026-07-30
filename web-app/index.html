@@ -624,13 +624,22 @@ function setOnline(on){
 
 function listenData(){
   db.doc('timers/global').onSnapshot({includeMetadataChanges:true},snap=>{
-    if(snap.exists){timers=snap.data().timers||{};rAll();ttsCheck();setOnline(true)}
-  },()=>setOnline(false));
+    if(snap.exists){
+      const d=snap.data().timers||{};
+      const c=Object.keys(d).length;
+      if(c!==Object.keys(timers).length||JSON.stringify(d)!==JSON.stringify(timers)){
+        timers=d;rAll();ttsCheck();setOnline(true)
+      }
+    }
+  },()=>{setOnline(false)});
 }
 async function pollData(){
   try{
     const snap=await db.doc('timers/global').get({source:'server'});
-    if(snap.exists){timers=snap.data().timers||{};rAll();ttsCheck();setOnline(true)}
+    if(snap.exists){
+      const d=snap.data().timers||{};
+      if(JSON.stringify(d)!==JSON.stringify(timers)){timers=d;rAll();ttsCheck();setOnline(true)}
+    }
   }catch(e){setOnline(false)}
 }
 
