@@ -640,6 +640,7 @@ async function pollData(){
       const d=snap.data().timers||{};
       if(JSON.stringify(d)!==JSON.stringify(timers)){timers=d;rAll();ttsCheck();setOnline(true)}
     }
+    $('exportInfo').textContent='Last sync: '+new Date().toLocaleTimeString();
   }catch(e){setOnline(false)}
 }
 
