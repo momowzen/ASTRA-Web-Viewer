@@ -657,10 +657,12 @@ function syncVoices(){
   ttsVoices=v;
 }
 if(window.speechSynthesis){window.speechSynthesis.getVoices();window.speechSynthesis.addEventListener('voiceschanged',()=>syncVoices());setTimeout(()=>syncVoices(),500)}
-lang=localStorage.getItem('astralang')||'en';alarmOn=localStorage.getItem('astraalarm')==='1';applyLang();updateAlarmBtn();listenData();pollData();rAll()
-setInterval(()=>{rNext();rUpcoming();rSched();rInt();rHidden()},15000)
-setInterval(pollData,30000)
-setInterval(ttsCheck,3000)
+try{
+  lang=localStorage.getItem('astralang')||'en';alarmOn=localStorage.getItem('astraalarm')==='1';applyLang();updateAlarmBtn();listenData();pollData();rAll()
+  setInterval(()=>{rNext();rUpcoming();rSched();rInt();rHidden()},15000)
+  setInterval(pollData,30000)
+  setInterval(ttsCheck,3000)
+}catch(e){$('exportInfo').textContent='Init error: '+e.message}
 </script>
 </body>
 </html>
