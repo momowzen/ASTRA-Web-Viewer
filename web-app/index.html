@@ -635,13 +635,19 @@ function listenData(){
 }
 async function pollData(){
   try{
-    const snap=await db.doc('timers/global').get({source:'server'});
-    if(snap.exists){
-      const d=snap.data().timers||{};
-      if(JSON.stringify(d)!==JSON.stringify(timers)){timers=d;rAll();ttsCheck();setOnline(true)}
+    const r=await fetch('https://firestore.googleapis.com/v1/projects/astra-boss-timer-759e5/databases/(default)/documents/timers/global?key=AIzaSyAboQqH7BmtLCO0ciHUvgGIUOU6SMzHnzo');
+    if(!r.ok)throw Error(r.status);
+    const d=await r.json();
+    if(d.fields&&d.fields.timers&&d.fields.timers.mapValue){
+      const parsed={};
+      for(const [id,val] of Object.entries(d.fields.timers.mapValue.fields)){
+        const m=val.mapValue.fields;
+        parsed[id]={endTime:Number(m.endTime.integerValue||m.endTime.doubleValue),startedAt:Number(m.startedAt.integerValue||m.startedAt.doubleValue)};
+      }
+      if(JSON.stringify(parsed)!==JSON.stringify(timers)){timers=parsed;rAll();ttsCheck();setOnline(true)}
     }
     $('exportInfo').textContent='Last sync: '+new Date().toLocaleTimeString();
-  }catch(e){setOnline(false)}
+  }catch(e){$('exportInfo').textContent='Sync: '+e.message;setOnline(false)}
 }
 
 function syncVoices(){
