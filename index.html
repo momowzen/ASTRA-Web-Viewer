@@ -438,7 +438,6 @@ function rNext(){
   let bb=null,bs=null,cn=now();
   for(const b of BOSSES){const n=nextSpawn(b);if(n&&n.getTime()>cn&&(!bs||n.getTime()<bs.getTime())){bs=n;bb=b}}
   if(bb&&bs){
-    if(nxtBoss&&nxtTime&&nxtTime.getTime()<=cn&&bb.id!==nxtBoss.id)return;
     $('nextName').textContent=bn(bb);$('nextLv').textContent=t('lv')+bb.lvl
     const isInt=!!bb.rs;$('nextTag').textContent=isInt?t('ivTag'):t('schedTag')
     $('nextTag').className='next-tag '+(isInt?'iv':'sc')
