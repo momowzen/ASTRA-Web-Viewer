@@ -646,8 +646,9 @@ async function pollData(){
       }
       if(JSON.stringify(parsed)!==JSON.stringify(timers)){timers=parsed;rAll();ttsCheck();setOnline(true)}
     }
-    $('exportInfo').textContent='Last sync: '+new Date().toLocaleTimeString();
-  }catch(e){$('exportInfo').textContent='Sync: '+e.message;setOnline(false)}
+  }catch(e){setOnline(false)}
+  $('exportInfo').textContent='Last sync: '+new Date().toLocaleTimeString();
+  setTimeout(pollData,30000);
 }
 
 function syncVoices(){
@@ -660,7 +661,6 @@ if(window.speechSynthesis){window.speechSynthesis.getVoices();window.speechSynth
 try{
   lang=localStorage.getItem('astralang')||'en';alarmOn=localStorage.getItem('astraalarm')==='1';applyLang();updateAlarmBtn();listenData();pollData();rAll()
   setInterval(()=>{rNext();rUpcoming();rSched();rInt();rHidden()},15000)
-  setInterval(pollData,30000)
   setInterval(ttsCheck,3000)
 }catch(e){$('exportInfo').textContent='Init error: '+e.message}
 </script>
