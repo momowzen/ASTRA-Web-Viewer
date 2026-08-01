@@ -407,9 +407,10 @@
 
     .skill-pairs { display: flex; flex-direction: column; gap: var(--space-2); }
     .skill-pair { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-2); }
-    .skill-pair-item { display: inline-flex; align-items: center; gap: var(--space-2); padding: var(--space-2) var(--space-3); border-radius: var(--radius-md); background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); font-size: 0.8rem; font-weight: 600; white-space: nowrap; overflow: hidden; transition: all var(--duration-fast) var(--ease-smooth); }
+    .skill-pair-item { display: inline-flex; align-items: center; gap: var(--space-2); padding: var(--space-2) var(--space-3); border-radius: var(--radius-md); background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); font-size: 0.8rem; font-weight: 600; overflow: hidden; transition: all var(--duration-fast) var(--ease-smooth); }
     .skill-pair-item:hover { background: rgba(255,255,255,0.05); border-color: var(--glass-border-strong); }
     .skill-pair-item img { width: 1.1rem; height: 1.1rem; border-radius: 2px; flex-shrink: 0; }
+    .skill-pair-name { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .skill-pair-Enhance { color: #d5a11d; }
     .skill-pair-Trick { color: #d3d40f; }
     .skill-pair-Recon { color: #b56dd8; }
@@ -488,7 +489,7 @@
       .schedule-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
       .interval-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
       .hidden-grid { grid-template-columns: 1fr; }
-      .skill-pair { grid-template-columns: 1fr; }
+      .skill-pair { grid-template-columns: 1fr 1fr; }
     }
 
     @media (max-width: 480px) {
@@ -500,6 +501,8 @@
       .hero-countdown-value { font-size: 1.75rem; }
       .schedule-grid { grid-template-columns: 1fr 1fr; }
       .interval-grid { grid-template-columns: 1fr 1fr; }
+      .skill-pair { gap: var(--space-1); }
+      .skill-pair-item { gap: var(--space-1); padding: var(--space-1) var(--space-2); }
     }
 
     @media (max-width: 390px) {
@@ -1054,10 +1057,27 @@ function langNext(){
       $('hiddenList').innerHTML=HIDDEN_CLASSES.map((c,i)=>{
         const exp=expandedSet.has(c.className);
         const tags=c.tags.map(t=>'<span class="class-tag '+t+'">'+ht(t)+'</span>').join('');
-        const pairs=c.pairs.map(p=>'<div class="skill-pair">'+p.skills.map(s=>'<span class="skill-pair-item skill-pair-'+s.type+'"><img src="assets/'+s.type.toLowerCase()+'.png" alt="" class="hc-type-icon"> '+ht(s.name)+'</span>').join('')+'</div>').join('');
+        const pairs=c.pairs.map(p=>'<div class="skill-pair">'+p.skills.map(s=>'<span class="skill-pair-item skill-pair-'+s.type+'"><img src="assets/'+s.type.toLowerCase()+'.png" alt="" class="hc-type-icon"><span class="skill-pair-name">'+ht(s.name)+'</span></span>').join('')+'</div>').join('');
         const mils=c.milestones.map(m=>'<div class="milestone-item"><span class="milestone-lvl">'+m.lvl+'</span><span class="milestone-desc">'+ht(m.desc).replace(/(\+\d+(?:\.\d+)?%?)/g,'<span class="stat-val">$1</span>')+'</span></div>').join('');
         return '<div class="class-card'+(exp?' expanded':'')+'" tabindex="0" aria-expanded="'+exp+'" data-key="'+c.className+'"><div class="class-card-header"><div class="class-icon"><img src="assets/'+c.className+'.png" alt="" class="class-icon-img"></div><div class="class-title-group"><span class="class-name">'+ht(c.className)+'</span><div class="class-tags">'+tags+'</div></div><span class="class-toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div><div class="class-card-body"><div class="skill-block"><div class="skill-block-label">'+ht(c.skillName)+'</div><div class="skill-block-text">'+ht(c.skill)+'</div></div><div class="skill-pairs">'+pairs+'</div><div class="milestones"><div class="milestone-title">Milestones</div><div class="milestone-list">'+mils+'</div></div></div></div>';
       }).join('');
+      fitPairTexts();
+    }
+
+    function fitPairTexts(){
+      document.querySelectorAll('#hiddenList .skill-pair-name').forEach(n=>{
+        const item=n.closest('.skill-pair-item');
+        const w=n.clientWidth;
+        if(!w) return;
+        const tx=n.style.transition,ix=item.style.transition;
+        n.style.transition='none';item.style.transition='none';
+        n.style.fontSize='';
+        if(n.scrollWidth>w){
+          let fs=parseFloat(getComputedStyle(n).fontSize);
+          while(fs>10&&n.scrollWidth>w){fs=Math.max(10,fs-0.5);n.style.fontSize=fs+'px';}
+        }
+        n.style.transition=tx;item.style.transition=ix;
+      });
     }
 
     const $=(id)=>document.getElementById(id);
@@ -1078,6 +1098,7 @@ function langNext(){
       const card=hdr.closest('.class-card');
       card.classList.toggle('expanded');
       card.setAttribute('aria-expanded',card.classList.contains('expanded'));
+      fitPairTexts();
     });
 
     document.addEventListener('keydown',(e)=>{
@@ -1087,7 +1108,11 @@ function langNext(){
       e.preventDefault();
       card.classList.toggle('expanded');
       card.setAttribute('aria-expanded',card.classList.contains('expanded'));
+      fitPairTexts();
     });
+
+    let fitTimer;
+    window.addEventListener('resize',()=>{clearTimeout(fitTimer);fitTimer=setTimeout(fitPairTexts,150);});
 
     let currentView='interval';
     const segBtns=document.querySelectorAll('.segmented .seg-btn');
