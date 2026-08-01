@@ -379,7 +379,7 @@
     .hidden-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: var(--space-4); align-content: start; }
     .class-card { display: flex; flex-direction: column; border-radius: var(--radius-2xl); background: var(--glass-bg); border: 1px solid var(--glass-border); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); overflow: hidden; transition: all var(--duration-slow) var(--ease-smooth); box-shadow: var(--shadow-md); }
     .class-card:hover { border-color: var(--glass-border-strong); box-shadow: var(--shadow-xl), 0 0 32px rgba(139, 92, 246, 0.12); }
-    .class-card-header { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4); border-bottom: 1px solid var(--glass-border); background: linear-gradient(135deg, rgba(255,255,255,0.03), transparent); }
+    .class-card-header { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4); border-bottom: 1px solid var(--glass-border); background: linear-gradient(135deg, rgba(255,255,255,0.03), transparent); flex-wrap: wrap; }
     .class-icon { width: 3.5rem; height: 3.5rem; border-radius: var(--radius-lg); overflow: hidden; background: var(--void-600); border: 1px solid var(--glass-border-strong); box-shadow: var(--shadow-md); flex-shrink: 0; }
     .class-icon img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--duration-slow) var(--ease-spring); }
     .class-card:hover .class-icon img { transform: scale(1.08); }
@@ -387,8 +387,8 @@
     .class-toggle { display: none; flex-shrink: 0; color: var(--text-tertiary); margin-left: auto; }
     .class-toggle svg { width: 1rem; height: 1rem; stroke-width: 2; }
     .class-name { font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; color: var(--text-primary); letter-spacing: 0.01em; line-height: 1.2; }
-    .class-tags { display: flex; flex-wrap: wrap; gap: var(--space-1); }
-    .class-tag { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm); background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); }
+    .class-tags { display: flex; flex-wrap: nowrap; gap: var(--space-1); min-width: 0; overflow: hidden; }
+    .class-tag { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm); background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); white-space: nowrap; flex-shrink: 0; }
     .class-tag.Combat { color: #e24d48; border-color: rgba(226,77,72,0.25); }
     .class-tag.Recon { color: #b56dd8; border-color: rgba(181,109,216,0.25); }
     .class-tag.Defense { color: #56c4c5; border-color: rgba(86,196,197,0.25); }
@@ -476,11 +476,11 @@
       .dashboard-grid > .panel:last-child { display: none; }
       .hidden-page.active { overflow-y: auto; }
       .hidden-scroll { flex: none; overflow: visible; }
-      .class-card-header { flex-direction: row; align-items: center; cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent; }
+      .class-card-header { flex-direction: row; align-items: center; cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent; flex-wrap: wrap; }
       .class-title-group { flex: 1; min-width: 0; }
       .class-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
       .class-toggle { display: inline-flex; transition: transform var(--duration-normal) var(--ease-smooth); }
-      .class-tags { display: none; }
+      .class-tags { display: none; flex: 1 0 100%; order: 1; }
       .class-card.expanded .class-tags { display: flex; }
       .class-card-body { display: none; }
       .class-card.expanded .class-card-body { display: flex; }
@@ -503,6 +503,8 @@
       .interval-grid { grid-template-columns: 1fr 1fr; }
       .skill-pair { gap: var(--space-1); }
       .skill-pair-item { gap: var(--space-1); padding: var(--space-1) var(--space-2); }
+      .class-tag { padding: 1px 4px; letter-spacing: 0; }
+      .class-tags { gap: 1px; }
     }
 
     @media (max-width: 390px) {
@@ -1056,12 +1058,31 @@ function langNext(){
       const expandedSet=new Set([...document.querySelectorAll('.class-card.expanded')].map(c=>c.dataset.key));
       $('hiddenList').innerHTML=HIDDEN_CLASSES.map((c,i)=>{
         const exp=expandedSet.has(c.className);
-        const tags=c.tags.map(t=>'<span class="class-tag '+t+'">'+ht(t)+'</span>').join('');
+        const typeSet=new Set(c.tags);
+        c.pairs.forEach(p=>p.skills.forEach(s=>typeSet.add(s.type)));
+        const tags=[...typeSet].map(t=>'<span class="class-tag '+t+'">'+ht(t)+'</span>').join('');
         const pairs=c.pairs.map(p=>'<div class="skill-pair">'+p.skills.map(s=>'<span class="skill-pair-item skill-pair-'+s.type+'"><img src="assets/'+s.type.toLowerCase()+'.png" alt="" class="hc-type-icon"><span class="skill-pair-name">'+ht(s.name)+'</span></span>').join('')+'</div>').join('');
         const mils=c.milestones.map(m=>'<div class="milestone-item"><span class="milestone-lvl">'+m.lvl+'</span><span class="milestone-desc">'+ht(m.desc).replace(/(\+\d+(?:\.\d+)?%?)/g,'<span class="stat-val">$1</span>')+'</span></div>').join('');
-        return '<div class="class-card'+(exp?' expanded':'')+'" tabindex="0" aria-expanded="'+exp+'" data-key="'+c.className+'"><div class="class-card-header"><div class="class-icon"><img src="assets/'+c.className+'.png" alt="" class="class-icon-img"></div><div class="class-title-group"><span class="class-name">'+ht(c.className)+'</span><div class="class-tags">'+tags+'</div></div><span class="class-toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div><div class="class-card-body"><div class="skill-block"><div class="skill-block-label">'+ht(c.skillName)+'</div><div class="skill-block-text">'+ht(c.skill)+'</div></div><div class="skill-pairs">'+pairs+'</div><div class="milestones"><div class="milestone-title">Milestones</div><div class="milestone-list">'+mils+'</div></div></div></div>';
+        return '<div class="class-card'+(exp?' expanded':'')+'" tabindex="0" aria-expanded="'+exp+'" data-key="'+c.className+'"><div class="class-card-header"><div class="class-icon"><img src="assets/'+c.className+'.png" alt="" class="class-icon-img"></div><div class="class-title-group"><span class="class-name">'+ht(c.className)+'</span></div><div class="class-tags">'+tags+'</div><span class="class-toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div><div class="class-card-body"><div class="skill-block"><div class="skill-block-label">'+ht(c.skillName)+'</div><div class="skill-block-text">'+ht(c.skill)+'</div></div><div class="skill-pairs">'+pairs+'</div><div class="milestones"><div class="milestone-title">Milestones</div><div class="milestone-list">'+mils+'</div></div></div></div>';
       }).join('');
       fitPairTexts();
+      fitTagTexts();
+    }
+
+    function fitTagTexts(){
+      document.querySelectorAll('#hiddenList .class-tags').forEach(row=>{
+        const w=row.clientWidth;
+        if(!w) return;
+        const tags=[...row.children];
+        tags.forEach(t=>t.style.fontSize='');
+        if(row.scrollWidth>w){
+          let fs=parseFloat(getComputedStyle(tags[0]).fontSize);
+          while(fs>7&&row.scrollWidth>w){
+            fs=Math.max(7,fs-0.5);
+            tags.forEach(t=>t.style.fontSize=fs+'px');
+          }
+        }
+      });
     }
 
     function fitPairTexts(){
@@ -1099,6 +1120,7 @@ function langNext(){
       card.classList.toggle('expanded');
       card.setAttribute('aria-expanded',card.classList.contains('expanded'));
       fitPairTexts();
+      fitTagTexts();
     });
 
     document.addEventListener('keydown',(e)=>{
@@ -1109,10 +1131,11 @@ function langNext(){
       card.classList.toggle('expanded');
       card.setAttribute('aria-expanded',card.classList.contains('expanded'));
       fitPairTexts();
+      fitTagTexts();
     });
 
     let fitTimer;
-    window.addEventListener('resize',()=>{clearTimeout(fitTimer);fitTimer=setTimeout(fitPairTexts,150);});
+    window.addEventListener('resize',()=>{clearTimeout(fitTimer);fitTimer=setTimeout(()=>{fitPairTexts();fitTagTexts();},150);});
 
     let currentView='interval';
     const segBtns=document.querySelectorAll('.segmented .seg-btn');
