@@ -282,6 +282,8 @@
     .hero-name { font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 700; letter-spacing: 0.02em; color: var(--text-primary); line-height: 1.1; text-shadow: 0 2px 20px rgba(0,0,0,0.4); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .hero-meta { display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; }
     .hero-lv { font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); background: rgba(255,255,255,0.05); padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm); border: 1px solid var(--glass-border); }
+    .hero-loc { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); background: rgba(255,255,255,0.05); padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm); border: 1px solid var(--glass-border); min-width: 0; max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .hero-loc svg { width: 0.8rem; height: 0.8rem; stroke-width: 2; color: var(--electric-cyan-dim); flex-shrink: 0; }
     .hero-tag { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm); }
     .hero-tag.interval { color: var(--electric-cyan); background: rgba(34, 211, 238, 0.08); border: 1px solid rgba(34, 211, 238, 0.18); box-shadow: 0 0 12px rgba(34, 211, 238, 0.08); }
     .hero-tag.scheduled { color: var(--astral-purple); background: rgba(139, 92, 246, 0.08); border: 1px solid rgba(139, 92, 246, 0.18); box-shadow: 0 0 12px rgba(139, 92, 246, 0.08); }
@@ -575,6 +577,7 @@
           <h1 class="hero-name" id="nextName">--</h1>
           <div class="hero-meta">
             <span class="hero-lv" id="nextLv"></span>
+            <span class="hero-loc" id="nextLoc"></span>
             <span class="hero-tag" id="nextTag"></span>
           </div>
           <div class="hero-at" id="nextAt"></div>
@@ -691,6 +694,12 @@
   {id:"Lucus",name:"Lucus",lvl:145,wr:[{d:6,h:23,m:0}]}
 ];;
 
+    const LOCS={
+  en:{Venatus:"Corrupted River Stream",Viorent:"Gill Stream",Ego:"Reclaimed Gathering Point",Clemantis:"White Witch's Cradle",Livera:"Black Storm Peninsula",Araneo:"Lower Tomb of Tyriosa 1F",Undomiel:"Test Subject Lab",Saphirus:"Moonlight Shackle",Neutro:"Battlefield of Love and Hatred",LadyDalia:"Bloody Shadow",GeneralAquleus:"Lower Tomb of Tyriosa 2F",Thymele:"Mark of Rampage",Amentis:"Limestone Cape",BaronBraudmore:"Rosevine Bridge",Milavy:"Lower Tomb of Tyriosa 3F",Wannitas:"Snare Swamp",Metus:"Follower's Field",Duplican:"Open-Eyed Puppet's Throne",Shuliar:"Masquerade of Hounds",Ringor:"Torchlight Highway",Roderick:"Garbana Underground Waterway 1F",Gareth:"Deadman's Land District 1",Titore:"Deadman's Land District 2",Larba:"Garbana Reclaimed Land",Catena:"Deadman's Land District 3",Auraq:"Garbana Underground Waterway 2F",Secreta:"Kallion's Tomb",Ordo:"Successor's Paradise",Asta:"Goldblood Plain",Supore:"Goldblood Plain",Chaiflock:"Kallion's Tomb",Benji:"Nest of Vengeance",Libitina:"Chapel of Eternal Vassalage",Rakajeth:"Secreta's Punishment",Icaruthia:"Royal Valley",Motti:"Evelyn's Outer Court",Camalia:"Controlled Laboratory",Nevaeh:"Celine's Courtyard",Tumier:"Garbana Underground Waterway 3F",Lucus:"Silent Smelter"},
+  ja:{Venatus:"汚染された川の流れ",Viorent:"ギルの小川",Ego:"奪還された集結地点",Clemantis:"白魔女のゆりかご",Livera:"黒嵐の半島",Araneo:"ティリオサ地下墓所1F",Undomiel:"実験体研究所",Saphirus:"月光の束縛",Neutro:"愛憎の戦場",LadyDalia:"血染めの影",GeneralAquleus:"ティリオサ地下墓所2F",Thymele:"暴走の刻印",Amentis:"石灰岩の岬",BaronBraudmore:"薔薇蔦の橋",Milavy:"ティリオサ地下墓所3F",Wannitas:"罠の沼",Metus:"追従者の野原",Duplican:"開眼の人形の玉座",Shuliar:"猟犬の仮面舞踏会",Ringor:"松明の街道",Roderick:"ガルバナ地下水路1F",Gareth:"死者の地 第1区域",Titore:"死者の地 第2区域",Larba:"ガルバナ奪還地",Catena:"死者の地 第3区域",Auraq:"ガルバナ地下水路2F",Secreta:"カリオンの墓",Ordo:"継承者の楽園",Asta:"黄金血の平原",Supore:"黄金血の平原",Chaiflock:"カリオンの墓",Benji:"復讐の巣",Libitina:"永遠の臣従の礼拝堂",Rakajeth:"セクレタの刑罰",Icaruthia:"王族の谷",Motti:"エブリンの外庭",Camalia:"管理された研究所",Nevaeh:"セリーヌの中庭",Tumier:"ガルバナ地下水路3F",Lucus:"静寂の精錬所"},
+  ko:{Venatus:"오염된 강줄기",Viorent:"길의 시냇물",Ego:"탈환된 집결지",Clemantis:"백마녀의 요람",Livera:"검은 폭풍의 반도",Araneo:"티리오사 지하묘지 1층",Undomiel:"실험체 연구소",Saphirus:"달빛의 속박",Neutro:"애증의 전장",LadyDalia:"핏빛 그림자",GeneralAquleus:"티리오사 지하묘지 2층",Thymele:"폭주의 낙인",Amentis:"석회암 곶",BaronBraudmore:"장미넝쿨 다리",Milavy:"티리오사 지하묘지 3층",Wannitas:"덫의 늪",Metus:"추종자의 들판",Duplican:"눈을 뜬 인형의 옥좌",Shuliar:"사냥개의 가면무도회",Ringor:"횃불의 가도",Roderick:"가르바나 지하수로 1층",Gareth:"죽은 자의 땅 제1구역",Titore:"죽은 자의 땅 제2구역",Larba:"가르바나 탈환지",Catena:"죽은 자의 땅 제3구역",Auraq:"가르바나 지하수로 2층",Secreta:"칼리온의 무덤",Ordo:"계승자의 낙원",Asta:"황금피의 평원",Supore:"황금피의 평원",Chaiflock:"칼리온의 무덤",Benji:"복수의 둥지",Libitina:"영원한 신종의 예배당",Rakajeth:"세크레타의 형벌",Icaruthia:"왕족의 계곡",Motti:"에블린의 외정",Camalia:"통제된 연구소",Nevaeh:"셀린의 안뜰",Tumier:"가르바나 지하수로 3층",Lucus:"침묵의 제련소"}
+};;
+
     const TO=9*3600000;;
 
     const LANG={
@@ -702,6 +711,7 @@
     let lang='en';
 function t(k){return LANG[lang][k]||k}
 function bn(b){const i=BOSSES.indexOf(b);return LANG[lang].nm[i]||b.name}
+function locOf(id){return (LOCS[lang]&&LOCS[lang][id])||LOCS.en[id]||''}
 function koParticle(n,t){const c=n.charCodeAt(n.length-1),b=(c-0xAC00)%28!==0;const p={subj:['이','가'],obj:['을','를'],top:['은','는']};return b?p[t][0]:p[t][1]}
 function langNext(){
   const ls=['en','ja','ko'];
@@ -839,6 +849,7 @@ function langNext(){
       for(const b of BOSSES){const n=nextSpawn(b);if(n&&n.getTime()>cn&&(!bs||n.getTime()<bs.getTime())){bs=n;bb=b}}
       if(bb&&bs){
         $('nextName').textContent=bn(bb);$('nextLv').textContent=t('lv')+bb.lvl;
+        $('nextLoc').textContent=locOf(bb.id);
         const isInt=!!bb.rs;$('nextTag').textContent=isInt?t('ivTag'):t('schedTag');
         $('nextTag').className='hero-tag '+(isInt?'interval':'scheduled');
         $('nextAt').textContent=fmtT(bs.getTime())+' '+fmtD(bs.getTime());
@@ -846,7 +857,7 @@ function langNext(){
         const im=$('heroBossImg'),url='assets/'+bb.id+'.png';
         if(im.src!==url){im.style.opacity=0;im.onload=()=>{im.style.opacity=1};im.src=url}
       }else if(!nxtBoss||(nxtTime&&nxtTime.getTime()>cn)){
-        $('nextName').textContent='--';$('nextLv').textContent='';$('nextTag').textContent='';$('nextAt').textContent='';nxtBoss=null;nxtTime=null;
+        $('nextName').textContent='--';$('nextLv').textContent='';$('nextLoc').textContent='';$('nextTag').textContent='';$('nextAt').textContent='';nxtBoss=null;nxtTime=null;
         $('heroBossImg').style.opacity=0;
       }
     }
