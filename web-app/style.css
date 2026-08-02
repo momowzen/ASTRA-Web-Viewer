@@ -417,6 +417,10 @@
 
     .hc-nav { display: none; }
 
+    .ptr-indicator { position: fixed; top: -64px; left: 50%; transform: translateX(-50%); width: 2.5rem; height: 2.5rem; border-radius: 50%; border: 3px solid rgba(139, 92, 246, 0.25); border-top-color: var(--astral-purple); background: var(--glass-bg); box-shadow: var(--shadow-lg); opacity: 0; transition: opacity var(--duration-fast) var(--ease-smooth); pointer-events: none; z-index: 60; }
+    .ptr-indicator.loading { animation: ptr-spin 0.7s linear infinite; }
+    @keyframes ptr-spin { to { transform: translateX(-50%) rotate(360deg); } }
+
     @media (min-width: 901px) {
       .hidden-scroll { overflow: hidden; padding: var(--space-2) 3.5rem; }
       .hidden-grid { display: flex; flex-wrap: nowrap; gap: var(--space-4); height: 100%; }
