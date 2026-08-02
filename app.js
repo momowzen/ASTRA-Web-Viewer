@@ -452,6 +452,7 @@ function langNext(){
         return '<div class="class-card'+(exp?' expanded':'')+'" tabindex="0" aria-expanded="'+exp+'" data-key="'+c.className+'"><div class="class-card-header"><div class="class-icon"><img src="assets/'+c.className+'.png" alt="" class="class-icon-img" loading="lazy" decoding="async"></div><div class="class-title-group"><span class="class-name">'+ht(c.className)+'</span></div><span class="class-toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div><div class="class-card-body"><div class="skill-block"><div class="skill-block-label">'+ht(c.skillName)+'</div><div class="skill-block-text">'+ht(c.skill)+'</div></div><div class="skill-pairs">'+pairs+'</div><div class="milestones"><div class="milestone-title">Milestones</div><div class="milestone-list">'+mils+'</div></div></div></div>';
       }).join('');
       fitPairTexts();
+      updateHC();
     }
 
     function fitPairTexts(){
@@ -480,6 +481,7 @@ function langNext(){
       btn.classList.add('active');
       document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
       $('page'+(btn.dataset.page==='tracker'?'Tracker':'Hidden')).classList.add('active');
+      requestAnimationFrame(updateHC);
     });
 
     document.addEventListener('click',(e)=>{
@@ -502,8 +504,21 @@ function langNext(){
     });
 
     let fitTimer;
-    window.addEventListener('resize',()=>{clearTimeout(fitTimer);fitTimer=setTimeout(()=>{fitPairTexts();},150);});
+    window.addEventListener('resize',()=>{clearTimeout(fitTimer);fitTimer=setTimeout(()=>{fitPairTexts();updateHC();},150);});
     if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{fitPairTexts()});
+
+    function updateHC(){
+      const sc=$('hiddenScroll'),prev=$('hcPrev'),next=$('hcNext');
+      if(!sc||window.innerWidth<=900)return;
+      const max=Math.max(0,sc.scrollWidth-sc.clientWidth);
+      if(prev)prev.disabled=sc.scrollLeft<=1;
+      if(next)next.disabled=sc.scrollLeft>=max-1;
+    }
+    const hcPrev=$('hcPrev'),hcNext=$('hcNext');
+    if(hcPrev)hcPrev.onclick=()=>{const sc=$('hiddenScroll');sc.scrollTo({left:Math.max(0,sc.scrollLeft-sc.clientWidth),behavior:'smooth'});setTimeout(updateHC,650)};
+    if(hcNext)hcNext.onclick=()=>{const sc=$('hiddenScroll');sc.scrollTo({left:Math.min(sc.scrollWidth-sc.clientWidth,sc.scrollLeft+sc.clientWidth),behavior:'smooth'});setTimeout(updateHC,650)};
+    const hiddenScroll=$('hiddenScroll');
+    if(hiddenScroll)hiddenScroll.addEventListener('scroll',updateHC);
 
     let currentView='interval';
     const segBtns=document.querySelectorAll('.segmented .seg-btn');

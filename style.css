@@ -368,7 +368,7 @@
     .interval-row-time.live { color: var(--alive-green); text-shadow: 0 0 10px var(--alive-green-glow); }
     .interval-row-time.na { color: var(--text-tertiary); }
 
-    .hidden-page { gap: 0; overflow: hidden; }
+    .hidden-page { gap: 0; overflow: hidden; position: relative; }
     .hidden-scroll { flex: 1; min-height: 0; overflow-y: auto; padding: var(--space-1); overscroll-behavior: contain; }
     .hidden-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: var(--space-4); align-content: start; }
     .class-card { display: flex; flex-direction: column; border-radius: var(--radius-2xl); background: var(--glass-bg); border: 1px solid var(--glass-border); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); overflow: hidden; transition: border-color var(--duration-slow) var(--ease-smooth), box-shadow var(--duration-slow) var(--ease-smooth); box-shadow: var(--shadow-md); content-visibility: auto; contain-intrinsic-size: auto 100px; }
@@ -414,6 +414,35 @@
     .milestone-desc { font-size: 0.75rem; color: var(--text-secondary); line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
     .milestone-item:last-child .milestone-desc { -webkit-line-clamp: 6; }
     .milestone-desc .stat-val { color: var(--electric-cyan); font-weight: 600; }
+
+    .hc-nav { display: none; }
+
+    @media (min-width: 901px) {
+      .hidden-scroll { overflow: hidden; padding: var(--space-2) 3.5rem; }
+      .hidden-grid { display: flex; flex-wrap: nowrap; gap: var(--space-4); height: 100%; }
+      .class-card { flex: 1 0 calc(50% - var(--space-2)); min-width: 0; }
+      .class-card-header { padding: var(--space-3) var(--space-4); }
+      .class-icon { width: 3rem; height: 3rem; }
+      .class-card-body { padding: var(--space-3); gap: var(--space-2); overflow: hidden; }
+      .skill-block { padding: var(--space-2); }
+      .skill-block-text { font-size: 0.8rem; min-height: 2.6em; -webkit-line-clamp: 2; }
+      .skill-pair { gap: var(--space-2); }
+      .skill-pair-item { gap: var(--space-1); padding: var(--space-1) var(--space-2); font-size: 0.75rem; }
+      .skill-pair-item img { width: 1rem; height: 1rem; }
+      .milestone-list { gap: 6px; }
+      .milestone-item { min-height: 44px; padding: 5px 10px; }
+      .milestone-item:last-child { min-height: 44px; }
+      .milestone-lvl { font-size: 0.6rem; padding: 2px 6px; min-width: 1.9rem; }
+      .milestone-desc { font-size: 0.65rem; line-height: 1.35; -webkit-line-clamp: 2; }
+      .milestone-item:last-child .milestone-desc { -webkit-line-clamp: 3; }
+      .hc-nav { display: inline-flex; align-items: center; justify-content: center; position: absolute; top: 50%; transform: translateY(-50%); width: 2.75rem; height: 2.75rem; border-radius: 50%; background: var(--glass-bg); border: 1px solid var(--glass-border-strong); box-shadow: var(--shadow-lg), 0 0 24px rgba(139, 92, 246, 0.15); color: var(--text-primary); cursor: pointer; z-index: 5; transition: transform var(--duration-fast) var(--ease-smooth), opacity var(--duration-fast) var(--ease-smooth), box-shadow var(--duration-fast) var(--ease-smooth); }
+      .hc-nav svg { width: 1.25rem; height: 1.25rem; stroke-width: 2.5; }
+      .hc-nav:hover { transform: translateY(-50%) scale(1.08); box-shadow: var(--shadow-xl), 0 0 32px rgba(139, 92, 246, 0.25); }
+      .hc-nav:active { transform: translateY(-50%) scale(0.94); }
+      .hc-nav.prev { left: var(--space-2); }
+      .hc-nav.next { right: var(--space-2); }
+      .hc-nav[disabled] { opacity: 0.3; pointer-events: none; }
+    }
 
     .status-bar { flex-shrink: 0; display: flex; align-items: center; justify-content: center; gap: var(--space-2); padding: var(--space-2) var(--space-4); font-size: 0.7rem; font-weight: 500; color: var(--text-tertiary); text-align: center; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: var(--radius-full); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
     .status-bar svg { width: 0.85rem; height: 0.85rem; stroke-width: 2.5; opacity: 0.7; }
