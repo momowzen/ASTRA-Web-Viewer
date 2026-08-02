@@ -456,32 +456,6 @@ function langNext(){
       }).join('');
       fitPairTexts();
       fitTagTexts();
-      fitMilestoneDescs();
-    }
-
-    function fitMilestoneDescs(){
-      const items=[...document.querySelectorAll('#hiddenList .milestone-item:last-child')];
-      if(!items.length)return;
-      items.forEach(it=>{const d=it.querySelector('.milestone-desc');if(d)d.style.fontSize='';});
-      for(let pass=0;pass<4;pass++){
-        const counts={};
-        for(const it of items){const k=Math.round(it.offsetHeight);counts[k]=counts[k]?counts[k]+1:1;}
-        let target=null,maxCount=0;
-        for(const k in counts){if(counts[k]>maxCount){maxCount=counts[k];target=parseFloat(k)}}
-        let changed=false;
-        for(const it of items){
-          const ih=it.offsetHeight;
-          if(ih<=target+0.5)continue;
-          const d=it.querySelector('.milestone-desc');
-          const dh=d.offsetHeight;
-          if(!dh)continue;
-          const fs=parseFloat(getComputedStyle(d).fontSize);
-          if(fs<=9)continue;
-          d.style.fontSize=Math.max(9,Math.round(fs*Math.max(0.5,(target-(ih-dh))/dh)*10)/10)+'px';
-          changed=true;
-        }
-        if(!changed)break;
-      }
     }
 
     function fitTagTexts(){
@@ -490,17 +464,12 @@ function langNext(){
         if(!w) return;
         const tags=[...row.children];
         tags.forEach(t=>t.style.fontSize='');
-        row.classList.remove('tags-overflow','tags-tight');
         if(row.scrollWidth>w){
-          row.classList.add('tags-tight');
           let fs=parseFloat(getComputedStyle(tags[0]).fontSize);
-          while(fs>7&&row.scrollWidth>w-1){
+          while(fs>7&&row.scrollWidth>w){
             fs=Math.max(7,fs-0.5);
             tags.forEach(t=>t.style.fontSize=fs+'px');
           }
-          const rr=row.getBoundingClientRect();
-          const lr=tags[tags.length-1].getBoundingClientRect();
-          if(lr.right>rr.right+0.5)row.classList.add('tags-overflow');
         }
       });
     }
@@ -515,7 +484,7 @@ function langNext(){
         n.style.fontSize='';
         if(n.scrollWidth>w){
           let fs=parseFloat(getComputedStyle(n).fontSize);
-          while(fs>10&&n.scrollWidth>w-1){fs=Math.max(10,fs-0.5);n.style.fontSize=fs+'px';}
+          while(fs>10&&n.scrollWidth>w){fs=Math.max(10,fs-0.5);n.style.fontSize=fs+'px';}
         }
         n.style.transition=tx;item.style.transition=ix;
       });
@@ -531,7 +500,6 @@ function langNext(){
       btn.classList.add('active');
       document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
       $('page'+(btn.dataset.page==='tracker'?'Tracker':'Hidden')).classList.add('active');
-      requestAnimationFrame(()=>{fitPairTexts();fitTagTexts()});
     });
 
     document.addEventListener('click',(e)=>{
@@ -542,7 +510,6 @@ function langNext(){
       card.setAttribute('aria-expanded',card.classList.contains('expanded'));
       fitPairTexts();
       fitTagTexts();
-      fitMilestoneDescs();
     });
 
     document.addEventListener('keydown',(e)=>{
@@ -554,12 +521,11 @@ function langNext(){
       card.setAttribute('aria-expanded',card.classList.contains('expanded'));
       fitPairTexts();
       fitTagTexts();
-      fitMilestoneDescs();
     });
 
     let fitTimer;
-    window.addEventListener('resize',()=>{clearTimeout(fitTimer);fitTimer=setTimeout(()=>{fitPairTexts();fitTagTexts();fitMilestoneDescs();},150);});
-    if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{fitPairTexts();fitTagTexts();fitMilestoneDescs()});
+    window.addEventListener('resize',()=>{clearTimeout(fitTimer);fitTimer=setTimeout(()=>{fitPairTexts();fitTagTexts();},150);});
+    if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{fitPairTexts();fitTagTexts()});
 
     let currentView='interval';
     const segBtns=document.querySelectorAll('.segmented .seg-btn');

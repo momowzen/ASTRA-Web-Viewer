@@ -382,9 +382,6 @@
     .class-toggle svg { width: 1rem; height: 1rem; stroke-width: 2; }
     .class-name { font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; color: var(--text-primary); letter-spacing: 0.01em; line-height: 1.2; }
     .class-tags { display: flex; flex-wrap: nowrap; gap: var(--space-1); min-width: 0; overflow: hidden; }
-    .class-tags.tags-tight { gap: 1px; }
-    .class-tags.tags-tight .class-tag { padding: 1px 4px; letter-spacing: 0; }
-    .class-tags.tags-overflow { flex-wrap: wrap; overflow: visible; }
     .class-tag { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm); background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); white-space: nowrap; flex-shrink: 0; }
     .class-tag.Combat { color: #e24d48; border-color: rgba(226,77,72,0.25); }
     .class-tag.Recon { color: #b56dd8; border-color: rgba(181,109,216,0.25); }
