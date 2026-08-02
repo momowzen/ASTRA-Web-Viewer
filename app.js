@@ -456,15 +456,32 @@ function langNext(){
       }).join('');
       fitPairTexts();
       fitTagTexts();
-      measureMilestones();
+      fitMilestoneDescs();
     }
 
-    function measureMilestones(){
-      const list=document.getElementById('hiddenList');
-      if(!list||!list.querySelector('.milestone-item'))return;
-      let max=0;
-      for(const m of list.querySelectorAll('.milestone-item')){const h=m.offsetHeight;if(h>max)max=h}
-      if(max)list.style.setProperty('--milestone-h',Math.ceil(max)+'px');
+    function fitMilestoneDescs(){
+      const items=[...document.querySelectorAll('#hiddenList .milestone-item:last-child')];
+      if(!items.length)return;
+      items.forEach(it=>{const d=it.querySelector('.milestone-desc');if(d)d.style.fontSize='';});
+      for(let pass=0;pass<4;pass++){
+        const counts={};
+        for(const it of items){const k=Math.round(it.offsetHeight);counts[k]=counts[k]?counts[k]+1:1;}
+        let target=null,maxCount=0;
+        for(const k in counts){if(counts[k]>maxCount){maxCount=counts[k];target=parseFloat(k)}}
+        let changed=false;
+        for(const it of items){
+          const ih=it.offsetHeight;
+          if(ih<=target+0.5)continue;
+          const d=it.querySelector('.milestone-desc');
+          const dh=d.offsetHeight;
+          if(!dh)continue;
+          const fs=parseFloat(getComputedStyle(d).fontSize);
+          if(fs<=9)continue;
+          d.style.fontSize=Math.max(9,Math.round(fs*Math.max(0.5,(target-(ih-dh))/dh)*10)/10)+'px';
+          changed=true;
+        }
+        if(!changed)break;
+      }
     }
 
     function fitTagTexts(){
@@ -525,7 +542,7 @@ function langNext(){
       card.setAttribute('aria-expanded',card.classList.contains('expanded'));
       fitPairTexts();
       fitTagTexts();
-      measureMilestones();
+      fitMilestoneDescs();
     });
 
     document.addEventListener('keydown',(e)=>{
@@ -537,12 +554,12 @@ function langNext(){
       card.setAttribute('aria-expanded',card.classList.contains('expanded'));
       fitPairTexts();
       fitTagTexts();
-      measureMilestones();
+      fitMilestoneDescs();
     });
 
     let fitTimer;
-    window.addEventListener('resize',()=>{clearTimeout(fitTimer);fitTimer=setTimeout(()=>{fitPairTexts();fitTagTexts();measureMilestones();},150);});
-    if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{fitPairTexts();fitTagTexts();measureMilestones()});
+    window.addEventListener('resize',()=>{clearTimeout(fitTimer);fitTimer=setTimeout(()=>{fitPairTexts();fitTagTexts();fitMilestoneDescs();},150);});
+    if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{fitPairTexts();fitTagTexts();fitMilestoneDescs()});
 
     let currentView='interval';
     const segBtns=document.querySelectorAll('.segmented .seg-btn');
