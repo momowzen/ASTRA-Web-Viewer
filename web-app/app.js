@@ -529,12 +529,18 @@ function langNext(){
     if(hcNext)hcNext.onclick=()=>{const sc=$('hiddenScroll');sc.scrollTo({left:Math.min(sc.scrollWidth-sc.clientWidth,sc.scrollLeft+hcStep()),behavior:'smooth'});setTimeout(updateHC,650)};
     const hiddenScroll=$('hiddenScroll');
     if(hiddenScroll)hiddenScroll.addEventListener('scroll',updateHC);
+    let hcWheelLock=0;
     if(hiddenScroll)hiddenScroll.addEventListener('wheel',(e)=>{
       if(window.innerWidth<=900)return;
       const dy=Math.abs(e.deltaY),dx=Math.abs(e.deltaX);
       if(dy>dx){
         e.preventDefault();
-        hiddenScroll.scrollLeft+=e.deltaY*(e.deltaMode===1?16:1);
+        const now=Date.now();
+        if(now-hcWheelLock<700)return;
+        hcWheelLock=now;
+        const dir=e.deltaY>0?1:-1;
+        hiddenScroll.scrollTo({left:Math.min(Math.max(0,hiddenScroll.scrollLeft+dir*hcStep()),hiddenScroll.scrollWidth-hiddenScroll.clientWidth),behavior:'smooth'});
+        setTimeout(updateHC,650);
       }else if(dx>0&&e.deltaX!==0){
         e.preventDefault();
         hiddenScroll.scrollLeft+=e.deltaX*(e.deltaMode===1?16:1);
