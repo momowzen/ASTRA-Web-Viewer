@@ -514,9 +514,15 @@ function langNext(){
       if(prev)prev.disabled=sc.scrollLeft<=1;
       if(next)next.disabled=sc.scrollLeft>=max-1;
     }
+    function hcStep(){
+      const sc=$('hiddenScroll'),grid=document.querySelector('.hidden-grid');
+      if(!sc||!grid)return sc?sc.clientWidth:0;
+      const cs=getComputedStyle(sc),gs=getComputedStyle(grid);
+      return sc.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight)+parseFloat(gs.columnGap||'0');
+    }
     const hcPrev=$('hcPrev'),hcNext=$('hcNext');
-    if(hcPrev)hcPrev.onclick=()=>{const sc=$('hiddenScroll');sc.scrollTo({left:Math.max(0,sc.scrollLeft-sc.clientWidth),behavior:'smooth'});setTimeout(updateHC,650)};
-    if(hcNext)hcNext.onclick=()=>{const sc=$('hiddenScroll');sc.scrollTo({left:Math.min(sc.scrollWidth-sc.clientWidth,sc.scrollLeft+sc.clientWidth),behavior:'smooth'});setTimeout(updateHC,650)};
+    if(hcPrev)hcPrev.onclick=()=>{const sc=$('hiddenScroll');sc.scrollTo({left:Math.max(0,sc.scrollLeft-hcStep()),behavior:'smooth'});setTimeout(updateHC,650)};
+    if(hcNext)hcNext.onclick=()=>{const sc=$('hiddenScroll');sc.scrollTo({left:Math.min(sc.scrollWidth-sc.clientWidth,sc.scrollLeft+hcStep()),behavior:'smooth'});setTimeout(updateHC,650)};
     const hiddenScroll=$('hiddenScroll');
     if(hiddenScroll)hiddenScroll.addEventListener('scroll',updateHC);
 
