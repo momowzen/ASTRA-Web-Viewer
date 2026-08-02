@@ -489,8 +489,10 @@ function langNext(){
       if(!hdr) return;
       const card=hdr.closest('.class-card');
       card.classList.toggle('expanded');
-      card.setAttribute('aria-expanded',card.classList.contains('expanded'));
+      const expanded=card.classList.contains('expanded');
+      card.setAttribute('aria-expanded',expanded);
       fitPairTexts();
+      if(expanded&&window.innerWidth<=900)requestAnimationFrame(()=>card.scrollIntoView({behavior:'smooth',block:'center'}));
     });
 
     document.addEventListener('keydown',(e)=>{
@@ -499,8 +501,10 @@ function langNext(){
       if(!card) return;
       e.preventDefault();
       card.classList.toggle('expanded');
-      card.setAttribute('aria-expanded',card.classList.contains('expanded'));
+      const expanded=card.classList.contains('expanded');
+      card.setAttribute('aria-expanded',expanded);
       fitPairTexts();
+      if(expanded&&window.innerWidth<=900)requestAnimationFrame(()=>card.scrollIntoView({behavior:'smooth',block:'center'}));
     });
 
     let fitTimer;
