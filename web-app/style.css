@@ -381,16 +381,6 @@
     .class-toggle { display: none; flex-shrink: 0; color: var(--text-tertiary); margin-left: auto; }
     .class-toggle svg { width: 1rem; height: 1rem; stroke-width: 2; }
     .class-name { font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; color: var(--text-primary); letter-spacing: 0.01em; line-height: 1.2; }
-    .class-tags { display: flex; flex-wrap: nowrap; gap: var(--space-1); min-width: 0; overflow: hidden; }
-    .class-tag { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm); background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); white-space: nowrap; flex-shrink: 0; }
-    .class-tag.Combat { color: #e24d48; border-color: rgba(226,77,72,0.25); }
-    .class-tag.Recon { color: #b56dd8; border-color: rgba(181,109,216,0.25); }
-    .class-tag.Defense { color: #56c4c5; border-color: rgba(86,196,197,0.25); }
-    .class-tag.Spell { color: #4d87f5; border-color: rgba(77,135,245,0.25); }
-    .class-tag.Enhance { color: #d5a11d; border-color: rgba(213,161,29,0.25); }
-    .class-tag.Support { color: #b38b7a; border-color: rgba(179,139,122,0.25); }
-    .class-tag.Vitality { color: #6fc95e; border-color: rgba(111,201,94,0.25); }
-    .class-tag.Trick { color: #d3d40f; border-color: rgba(211,212,15,0.25); }
 
     .class-card-body { flex: 1; display: flex; flex-direction: column; gap: var(--space-3); padding: var(--space-4); }
     .skill-block { padding: var(--space-3); border-radius: var(--radius-lg); background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); transition: border-color var(--duration-normal) var(--ease-smooth), background-color var(--duration-normal) var(--ease-smooth); }
@@ -476,8 +466,6 @@
       .class-title-group { flex: 1; min-width: 0; }
       .class-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
       .class-toggle { display: inline-flex; transition: transform var(--duration-normal) var(--ease-smooth); }
-      .class-tags { display: none; flex: 1 0 100%; order: 1; }
-      .class-card.expanded .class-tags { display: flex; }
       .class-card-body { display: none; }
       .class-card.expanded .class-card-body { display: flex; }
       .class-card.expanded .class-toggle { transform: rotate(180deg); }
@@ -499,8 +487,6 @@
       .interval-grid { grid-template-columns: 1fr 1fr; }
       .skill-pair { gap: var(--space-1); }
       .skill-pair-item { gap: var(--space-1); padding: var(--space-1) var(--space-2); }
-      .class-tag { padding: 1px 4px; letter-spacing: 0; }
-      .class-tags { gap: 1px; }
     }
 
     @media (max-width: 390px) {
