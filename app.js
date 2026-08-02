@@ -87,6 +87,7 @@ function langNext(){
 
     const FLAGS={en:'EN',ja:'JA',ko:'KO'};
     function applyLang(){
+      fmtDCache.clear();fmtTCache.clear();
       document.title=t('brand');
       $('brand').querySelector('.brand-text').textContent=t('brand');
       $('nextLbl').textContent=t('nextSpawn');
@@ -141,7 +142,6 @@ function langNext(){
     }
     function ttsCheck(){
       if(!alarmOn||!window.speechSynthesis)return;
-      if(ttsSpoken.size>3000)ttsSpoken.clear();
       const n=now();
       for(const b of BOSSES){
         const tm=timers[b.id];
@@ -172,20 +172,18 @@ function langNext(){
     const fmtDCache=new Map(),fmtTCache=new Map();
     function fmt(ms){return new Date(ms).toLocaleString(LOC[lang],{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:lang==='en',timeZone:'Asia/Tokyo'})}
     function fmtD(ms){
-      const k=lang+'|'+Math.floor(ms/86400000);
+      const k=Math.floor(ms/86400000);
       const c=fmtDCache.get(k);
       if(c)return c;
       const v=new Date(ms).toLocaleDateString(LOC[lang],{month:'short',day:'numeric',timeZone:'Asia/Tokyo'});
-      if(fmtDCache.size>3000)fmtDCache.clear();
       fmtDCache.set(k,v);
       return v;
     }
     function fmtT(ms){
-      const k=lang+'|'+Math.floor(ms/60000);
+      const k=Math.floor(ms/60000);
       const c=fmtTCache.get(k);
       if(c)return c;
       const v=new Date(ms).toLocaleTimeString(LOC[lang],{hour:'2-digit',minute:'2-digit',hour12:lang==='en',timeZone:'Asia/Tokyo'});
-      if(fmtTCache.size>3000)fmtTCache.clear();
       fmtTCache.set(k,v);
       return v;
     }
@@ -268,44 +266,22 @@ function langNext(){
         const cls='hero-countdown-value';
         if(el.className!==cls) el.className=cls;
         const ring=$('heroProgress');
-        if (ring&&ring.style.strokeDashoffset!==String(RING_CIRCUMFERENCE)) ring.style.strokeDashoffset = RING_CIRCUMFERENCE;
+        if (ring) ring.style.strokeDashoffset = RING_CIRCUMFERENCE;
       }
     }
     setInterval(rNextCd,1000)
 
-    let lastUpHtml='',lastUpIds='';
+    let lastUpHtml='';
     function rUpcoming(){
       const n=now(),list=[];
       for(const b of BOSSES){const x=nextSpawn(b);if(x&&x.getTime()>n)list.push({b,t:x.getTime()})}
       list.sort((a,b)=>a.t-b.t)
-      const e=$('upcomingList');
-      const cnt=list.length;
-      if($('upcomingSub').textContent!==String(cnt))$('upcomingSub').textContent=cnt;
-      const ids=list.map(x=>x.b.id).join(',');
-      if(ids===lastUpIds&&cnt){
-        const cards=e.querySelectorAll('.boss-card');
-        for(let i=0;i<cards.length;i++){
-          const x=list[i],card=cards[i];
-          const rem=x.t-n;
-          const label=rem<=0?t('spawned'):(lang==='ko'?fmtShort(rem)+' \uD6C4':lang==='ja'?'\u3042\u3068'+fmtShort(rem):'In '+fmtShort(rem));
-          const cls='boss-card '+statusClassFor(rem);
-          if(card.className!==cls)card.className=cls;
-          const nm=card.querySelector('.boss-card-name'),nmText=bn(x.b);
-          if(nm.textContent!==nmText)nm.textContent=nmText;
-          const meta=card.querySelector('.boss-card-meta'),dt=meta.children[2],dtText=fmtD(x.t);
-          if(dt.textContent!==dtText)dt.textContent=dtText;
-          const tv=card.querySelector('.boss-card-time-value'),tvText=fmtT(x.t);
-          if(tv.textContent!==tvText)tv.textContent=tvText;
-          const tl=card.querySelector('.boss-card-time-label');
-          if(tl.textContent!==label)tl.textContent=label;
-        }
-        return;
-      }
+      const e=$('upcomingList');$('upcomingSub').textContent=list.length;
       let h;
       if(!list.length){
         h='<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><p>'+t('noSpawns')+'</p></div>';
         if(h===lastUpHtml)return;
-        e.innerHTML=h;lastUpHtml=h;lastUpIds='';
+        e.innerHTML=h;lastUpHtml=h;
         return;
       }
       h='<div class="boss-list">'+list.map((x,i)=>{
@@ -315,7 +291,7 @@ function langNext(){
         return '<div class="boss-card '+cls+'"><div class="boss-card-main"><span class="boss-card-name">'+bn(x.b)+'</span><div class="boss-card-meta"><span>'+t('lv')+x.b.lvl+'</span><span>.</span><span>'+fmtD(x.t)+'</span></div></div><div class="boss-card-time"><span class="boss-card-time-value">'+fmtT(x.t)+'</span><span class="boss-card-time-label">'+label+'</span></div></div>';
       }).join('')+'</div>';
       if(h===lastUpHtml)return;
-      e.innerHTML=h;lastUpHtml=h;lastUpIds=ids;
+      e.innerHTML=h;lastUpHtml=h;
     }
 
     let lastSchedHtml='';
@@ -332,39 +308,15 @@ function langNext(){
       $('schedGrid').innerHTML=h;lastSchedHtml=h;
     }
 
-    let lastIntHtml='',lastIntIds='';
+    let lastIntHtml='';
     function rInt(){
       const n=now();
-      const groups=grpInt();
-      const ids=groups.map(g=>g.b.map(b=>b.id).join(',')).join('|');
-      if(ids===lastIntIds){
-        const cards=document.querySelectorAll('#ivGrid .interval-card');
-        for(let gi=0;gi<groups.length;gi++){
-          const g=groups[gi],card=cards[gi];
-          const isNext=nxtBoss&&g.b.includes(nxtBoss);
-          const cls='interval-card '+(isNext?'highlight':'');
-          if(card.className!==cls)card.className=cls;
-          const rows=card.querySelectorAll('.interval-row');
-          for(let ri=0;ri<g.b.length;ri++){
-            const b=g.b[ri],row=rows[ri];
-            const et=timers[b.id]?.endTime,al=et&&et>n;
-            const txt=al?fmtShort(et-n):'--';
-            const tv=row.querySelector('.interval-row-time');
-            const tcls='interval-row-time '+(al?'live':'na');
-            if(tv.className!==tcls)tv.className=tcls;
-            if(tv.textContent!==txt)tv.textContent=txt;
-            const nm=row.querySelector('.interval-row-name'),nmText=bn(b);
-            if(nm.textContent!==nmText)nm.textContent=nmText;
-          }
-        }
-        return;
-      }
-      const h='<div class="interval-grid">'+groups.map((g,i)=>{
+      const h='<div class="interval-grid">'+grpInt().map((g,i)=>{
         const isNext=nxtBoss&&g.b.includes(nxtBoss);
         return '<div class="interval-card '+(isNext?'highlight':'')+'"><div class="interval-header"><div class="interval-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg><span>'+t('every')+' '+fmtInt(g.s)+'</span></div><span class="interval-count">'+g.b.length+'</span></div>'+g.b.map(b=>{const et=timers[b.id]?.endTime,al=et&&et>n;return'<div class="interval-row"><span class="interval-row-name">'+bn(b)+'</span><span class="interval-row-time '+(al?'live':'na')+'">'+(al?fmtShort(et-n):'--')+'</span></div>'}).join('')+'</div>';
       }).join('')+'</div>';
       if(h===lastIntHtml)return;
-      $('ivGrid').innerHTML=h;lastIntHtml=h;lastIntIds=ids;
+      $('ivGrid').innerHTML=h;lastIntHtml=h;
     }
 
     function rAll(){rNext();rUpcoming();rSched();rInt();rHidden();rNextCd()}
@@ -502,69 +454,40 @@ function langNext(){
         const mils=c.milestones.map(m=>'<div class="milestone-item"><span class="milestone-lvl">'+m.lvl+'</span><span class="milestone-desc">'+ht(m.desc).replace(/(\+\d+(?:\.\d+)?%?)/g,'<span class="stat-val">$1</span>')+'</span></div>').join('');
         return '<div class="class-card'+(exp?' expanded':'')+'" tabindex="0" aria-expanded="'+exp+'" data-key="'+c.className+'"><div class="class-card-header"><div class="class-icon"><img src="assets/'+c.className+'.png" alt="" class="class-icon-img" loading="lazy" decoding="async"></div><div class="class-title-group"><span class="class-name">'+ht(c.className)+'</span></div><div class="class-tags">'+tags+'</div><span class="class-toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div><div class="class-card-body"><div class="skill-block"><div class="skill-block-label">'+ht(c.skillName)+'</div><div class="skill-block-text">'+ht(c.skill)+'</div></div><div class="skill-pairs">'+pairs+'</div><div class="milestones"><div class="milestone-title">Milestones</div><div class="milestone-list">'+mils+'</div></div></div></div>';
       }).join('');
-      const doFits=()=>{fitPairTexts();fitTagTexts()};
-      if(window.requestIdleCallback)requestIdleCallback(doFits,{timeout:400});
-      else requestAnimationFrame(doFits);
+      fitPairTexts();
+      fitTagTexts();
     }
 
-    function fitTagTexts(root){
-      const rows = root ? root.querySelectorAll('.class-tags') : document.querySelectorAll('#hiddenList .class-tags');
-      if(!rows.length) return;
-      const rowsList=[];
-      for(const row of rows)rowsList.push({row,tags:[...row.children]});
-      for(const it of rowsList)it.tags.forEach(t=>t.style.fontSize='');
-      for(const it of rowsList)it.w=it.row.clientWidth;
-      for(const it of rowsList){
-        if(!it.w) continue;
-        let s=0;
-        for(const t of it.tags){const tw=t.scrollWidth;if(tw>s)s=tw}
-        it.s=s;
-        it.base=parseFloat(getComputedStyle(it.tags[0]).fontSize);
-      }
-      for(const it of rowsList){
-        if(!it.w||it.s<=it.w) continue;
-        it.fs=Math.max(7,Math.floor(it.base*it.w/it.s*2)/2);
-        it.tags.forEach(t=>t.style.fontSize=it.fs+'px');
-      }
-      for(const it of rowsList){
-        if(!it.fs) continue;
-        let fs=it.fs;
-        while(fs>7&&it.row.scrollWidth>it.w){
-          fs=Math.max(7,fs-0.5);
-          it.tags.forEach(t=>t.style.fontSize=fs+'px');
+    function fitTagTexts(){
+      document.querySelectorAll('#hiddenList .class-tags').forEach(row=>{
+        const w=row.clientWidth;
+        if(!w) return;
+        const tags=[...row.children];
+        tags.forEach(t=>t.style.fontSize='');
+        if(row.scrollWidth>w){
+          let fs=parseFloat(getComputedStyle(tags[0]).fontSize);
+          while(fs>7&&row.scrollWidth>w){
+            fs=Math.max(7,fs-0.5);
+            tags.forEach(t=>t.style.fontSize=fs+'px');
+          }
         }
-      }
+      });
     }
 
-    function fitPairTexts(root){
-      const names = root ? root.querySelectorAll('.skill-pair-name') : document.querySelectorAll('#hiddenList .skill-pair-name');
-      if(!names.length) return;
-      const list=[];
-      for(const n of names){
+    function fitPairTexts(){
+      document.querySelectorAll('#hiddenList .skill-pair-name').forEach(n=>{
         const item=n.closest('.skill-pair-item');
-        const tx=n.style.transition,ix=item?item.style.transition:null;
-        n.style.transition='none';
-        if(item)item.style.transition='none';
-        list.push({n,item,tx,ix});
-      }
-      for(const it of list)it.n.style.fontSize='';
-      for(const it of list)it.w=it.n.clientWidth;
-      for(const it of list)if(it.w)it.s=it.n.scrollWidth;
-      let base=null;
-      for(const it of list){
-        if(!it.w)continue;
-        if(base===null)base=parseFloat(getComputedStyle(it.n).fontSize);
-        if(it.s>it.w)it.fs=Math.max(10,Math.floor(base*it.w/it.s*2)/2);
-      }
-      for(const it of list){if(it.fs)it.n.style.fontSize=it.fs+'px'}
-      for(const it of list){
-        if(!it.fs)continue;
-        while(it.fs>10&&it.n.scrollWidth>it.w){
-          it.fs=Math.max(10,it.fs-0.5);
-          it.n.style.fontSize=it.fs+'px';
+        const w=n.clientWidth;
+        if(!w) return;
+        const tx=n.style.transition,ix=item.style.transition;
+        n.style.transition='none';item.style.transition='none';
+        n.style.fontSize='';
+        if(n.scrollWidth>w){
+          let fs=parseFloat(getComputedStyle(n).fontSize);
+          while(fs>10&&n.scrollWidth>w){fs=Math.max(10,fs-0.5);n.style.fontSize=fs+'px';}
         }
-      }
-      for(const it of list){it.n.style.transition=it.tx;if(it.item)it.item.style.transition=it.ix}
+        n.style.transition=tx;item.style.transition=ix;
+      });
     }
 
     const $=(id)=>document.getElementById(id);
@@ -585,8 +508,8 @@ function langNext(){
       const card=hdr.closest('.class-card');
       card.classList.toggle('expanded');
       card.setAttribute('aria-expanded',card.classList.contains('expanded'));
-      fitPairTexts(card);
-      fitTagTexts(card);
+      fitPairTexts();
+      fitTagTexts();
     });
 
     document.addEventListener('keydown',(e)=>{
@@ -596,8 +519,8 @@ function langNext(){
       e.preventDefault();
       card.classList.toggle('expanded');
       card.setAttribute('aria-expanded',card.classList.contains('expanded'));
-      fitPairTexts(card);
-      fitTagTexts(card);
+      fitPairTexts();
+      fitTagTexts();
     });
 
     let fitTimer;
@@ -629,26 +552,13 @@ function langNext(){
       sb.classList.toggle('offline',!on);
     }
 
-    let renderQueued=false;
-    function scheduleRender(){
-      if(renderQueued)return;
-      renderQueued=true;
-      const run=()=>{renderQueued=false;rAll()};
-      if(window.requestIdleCallback)requestIdleCallback(run,{timeout:2000});
-      else requestAnimationFrame(run);
-    }
-    let lastTimersJson='';
     function listenData(){
       db.doc('timers/global').onSnapshot({includeMetadataChanges:true},snap=>{
         if(snap.exists){
           const d=snap.data().timers||{};
-          const j=JSON.stringify(d);
-          if(j!==lastTimersJson){
-            lastTimersJson=j;
-            timers=d;
-            scheduleRender();
-            ttsCheck();
-            setOnline(true)
+          const c=Object.keys(d).length;
+          if(c!==Object.keys(timers).length||JSON.stringify(d)!==JSON.stringify(timers)){
+            timers=d;rAll();ttsCheck();setOnline(true)
           }
         }
       },()=>{setOnline(false)});
@@ -664,8 +574,7 @@ function langNext(){
             const m=val.mapValue.fields;
             parsed[id]={endTime:Number(m.endTime.integerValue||m.endTime.doubleValue),startedAt:Number(m.startedAt.integerValue||m.startedAt.doubleValue)};
           }
-          const j=JSON.stringify(parsed);
-          if(j!==lastTimersJson){lastTimersJson=j;timers=parsed;scheduleRender();ttsCheck();setOnline(true)}
+          if(JSON.stringify(parsed)!==JSON.stringify(timers)){timers=parsed;rAll();ttsCheck();setOnline(true)}
         }
       }catch(e){setOnline(false)}
       $('exportInfo').querySelector('span').textContent='Last sync: '+new Date().toLocaleTimeString();
