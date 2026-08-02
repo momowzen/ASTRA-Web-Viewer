@@ -529,6 +529,56 @@ function langNext(){
     if(hcNext)hcNext.onclick=()=>{const sc=$('hiddenScroll');sc.scrollTo({left:Math.min(sc.scrollWidth-sc.clientWidth,sc.scrollLeft+hcStep()),behavior:'smooth'});setTimeout(updateHC,650)};
     const hiddenScroll=$('hiddenScroll');
     if(hiddenScroll)hiddenScroll.addEventListener('scroll',updateHC);
+    if(hiddenScroll)hiddenScroll.addEventListener('wheel',(e)=>{
+      if(window.innerWidth<=900)return;
+      const dy=Math.abs(e.deltaY),dx=Math.abs(e.deltaX);
+      if(dy>dx){
+        e.preventDefault();
+        hiddenScroll.scrollLeft+=e.deltaY*(e.deltaMode===1?16:1);
+      }else if(dx>0&&e.deltaX!==0){
+        e.preventDefault();
+        hiddenScroll.scrollLeft+=e.deltaX*(e.deltaMode===1?16:1);
+      }
+    },{passive:false});
+
+    const ptrEl=$('ptrIndicator');
+    let ptrY=0,ptrReady=false,ptrActive=false;
+    document.addEventListener('touchstart',(e)=>{
+      if(window.innerWidth>900||!ptrEl)return;
+      let el=e.target,scrollable=false;
+      while(el&&el!==document.body&&el!==document.documentElement){
+        if(el.scrollHeight>el.clientHeight+1){
+          scrollable=true;
+          if(el.scrollTop>1)return;
+        }
+        el=el.parentElement;
+      }
+      if(!scrollable)return;
+      ptrY=e.touches[0].clientY;ptrReady=true;ptrActive=false;
+    },{passive:true});
+    document.addEventListener('touchmove',(e)=>{
+      if(!ptrReady)return;
+      const dy=e.touches[0].clientY-ptrY;
+      if(dy>0){
+        ptrActive=true;
+        ptrEl.style.top=Math.min(120,dy*0.5)+'px';
+        ptrEl.style.opacity=Math.min(1,dy/100);
+        if(e.cancelable)e.preventDefault();
+      }
+    },{passive:false});
+    function ptrReset(){ptrReady=false;ptrActive=false;ptrEl.classList.remove('loading');ptrEl.style.top='';ptrEl.style.opacity='';}
+    document.addEventListener('touchend',(e)=>{
+      if(!ptrReady)return;
+      ptrReady=false;
+      const dy=e.changedTouches[0].clientY-ptrY;
+      if(ptrActive&&dy>=80){
+        ptrEl.classList.add('loading');
+        location.reload();
+        return;
+      }
+      ptrReset();
+    },{passive:true});
+    document.addEventListener('touchcancel',ptrReset,{passive:true});
 
     let currentView='interval';
     const segBtns=document.querySelectorAll('.segmented .seg-btn');
