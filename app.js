@@ -328,7 +328,7 @@ function langNext(){
         return '<div class="boss-card '+cls+'"><div class="boss-card-main"><span class="boss-card-name">'+bn(x.b)+'</span><div class="boss-card-meta"><span>'+t('lv')+x.b.lvl+'</span><span>.</span><span>'+fmtD(x.t)+'</span></div></div><div class="boss-card-time"><span class="boss-card-time-value">'+fmtT(x.t)+'</span><span class="boss-card-time-label">'+label+'</span></div></div>';
       }).join('')+'</div>';
       if(h===lastUpHtml)return;
-      e.innerHTML=h;lastUpHtml=h;
+      e.innerHTML=h;lastUpHtml=h;initMarquees(e);
     }
 
     let lastSchedHtml='';
@@ -342,7 +342,7 @@ function langNext(){
         return '<div class="day-card '+(d.d===cd?'today':'')+'"><div class="day-header"><span>'+d.n+'</span><span>'+(d.d===cd?t('today'):'')+'</span></div><div class="day-events">'+(d.es.length?d.es.map(e=>'<div class="day-event"><span class="day-event-name">'+bn(e.b)+'</span><span class="day-event-time">'+e.t+'</span></div>').join(''):'<div class="day-empty">--</div>')+'</div></div>';
       }).join('')+'</div>';
       if(h===lastSchedHtml)return;
-      $('schedGrid').innerHTML=h;lastSchedHtml=h;
+      const sg=$('schedGrid');sg.innerHTML=h;lastSchedHtml=h;initMarquees(sg);
     }
 
     let lastIntHtml='';
@@ -353,10 +353,36 @@ function langNext(){
         return '<div class="interval-card '+(isNext?'highlight':'')+'"><div class="interval-header"><div class="interval-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg><span>'+t('every')+' '+fmtInt(g.s)+'</span></div><span class="interval-count">'+g.b.length+'</span></div>'+g.b.map(b=>{const et=timers[b.id]?.endTime,al=et&&et>n;return'<div class="interval-row"><span class="interval-row-name">'+bn(b)+'</span><span class="interval-row-time '+(al?'live':'na')+'">'+(al?fmtShort(et-n):'--')+'</span></div>'}).join('')+'</div>';
       }).join('')+'</div>';
       if(h===lastIntHtml)return;
-      $('ivGrid').innerHTML=h;lastIntHtml=h;
+      const ig=$('ivGrid');ig.innerHTML=h;lastIntHtml=h;initMarquees(ig);
     }
 
     function rAll(){rNext();rUpcoming();rSched();rInt();rHidden();rNextCd()}
+
+    const MARQUEE_SEL='.day-event-name,.interval-row-name,.boss-card-name';
+    function initMarquees(root){
+      root.querySelectorAll(MARQUEE_SEL).forEach(el=>{
+        const box=el.clientWidth;
+        let tw=el.scrollWidth;
+        if(tw===0&&el.textContent){
+          const sp=document.createElement('span');
+          sp.style.cssText='position:absolute;visibility:hidden;left:0;top:0;white-space:nowrap;font:inherit';
+          sp.textContent=el.textContent;
+          document.body.appendChild(sp);
+          tw=sp.getBoundingClientRect().width;
+          sp.remove();
+        }
+        const overflow=tw-box;
+        if(overflow>0){
+          el.classList.add('marquee');
+          el.style.setProperty('--marq-d',(overflow+24)+'px');
+          el.style.setProperty('--marq-t',Math.max(4,(tw+24)/60).toFixed(2)+'s');
+        }else{
+          el.classList.remove('marquee');
+          el.style.removeProperty('--marq-d');
+          el.style.removeProperty('--marq-t');
+        }
+      });
+    }
 
     const HIDDEN_CLASSES=[{className:"Sword Master",skillName:"Exalted Will",skill:"Basic Attacks have a 25% chance of dealing Extra Combined Damage.",pairs:[{skills:[{name:"Deathblow",type:"Enhance"},{name:"Time Haste",type:"Trick"}]},{skills:[{name:"Secreta's Talent",type:"Recon"},{name:"Parry",type:"Defense"}]},{skills:[{name:"Wild Dance",type:"Combat"},{name:"Deliberate Attack",type:"Support"}]}],milestones:[{lvl:100,desc:"Melee Defense Penetration +50"},{lvl:200,desc:"Movement Speed +8%"},{lvl:300,desc:"Attack Speed +8%"},{lvl:400,desc:"Attack Power +70"},{lvl:500,desc:"Melee Attack +50 / All Damage +3.5%"},{lvl:600,desc:"On hit, reduce Damage Received for next 3 hits (10 sec)."},{lvl:700,desc:"Defense Power +100"},{lvl:800,desc:"Deals Combined Damage to the target, and drains the target's MP and Stamina equal to 80% of Max MP and Max Stamina."}]},
 {className:"Destroyer",skillName:"Land Crush",skill:"Jumps to target within 7m and deals Combined Damage around impact, gaining Damage Immunity for 3.5 sec.",pairs:[{skills:[{name:"Hellfire Weapon",type:"Enhance"},{name:"Honed Weaponry",type:"Recon"}]},{skills:[{name:"Blink",type:"Trick"},{name:"Power of Darkness",type:"Spell"}]},{skills:[{name:"Polish Weapon",type:"Combat"},{name:"Gamble",type:"Support"}]}],milestones:[{lvl:100,desc:"Defense Penetration +50"},{lvl:200,desc:"Movement Speed +8%"},{lvl:300,desc:"Attack Speed +8%"},{lvl:400,desc:"Attack Power +70"},{lvl:500,desc:"Skill Damage +7% / Cooldown Decrease +10%"},{lvl:600,desc:"Landing Attack boosts Attack/Defense Power for 60 sec."},{lvl:700,desc:"Attack Power +100 / Defense Power +100"},{lvl:800,desc:"Causes an Earthquake around the caster for 10 sec. Deals 50% extra Physical Damage to targets within range every 2 sec, and inflicts Stun for 1 sec with a +80% chance. (Up to 20 targets)"}]},
@@ -549,7 +575,7 @@ function langNext(){
     });
 
     let fitTimer;
-    window.addEventListener('resize',()=>{clearTimeout(fitTimer);fitTimer=setTimeout(()=>{fitPairTexts()},150);});
+    window.addEventListener('resize',()=>{clearTimeout(fitTimer);fitTimer=setTimeout(()=>{fitPairTexts();initMarquees(document)},150);});
     if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{fitPairTexts()});
 
     const ptrEl=$('ptrIndicator');
@@ -604,6 +630,7 @@ function langNext(){
         viewBodies[currentView].hidden=false;
         Object.entries(viewBodies).forEach(([k,el])=>{if(k!==currentView) el.hidden=true;});
         $('viewTitle').textContent=t(currentView==='schedule'?'schedTitle':'ivTitle');
+        initMarquees(viewBodies[currentView]);
       });
     });
 
