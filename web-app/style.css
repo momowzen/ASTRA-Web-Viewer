@@ -365,6 +365,11 @@
     .interval-row-time.live { color: var(--alive-green); text-shadow: 0 0 10px var(--alive-green-glow); }
     .interval-row-time.na { color: var(--text-tertiary); }
 
+    .marquee { text-overflow: clip; animation: marquee-loop var(--marq-t, 8s) linear infinite; will-change: transform; }
+    .marquee:hover { animation-play-state: paused; }
+    @keyframes marquee-loop { from { transform: translateX(0); } to { transform: translateX(calc(-1 * var(--marq-d, 40px))); } }
+    @media (prefers-reduced-motion: reduce) { .marquee { animation: none; } }
+
     .hidden-page { gap: 0; overflow: hidden; position: relative; }
     .hidden-scroll { flex: 1; min-height: 0; overflow-y: auto; padding: var(--space-1); overscroll-behavior: contain; }
     .hidden-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: var(--space-4); align-content: start; }
