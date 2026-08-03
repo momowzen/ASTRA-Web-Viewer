@@ -363,11 +363,20 @@ function langNext(){
       root.querySelectorAll('.day-card,.interval-card').forEach(c=>{
         const area=c.querySelector('.day-events,.interval-rows');
         if(!area)return;
-        const avail=area.clientHeight;
-        const need=area.scrollHeight;
-        if(need<=avail+1){c.style.removeProperty('font-size');return;}
-        const f=avail>0?Math.max(0.5,(avail/need)*0.97):0.5;
-        c.style.setProperty('font-size',(16*f)+'px');
+        c.style.removeProperty('font-size');
+        let avail=area.clientHeight,need=area.scrollHeight;
+        if(need<=avail+1)return;
+        let cur=16;
+        for(let i=0;i<6;i++){
+          if(need<=avail+1)break;
+          const f=Math.max(0.5,(avail/need)*0.97);
+          const next=Math.max(8,cur*f);
+          if(Math.abs(next-cur)<0.1)break;
+          cur=next;
+          c.style.setProperty('font-size',cur+'px');
+          avail=area.clientHeight;need=area.scrollHeight;
+        }
+        c.style.setProperty('font-size',cur+'px');
       });
     }
 
@@ -709,7 +718,7 @@ function langNext(){
       pollData();
       rAll();
       setInterval(()=>{
-        const run=()=>{rNext();rUpcoming();rSched();rInt();fitPanelCards(document);initMarquees(document)};
+        const run=()=>{rNext();rUpcoming();rSched();rInt()};
         if(window.requestIdleCallback)requestIdleCallback(run,{timeout:8000});
         else run();
       },15000);
