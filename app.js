@@ -530,7 +530,7 @@ function langNext(){
       const expanded=card.classList.contains('expanded');
       card.setAttribute('aria-expanded',expanded);
       fitPairTexts();
-      if(expanded&&window.innerWidth<=900)requestAnimationFrame(()=>card.scrollIntoView({behavior:'smooth',block:'center'}));
+      if(expanded&&window.innerWidth<=900)requestAnimationFrame(()=>card.scrollIntoView({behavior:'smooth',block:'start'}));
     });
 
     document.addEventListener('keydown',(e)=>{
@@ -545,7 +545,7 @@ function langNext(){
       const expanded=card.classList.contains('expanded');
       card.setAttribute('aria-expanded',expanded);
       fitPairTexts();
-      if(expanded&&window.innerWidth<=900)requestAnimationFrame(()=>card.scrollIntoView({behavior:'smooth',block:'center'}));
+      if(expanded&&window.innerWidth<=900)requestAnimationFrame(()=>card.scrollIntoView({behavior:'smooth',block:'start'}));
     });
 
     let fitTimer;
