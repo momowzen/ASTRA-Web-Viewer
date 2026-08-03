@@ -514,8 +514,8 @@
       .panel-header { flex-wrap: wrap; }
       .live-pill { padding: var(--space-1) var(--space-2); font-size: 0.65rem; }
       .live-pill .dot { width: 5px; height: 5px; }
-      .hero-name { font-size: 1.25rem; }
-      .hero-countdown-value { font-size: 1.75rem; }
+      .hero-name { font-size: clamp(1.1rem, 0.85rem + 1.2vw, 1.375rem); }
+      .hero-countdown-value { font-size: clamp(1.4rem, 1.2rem + 1.6vw, 1.75rem); }
       .schedule-grid { grid-template-columns: 1fr 1fr; }
       .interval-grid { grid-template-columns: 1fr 1fr; }
       .skill-pair { gap: var(--space-1); }
@@ -532,7 +532,7 @@
 
     @media (max-width: 360px) {
       .schedule-grid, .interval-grid { grid-template-columns: 1fr; }
-      .hero-status-ring { display: none; }
-      .skill-block-text { min-height: 6em; -webkit-line-clamp: 4; }
+      .hero-status-ring { width: 4rem; height: 4rem; }
+      .skill-block-text { min-height: 0; -webkit-line-clamp: 3; }
     }
   
