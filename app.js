@@ -362,11 +362,12 @@ function langNext(){
     function initMarquees(root){
       root.querySelectorAll(MARQUEE_SEL).forEach(el=>{
         const box=el.clientWidth;
-        let tw=el.scrollWidth;
-        if(tw===0&&el.textContent){
+        const tr0=el.querySelector(':scope > .marq-track');
+        let tw=tr0?tr0.firstElementChild.scrollWidth-24:el.scrollWidth;
+        if(!(tw>0)&&el.textContent){
           const sp=document.createElement('span');
           sp.style.cssText='position:absolute;visibility:hidden;left:0;top:0;white-space:nowrap;font:inherit';
-          sp.textContent=el.textContent;
+          sp.textContent=tr0?tr0.firstElementChild.textContent:el.textContent;
           document.body.appendChild(sp);
           tw=sp.getBoundingClientRect().width;
           sp.remove();
@@ -383,8 +384,7 @@ function langNext(){
           tr.style.setProperty('--marq-t',Math.max(4,(tw+24)/60).toFixed(2)+'s');
         }else{
           el.classList.remove('marquee');
-          const tr=el.querySelector(':scope > .marq-track');
-          if(tr)el.innerHTML=tr.firstElementChild.innerHTML;
+          if(tr0)el.innerHTML=tr0.firstElementChild.innerHTML;
           el.style.removeProperty('--marq-d');
           el.style.removeProperty('--marq-t');
         }
