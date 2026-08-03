@@ -374,10 +374,17 @@ function langNext(){
         const overflow=tw-box;
         if(overflow>0){
           el.classList.add('marquee');
-          el.style.setProperty('--marq-d',(overflow+24)+'px');
-          el.style.setProperty('--marq-t',Math.max(4,(tw+24)/60).toFixed(2)+'s');
+          let tr=el.querySelector(':scope > .marq-track');
+          if(!tr){
+            const html=el.innerHTML;
+            el.innerHTML='<span class="marq-track"><span>'+html+'</span><span class="marq-copy" aria-hidden="true">'+html+'</span></span>';
+            tr=el.querySelector('.marq-track');
+          }
+          tr.style.setProperty('--marq-t',Math.max(4,(tw+24)/60).toFixed(2)+'s');
         }else{
           el.classList.remove('marquee');
+          const tr=el.querySelector(':scope > .marq-track');
+          if(tr)el.innerHTML=tr.firstElementChild.innerHTML;
           el.style.removeProperty('--marq-d');
           el.style.removeProperty('--marq-t');
         }
