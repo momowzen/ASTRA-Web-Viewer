@@ -420,8 +420,12 @@
     @keyframes ptr-spin { to { transform: translateX(-50%) rotate(360deg); } }
 
     @media (min-width: 901px) {
-      .hidden-scroll { flex: 1; min-height: 0; overflow-y: auto; padding: var(--space-2); overscroll-behavior: contain; }
+      .hidden-scroll { flex: 1; min-height: 0; overflow-y: auto; padding: var(--space-2); overscroll-behavior: contain; scroll-snap-type: y mandatory; scroll-padding-top: var(--space-2); }
       .hidden-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); align-content: start; }
+      @media (min-height: 850px) {
+        .hidden-grid { height: 100%; grid-auto-rows: 100%; }
+      }
+      .class-card { scroll-snap-align: start; }
       .class-card-header { padding: var(--space-3) var(--space-4); }
       .class-icon { width: 3rem; height: 3rem; }
       .class-card-body { padding: var(--space-3); gap: var(--space-2); overflow: hidden; }
