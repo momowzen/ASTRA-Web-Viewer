@@ -342,7 +342,7 @@ function langNext(){
         return '<div class="day-card '+(d.d===cd?'today':'')+'"><div class="day-header"><span>'+d.n+'</span><span>'+(d.d===cd?t('today'):'')+'</span></div><div class="day-events">'+(d.es.length?d.es.map(e=>'<div class="day-event"><span class="day-event-name">'+bn(e.b)+'</span><span class="day-event-time">'+e.t+'</span></div>').join(''):'<div class="day-empty">--</div>')+'</div></div>';
       }).join('')+'</div>';
       if(h===lastSchedHtml)return;
-      const sg=$('schedGrid');sg.innerHTML=h;lastSchedHtml=h;initMarquees(sg);
+      const sg=$('schedGrid');sg.innerHTML=h;lastSchedHtml=h;fitPanelCards(sg);initMarquees(sg);
     }
 
     let lastIntHtml='';
@@ -353,12 +353,24 @@ function langNext(){
         return '<div class="interval-card '+(isNext?'highlight':'')+'"><div class="interval-header"><div class="interval-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg><span>'+t('every')+' '+fmtInt(g.s)+'</span></div><span class="interval-count">'+g.b.length+'</span></div><div class="interval-rows">'+g.b.map(b=>{const et=timers[b.id]?.endTime,al=et&&et>n;return'<div class="interval-row"><span class="interval-row-name">'+bn(b)+'</span><span class="interval-row-time '+(al?'live':'na')+'">'+(al?fmtShort(et-n):'--')+'</span></div>'}).join('')+'</div></div>';
       }).join('')+'</div>';
       if(h===lastIntHtml)return;
-      const ig=$('ivGrid');ig.innerHTML=h;lastIntHtml=h;initMarquees(ig);
+      const ig=$('ivGrid');ig.innerHTML=h;lastIntHtml=h;fitPanelCards(ig);initMarquees(ig);
     }
 
     function rAll(){rNext();rUpcoming();rSched();rInt();rHidden();rNextCd()}
 
     const MARQUEE_SEL='.day-event-name,.interval-row-name,.boss-card-name';
+    function fitPanelCards(root){
+      root.querySelectorAll('.day-card,.interval-card').forEach(c=>{
+        const area=c.querySelector('.day-events,.interval-rows');
+        if(!area)return;
+        const avail=area.clientHeight;
+        const need=area.scrollHeight;
+        if(need<=avail+1){c.style.removeProperty('font-size');return;}
+        const f=avail>0?Math.max(0.5,(avail/need)*0.97):0.5;
+        c.style.setProperty('font-size',(16*f)+'px');
+      });
+    }
+
     function initMarquees(root){
       root.querySelectorAll(MARQUEE_SEL).forEach(el=>{
         const box=el.clientWidth;
@@ -582,7 +594,7 @@ function langNext(){
     });
 
     let fitTimer;
-    window.addEventListener('resize',()=>{clearTimeout(fitTimer);fitTimer=setTimeout(()=>{fitPairTexts();initMarquees(document)},150);});
+    window.addEventListener('resize',()=>{clearTimeout(fitTimer);fitTimer=setTimeout(()=>{fitPairTexts();fitPanelCards(document);initMarquees(document)},150);});
     if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{fitPairTexts()});
 
     const ptrEl=$('ptrIndicator');
@@ -637,6 +649,7 @@ function langNext(){
         viewBodies[currentView].hidden=false;
         Object.entries(viewBodies).forEach(([k,el])=>{if(k!==currentView) el.hidden=true;});
         $('viewTitle').textContent=t(currentView==='schedule'?'schedTitle':'ivTitle');
+        fitPanelCards(viewBodies[currentView]);
         initMarquees(viewBodies[currentView]);
       });
     });
@@ -696,7 +709,7 @@ function langNext(){
       pollData();
       rAll();
       setInterval(()=>{
-        const run=()=>{rNext();rUpcoming();rSched();rInt();initMarquees(document)};
+        const run=()=>{rNext();rUpcoming();rSched();rInt();fitPanelCards(document);initMarquees(document)};
         if(window.requestIdleCallback)requestIdleCallback(run,{timeout:8000});
         else run();
       },15000);
