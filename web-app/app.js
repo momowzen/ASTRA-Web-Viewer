@@ -603,7 +603,7 @@ function langNext(){
     });
 
     let fitTimer;
-    window.addEventListener('resize',()=>{clearTimeout(fitTimer);fitTimer=setTimeout(()=>{fitPairTexts();fitPanelCards(document);initMarquees(document)},150);});
+    window.addEventListener('resize',()=>{clearTimeout(fitTimer);fitTimer=setTimeout(()=>{fitPairTexts();const ap=document.querySelector('.page.active');if(ap){fitPanelCards(ap);initMarquees(ap)}},150);});
     if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{fitPairTexts()});
 
     const ptrEl=$('ptrIndicator');
