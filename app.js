@@ -53,21 +53,24 @@
   {id:"Nevaeh",name:"Nevaeh",lvl:140,wr:[{d:0,h:23,m:0}]},
   {id:"Tumier",name:"Tumier",lvl:140,wr:[{d:0,h:20,m:0}]},
   {id:"Lucus",name:"Lucus",lvl:145,wr:[{d:6,h:23,m:0}]}
-];;
+];
 
     const LOCS={
   en:{Venatus:"Corrupted River Stream",Viorent:"Gill Stream",Ego:"Reclaimed Gathering Point",Clemantis:"White Witch's Cradle",Livera:"Black Storm Peninsula",Araneo:"Lower Tomb of Tyriosa 1F",Undomiel:"Test Subject Lab",Saphirus:"Moonlight Shackle",Neutro:"Battlefield of Love and Hatred",LadyDalia:"Bloody Shadow",GeneralAquleus:"Lower Tomb of Tyriosa 2F",Thymele:"Mark of Rampage",Amentis:"Limestone Cape",BaronBraudmore:"Rosevine Bridge",Milavy:"Lower Tomb of Tyriosa 3F",Wannitas:"Snare Swamp",Metus:"Follower's Field",Duplican:"Open-Eyed Puppet's Throne",Shuliar:"Masquerade of Hounds",Ringor:"Torchlight Highway",Roderick:"Garbana Underground Waterway 1F",Gareth:"Deadman's Land District 1",Titore:"Deadman's Land District 2",Larba:"Garbana Reclaimed Land",Catena:"Deadman's Land District 3",Auraq:"Garbana Underground Waterway 2F",Secreta:"Kallion's Tomb",Ordo:"Successor's Paradise",Asta:"Goldblood Plain",Supore:"Goldblood Plain",Chaiflock:"Kallion's Tomb",Benji:"Nest of Vengeance",Libitina:"Chapel of Eternal Vassalage",Rakajeth:"Secreta's Punishment",Icaruthia:"Royal Valley",Motti:"Evelyn's Outer Court",Camalia:"Controlled Laboratory",Nevaeh:"Celine's Courtyard",Tumier:"Garbana Underground Waterway 3F",Lucus:"Silent Smelter"},
   ja:{Venatus:"汚染された川の流れ",Viorent:"ギルの小川",Ego:"奪還された集結地点",Clemantis:"白魔女のゆりかご",Livera:"黒嵐の半島",Araneo:"ティリオサ地下墓所1F",Undomiel:"実験体研究所",Saphirus:"月光の束縛",Neutro:"愛憎の戦場",LadyDalia:"血染めの影",GeneralAquleus:"ティリオサ地下墓所2F",Thymele:"暴走の刻印",Amentis:"石灰岩の岬",BaronBraudmore:"薔薇蔦の橋",Milavy:"ティリオサ地下墓所3F",Wannitas:"罠の沼",Metus:"追従者の野原",Duplican:"開眼の人形の玉座",Shuliar:"猟犬の仮面舞踏会",Ringor:"松明の街道",Roderick:"ガルバナ地下水路1F",Gareth:"死者の地 第1区域",Titore:"死者の地 第2区域",Larba:"ガルバナ奪還地",Catena:"死者の地 第3区域",Auraq:"ガルバナ地下水路2F",Secreta:"カリオンの墓",Ordo:"継承者の楽園",Asta:"黄金血の平原",Supore:"黄金血の平原",Chaiflock:"カリオンの墓",Benji:"復讐の巣",Libitina:"永遠の臣従の礼拝堂",Rakajeth:"セクレタの刑罰",Icaruthia:"王族の谷",Motti:"エブリンの外庭",Camalia:"管理された研究所",Nevaeh:"セリーヌの中庭",Tumier:"ガルバナ地下水路3F",Lucus:"静寂の精錬所"},
   ko:{Venatus:"오염된 강줄기",Viorent:"길의 시냇물",Ego:"탈환된 집결지",Clemantis:"백마녀의 요람",Livera:"검은 폭풍의 반도",Araneo:"티리오사 지하묘지 1층",Undomiel:"실험체 연구소",Saphirus:"달빛의 속박",Neutro:"애증의 전장",LadyDalia:"핏빛 그림자",GeneralAquleus:"티리오사 지하묘지 2층",Thymele:"폭주의 낙인",Amentis:"석회암 곶",BaronBraudmore:"장미넝쿨 다리",Milavy:"티리오사 지하묘지 3층",Wannitas:"덫의 늪",Metus:"추종자의 들판",Duplican:"눈을 뜬 인형의 옥좌",Shuliar:"사냥개의 가면무도회",Ringor:"횃불의 가도",Roderick:"가르바나 지하수로 1층",Gareth:"죽은 자의 땅 제1구역",Titore:"죽은 자의 땅 제2구역",Larba:"가르바나 탈환지",Catena:"죽은 자의 땅 제3구역",Auraq:"가르바나 지하수로 2층",Secreta:"칼리온의 무덤",Ordo:"계승자의 낙원",Asta:"황금피의 평원",Supore:"황금피의 평원",Chaiflock:"칼리온의 무덤",Benji:"복수의 둥지",Libitina:"영원한 신종의 예배당",Rakajeth:"세크레타의 형벌",Icaruthia:"왕족의 계곡",Motti:"에블린의 외정",Camalia:"통제된 연구소",Nevaeh:"셀린의 안뜰",Tumier:"가르바나 지하수로 3층",Lucus:"침묵의 제련소"}
-};;
+};
 
-    const TO=9*3600000;;
+    const TO=9*3600000;
 
     const LANG={
-  en:{brand:'ASTRA',dash:'Dashboard',bsTab:'Bosses',live:'Live',offline:'Offline',nextSpawn:'Next Spawn',upcoming:'Upcoming',today:'Today',tomorrow:'Tomorrow',noSpawns:'No spawns',schedTag:'Schedule',schedTitle:'SCHEDULED',ivTag:'Interval',ivTitle:'Interval',every:'Every',lv:'Lv.',spawned:'SPAWNED',now:'Now',updated:'Updated',ago:'ago',tracker:'TRACKER',hiddenClass:'HIDDEN CLASS',history:'Activity',killed:'killed',missed:'missed',days:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],nm:['Venatus','Viorent','Ego','Clemantis','Livera','Araneo','Undomiel','Saphirus','Neutro','Lady Dalia','General Aquleus','Thymele','Amentis','Baron Braudmore','Milavy','Wannitas','Metus','Duplican','Shuliar','Ringor','Roderick','Gareth','Titore','Larba','Catena','Auraq','Secreta','Ordo','Asta','Supore','Chaiflock','Benji','Libitina','Rakajeth','Icaruthia','Motti','Camalia','Nevaeh','Tumier','Lucus'],ttsIn:(n,m)=>`${n} spawns in ${m} minute${m!==1?'s':''}.`,ttsSpawned:n=>`${n} has spawned.`,ttsWbIn:(m)=>`World Boss spawns in ${m} minute${m!==1?'s':''}.`,ttsWbSpawned:`World Boss has spawned.`},
-  ja:{brand:'ASTRA',dash:'ダッシュボード',bsTab:'ボス',live:'オンライン',offline:'オフライン',nextSpawn:'次のスポーン',upcoming:'予定',today:'今日',tomorrow:'明日',noSpawns:'スポーンなし',schedTag:'スケジュール',schedTitle:'予定',ivTag:'インターバル',ivTitle:'インターバル',every:'毎',lv:'Lv.',spawned:'出現中',now:'今',updated:'更新',ago:'前',tracker:'追跡',hiddenClass:'隠しクラス',history:'履歴',killed:'討伐',missed:'取り逃し',days:['日','月','火','水','木','金','土'],nm:['ベナトゥス','ビオレント','エゴ','クレメンティス','リベラ','アラネオ','アンドゥミエル','サピルス','ネウトロ','レディ·ダリア','将軍アクレウス','テュメレ','アメンティス','ブラウドモア','ミラベ','ワニタス','メトゥス','デュプリカン','シュライヤー','リンゴル','ロデリック','ガレス','ティトル','ラルバ','カテナ','アウラーク','セクレタ','オルド','アスタ','スポル','シャイフロック','ベンジー','リビティーナ','ラカゼス','イカルシア','モティ','カマリア','ネバ','トゥミエル','ルクス'],ttsIn:(n,m)=>`${n}は${m}分後に出現します。`,ttsSpawned:n=>`${n}が出現しました。`,ttsWbIn:(m)=>`ワールドボスは${m}分後に出現します。`,ttsWbSpawned:`ワールドボスが出現しました。`},
-  ko:{brand:'ASTRA',dash:'대시보드',bsTab:'보스',live:'온라인',offline:'오프라인',nextSpawn:'다음 스폰',upcoming:'예정',today:'오늘',tomorrow:'내일',noSpawns:'스폰 없음',schedTag:'일정',schedTitle:'일정',ivTag:'간격',ivTitle:'간격',every:'매',lv:'레벨',spawned:'출현중',now:'지금',updated:'업데이트',ago:'전',tracker:'추적',hiddenClass:'비밀 클래스',history:'활동',killed:'처치',missed:'놓침',days:['일','월','화','수','목','금','토'],nm:['베나투스','비오렌트','에고','클레멘티스','리베라','아라네오','안두미엘','사피루스','네우트로','레이디 달리아','장군 아클레우스','튜메레','아멘티스','남작 브라우드모어','미라베','와니타스','메투스','듀플리칸','슈라이어','링고르','로데릭','가레스','티토르','라르바','카테나','아우라크','세크레타','오르도','아스타','스포르','샤이플록','벤지','리비티나','라카제스','이카루시아','모티','카말리아','네바','투미엘','루크스'],ttsIn:(n,m)=>`${n}${koParticle(n,'subj')} ${m}분 후에 출현합니다.`,ttsSpawned:n=>`${n}${koParticle(n,'subj')} 출현했습니다.`,ttsWbIn:(m)=>`월드 보스가 ${m}분 후 출현합니다.`,ttsWbSpawned:`월드 보스가 출현했습니다.`}
-};;
+  en:{brand:'ASTRA',dash:'Dashboard',bsTab:'Bosses',live:'Live',offline:'Offline',nextSpawn:'Next Spawn',upcoming:'Upcoming',today:'Today',tomorrow:'Tomorrow',noSpawns:'No spawns',schedTag:'Schedule',schedTitle:'SCHEDULED',ivTag:'Interval',ivTitle:'Interval',every:'Every',lv:'Lv.',spawned:'SPAWNED',now:'Now',updated:'Updated',ago:'ago',tracker:'TRACKER',hiddenClass:'HIDDEN CLASS',history:'Activity',killed:'killed',missed:'missed',days:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],timeRemaining:'Time Remaining',nm:['Venatus','Viorent','Ego','Clemantis','Livera','Araneo','Undomiel','Saphirus','Neutro','Lady Dalia','General Aquleus','Thymele','Amentis','Baron Braudmore','Milavy','Wannitas','Metus','Duplican','Shuliar','Ringor','Roderick','Gareth','Titore','Larba','Catena','Auraq','Secreta','Ordo','Asta','Supore','Chaiflock','Benji','Libitina','Rakajeth','Icaruthia','Motti','Camalia','Nevaeh','Tumier','Lucus'],ttsIn:(n,m)=>`${n} spawns in ${m} minute${m!==1?'s':''}.`,ttsSpawned:n=>`${n} has spawned.`,ttsWbIn:(m)=>`World Boss spawns in ${m} minute${m!==1?'s':''}.`,ttsWbSpawned:`World Boss has spawned.`},
+  ja:{brand:'ASTRA',dash:'ダッシュボード',bsTab:'ボス',live:'オンライン',offline:'オフライン',nextSpawn:'次のスポーン',upcoming:'予定',today:'今日',tomorrow:'明日',noSpawns:'スポーンなし',schedTag:'スケジュール',schedTitle:'予定',ivTag:'インターバル',ivTitle:'インターバル',every:'毎',lv:'Lv.',spawned:'出現中',now:'今',updated:'更新',ago:'前',tracker:'追跡',hiddenClass:'隠しクラス',history:'履歴',killed:'討伐',missed:'取り逃し',days:['日','月','火','水','木','金','土'],timeRemaining:'残り時間',nm:['ベナトゥス','ビオレント','エゴ','クレメンティス','リベラ','アラネオ','アンドゥミエル','サピルス','ネウトロ','レディ·ダリア','将軍アクレウス','テュメレ','アメンティス','ブラウドモア','ミラベ','ワニタス','メトゥス','デュプリカン','シュライヤー','リンゴル','ロデリック','ガレス','ティトル','ラルバ','カテナ','アウラーク','セクレタ','オルド','アスタ','スポル','シャイフロック','ベンジー','リビティーナ','ラカゼス','イカルシア','モティ','カマリア','ネバ','トゥミエル','ルクス'],ttsIn:(n,m)=>`${n}は${m}分後に出現します。`,ttsSpawned:n=>`${n}が出現しました。`,ttsWbIn:(m)=>`ワールドボスは${m}分後に出現します。`,ttsWbSpawned:`ワールドボスが出現しました。`},
+  ko:{brand:'ASTRA',dash:'대시보드',bsTab:'보스',live:'온라인',offline:'오프라인',nextSpawn:'다음 스폰',upcoming:'예정',today:'오늘',tomorrow:'내일',noSpawns:'스폰 없음',schedTag:'일정',schedTitle:'일정',ivTag:'간격',ivTitle:'간격',every:'매',lv:'레벨',spawned:'출현중',now:'지금',updated:'업데이트',ago:'전',tracker:'추적',hiddenClass:'비밀 클래스',history:'활동',killed:'처치',missed:'놓침',days:['일','월','화','수','목','금','토'],timeRemaining:'남은 시간',nm:['베나투스','비오렌트','에고','클레멘티스','리베라','아라네오','안두미엘','사피루스','네우트로','레이디 달리아','장군 아클레우스','튜메레','아멘티스','남작 브라우드모어','미라베','와니타스','메투스','듀플리칸','슈라이어','링고르','로데릭','가레스','티토르','라르바','카테나','아우라크','세크레타','오르도','아스타','스포르','샤이플록','벤지','리비티나','라카제스','이카루시아','모티','카말리아','네바','투미엘','루크스'],ttsIn:(n,m)=>`${n}${koParticle(n,'subj')} ${m}분 후에 출현합니다.`,ttsSpawned:n=>`${n}${koParticle(n,'subj')} 출현했습니다.`,ttsWbIn:(m)=>`월드 보스가 ${m}분 후 출현합니다.`,ttsWbSpawned:`월드 보스가 출현했습니다.`}
+};
+
+    function lsSet(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+    function lsGet(k){try{return localStorage.getItem(k)}catch(e){return null}}
 
     let lang='en';
 function t(k){return LANG[lang][k]||k}
@@ -77,7 +80,7 @@ function koParticle(n,t){const c=n.charCodeAt(n.length-1),b=(c-0xAC00)%28!==0;co
 function langNext(){
   const ls=['en','ja','ko'];
   lang=ls[(ls.indexOf(lang)+1)%ls.length];
-  localStorage.setItem('astralang',lang);
+  lsSet('astralang',lang);
   applyLang();rAll();
   const say={en:'Language set to English.',ja:'\u8A00\u8A9E\u3092\u65E5\u672C\u8A9E\u306B\u8A2D\u5B9A\u3057\u307E\u3057\u305F\u3002',ko:'\uC5B8\uC5B4\uAC00 \uD55C\uAD6D\uC5B4\uB85C \uBCC0\uACBD\uB418\uC5C8\uC2B5\uB2C8\uB2E4.'};
   const fb={en:'Language set to English.',ja:'Language set to Japanese.',ko:'Language set to Korean.'};
@@ -101,7 +104,7 @@ function langNext(){
       const lp=$('livePill'),lt=$('liveText');
       const isOn=lp.classList.contains('on');
       lt.textContent=isOn?t('live'):t('offline');
-      $('nextCdLabel').textContent = t('nextSpawn') === 'Next Spawn' ? 'Time Remaining' : t('nextSpawn');
+      $('nextCdLabel').textContent = t('timeRemaining');
     }
 
     let alarmOn=false;
@@ -109,7 +112,7 @@ function langNext(){
     const ttsArmed=new Map();
     function toggleAlarm(){
       alarmOn=!alarmOn;
-      localStorage.setItem('astraalarm',alarmOn?'1':'0');
+      lsSet('astraalarm',alarmOn?'1':'0');
       updateAlarmBtn();
       if(!alarmOn&&window.speechSynthesis)window.speechSynthesis.cancel();
       if(alarmOn){ttsSpoken.clear();ttsArmed.clear();if(window.speechSynthesis){syncVoices();window.speechSynthesis.speak(new SpeechSynthesisUtterance(''))}}
@@ -125,7 +128,7 @@ function langNext(){
     let ttsVoices=[];
     function ttsVoice(){
       if(!window.speechSynthesis)return null;
-      const sv=localStorage.getItem('astraVoice_'+lang);
+      const sv=lsGet('astraVoice_'+lang);
       if(sv){const m=ttsVoices.find(v=>v.name===sv);if(m)return m}
       const want={en:'en-US',ja:'ja-JP',ko:'ko-KR'}[lang];
       const edge={en:'en-US-AriaNeural',ko:'ko-KR-SunHiNeural',ja:'ja-JP-NanamiNeural'};
@@ -255,7 +258,7 @@ function langNext(){
       if (ms <= 0) return 'status-alive';
       if (ms <= 5 * 60000) return 'status-danger';
       if (ms <= 30 * 60000) return 'status-soon';
-      return 'status-killed';
+      return '';
     }
 
     function rNext(){
@@ -269,8 +272,8 @@ function langNext(){
         $('nextAt').textContent=fmtT(bs.getTime())+' '+fmtD(bs.getTime());
         nxtBoss=bb;nxtTime=bs;
         const im=$('heroBossImg'),url='assets/'+bb.id+'.png';
-        if(im.src!==url){im.style.opacity=0;im.onload=()=>{im.style.opacity=1};im.src=url}
-      }else if(!nxtBoss||(nxtTime&&nxtTime.getTime()>cn)){
+        if(im.getAttribute('src')!==url){im.style.opacity=0;im.onload=()=>{im.style.opacity=1};im.src=url}
+      }else if(nxtBoss){
         $('nextName').textContent='--';$('nextLv').textContent='';$('nextLoc').textContent='';$('nextTag').textContent='';$('nextAt').textContent='';nxtBoss=null;nxtTime=null;
         $('heroBossImg').style.opacity=0;
       }
@@ -306,7 +309,14 @@ function langNext(){
         if (ring) ring.style.strokeDashoffset = RING_CIRCUMFERENCE;
       }
     }
-    setInterval(rNextCd,1000)
+    function rNextCdTick(){
+      if(document.hidden)return;
+      const tr=$('pageTracker');
+      if(tr&&!tr.classList.contains('active'))return;
+      rNextCd();
+    }
+    setInterval(rNextCdTick,1000)
+    document.addEventListener('visibilitychange',()=>{if(!document.hidden)rNextCd()});
 
     let lastUpHtml='';
     function rUpcoming(){
@@ -325,7 +335,7 @@ function langNext(){
         const rem=x.t-n;
         const cls=statusClassFor(rem);
         const label=rem<=0?t('spawned'):(lang==='ko'?fmtShort(rem)+' \uD6C4':lang==='ja'?'\u3042\u3068'+fmtShort(rem):'In '+fmtShort(rem));
-        return '<div class="boss-card '+cls+'"><div class="boss-card-main"><span class="boss-card-name">'+bn(x.b)+'</span><div class="boss-card-meta"><span>'+t('lv')+x.b.lvl+'</span><span>.</span><span>'+fmtD(x.t)+'</span></div></div><div class="boss-card-time"><span class="boss-card-time-value">'+fmtT(x.t)+'</span><span class="boss-card-time-label">'+label+'</span></div></div>';
+        return '<div class="boss-card '+cls+'" data-t="'+x.t+'"><div class="boss-card-main"><span class="boss-card-name">'+bn(x.b)+'</span><div class="boss-card-meta"><span>'+t('lv')+x.b.lvl+'</span><span>.</span><span>'+fmtD(x.t)+'</span></div></div><div class="boss-card-time"><span class="boss-card-time-value">'+fmtT(x.t)+'</span><span class="boss-card-time-label">'+label+'</span></div></div>';
       }).join('')+'</div>';
       if(h===lastUpHtml)return;
       e.innerHTML=h;lastUpHtml=h;initMarquees(e);
@@ -350,7 +360,7 @@ function langNext(){
       const n=now();
       const h='<div class="interval-grid">'+grpInt().map((g,i)=>{
         const isNext=nxtBoss&&g.b.includes(nxtBoss);
-        return '<div class="interval-card '+(isNext?'highlight':'')+'"><div class="interval-header"><div class="interval-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg><span>'+t('every')+' '+fmtInt(g.s)+'</span></div><span class="interval-count">'+g.b.length+'</span></div><div class="interval-rows">'+g.b.map(b=>{const et=timers[b.id]?.endTime,al=et&&et>n;return'<div class="interval-row"><span class="interval-row-name">'+bn(b)+'</span><span class="interval-row-time '+(al?'live':'na')+'">'+(al?fmtShort(et-n):'--')+'</span></div>'}).join('')+'</div></div>';
+        return '<div class="interval-card '+(isNext?'highlight':'')+'"><div class="interval-header"><div class="interval-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg><span>'+t('every')+' '+fmtInt(g.s)+'</span></div><span class="interval-count">'+g.b.length+'</span></div><div class="interval-rows">'+g.b.map(b=>{const et=timers[b.id]?.endTime,al=et&&et>n;return'<div class="interval-row" data-t="'+(et||0)+'"><span class="interval-row-name">'+bn(b)+'</span><span class="interval-row-time '+(al?'live':'na')+'">'+(al?fmtShort(et-n):'--')+'</span></div>'}).join('')+'</div></div>';
       }).join('')+'</div>';
       if(h===lastIntHtml)return;
       const ig=$('ivGrid');ig.innerHTML=h;lastIntHtml=h;fitPanelCards(ig);initMarquees(ig);
@@ -358,26 +368,29 @@ function langNext(){
 
     function rAll(){rNext();rUpcoming();rSched();rInt();rHidden();rNextCd()}
 
-    const MARQUEE_SEL='.day-event-name,.interval-row-name,.boss-card-name';
+    const MARQUEE_SEL='.interval-row-name';
     function fitPanelCards(root){
-      root.querySelectorAll('.day-card,.interval-card').forEach(c=>{
+      const cards=[...root.querySelectorAll('.day-card,.interval-card')];
+      if(!cards.length)return;
+      cards.forEach(c=>c.style.removeProperty('font-size'));
+      const cardFrac=c=>{
         const area=c.querySelector('.day-events,.interval-rows');
-        if(!area)return;
-        c.style.removeProperty('font-size');
-        let avail=area.clientHeight,need=area.scrollHeight;
-        if(need<=avail+1)return;
-        let cur=16;
-        for(let i=0;i<6;i++){
-          if(need<=avail+1)break;
-          const f=Math.max(0.5,(avail/need)*0.97);
-          const next=Math.max(8,cur*f);
-          if(Math.abs(next-cur)<0.1)break;
-          cur=next;
-          c.style.setProperty('font-size',cur+'px');
-          avail=area.clientHeight;need=area.scrollHeight;
-        }
-        c.style.setProperty('font-size',cur+'px');
-      });
+        if(!area)return 1;
+        const avail=area.clientHeight,need=area.scrollHeight;
+        if(avail<=1||need<=avail+1)return 1;
+        return Math.max(0.5,(avail/need)*0.97);
+      };
+      let cur=16;
+      for(let i=0;i<6;i++){
+        let frac=1;
+        for(const c of cards)frac=Math.min(frac,cardFrac(c));
+        if(frac>=1)break;
+        const next=Math.max(8,cur*frac);
+        if(Math.abs(next-cur)<0.1){cur=next;break}
+        cur=next;
+        cards.forEach(c=>c.style.setProperty('font-size',cur+'px'));
+      }
+      cards.forEach(c=>c.style.setProperty('font-size',cur+'px'));
     }
 
     function initMarquees(root){
@@ -406,7 +419,6 @@ function langNext(){
         }else{
           el.classList.remove('marquee');
           if(tr0)el.innerHTML=tr0.firstElementChild.innerHTML;
-          el.style.removeProperty('--marq-d');
           el.style.removeProperty('--marq-t');
         }
       });
@@ -419,7 +431,7 @@ function langNext(){
 {className:"Immortal Knight",skillName:"Immortality",skill:"At very low HP, becomes Immortal briefly and recovers HP equal to a portion of max HP.",pairs:[{skills:[{name:"Chase",type:"Combat"},{name:"Defensive Stance",type:"Defense"}]},{skills:[{name:"Deathblow",type:"Enhance"},{name:"Supersense",type:"Recon"}]},{skills:[{name:"Install Bomb",type:"Trick"},{name:"Secreta's Talent",type:"Recon"}]}],milestones:[{lvl:100,desc:"Defense Penetration +50"},{lvl:200,desc:"Movement Speed +8%"},{lvl:300,desc:"Attack Speed +8%"},{lvl:400,desc:"Attack Power +70"},{lvl:500,desc:"Attack Power +75 / Damage Received Decrease +3.5%"},{lvl:600,desc:"Landing Attack increases Accuracy and Critical Hit for 30 sec."},{lvl:700,desc:"Defense Power +100"},{lvl:800,desc:"Grants Petrify to the caster for 5 sec."}]},
 {className:"Trinity",skillName:"Everlasting Flow",skill:"Basic attack has a chance to grant Attack Speed, Defense Penetration, and Critical Strike effects.",pairs:[{skills:[{name:"Cutting Strike",type:"Enhance"},{name:"Magic Ignition",type:"Vitality"}]},{skills:[{name:"Magic Circulation",type:"Vitality"},{name:"Supersense",type:"Recon"}]},{skills:[{name:"Weapon of Destruction",type:"Trick"},{name:"Weak Spot Analysis",type:"Support"}]}],milestones:[{lvl:100,desc:"Defense Power +50"},{lvl:200,desc:"Movement Speed +8%"},{lvl:300,desc:"Attack Speed +8%"},{lvl:400,desc:"Attack Power +70"},{lvl:500,desc:"Attack Power +75 / All Damage +3.5%"},{lvl:600,desc:"Hitting Attack Skill grants AP, HP, and Crit for 1 minute."},{lvl:700,desc:"Attack Power +100 / Attack Speed +5%"},{lvl:800,desc:"Deals Combined Damage around the caster and inflicts Stun for 5 sec with a +80% chance. (Up to 10 targets)"}]},
 {className:"Harbinger of Storms",skillName:"Raging Storm",skill:"Summons a storm area that pulls targets, applies movement penalties, and grants immunity to status effects.",pairs:[{skills:[{name:"Mirror Shield",type:"Defense"},{name:"War Cry",type:"Vitality"}]},{skills:[{name:"Ice Spirit",type:"Enhance"},{name:"Power of Darkness",type:"Spell"}]},{skills:[{name:"Spread Venom",type:"Recon"},{name:"Magnetic Field",type:"Spell"}]}],milestones:[{lvl:100,desc:"Skill Damage +7%"},{lvl:200,desc:"Movement Speed +8%"},{lvl:300,desc:"Attack Speed +8%"},{lvl:400,desc:"Attack Power +70"},{lvl:500,desc:"Skill Damage +15%"},{lvl:600,desc:"+15% movement speed for 30 sec when landing attack skills."},{lvl:700,desc:"Attack Speed +5%"},{lvl:800,desc:"Increases the caster's Max HP, Defense Power, Attack Speed, and Movement Speed for 30 sec."}]},
-{className:"Goddess of Blessings",skillName:"Hands of the Goddess",skill:"Increases Attack Power, Movement Speed, and Status Effects Resistance in a 15m area.",pairs:[{skills:[{name:"Create Zone",type:"Defense"},{name:"Lightning Spirit",type:"Enhance"}]},{skills:[{name:"Leech",type:"Vitality"},{name:"Time Haste",type:"Trick"}]},{skills:[{name:"Wanderer",type:"Trick"},{name:"Continuous Curing",type:"Support"}]}],milestones:[{lvl:100,desc:"Endurance +50"},{lvl:200,desc:"Movement Speed +8%"},{lvl:300,desc:"Attack Speed +8%"},{lvl:400,desc:"Attack Power +70"},{lvl:500,desc:"Defense +75 / Cooldown Reduction +10%"},{lvl:600,desc:"Landing attack skill grants AP/Defense and +10% attack speed for 1 minute."},{lvl:700,desc:"Attack Power +100 / Attack Speed +5%"},{lvl:800,desc:"Recovers HP of the caster and party members within a 10m radius equal to 10% of Max HP every 2 sec for 10 sec. Reduces Healing Received for 60 sec. [Recovery cannot exceed Max 5,000 per instance.]"}]}];;
+{className:"Goddess of Blessings",skillName:"Hands of the Goddess",skill:"Increases Attack Power, Movement Speed, and Status Effects Resistance in a 15m area.",pairs:[{skills:[{name:"Create Zone",type:"Defense"},{name:"Lightning Spirit",type:"Enhance"}]},{skills:[{name:"Leech",type:"Vitality"},{name:"Time Haste",type:"Trick"}]},{skills:[{name:"Wanderer",type:"Trick"},{name:"Continuous Curing",type:"Support"}]}],milestones:[{lvl:100,desc:"Endurance +50"},{lvl:200,desc:"Movement Speed +8%"},{lvl:300,desc:"Attack Speed +8%"},{lvl:400,desc:"Attack Power +70"},{lvl:500,desc:"Defense +75 / Cooldown Reduction +10%"},{lvl:600,desc:"Landing attack skill grants AP/Defense and +10% attack speed for 1 minute."},{lvl:700,desc:"Attack Power +100 / Attack Speed +5%"},{lvl:800,desc:"Recovers HP of the caster and party members within a 10m radius equal to 10% of Max HP every 2 sec for 10 sec. Reduces Healing Received for 60 sec. [Recovery cannot exceed Max 5,000 per instance.]"}]}];
 
     const HT={ko:{},ja:{}};(function(){
   const add=(en,ko,ja)=>{HT.ko[en]=ko;HT.ja[en]=ja};
@@ -529,7 +541,7 @@ function langNext(){
   add("Defense +75 / Cooldown Reduction +10%","방어 +75 / 쿨다운 감소 +10%","防御 +75 / クールダウン減少 +10%");
   add("Landing attack skill grants AP/Defense and +10% attack speed for 1 minute.","공격 스킬 적중 시 1분간 공격력/방어력 및 공격 속도 +10% 증가.","攻撃スキル命中時、1分間攻撃力/防御力および攻撃速度 +10%が増加。");
   add("Recovers HP of the caster and party members within a 10m radius equal to 10% of Max HP every 2 sec for 10 sec. Reduces Healing Received for 60 sec. [Recovery cannot exceed Max 5,000 per instance.]","10m 반경 내 시전자와 파티원의 최대 HP의 10%에 해당하는 HP를 10초간 2초마다 회복합니다. 60초간 받는 치유 감소. [회복량은 회당 최대 5,000을 초과할 수 없습니다.]","10m半径内の術者とパーティーメンバーの最大HPの10%相当のHPを10秒間2秒毎に回復する。60秒間被治癒量が減少。[回復量は1回につき最大5,000を超えない]");
-})();;
+})();
     let lastHiddenLang='';
     function rHidden(){
       if(lastHiddenLang===lang)return;
@@ -543,6 +555,8 @@ function langNext(){
         return '<div class="class-card'+(exp?' expanded':'')+'" tabindex="0" aria-expanded="'+exp+'" data-key="'+c.className+'"><div class="class-card-header"><div class="class-icon"><img src="assets/'+c.className+'.png" alt="" class="class-icon-img" loading="lazy" decoding="async"></div><div class="class-title-group"><span class="class-name">'+ht(c.className)+'</span></div><span class="class-toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div><div class="class-card-body"><div class="skill-block"><div class="skill-block-label">'+ht(c.skillName)+'</div><div class="skill-block-text">'+ht(c.skill)+'</div></div><div class="skill-pairs">'+pairs+'</div><div class="milestones"><div class="milestone-title">Milestones</div><div class="milestone-list">'+mils+'</div></div></div></div>';
       }).join('');
       fitPairTexts();
+      fitExpandedCards();
+      fitCollapsedCards();
     }
 
     function fitPairTexts(){
@@ -561,6 +575,54 @@ function langNext(){
       });
     }
 
+    function fitClassCard(card){
+      const body=card.querySelector('.class-card-body');
+      if(!body)return;
+      body.style.removeProperty('zoom');
+      const avail=body.clientHeight;
+      if(avail<=1)return;
+      const need=body.scrollHeight;
+      if(need<=avail+1)return;
+      let z=Math.min(1,(avail/need)*0.97);
+      if(z<0.5)z=0.5;
+      body.style.zoom=z;
+      if(z>0.5&&body.scrollHeight>avail+1){
+        z=Math.max(0.5,z*(avail/body.scrollHeight)*0.97);
+        body.style.zoom=z;
+      }
+    }
+
+    function fitExpandedCards(){
+      if(window.innerWidth>900)return;
+      document.querySelectorAll('#hiddenList .class-card .class-card-body').forEach(b=>b.style.removeProperty('zoom'));
+      document.querySelectorAll('#hiddenList .class-card.expanded').forEach(fitClassCard);
+    }
+
+    function fitCollapsedCards(){
+      if(window.innerWidth>900)return;
+      const cards=[...document.querySelectorAll('#hiddenList .class-card')];
+      for(const c of cards){
+        const h=c.querySelector('.class-card-header');
+        if(h)h.style.removeProperty('zoom');
+      }
+      for(const c of cards){
+        if(c.classList.contains('expanded'))continue;
+        const h=c.querySelector('.class-card-header');
+        if(!h)continue;
+        const availW=h.clientWidth,availH=h.clientHeight;
+        if(availW<=1||availH<=1)continue;
+        const needW=h.scrollWidth,needH=h.scrollHeight;
+        if(needW<=availW+1&&needH<=availH+1)continue;
+        let z=Math.min(1,Math.min(availW/needW,availH/needH)*0.97);
+        if(z<0.5)z=0.5;
+        h.style.zoom=z;
+        if(z>0.5&&(h.scrollHeight>availH+1||h.scrollWidth>availW+1)){
+          z=Math.max(0.5,z*Math.min(availW/h.scrollWidth,availH/h.scrollHeight)*0.97);
+          h.style.zoom=z;
+        }
+      }
+    }
+
     const $=(id)=>document.getElementById(id);
 
     $('langBtn').onclick=langNext;
@@ -571,6 +633,7 @@ function langNext(){
       btn.classList.add('active');
       document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
       $('page'+(btn.dataset.page==='tracker'?'Tracker':'Hidden')).classList.add('active');
+      requestAnimationFrame(()=>{fitPairTexts();fitExpandedCards();fitCollapsedCards();const ap=document.querySelector('.page.active');if(ap){fitPanelCards(ap);initMarquees(ap)}});
     });
 
     document.addEventListener('click',(e)=>{
@@ -584,6 +647,8 @@ function langNext(){
       const expanded=card.classList.contains('expanded');
       card.setAttribute('aria-expanded',expanded);
       fitPairTexts();
+      fitExpandedCards();
+      fitCollapsedCards();
       if(expanded&&window.innerWidth<=900)requestAnimationFrame(()=>card.scrollIntoView({behavior:'smooth',block:'start'}));
     });
 
@@ -599,12 +664,14 @@ function langNext(){
       const expanded=card.classList.contains('expanded');
       card.setAttribute('aria-expanded',expanded);
       fitPairTexts();
+      fitExpandedCards();
+      fitCollapsedCards();
       if(expanded&&window.innerWidth<=900)requestAnimationFrame(()=>card.scrollIntoView({behavior:'smooth',block:'start'}));
     });
 
     let fitTimer;
-    window.addEventListener('resize',()=>{clearTimeout(fitTimer);fitTimer=setTimeout(()=>{fitPairTexts();const ap=document.querySelector('.page.active');if(ap){fitPanelCards(ap);initMarquees(ap)}},150);});
-    if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{fitPairTexts()});
+    window.addEventListener('resize',()=>{clearTimeout(fitTimer);fitTimer=setTimeout(()=>{fitPairTexts();fitExpandedCards();fitCollapsedCards();const ap=document.querySelector('.page.active');if(ap){fitPanelCards(ap);initMarquees(ap)}},150);});
+    if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{fitPairTexts();fitExpandedCards();fitCollapsedCards();const ap=document.querySelector('.page.active');if(ap)fitPanelCards(ap)});
 
     const ptrEl=$('ptrIndicator');
     let ptrY=0,ptrReady=false,ptrActive=false;
@@ -663,7 +730,9 @@ function langNext(){
       });
     });
 
+    let dataOnline=false;
     function setOnline(on){
+      dataOnline=on;
       const lp=$('livePill'),lt=$('liveText');
       lp.className='live-pill '+(on?'on':'off');
       lt.textContent=on?t('live'):t('offline');
@@ -684,6 +753,7 @@ function langNext(){
       },()=>{setOnline(false)});
     }
     async function pollData(){
+      if(dataOnline)return;
       try{
         const r=await fetch('https://firestore.googleapis.com/v1/projects/astra-boss-timer-759e5/databases/(default)/documents/timers/global?key=AIzaSyAboQqH7BmtLCO0ciHUvgGIUOU6SMzHnzo');
         if(!r.ok)throw Error(r.status);
@@ -709,20 +779,37 @@ function langNext(){
     }
     if(window.speechSynthesis){window.speechSynthesis.getVoices();window.speechSynthesis.addEventListener('voiceschanged',()=>syncVoices());setTimeout(()=>syncVoices(),500)}
 
+    function softTick(){
+      const n=now();
+      document.querySelectorAll('#upcomingList .boss-card[data-t]').forEach(card=>{
+        const tm=+card.dataset.t;
+        if(!tm)return;
+        const rem=tm-n;
+        const cls='boss-card '+statusClassFor(rem);
+        if(card.className!==cls)card.className=cls;
+        const lbl=card.querySelector('.boss-card-time-label');
+        if(lbl)lbl.textContent=rem<=0?t('spawned'):(lang==='ko'?fmtShort(rem)+' \uD6C4':lang==='ja'?'\u3042\u3068'+fmtShort(rem):'In '+fmtShort(rem));
+      });
+      document.querySelectorAll('#ivGrid .interval-row[data-t]').forEach(row=>{
+        const tm=+row.dataset.t;
+        const time=row.querySelector('.interval-row-time');
+        if(!tm||!time)return;
+        const al=tm>n;
+        time.textContent=al?fmtShort(tm-n):'--';
+        time.className='interval-row-time '+(al?'live':'na');
+      });
+    }
+
     try{
-      lang=localStorage.getItem('astralang')||'en';
-      alarmOn=localStorage.getItem('astraalarm')==='1';
+      lang=lsGet('astralang')||'en';
+      alarmOn=lsGet('astraalarm')==='1';
       applyLang();
       updateAlarmBtn();
       listenData();
       pollData();
       rAll();
-      setInterval(()=>{
-        const run=()=>{rNext();rUpcoming();rSched();rInt()};
-        if(window.requestIdleCallback)requestIdleCallback(run,{timeout:8000});
-        else run();
-      },15000);
       setInterval(ttsCheck,3000);
+      setInterval(softTick,30000);
     }catch(e){$('exportInfo').querySelector('span').textContent='Init error: '+e.message}
     
   
