@@ -452,7 +452,6 @@ function langNext(){
         return '<div class="class-card'+(exp?' expanded':'')+'" tabindex="0" aria-expanded="'+exp+'" data-key="'+c.className+'"><div class="class-card-header"><div class="class-icon"><img src="assets/'+c.className+'.png" alt="" class="class-icon-img" loading="lazy" decoding="async"></div><div class="class-title-group"><span class="class-name">'+ht(c.className)+'</span></div><span class="class-toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div><div class="class-card-body"><div class="skill-block"><div class="skill-block-label">'+ht(c.skillName)+'</div><div class="skill-block-text">'+ht(c.skill)+'</div></div><div class="skill-pairs">'+pairs+'</div><div class="milestones"><div class="milestone-title">Milestones</div><div class="milestone-list">'+mils+'</div></div></div></div>';
       }).join('');
       fitPairTexts();
-      updateHC();
     }
 
     function fitPairTexts(){
@@ -481,7 +480,6 @@ function langNext(){
       btn.classList.add('active');
       document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
       $('page'+(btn.dataset.page==='tracker'?'Tracker':'Hidden')).classList.add('active');
-      requestAnimationFrame(updateHC);
     });
 
     document.addEventListener('click',(e)=>{
@@ -508,44 +506,8 @@ function langNext(){
     });
 
     let fitTimer;
-    window.addEventListener('resize',()=>{clearTimeout(fitTimer);fitTimer=setTimeout(()=>{fitPairTexts();updateHC();},150);});
+    window.addEventListener('resize',()=>{clearTimeout(fitTimer);fitTimer=setTimeout(()=>{fitPairTexts()},150);});
     if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{fitPairTexts()});
-
-    function updateHC(){
-      const sc=$('hiddenScroll'),prev=$('hcPrev'),next=$('hcNext');
-      if(!sc||window.innerWidth<=900)return;
-      const max=Math.max(0,sc.scrollWidth-sc.clientWidth);
-      if(prev)prev.disabled=sc.scrollLeft<=1;
-      if(next)next.disabled=sc.scrollLeft>=max-1;
-    }
-    function hcStep(){
-      const sc=$('hiddenScroll'),grid=document.querySelector('.hidden-grid');
-      if(!sc||!grid)return sc?sc.clientWidth:0;
-      const cs=getComputedStyle(sc),gs=getComputedStyle(grid);
-      return sc.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight)+parseFloat(gs.columnGap||'0');
-    }
-    const hcPrev=$('hcPrev'),hcNext=$('hcNext');
-    if(hcPrev)hcPrev.onclick=()=>{const sc=$('hiddenScroll');sc.scrollTo({left:Math.max(0,sc.scrollLeft-hcStep()),behavior:'smooth'});setTimeout(updateHC,650)};
-    if(hcNext)hcNext.onclick=()=>{const sc=$('hiddenScroll');sc.scrollTo({left:Math.min(sc.scrollWidth-sc.clientWidth,sc.scrollLeft+hcStep()),behavior:'smooth'});setTimeout(updateHC,650)};
-    const hiddenScroll=$('hiddenScroll');
-    if(hiddenScroll)hiddenScroll.addEventListener('scroll',updateHC);
-    let hcWheelLock=0;
-    if(hiddenScroll)hiddenScroll.addEventListener('wheel',(e)=>{
-      if(window.innerWidth<=900)return;
-      const dy=Math.abs(e.deltaY),dx=Math.abs(e.deltaX);
-      if(dy>dx){
-        e.preventDefault();
-        const now=Date.now();
-        if(now-hcWheelLock<700)return;
-        hcWheelLock=now;
-        const dir=e.deltaY>0?1:-1;
-        hiddenScroll.scrollTo({left:Math.min(Math.max(0,hiddenScroll.scrollLeft+dir*hcStep()),hiddenScroll.scrollWidth-hiddenScroll.clientWidth),behavior:'smooth'});
-        setTimeout(updateHC,650);
-      }else if(dx>0&&e.deltaX!==0){
-        e.preventDefault();
-        hiddenScroll.scrollLeft+=e.deltaX*(e.deltaMode===1?16:1);
-      }
-    },{passive:false});
 
     const ptrEl=$('ptrIndicator');
     let ptrY=0,ptrReady=false,ptrActive=false;
