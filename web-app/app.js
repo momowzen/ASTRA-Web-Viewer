@@ -625,5 +625,9 @@ function langNext(){
       },15000);
       setInterval(ttsCheck,3000);
     }catch(e){$('exportInfo').querySelector('span').textContent='Init error: '+e.message}
+
+    document.addEventListener('visibilitychange',()=>{
+      document.querySelector('.bg-canvas').classList.toggle('bg-still',document.hidden);
+    });
     
   

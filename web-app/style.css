@@ -141,7 +141,7 @@
     }
     .bg-canvas::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 50% 50%, transparent 60%, rgba(0,0,0,0.55) 100%); z-index: 2; }
 
-    .nebula { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.55; animation: nebula-drift 24s ease-in-out infinite; mix-blend-mode: screen; }
+    .nebula { position: absolute; border-radius: 50%; filter: blur(48px); opacity: 0.55; animation: nebula-drift 24s ease-in-out infinite; }
     .nebula-1 { width: 60vw; height: 60vw; top: -20%; left: -10%; background: radial-gradient(circle, var(--astral-purple-glow), transparent 70%); animation-delay: 0s; }
     .nebula-2 { width: 45vw; height: 45vw; bottom: -15%; right: -10%; background: radial-gradient(circle, rgba(34,211,238,0.35), transparent 70%); animation-delay: -8s; }
     .nebula-3 { width: 35vw; height: 35vw; top: 40%; left: 60%; background: radial-gradient(circle, rgba(245,158,11,0.25), transparent 70%); animation-delay: -16s; }
@@ -195,7 +195,8 @@
     @keyframes star-scroll { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-2000px, 0, 0); } }
 
     .aurora { position: absolute; inset: 0; background: linear-gradient(90deg, transparent 0%, rgba(139, 92, 246, 0.05) 25%, rgba(34, 211, 238, 0.05) 50%, rgba(245, 158, 11, 0.05) 75%, transparent 100%); animation: aurora-shift 16s ease-in-out infinite; opacity: 0.5; }
-    @keyframes aurora-shift { 0%, 100% { transform: translateX(-3%) skewX(-2deg); opacity: 0.4; } 50% { transform: translateX(3%) skewX(2deg); opacity: 0.6; } }
+    @keyframes aurora-shift { 0%, 100% { transform: translateX(-3%) skewX(-2deg); } 50% { transform: translateX(3%) skewX(2deg); } }
+    .bg-still .nebula, .bg-still .stars, .bg-still .aurora { animation-play-state: paused; }
 
     .vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 50%, transparent 50%, rgba(0,0,0,0.6) 100%); z-index: 3; pointer-events: none; }
 
