@@ -64,9 +64,9 @@
     const TO=9*3600000;;
 
     const LANG={
-  en:{brand:'ASTRA',dash:'Dashboard',bsTab:'Bosses',live:'Live',offline:'Offline',nextSpawn:'Next Spawn',upcoming:'Upcoming',today:'Today',tomorrow:'Tomorrow',noSpawns:'No spawns',schedTag:'Schedule',schedTitle:'SCHEDULED',ivTag:'Interval',ivTitle:'Interval',every:'Every',lv:'Lv.',spawned:'SPAWNED',now:'Now',updated:'Updated',ago:'ago',tracker:'TRACKER',hiddenClass:'HIDDEN CLASS',history:'Activity',killed:'killed',missed:'missed',days:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],nm:['Venatus','Viorent','Ego','Clemantis','Livera','Araneo','Undomiel','Saphirus','Neutro','Lady Dalia','General Aquleus','Thymele','Amentis','Baron Braudmore','Milavy','Wannitas','Metus','Duplican','Shuliar','Ringor','Roderick','Gareth','Titore','Larba','Catena','Auraq','Secreta','Ordo','Asta','Supore','Chaiflock','Benji','Libitina','Rakajeth','Icaruthia','Motti','Camalia','Nevaeh','Tumier','Lucus'],ttsIn:(n,m)=>`${n} will respawn in ${m} minute${m!==1?'s':''}.`,ttsSpawned:n=>`${n} has respawned.`},
-  ja:{brand:'ASTRA',dash:'ダッシュボード',bsTab:'ボス',live:'オンライン',offline:'オフライン',nextSpawn:'次のスポーン',upcoming:'予定',today:'今日',tomorrow:'明日',noSpawns:'スポーンなし',schedTag:'スケジュール',schedTitle:'予定',ivTag:'インターバル',ivTitle:'インターバル',every:'毎',lv:'Lv.',spawned:'出現中',now:'今',updated:'更新',ago:'前',tracker:'追跡',hiddenClass:'隠しクラス',history:'履歴',killed:'討伐',missed:'取り逃し',days:['日','月','火','水','木','金','土'],nm:['ベナトゥス','ビオレント','エゴ','クレメンティス','リベラ','アラネオ','アンドゥミエル','サピルス','ネウトロ','レディ·ダリア','将軍アクレウス','テュメレ','アメンティス','ブラウドモア','ミラベ','ワニタス','メトゥス','デュプリカン','シュライヤー','リンゴル','ロデリック','ガレス','ティトル','ラルバ','カテナ','アウラーク','セクレタ','オルド','アスタ','スポル','シャイフロック','ベンジー','リビティーナ','ラカゼス','イカルシア','モティ','カマリア','ネバ','トゥミエル','ルクス'],ttsIn:(n,m)=>`${n}が${m}分後に出現します。`,ttsSpawned:n=>`${n}が出現しました。`},
-  ko:{brand:'ASTRA',dash:'대시보드',bsTab:'보스',live:'온라인',offline:'오프라인',nextSpawn:'다음 스폰',upcoming:'예정',today:'오늘',tomorrow:'내일',noSpawns:'스폰 없음',schedTag:'일정',schedTitle:'일정',ivTag:'간격',ivTitle:'간격',every:'매',lv:'레벨',spawned:'출현중',now:'지금',updated:'업데이트',ago:'전',tracker:'추적',hiddenClass:'비밀 클래스',history:'활동',killed:'처치',missed:'놓침',days:['일','월','화','수','목','금','토'],nm:['베나투스','비오렌트','에고','클레멘티스','리베라','아라네오','안두미엘','사피루스','네우트로','레이디 달리아','장군 아클레우스','튜메레','아멘티스','남작 브라우드모어','미라베','와니타스','메투스','듀플리칸','슈라이어','링고르','로데릭','가레스','티토르','라르바','카테나','아우라크','세크레타','오르도','아스타','스포르','샤이플록','벤지','리비티나','라카제스','이카루시아','모티','카말리아','네바','투미엘','루크스'],ttsIn:(n,m)=>`${n}${koParticle(n,'subj')} ${m}분 후에 출현합니다.`,ttsSpawned:n=>`${n}${koParticle(n,'subj')} 출현했습니다.`}
+  en:{brand:'ASTRA',dash:'Dashboard',bsTab:'Bosses',live:'Live',offline:'Offline',nextSpawn:'Next Spawn',upcoming:'Upcoming',today:'Today',tomorrow:'Tomorrow',noSpawns:'No spawns',schedTag:'Schedule',schedTitle:'SCHEDULED',ivTag:'Interval',ivTitle:'Interval',every:'Every',lv:'Lv.',spawned:'SPAWNED',now:'Now',updated:'Updated',ago:'ago',tracker:'TRACKER',hiddenClass:'HIDDEN CLASS',history:'Activity',killed:'killed',missed:'missed',days:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],nm:['Venatus','Viorent','Ego','Clemantis','Livera','Araneo','Undomiel','Saphirus','Neutro','Lady Dalia','General Aquleus','Thymele','Amentis','Baron Braudmore','Milavy','Wannitas','Metus','Duplican','Shuliar','Ringor','Roderick','Gareth','Titore','Larba','Catena','Auraq','Secreta','Ordo','Asta','Supore','Chaiflock','Benji','Libitina','Rakajeth','Icaruthia','Motti','Camalia','Nevaeh','Tumier','Lucus'],ttsIn:(n,m)=>`${n} spawns in ${m} minute${m!==1?'s':''}.`,ttsSpawned:n=>`${n} has spawned.`,ttsWbIn:(m)=>`World Boss spawns in ${m} minute${m!==1?'s':''}.`,ttsWbSpawned:`World Boss has spawned.`},
+  ja:{brand:'ASTRA',dash:'ダッシュボード',bsTab:'ボス',live:'オンライン',offline:'オフライン',nextSpawn:'次のスポーン',upcoming:'予定',today:'今日',tomorrow:'明日',noSpawns:'スポーンなし',schedTag:'スケジュール',schedTitle:'予定',ivTag:'インターバル',ivTitle:'インターバル',every:'毎',lv:'Lv.',spawned:'出現中',now:'今',updated:'更新',ago:'前',tracker:'追跡',hiddenClass:'隠しクラス',history:'履歴',killed:'討伐',missed:'取り逃し',days:['日','月','火','水','木','金','土'],nm:['ベナトゥス','ビオレント','エゴ','クレメンティス','リベラ','アラネオ','アンドゥミエル','サピルス','ネウトロ','レディ·ダリア','将軍アクレウス','テュメレ','アメンティス','ブラウドモア','ミラベ','ワニタス','メトゥス','デュプリカン','シュライヤー','リンゴル','ロデリック','ガレス','ティトル','ラルバ','カテナ','アウラーク','セクレタ','オルド','アスタ','スポル','シャイフロック','ベンジー','リビティーナ','ラカゼス','イカルシア','モティ','カマリア','ネバ','トゥミエル','ルクス'],ttsIn:(n,m)=>`${n}は${m}分後に出現します。`,ttsSpawned:n=>`${n}が出現しました。`,ttsWbIn:(m)=>`ワールドボスは${m}分後に出現します。`,ttsWbSpawned:`ワールドボスが出現しました。`},
+  ko:{brand:'ASTRA',dash:'대시보드',bsTab:'보스',live:'온라인',offline:'오프라인',nextSpawn:'다음 스폰',upcoming:'예정',today:'오늘',tomorrow:'내일',noSpawns:'스폰 없음',schedTag:'일정',schedTitle:'일정',ivTag:'간격',ivTitle:'간격',every:'매',lv:'레벨',spawned:'출현중',now:'지금',updated:'업데이트',ago:'전',tracker:'추적',hiddenClass:'비밀 클래스',history:'활동',killed:'처치',missed:'놓침',days:['일','월','화','수','목','금','토'],nm:['베나투스','비오렌트','에고','클레멘티스','리베라','아라네오','안두미엘','사피루스','네우트로','레이디 달리아','장군 아클레우스','튜메레','아멘티스','남작 브라우드모어','미라베','와니타스','메투스','듀플리칸','슈라이어','링고르','로데릭','가레스','티토르','라르바','카테나','아우라크','세크레타','오르도','아스타','스포르','샤이플록','벤지','리비티나','라카제스','이카루시아','모티','카말리아','네바','투미엘','루크스'],ttsIn:(n,m)=>`${n}${koParticle(n,'subj')} ${m}분 후에 출현합니다.`,ttsSpawned:n=>`${n}${koParticle(n,'subj')} 출현했습니다.`,ttsWbIn:(m)=>`월드 보스가 ${m}분 후 출현합니다.`,ttsWbSpawned:`월드 보스가 출현했습니다.`}
 };;
 
     let lang='en';
@@ -151,15 +151,52 @@ function langNext(){
         if(rem>0&&rem<=5*60000){
           const m=Math.ceil(rem/60000);
           const key=`${b.id}_${tm.endTime}_${m}`;
-          if(!ttsSpoken.has(key)){ttsSpoken.add(key);speak(t('ttsIn')(bn(b),m),`${b.name} will respawn in ${m} minute${m!==1?'s':''}.`)}
-        }else if(rem<=0&&rem>-60000){
+          if(!ttsSpoken.has(key)){ttsSpoken.add(key);speak(t('ttsIn')(bn(b),m),`${b.name} spawns in ${m} minute${m!==1?'s':''}.`)}
+        }else if(rem<=0&&rem>-300000){
           const armedEnd=ttsArmed.get(b.id);
           if(armedEnd===tm.endTime){
             const key=`${b.id}_${tm.endTime}_spawned`;
-            if(!ttsSpoken.has(key)){ttsSpoken.add(key);speak(t('ttsSpawned')(bn(b)),`${b.name} has respawned.`);ttsArmed.delete(b.id)}
+            if(!ttsSpoken.has(key)){ttsSpoken.add(key);speak(t('ttsSpawned')(bn(b)),`${b.name} has spawned.`);ttsArmed.delete(b.id)}
           }
         }
       }
+      wbTtsCheck(n);
+    }
+
+    const WORLD_BOSS_TIMES=[{hour:12,minute:0},{hour:21,minute:0}];
+    const ttsWbMinutes=new Map();
+    const sentWbSpawned=new Set();
+    let wbDay='';
+    function wbTtsCheck(n){
+      try{
+        const jstNow=new Date(n+TO);
+        let nextSpawn=null;
+        for(const {hour,minute} of WORLD_BOSS_TIMES){
+          const s=Date.UTC(jstNow.getUTCFullYear(),jstNow.getUTCMonth(),jstNow.getUTCDate(),hour-9,minute);
+          let ts=s;
+          if(ts<n-300000)ts+=86400000;
+          if(!nextSpawn||ts<nextSpawn)nextSpawn=ts;
+        }
+        if(!nextSpawn)return;
+        const remainingMs=nextSpawn-n;
+        const d=new Date(nextSpawn+TO);
+        const spawnKey=`${String(d.getUTCMonth()+1).padStart(2,'0')}${String(d.getUTCDate()).padStart(2,'0')}_${String(d.getUTCHours()).padStart(2,'0')}${String(d.getUTCMinutes()).padStart(2,'0')}`;
+        if(remainingMs>0&&remainingMs<=5*60000){
+          const minutesLeft=Math.ceil(remainingMs/60000);
+          const spokeKey=`${spawnKey}_${minutesLeft}`;
+          if(!ttsWbMinutes.has(spokeKey)){ttsWbMinutes.set(spokeKey,true);speak(t('ttsWbIn')(minutesLeft),`World Boss spawns in ${minutesLeft} minute${minutesLeft!==1?'s':''}.`)}
+        }
+        if(remainingMs<=0&&remainingMs>-300000&&!sentWbSpawned.has(spawnKey)){
+          sentWbSpawned.add(spawnKey);
+          speak(t('ttsWbSpawned'),`World Boss has spawned.`);
+        }
+        const todayStr=`${String(jstNow.getUTCMonth()+1).padStart(2,'0')}${String(jstNow.getUTCDate()).padStart(2,'0')}`;
+        if(wbDay!==todayStr){
+          wbDay=todayStr;
+          for(const k of sentWbSpawned)if(!k.startsWith(todayStr))sentWbSpawned.delete(k);
+          ttsWbMinutes.clear();
+        }
+      }catch(e){}
     }
 
     let timers={};
