@@ -486,6 +486,9 @@ function langNext(){
       const hdr=e.target.closest('.class-card-header');
       if(!hdr) return;
       const card=hdr.closest('.class-card');
+      if(window.innerWidth<=900&&!card.classList.contains('expanded'))document.querySelectorAll('.class-card.expanded').forEach(c=>{
+        if(c!==card){c.classList.remove('expanded');c.setAttribute('aria-expanded','false');}
+      });
       card.classList.toggle('expanded');
       const expanded=card.classList.contains('expanded');
       card.setAttribute('aria-expanded',expanded);
@@ -498,6 +501,9 @@ function langNext(){
       const card=e.target.closest('.class-card');
       if(!card) return;
       e.preventDefault();
+      if(window.innerWidth<=900&&!card.classList.contains('expanded'))document.querySelectorAll('.class-card.expanded').forEach(c=>{
+        if(c!==card){c.classList.remove('expanded');c.setAttribute('aria-expanded','false');}
+      });
       card.classList.toggle('expanded');
       const expanded=card.classList.contains('expanded');
       card.setAttribute('aria-expanded',expanded);
