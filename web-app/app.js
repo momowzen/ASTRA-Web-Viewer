@@ -696,7 +696,7 @@ function langNext(){
       pollData();
       rAll();
       setInterval(()=>{
-        const run=()=>{rNext();rUpcoming();rSched();rInt()};
+        const run=()=>{rNext();rUpcoming();rSched();rInt();initMarquees(document)};
         if(window.requestIdleCallback)requestIdleCallback(run,{timeout:8000});
         else run();
       },15000);
