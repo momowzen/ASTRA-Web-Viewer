@@ -365,10 +365,12 @@
     .interval-row-time.live { color: var(--alive-green); text-shadow: 0 0 10px var(--alive-green-glow); }
     .interval-row-time.na { color: var(--text-tertiary); }
 
-    .marquee { text-overflow: clip; animation: marquee-loop var(--marq-t, 8s) linear infinite; will-change: transform; }
-    .marquee:hover { animation-play-state: paused; }
-    @keyframes marquee-loop { from { transform: translateX(0); } to { transform: translateX(calc(-1 * var(--marq-d, 40px))); } }
-    @media (prefers-reduced-motion: reduce) { .marquee { animation: none; } }
+    .marquee { text-overflow: clip; }
+    .marquee .marq-track { display: inline-block; white-space: nowrap; animation: marquee-loop var(--marq-t, 8s) linear infinite; will-change: transform; }
+    .marquee .marq-track > span { display: inline-block; padding-right: 24px; }
+    .marquee:hover .marq-track { animation-play-state: paused; }
+    @keyframes marquee-loop { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    @media (prefers-reduced-motion: reduce) { .marquee .marq-track { animation: none; } }
 
     .hidden-page { gap: 0; overflow: hidden; position: relative; }
     .hidden-scroll { flex: 1; min-height: 0; overflow-y: auto; padding: var(--space-1); overscroll-behavior: contain; }
