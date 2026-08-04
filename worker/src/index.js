@@ -1,6 +1,7 @@
-const UPSTREAM = 'https://www.raidium.quest/api/tools/relic-calculator/prices?realm=OLD_REALM';
-const FX_URL   = 'https://open.er-api.com/v6/latest/USD';
-const TTL      = 120000; // serve cached prices for 2 min before refetching
+const MARKET_BASE = 'https://api.nextmarket.games/l9asia';
+const FX_URL      = 'https://open.er-api.com/v6/latest/USD';
+const TTL         = 60000; // serve cached prices for 60s before refetching
+const PAGE_SIZE   = 500;
 
 const CORS = {
   'Access-Control-Allow-Origin':  '*',
@@ -11,14 +12,44 @@ const CORS = {
 
 let mem = { ts: 0, json: null };
 
-async function fetchUpstream(force) {
-  const now = Date.now();
-  if (!force && mem.json && now - mem.ts < TTL) return { json: mem.json, cached: true };
-  const r = await fetch(UPSTREAM);
-  if (!r.ok) throw new Error('upstream ' + r.status);
-  mem.json = await r.json();
-  mem.ts = now;
-  return { json: mem.json, cached: false };
+// Fetch a single page of marketplace listings. The NEXT Market search API is
+// a POST to /v1/sale/c2c with a JSON body; listings are returned cheapest-first
+// when sort=PRICE_ASC is provided.
+async function fetchPage(page, realmCode) {
+  const r = await fetch(
+    `${MARKET_BASE}/v1/sale/c2c?page=${page}&size=${PAGE_SIZE}`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ presetIdList: [36], realmCode, sort: 'PRICE_ASC' })
+    }
+  );
+  if (!r.ok) throw new Error('market ' + r.status);
+  return r.json();
+}
+
+// Scan all pages, keeping the lowest USDT price per chest tier (T1..T5).
+async function fetchCheapest(realmCode) {
+  const page0 = await fetchPage(0, realmCode);
+  const total = page0.totalElements || 0;
+  const pagesNeeded = Math.min(Math.ceil(total / PAGE_SIZE), 6);
+  const pages = [page0];
+  for (let p = 1; p < pagesNeeded; p++) {
+    try { pages.push(await fetchPage(p, realmCode)); } catch (e) {}
+  }
+
+  const cheap = {};
+  for (const page of pages) {
+    for (const it of (page.content || [])) {
+      const m = (it.item && it.item.name) ? String(it.item.name).match(/T(\d)\b.*?x([\d,]+)/) : null;
+      if (!m) continue;
+      const tier = 'T' + m[1];
+      const price = +(it.cryptoPriceInfo && it.cryptoPriceInfo.price);
+      if (!isFinite(price) || price <= 0) continue;
+      if (!(tier in cheap) || price < cheap[tier]) cheap[tier] = price;
+    }
+  }
+  return cheap;
 }
 
 async function getFx() {
@@ -43,29 +74,35 @@ function json(data, status) {
 export default {
   async fetch(request) {
     if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: CORS });
-    const force = new URL(request.url).searchParams.get('force') === '1';
+    const url = new URL(request.url);
+    const force = url.searchParams.get('force') === '1';
+    const realmCode = url.searchParams.get('realm') || 'OLD_REALM';
 
     try {
-      const { json: data, cached } = await fetchUpstream(force);
-      if (!data || data.success === false) throw new Error(data.message || 'bad upstream');
-
-      const fx = await getFx();
-      if (fx.php <= 0 && data.exchangeRate) fx.php = +data.exchangeRate || 0;
-
-      const prices = {};
-      for (const [k, v] of Object.entries(data.prices || {})) {
-        prices[k] = { priceUSDT: +v.priceUSDT || 0 };
+      const now = Date.now();
+      if (!force && mem.json && now - mem.ts < TTL) {
+        return json({ ...mem.json, cached: true });
       }
 
-      return json({
+      const prices = await fetchCheapest(realmCode);
+      if (!Object.keys(prices).length) throw new Error('no listings');
+
+      const fx = await getFx();
+      if (fx.php <= 0) fx.php = 0;
+
+      const payload = {
         success: true,
-        realm: 'OLD_REALM',
+        realm: realmCode,
         prices,
         fx,
-        lastUpdated: data.lastUpdated || null,
-        cached
-      });
+        lastUpdated: new Date(now).toISOString(),
+        cached: false
+      };
+      mem.json = payload;
+      mem.ts = now;
+      return json(payload);
     } catch (e) {
+      if (mem.json) return json({ ...mem.json, cached: true });
       return json({ success: false, message: 'Failed to load prices: ' + e.message }, 502);
     }
   }
