@@ -643,12 +643,13 @@
     .value-tag { display: inline-flex; font-size: 0.55rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; color: var(--alive-green); border: 1px solid rgba(52,211,153,0.32); background: rgba(52,211,153,0.08); border-radius: var(--radius-full); padding: 0 5px; white-space: nowrap; }
 
     .tier-list { display: flex; flex-direction: column; gap: var(--space-1); }
-    .tier-row { display: grid; grid-template-columns: 1fr 5rem 6rem 6.5rem; gap: var(--space-2); align-items: center; padding: var(--space-2) var(--space-3); border-radius: var(--radius-md); background: rgba(255,255,255,0.018); border: 1px solid var(--glass-border); font-size: 0.72rem; cursor: pointer; transition: background-color var(--duration-fast) var(--ease-smooth), border-color var(--duration-fast) var(--ease-smooth); }
+    .tier-row { display: grid; grid-template-columns: minmax(0,1fr) auto auto auto; gap: var(--space-2); align-items: center; padding: var(--space-2) var(--space-3); border-radius: var(--radius-md); background: rgba(255,255,255,0.018); border: 1px solid var(--glass-border); font-size: 0.72rem; cursor: pointer; transition: background-color var(--duration-fast) var(--ease-smooth), border-color var(--duration-fast) var(--ease-smooth); }
     .tier-row:hover { background: rgba(255,255,255,0.04); border-color: var(--glass-border-strong); }
     .tier-row.selected { background: rgba(139,92,246,0.10); border-color: rgba(139,92,246,0.45); }
     .tier-row.best-value { background: rgba(52,211,153,0.07); border-color: rgba(52,211,153,0.28); }
     .tier-row.selected.best-value { background: rgba(139,92,246,0.10); border-color: rgba(139,92,246,0.45); }
-    .tier-row .tier-name { display: flex; align-items: center; gap: var(--space-2); font-weight: 600; color: var(--text-primary); white-space: nowrap; }
+    .tier-row .tier-name { display: flex; align-items: center; gap: var(--space-2); font-weight: 600; color: var(--text-primary); white-space: nowrap; overflow: hidden; }
+    .tier-row .tier-name > span:first-child { flex-shrink: 0; }
     .tier-row .tier-per1k, .tier-row .tier-qty, .tier-row .tier-cost { text-align: right; color: var(--text-secondary); font-variant-numeric: tabular-nums; white-space: nowrap; }
     .tier-row .tier-cost { color: var(--alive-green); font-weight: 600; }
     .mkt-save { font-size: 0.7rem; color: var(--soft-gold); }
@@ -664,7 +665,7 @@
       .relic-grand { gap: var(--space-2); }
       .relic-grand-cell { padding: var(--space-2); }
       .relic-grand-value { font-size: 1.1rem; }
-      .tier-row { grid-template-columns: 1fr 3.5rem 4.5rem 5rem; font-size: 0.66rem; }
+      .tier-row { grid-template-columns: minmax(0,1fr) auto auto auto; font-size: 0.66rem; }
       .relic-graph-row .rg-label { width: 4.5rem; }
     }
   
