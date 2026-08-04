@@ -573,9 +573,9 @@
     .relic-grid > .panel { min-height: 0; }
 
     .relic-body { display: flex; flex-direction: column; gap: var(--space-3); overflow: hidden; }
-    .relic-card { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-3) var(--space-4); border-radius: var(--radius-lg); background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); transition: border-color var(--duration-normal) var(--ease-smooth), background-color var(--duration-normal) var(--ease-smooth); }
+    .relic-card { display: grid; grid-template-columns: 1fr auto; grid-template-areas: "top top" "inputs result"; gap: var(--space-2) var(--space-4); padding: var(--space-3) var(--space-4); border-radius: var(--radius-lg); background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); transition: border-color var(--duration-normal) var(--ease-smooth), background-color var(--duration-normal) var(--ease-smooth); }
     .relic-card.active { border-color: var(--glass-border-strong); background: rgba(255,255,255,0.03); }
-    .relic-card-top { display: flex; align-items: center; gap: var(--space-2); }
+    .relic-card-top { grid-area: top; display: flex; align-items: center; gap: var(--space-2); }
     .relic-dot { width: 0.625rem; height: 0.625rem; border-radius: 50%; flex-shrink: 0; }
     .relic-dot.re-0 { background: #ef4444; box-shadow: 0 0 10px rgba(239,68,68,0.45); }
     .relic-dot.re-1 { background: #3b82f6; box-shadow: 0 0 10px rgba(59,130,246,0.45); }
@@ -583,7 +583,7 @@
     .relic-dot.re-3 { background: #eab308; box-shadow: 0 0 10px rgba(234,179,8,0.45); }
     .relic-name { font-family: var(--font-display); font-weight: 600; font-size: 0.8rem; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.02em; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .relic-cp { margin-left: auto; font-family: var(--font-mono, monospace); font-weight: 600; font-size: 0.72rem; color: var(--soft-gold); white-space: nowrap; }
-    .relic-inputs { display: flex; align-items: flex-end; gap: var(--space-2); }
+    .relic-inputs { grid-area: inputs; display: flex; align-items: flex-end; gap: var(--space-2); }
     .relic-field { display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 0; }
     .relic-field-label { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-tertiary); }
     .relic-numwrap { display: flex; align-items: center; }
@@ -596,13 +596,12 @@
     .relic-num { appearance: none; -moz-appearance: textfield; -webkit-appearance: none; width: 3.75rem; height: 2.15rem; background: rgba(15,23,42,0.75); border: 1px solid var(--glass-border); border-left: none; border-right: none; color: var(--text-primary); font-family: var(--font-mono, monospace); font-weight: 600; text-align: center; box-sizing: content-box; }
     .relic-num::-webkit-inner-spin-button, .relic-num::-webkit-outer-spin-button { -webkit-appearance: none; appearance: none; margin: 0; }
     .relic-num:focus { outline: none; border-color: var(--electric-cyan); }
-    .relic-result { display: flex; flex-direction: column; gap: var(--space-2); }
-    .relic-result-empty { font-size: 0.72rem; color: var(--text-tertiary); padding: var(--space-2); border: 1px dashed var(--glass-border); border-radius: var(--radius-md); text-align: center; }
-    .relic-result-head { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-3); }
-    .relic-result-pieces { font-family: var(--font-mono, monospace); font-size: 1.35rem; font-weight: 700; line-height: 1.1; font-variant-numeric: tabular-nums; }
+    .relic-result { grid-area: result; display: flex; flex-direction: column; align-items: flex-end; gap: 3px; text-align: right; justify-content: center; min-width: 6rem; }
+    .relic-result-cp { font-family: var(--font-mono, monospace); font-size: 0.62rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+    .relic-result-block { display: flex; flex-direction: column; align-items: flex-end; line-height: 1.1; }
+    .relic-result-pieces { font-family: var(--font-mono, monospace); font-size: 1.15rem; font-weight: 700; font-variant-numeric: tabular-nums; }
     .relic-result-label { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-tertiary); }
-    .relic-result-cost { text-align: right; }
-    .relic-result-price { font-family: var(--font-mono, monospace); font-size: 0.95rem; font-weight: 600; color: var(--alive-green); }
+    .relic-result-price { font-family: var(--font-mono, monospace); font-size: 0.88rem; font-weight: 600; color: var(--alive-green); font-variant-numeric: tabular-nums; }
 
     .relic-grand { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-3); margin-top: var(--space-1); }
     .relic-grand-cell { background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); border-radius: var(--radius-lg); padding: var(--space-3) var(--space-4); text-align: center; }
@@ -646,8 +645,11 @@
     .value-tag { display: inline-flex; font-size: 0.55rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; color: var(--alive-green); border: 1px solid rgba(52,211,153,0.32); background: rgba(52,211,153,0.08); border-radius: var(--radius-full); padding: 0 5px; white-space: nowrap; }
 
     .tier-list { display: flex; flex-direction: column; gap: var(--space-1); }
-    .tier-row { display: grid; grid-template-columns: 1fr 5rem 6rem 6.5rem; gap: var(--space-2); align-items: center; padding: var(--space-2) var(--space-3); border-radius: var(--radius-md); background: rgba(255,255,255,0.018); border: 1px solid var(--glass-border); font-size: 0.72rem; }
+    .tier-row { display: grid; grid-template-columns: 1fr 5rem 6rem 6.5rem; gap: var(--space-2); align-items: center; padding: var(--space-2) var(--space-3); border-radius: var(--radius-md); background: rgba(255,255,255,0.018); border: 1px solid var(--glass-border); font-size: 0.72rem; cursor: pointer; transition: background-color var(--duration-fast) var(--ease-smooth), border-color var(--duration-fast) var(--ease-smooth); }
+    .tier-row:hover { background: rgba(255,255,255,0.04); border-color: var(--glass-border-strong); }
+    .tier-row.selected { background: rgba(139,92,246,0.10); border-color: rgba(139,92,246,0.45); }
     .tier-row.best-value { background: rgba(52,211,153,0.07); border-color: rgba(52,211,153,0.28); }
+    .tier-row.selected.best-value { background: rgba(139,92,246,0.10); border-color: rgba(139,92,246,0.45); }
     .tier-row .tier-name { display: flex; align-items: center; gap: var(--space-2); font-weight: 600; color: var(--text-primary); white-space: nowrap; }
     .tier-row .tier-per1k, .tier-row .tier-qty, .tier-row .tier-cost { text-align: right; color: var(--text-secondary); font-variant-numeric: tabular-nums; white-space: nowrap; }
     .tier-row .tier-cost { color: var(--alive-green); font-weight: 600; }
