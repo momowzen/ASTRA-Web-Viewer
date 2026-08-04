@@ -567,12 +567,12 @@
     }
 
     /* ---- Relic section ---- */
-    .relic-page { overflow-y: auto; }
-    .relic-scroll { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
-    .relic-grid { flex: 1; min-height: 0; display: grid; grid-template-columns: 1.25fr 1fr; grid-template-rows: 1fr; gap: var(--space-4); }
+    .relic-page { overflow: hidden; }
+    .relic-scroll { flex: 1; min-height: 0; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    .relic-grid { flex: 1 1 auto; min-height: 0; width: 100%; display: grid; grid-template-columns: 1.25fr 1fr; grid-template-rows: 1fr; gap: var(--space-4); transform-origin: top center; }
     .relic-grid > .panel { min-height: 0; }
 
-    .relic-body { display: flex; flex-direction: column; gap: var(--space-3); overflow-y: auto; }
+    .relic-body { display: flex; flex-direction: column; gap: var(--space-3); overflow: hidden; }
     .relic-card { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-3) var(--space-4); border-radius: var(--radius-lg); background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); transition: border-color var(--duration-normal) var(--ease-smooth), background-color var(--duration-normal) var(--ease-smooth); }
     .relic-card.active { border-color: var(--glass-border-strong); background: rgba(255,255,255,0.03); }
     .relic-card-top { display: flex; align-items: center; gap: var(--space-2); }
@@ -603,12 +603,6 @@
     .relic-result-label { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-tertiary); }
     .relic-result-cost { text-align: right; }
     .relic-result-price { font-family: var(--font-mono, monospace); font-size: 0.95rem; font-weight: 600; color: var(--alive-green); }
-    .relic-result-cp { font-size: 0.62rem; color: var(--soft-gold); margin-top: 2px; }
-    .relic-result-stats { display: flex; flex-direction: column; gap: var(--space-1); border-top: 1px solid var(--glass-border); padding-top: var(--space-2); }
-    .relic-result-row { display: flex; align-items: baseline; gap: var(--space-2); font-size: 0.7rem; }
-    .relic-result-row .rs-name { color: var(--text-thirdary, var(--text-tertiary)); flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .relic-result-row .rs-val { font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
-    .relic-result-row .rs-cp { color: var(--soft-gold); font-size: 0.62rem; white-space: nowrap; }
 
     .relic-grand { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-3); margin-top: var(--space-1); }
     .relic-grand-cell { background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); border-radius: var(--radius-lg); padding: var(--space-3) var(--space-4); text-align: center; }
@@ -629,7 +623,7 @@
     .mkt-realm { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: var(--space-1) var(--space-2); border-radius: var(--radius-full); color: var(--soft-gold); border: 1px solid rgba(245,158,11,0.35); background: rgba(245,158,11,0.08); }
     .mkt-refresh svg { animation: none; }
     .mkt-alert-toggle.on { color: var(--alive-green); border-color: rgba(52,211,153,0.4); background: rgba(52,211,153,0.12); }
-    .mkt-body { display: flex; flex-direction: column; gap: var(--space-3); }
+    .mkt-body { display: flex; flex-direction: column; gap: var(--space-3); overflow: hidden; }
     .mkt-status { display: flex; flex-direction: column; gap: var(--space-2); }
     .mkt-updated { font-size: 0.68rem; color: var(--text-tertiary); }
     .mkt-currency .seg-btn.off { opacity: 0.4; pointer-events: none; }
@@ -659,22 +653,9 @@
     .tier-row .tier-cost { color: var(--alive-green); font-weight: 600; }
     .mkt-save { font-size: 0.7rem; color: var(--soft-gold); }
 
-    .cp-ref-panel { margin-top: var(--space-4); }
-    .cp-ref-body { display: flex; flex-direction: column; gap: var(--space-3); }
-    .cp-tabs { display: flex; gap: var(--space-1); flex-wrap: wrap; }
-    .cp-tab { appearance: none; border: 1px solid var(--glass-border); background: transparent; color: var(--text-tertiary); font-family: var(--font-display); font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: var(--space-1) var(--space-3); border-radius: var(--radius-full); cursor: pointer; transition: color var(--duration-fast) var(--ease-smooth), border-color var(--duration-fast) var(--ease-smooth), background-color var(--duration-fast) var(--ease-smooth); }
-    .cp-tab:hover { color: var(--text-secondary); border-color: var(--glass-border-strong); }
-    .cp-tab.active { color: var(--c, var(--astral-purple)); border-color: currentColor; background: color-mix(in srgb, var(--c, var(--astral-purple)) 12%, transparent); }
-    .cp-panel { display: flex; flex-direction: column; gap: var(--space-1); }
-    .cp-row { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-1) var(--space-2); border-radius: var(--radius-md); font-size: 0.78rem; }
-    .cp-row:hover { background: rgba(255,255,255,0.03); }
-    .cp-row .cp-stat { flex: 1 1 auto; min-width: 0; color: var(--text-secondary); }
-    .cp-row .cp-unit { font-size: 0.62rem; color: var(--text-tertiary); white-space: nowrap; }
-    .cp-row .cp-val { font-family: var(--font-mono, monospace); font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
-
     @media (max-width: 900px) {
-      .relic-grid { grid-template-columns: 1fr; grid-template-rows: auto; overflow-y: auto; }
-      .relic-grid > .panel { min-height: auto; }
+      .relic-grid { grid-template-columns: 1fr; grid-template-rows: auto; grid-auto-rows: minmax(0, 1fr); overflow: hidden; }
+      .relic-grid > .panel { min-height: 0; }
       .relic-grid .panel:last-child { grid-column: auto; grid-row: auto; }
       .relic-graph-row .rg-label { width: 6rem; }
     }
