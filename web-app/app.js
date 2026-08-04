@@ -105,14 +105,12 @@ function langNext(){
       $('relicGrandLblP').textContent=t('gPieces');
       $('relicGrandLblU').textContent=t('gUp');
       $('relicGrandLblC').textContent=t('gCp');
-      $('cpRefLbl').textContent=t('cpRef');
       $('mktLbl').textContent=t('chestMarket');
       $('mktRealm').textContent=t('origin');
       $('mktRefresh').setAttribute('aria-label',t('refresh'));
       $('mktAlert').setAttribute('title',t('radarBtn'));
       document.querySelectorAll('#relicSettings .relic-field-label').forEach((f,idx)=>f.textContent=idx%2===0?t('current'):t('goal'));
       $('langText').textContent=FLAGS[lang];
-      renderCPRef();
       const lp=$('livePill'),lt=$('liveText');
       const isOn=lp.classList.contains('on');
       lt.textContent=isOn?t('live'):t('offline');
@@ -592,23 +590,6 @@ function langNext(){
       el.innerHTML='<div class="mkt-radar-card '+(isSnipe?'warn':'')+'"><div class="mkt-radar-top"><div><div class="mkt-radar-title">'+title+'</div><div class="mkt-radar-sub">'+sub+'</div></div></div></div>';
     }
 
-    const CP_REF=[
-      {cat:'att',color:'#ef4444',rows:[['Attack Power','1','10'],['Critical Hit','1','8'],['Defense Penetration','1','10'],['Endurance Ignore','1','10'],['Skill Damage','1%','26'],['All Damage','2%','80'],['Critical Hit Damage','1%','25'],['Damage Over Time','1%','20'],['Status Effects Hit','1%','10'],['Accuracy','1','6'],['Channeling Speed','1%','30'],['Cooldown Decrease','1%','30'],['Movement Speed','1%','30']]},
-      {cat:'def',color:'#3b82f6',rows:[['HP Recovery in Battle','1','5'],['MP Recovery in Battle','1','10'],['Ranged Defense','1','4'],['Damage Received Decrease','0.18%','8'],['Defense Power','1','8'],['Stun Resistance','1%','10'],['Endurance','1','10'],['Cripple Resistance','45','20'],['Evasion','1','4'],['Critical Hit Resistance','1','2']]},
-      {cat:'res',color:'#22c55e',rows:[['Max HP','10','1'],['Max MP','10','1'],['HP Recovery in Battle','1','5'],['MP Recovery in Battle','1','10'],['Healing Received','2.5%','25'],['Potion Recovery','1','10'],['Skill MP Cost Decrease','1%','10']]},
-      {cat:'pve',color:'#eab308',rows:[['Damage to Monsters Increase','0.18%','4'],['Damage to Boss Monsters Increase','1%','20'],['Dmg Recv from Monsters Decrease','0.18%','4']]},
-      {cat:'pvp',color:'#bf5af2',rows:[['Endurance in PvP','1','5'],['Endurance Ignore in PvP','1','5'],['Stamina Recovery','1','2']]},
-      {cat:'oth',color:'#5ac8fa',rows:[['Status Effects Resistance','1%','20']]}
-    ];
-    let cpTab='att';
-    function renderCPRef(){
-      const el=$('cpRefBody');if(!el)return;
-      const tabTxt={att:t('att'),def:t('def'),res:t('res'),pve:t('pve'),pvp:t('pvp'),oth:t('oth')};
-      el.innerHTML='<div class="cp-tabs">'+CP_REF.map(g=>'<button type="button" class="cp-tab '+(g.cat===cpTab?'active':'')+'" style="--c:'+g.color+'" data-cpcat="'+g.cat+'">'+tabTxt[g.cat]+'</button>').join('')+'</div>';
-      const g=CP_REF.find(x=>x.cat===cpTab)||CP_REF[0];
-      el.innerHTML+='<div class="cp-panel active">'+g.rows.map(r=>'<div class="cp-row"><span class="cp-stat">'+r[0]+'</span><span class="cp-unit">'+t('cpUnit')+' '+r[1]+'</span><span class="cp-val" style="color:'+g.color+'">+'+r[2]+'</span></div>').join('')+'</div>';
-    }
-
     function playPing(){
       try{
         const Ctx=window.AudioContext||window.webkitAudioContext;
@@ -638,6 +619,14 @@ function langNext(){
       renderRadar();
     }
 
+    function relicPieceCost(pieces){
+      if(!pieces||pieces<=0||!relicPrices)return null;
+      const rows=pricedRows();
+      if(!rows.length)return null;
+      const best=rows[0];
+      if(!(best.usdt>0)||!(best.qty>0))return null;
+      return pieces*(best.usdt/best.qty);
+    }
     function rRelic(){
       let total=0,gUp=0,gCP=0,per=[],bd=[];
       for(let i=0;i<4;i++){
@@ -657,18 +646,7 @@ function langNext(){
         $('relicCp'+i).textContent='+'+fmtNum(b.totalCP)+' CP';
         const el=$('relicResult'+i);
         if(per[i]<=0){el.innerHTML='<div class="relic-result-empty">'+t('setGoal')+'</div>';continue;}
-        let h='<div class="relic-result-head"><div><div class="relic-result-pieces" style="color:'+hex+'">'+fmtNum(per[i])+'</div><div class="relic-result-label">'+t('piecesNeeded')+'</div></div><div class="relic-result-cost"><div class="relic-result-price">'+relicFmt(per[i])+'</div><div class="relic-result-cp">+'+fmtNum(b.totalCP)+' '+t('cpTotal')+'</div></div></div>';
-        const hasStats=Object.keys(b.totals).length>0||b.bGain>0;
-        if(hasStats){
-          h+='<div class="relic-result-stats">';
-          if(b.bGain>0){
-            h+='<div class="relic-result-row"><span class="rs-name">'+b.bName+'</span><span class="rs-val" style="color:'+hex+'">+'+fmtNum(b.bGain)+(b.bName==='HP'?'':'')+'</span><span class="rs-cp">+'+fmtNum(b.bCP)+' CP</span></div>';
-          }
-          for(const[name,info]of Object.entries(b.totals)){
-            h+='<div class="relic-result-row"><span class="rs-name">'+name+'</span><span class="rs-val" style="color:'+hex+'">+'+info.val+(info.isP?'%':'')+'</span><span class="rs-cp">+'+fmtNum(info.cp)+' CP</span></div>';
-          }
-          h+='</div>';
-        }
+        let h='<div class="relic-result-head"><div><div class="relic-result-pieces" style="color:'+hex+'">'+fmtNum(per[i])+'</div><div class="relic-result-label">'+t('piecesNeeded')+'</div></div><div class="relic-result-cost"><div class="relic-result-price">'+relicFmt(relicPieceCost(per[i]))+'</div></div></div>';
         el.innerHTML=h;
       }
       $('relicGrandPieces').textContent=fmtNum(total);
@@ -678,6 +656,7 @@ function langNext(){
       $('mktUpdated').textContent=mktUpdatedLabel();
       renderMkt(total);
       renderRadar();
+      fitRelic();
     }
     function renderGraph(per){
       const c=$('relicGraph');if(!c)return;
@@ -685,7 +664,7 @@ function langNext(){
       c.innerHTML=RELIC_NAMES.map((n,i)=>{
         const cost=per[i],hex=RELIC_COLORS[i];
         const pct=cost>0?(cost/max*100).toFixed(2):0;
-        return '<div class="relic-graph-row"><div class="rg-label" style="color:'+hex+'">'+n+'</div><div class="rg-val">'+relicFmt(cost)+'</div><div class="bar-track"><div class="bar-fill" style="width:'+pct+'%;background:'+(cost>0?hex+'26':'transparent')+';border-color:'+hex+'">'+(cost>0?'<span>'+fmtNum(cost)+'</span>':'')+'</div></div></div>';
+        return '<div class="relic-graph-row"><div class="rg-label" style="color:'+hex+'">'+n+'</div><div class="rg-val">'+relicFmt(relicPieceCost(cost))+'</div><div class="bar-track"><div class="bar-fill" style="width:'+pct+'%;background:'+(cost>0?hex+'26':'transparent')+';border-color:'+hex+'">'+(cost>0?'<span>'+fmtNum(cost)+'</span>':'')+'</div></div></div>';
       }).join('');
       c.hidden=false;
     }
@@ -727,6 +706,28 @@ function langNext(){
     }
 
     const MARQUEE_SEL='.interval-row-name';
+    function fitRelic(){
+      const page=$('pageRelic');
+      if(!page||!page.classList.contains('active'))return;
+      const scroll=$('relicScroll'),grid=document.querySelector('#pageRelic .relic-grid');
+      if(!scroll||!grid)return;
+      grid.style.removeProperty('transform');
+      const avail=scroll.clientHeight;
+      if(avail<=0)return;
+      const panels=[];
+      grid.querySelectorAll(':scope > .panel').forEach(p=>{
+        const hh=p.querySelector('.panel-header')?p.querySelector('.panel-header').scrollHeight:0;
+        const bh=p.querySelector('.panel-body')?p.querySelector('.panel-body').scrollHeight:0;
+        panels.push(hh+bh);
+      });
+      if(!panels.length)return;
+      const multi=(getComputedStyle(grid).gridTemplateColumns.trim().split(/\s+/).filter(Boolean).length)>1;
+      const need=multi?Math.max(...panels):panels.reduce((a,b)=>a+b,0);
+      if(need<=avail||need<=0)return;
+      const s=Math.max(0.4,avail/need);
+      grid.style.transformOrigin='top center';
+      grid.style.transform='scale('+s+')';
+    }
     function fitPanelCards(root){
       const cards=[...root.querySelectorAll('.day-card,.interval-card')];
       if(!cards.length)return;
@@ -999,14 +1000,6 @@ function langNext(){
       to.addEventListener('input',upd);
     })(i);
 
-    document.getElementById('cpRefBody').addEventListener('click',(e)=>{
-      const b=e.target.closest('.cp-tab');
-      if(!b)return;
-      cpTab=b.dataset.cpcat;
-      renderCPRef();
-      rRelic();
-    });
-
     document.getElementById('relicSettings').addEventListener('click',(e)=>{
       const btn=e.target.closest('.relic-stepper');
       if(!btn)return;
@@ -1072,8 +1065,8 @@ function langNext(){
     });
 
     let fitTimer;
-    window.addEventListener('resize',()=>{clearTimeout(fitTimer);fitTimer=setTimeout(()=>{fitPairTexts();fitExpandedCards();fitCollapsedCards();const ap=document.querySelector('.page.active');if(ap){fitPanelCards(ap);initMarquees(ap)}},150);});
-    if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{fitPairTexts();fitExpandedCards();fitCollapsedCards();const ap=document.querySelector('.page.active');if(ap)fitPanelCards(ap)});
+    window.addEventListener('resize',()=>{clearTimeout(fitTimer);fitTimer=setTimeout(()=>{fitPairTexts();fitExpandedCards();fitCollapsedCards();const ap=document.querySelector('.page.active');if(ap){fitPanelCards(ap);initMarquees(ap)};fitRelic()},150);});
+    if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{fitPairTexts();fitExpandedCards();fitCollapsedCards();const ap=document.querySelector('.page.active');if(ap)fitPanelCards(ap);fitRelic()});
 
     const ptrEl=$('ptrIndicator');
     let ptrY=0,ptrReady=false,ptrActive=false;
