@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=20260804">
+    <link rel="stylesheet" href="style.css?v=20260805">
 </head>
 <body>
 
@@ -55,6 +55,7 @@
       <div class="nav-pill">
         <button class="nav-btn active" data-page="tracker" id="navTracker">Tracker</button>
         <button class="nav-btn" data-page="hidden" id="navHidden">Hidden Class</button>
+        <button class="nav-btn" data-page="relic" id="navRelic"><span id="relicNavLbl">Relic</span></button>
       </div>
     </nav>
 
@@ -126,6 +127,141 @@
       </div>
     </div>
 
+    <div class="page relic-page" id="pageRelic">
+      <div class="relic-scroll" id="relicScroll">
+        <div class="relic-grid">
+          <div class="panel">
+            <div class="panel-header">
+              <div class="panel-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7.4-6.3-4.6-6.3 4.6L8 14 2 9.4h7.6z"></path></svg>
+                <span id="relicLbl">Relic Levels</span>
+              </div>
+              <span class="panel-count" id="relicCount">4</span>
+            </div>
+            <div class="panel-body relic-body" id="relicSettings">
+
+              <div class="relic-row" id="relicRow0">
+                <span class="relic-dot re-0" aria-hidden="true"></span>
+                <span class="relic-name" id="relicName0"></span>
+                <div class="relic-inputs">
+                  <div class="relic-field">
+                    <input type="number" class="relic-num" id="relicFrom0" min="1" max="100" value="1" inputmode="numeric">
+                    <span class="relic-field-label" id="relicCurLbl">Current</span>
+                  </div>
+                  <span class="relic-arrow">&rarr;</span>
+                  <div class="relic-field">
+                    <input type="number" class="relic-num" id="relicTo0" min="1" max="100" value="1" inputmode="numeric">
+                    <span class="relic-field-label" id="relicGoalLbl">Goal</span>
+                  </div>
+                </div>
+                <span class="relic-tp" id="relicTp0">0</span>
+              </div>
+
+              <div class="relic-row" id="relicRow1">
+                <span class="relic-dot re-1" aria-hidden="true"></span>
+                <span class="relic-name" id="relicName1"></span>
+                <div class="relic-inputs">
+                  <div class="relic-field">
+                    <input type="number" class="relic-num" id="relicFrom1" min="1" max="100" value="1" inputmode="numeric">
+                    <span class="relic-field-label">Current</span>
+                  </div>
+                  <span class="relic-arrow">&rarr;</span>
+                  <div class="relic-field">
+                    <input type="number" class="relic-num" id="relicTo1" min="1" max="100" value="1" inputmode="numeric">
+                    <span class="relic-field-label">Goal</span>
+                  </div>
+                </div>
+                <span class="relic-tp" id="relicTp1">0</span>
+              </div>
+
+              <div class="relic-row" id="relicRow2">
+                <span class="relic-dot re-2" aria-hidden="true"></span>
+                <span class="relic-name" id="relicName2"></span>
+                <div class="relic-inputs">
+                  <div class="relic-field">
+                    <input type="number" class="relic-num" id="relicFrom2" min="1" max="100" value="1" inputmode="numeric">
+                    <span class="relic-field-label">Current</span>
+                  </div>
+                  <span class="relic-arrow">&rarr;</span>
+                  <div class="relic-field">
+                    <input type="number" class="relic-num" id="relicTo2" min="1" max="100" value="1" inputmode="numeric">
+                    <span class="relic-field-label">Goal</span>
+                  </div>
+                </div>
+                <span class="relic-tp" id="relicTp2">0</span>
+              </div>
+
+              <div class="relic-row" id="relicRow3">
+                <span class="relic-dot re-3" aria-hidden="true"></span>
+                <span class="relic-name" id="relicName3"></span>
+                <div class="relic-inputs">
+                  <div class="relic-field">
+                    <input type="number" class="relic-num" id="relicFrom3" min="1" max="100" value="1" inputmode="numeric">
+                    <span class="relic-field-label">Current</span>
+                  </div>
+                  <span class="relic-arrow">&rarr;</span>
+                  <div class="relic-field">
+                    <input type="number" class="relic-num" id="relicTo3" min="1" max="100" value="1" inputmode="numeric">
+                    <span class="relic-field-label">Goal</span>
+                  </div>
+                </div>
+                <span class="relic-tp" id="relicTp3">0</span>
+              </div>
+
+              <div class="relic-total">
+                <span class="relic-total-label" id="relicTotalLbl">Total Temporal Pieces</span>
+                <span class="relic-total-value" id="relicTotal">0</span>
+              </div>
+              <div class="relic-total-sub" id="relicTotalSub"></div>
+
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header">
+              <div class="panel-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 6 1 22 23 22 23 6"></polyline><path d="M12 22c-4 0-6-4-6-8s2-8 6-8 6 4 6 8-2 8-6 8z"></path><line x1="8" y1="12" x2="16" y2="12"></line><line x1="8" y1="16" x2="16" y2="16"></line></svg>
+                <span id="mktLbl">Live Market Prices</span>
+              </div>
+              <div class="mkt-actions">
+                <span class="mkt-realm" id="mktRealm">Origin</span>
+                <button class="icon-btn mkt-refresh" id="mktRefresh" title="Refresh" aria-label="Refresh market prices">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"></path><polyline points="21 3 21 9 15 9"></polyline></svg>
+                </button>
+              </div>
+            </div>
+            <div class="panel-body mkt-body" id="mktBody">
+              <div class="mkt-status" id="mktStatus">
+                <span class="mkt-updated" id="mktUpdated">--</span>
+                <div class="segmented mkt-currency" role="tablist" aria-label="Currency">
+                  <button type="button" class="seg-btn active" data-cur="usd" role="tab" aria-selected="true">USDt</button>
+                  <button type="button" class="seg-btn" data-cur="php" role="tab" aria-selected="false">PHP</button>
+                  <button type="button" class="seg-btn" data-cur="jpy" role="tab" aria-selected="false">JPY</button>
+                  <button type="button" class="seg-btn" data-cur="krw" role="tab" aria-selected="false">KRW</button>
+                </div>
+              </div>
+              <div class="mkt-state" id="mktState"></div>
+              <div class="mkt-table-wrap" id="mktTableWrap" hidden>
+                <table class="mkt-table">
+                  <thead>
+                    <tr>
+                      <th class="l">Tier</th>
+                      <th class="r">TP/Chest</th>
+                      <th class="r">USDt</th>
+                      <th class="r" id="mktCurHead">Price</th>
+                    </tr>
+                  </thead>
+                  <tbody id="mktRows"></tbody>
+                </table>
+              </div>
+              <div class="mkt-reco" id="mktReco" hidden></div>
+              <div class="mkt-save" id="mktSave" hidden></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="status-bar" id="exportInfo">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
       <span>Initializing ASTRA...</span>
@@ -134,6 +270,6 @@
 
   <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
-    <script src="app.js?v=20260804"></script>
+    <script src="app.js?v=20260805"></script>
 </body>
 </html>
