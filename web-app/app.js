@@ -399,6 +399,7 @@ function langNext(){
 
     let relicState=[[1,1],[1,1],[1,1],[1,1]];
     let relicPrices=null,relicFx=null,relicUpdated=null,relicCurrency='usd',relicLoading=false;
+    let relicTier='auto';
     let radarOn=false,lastRadarKey='',lastSigKey='';
     const PRICE_MEMORY_KEY='relic_price_memory_v1';
 
@@ -623,7 +624,11 @@ function langNext(){
       if(!pieces||pieces<=0||!relicPrices)return null;
       const rows=pricedRows();
       if(!rows.length)return null;
-      const best=rows[0];
+      let best=rows[0];
+      if(relicTier&&relicTier!=='auto'){
+        const pick=rows.find(r=>r.key===relicTier);
+        if(pick)best=pick;
+      }
       if(!(best.usdt>0)||!(best.qty>0))return null;
       return pieces*(best.usdt/best.qty);
     }
@@ -643,10 +648,11 @@ function langNext(){
         $('relicTo'+i).value=relicState[i][1];
         row.classList.toggle('active',per[i]>0);
         const b=bd[i],hex=RELIC_COLORS[i];
-        $('relicCp'+i).textContent='+'+fmtNum(b.totalCP)+' CP';
         const el=$('relicResult'+i);
-        if(per[i]<=0){el.innerHTML='<div class="relic-result-empty">'+t('setGoal')+'</div>';continue;}
-        let h='<div class="relic-result-head"><div><div class="relic-result-pieces" style="color:'+hex+'">'+fmtNum(per[i])+'</div><div class="relic-result-label">'+t('piecesNeeded')+'</div></div><div class="relic-result-cost"><div class="relic-result-price">'+relicFmt(relicPieceCost(per[i]))+'</div></div></div>';
+        const cost=relicPieceCost(per[i]);
+        $('relicCp'+i).textContent='';
+        if(per[i]<=0){el.innerHTML='';continue;}
+        let h='<div class="relic-result-cp" style="color:'+hex+'">+'+fmtNum(b.totalCP)+' CP</div><div class="relic-result-block"><div class="relic-result-pieces" style="color:'+hex+'">'+fmtNum(per[i])+'</div><div class="relic-result-label">'+t('piecesNeeded')+'</div></div><div class="relic-result-price">'+(cost?relicFmt(cost):'\u2014')+'</div>';
         el.innerHTML=h;
       }
       $('relicGrandPieces').textContent=fmtNum(total);
@@ -682,13 +688,17 @@ function langNext(){
       if(!rows.length){clear(t('mktNoL'));return;}
       if(total<=0){clear(t('mktEmpty'));return;}
       state.classList.remove('show');
+      const byKey={};rows.forEach(r=>byKey[r.key]=r);
+      const ordered=CHESTS.filter(c=>byKey[c.key]).map(c=>byKey[c.key]);
       const best=rows[0];
-      const q=Math.ceil(total/best.qty),cost=relicFmt(best.usdt*q);
-      chestSum.innerHTML='<div class="mkt-chest-sum"><div class="mcs-main"><span class="mcs-label">'+t('buyQty')(q,best.key)+'</span><span class="mcs-total">'+cost+'</span></div><div class="mcs-sub"><span class="value-tag">'+t('bestTag')+'</span><span>'+best.key+' · '+fmtNum(best.qty)+' '+t('piecesNeeded')+'</span></div></div>';
-      tier.innerHTML=rows.map(row=>{
+      const pick=relicTier&&byKey[relicTier]?byKey[relicTier]:best;
+      const q=Math.ceil(total/pick.qty),cost=relicFmt(pick.usdt*q);
+      chestSum.innerHTML='<div class="mkt-chest-sum"><div class="mcs-main"><span class="mcs-label">'+t('buyQty')(q,pick.key)+'</span><span class="mcs-total">'+cost+'</span></div><div class="mcs-sub"><span class="value-tag">'+t('bestTag')+'</span><span>'+pick.key+' · '+fmtNum(pick.qty)+' '+t('piecesNeeded')+'</span></div></div>';
+      tier.innerHTML=ordered.map(row=>{
         const need=Math.ceil(total/row.qty);
         const isBest=row===best;
-        return '<div class="tier-row '+(isBest?'best-value':'')+'"><span class="tier-name">'+row.key+(isBest?'<span class="value-tag">'+t('bestTag')+'</span>':'')+'</span><span class="tier-per1k">$'+row.per1k.toFixed(2)+t('per1k')+'</span><span class="tier-qty">'+fmtNum(need)+' '+t('chests')+'</span><span class="tier-cost">'+relicFmt(row.usdt*need)+'</span></div>';
+        const isSel=row.key===relicTier;
+        return '<div class="tier-row'+(isBest?' best-value':'')+(isSel?' selected':'')+'" data-tier="'+row.key+'"><span class="tier-name">'+row.key+(isBest&&!isSel?'<span class="value-tag">'+t('bestTag')+'</span>':'')+'</span><span class="tier-per1k">'+relicFmt(row.per1k)+t('per1k')+'</span><span class="tier-qty">'+fmtNum(need)+' '+t('chests')+'</span><span class="tier-cost">'+relicFmt(row.usdt*need)+'</span></div>';
       }).join('');
       tier.hidden=false;chestSum.hidden=false;
     }
@@ -699,6 +709,7 @@ function langNext(){
     function resetRelic(){
       relicState=[[1,1],[1,1],[1,1],[1,1]];
       relicCurrency='usd';
+      relicTier='auto';
       radarOn=false;
       const btn=$('mktAlert');
       if(btn){btn.classList.remove('on');btn.setAttribute('aria-pressed','false')}
@@ -1019,6 +1030,13 @@ function langNext(){
       relicCurrency=b.dataset.cur;
       rRelic();
     });
+    document.querySelectorAll('.tier-list').forEach(l=>l.addEventListener('click',(e)=>{
+      const row=e.target.closest('.tier-row');
+      if(!row)return;
+      const key=row.dataset.tier;
+      relicTier=(relicTier===key)?'auto':key;
+      rRelic();
+    }));
 
     document.querySelectorAll('.nav-btn').forEach(btn=>btn.onclick=()=>{
       const leavingRelic=$('pageRelic').classList.contains('active')&&btn.dataset.page!=='relic';
