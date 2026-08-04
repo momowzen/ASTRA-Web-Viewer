@@ -64,9 +64,9 @@
     const TO=9*3600000;
 
     const LANG={
-  en:{brand:'ASTRA',dash:'Dashboard',bsTab:'Bosses',live:'Live',offline:'Offline',nextSpawn:'Next Spawn',upcoming:'Upcoming',today:'Today',tomorrow:'Tomorrow',noSpawns:'No spawns',schedTag:'Schedule',schedTitle:'SCHEDULED',ivTag:'Interval',ivTitle:'Interval',every:'Every',lv:'Lv.',spawned:'SPAWNED',now:'Now',updated:'Updated',ago:'ago',tracker:'TRACKER',hiddenClass:'HIDDEN CLASS',history:'Activity',killed:'killed',missed:'missed',days:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],timeRemaining:'Time Remaining',nm:['Venatus','Viorent','Ego','Clemantis','Livera','Araneo','Undomiel','Saphirus','Neutro','Lady Dalia','General Aquleus','Thymele','Amentis','Baron Braudmore','Milavy','Wannitas','Metus','Duplican','Shuliar','Ringor','Roderick','Gareth','Titore','Larba','Catena','Auraq','Secreta','Ordo','Asta','Supore','Chaiflock','Benji','Libitina','Rakajeth','Icaruthia','Motti','Camalia','Nevaeh','Tumier','Lucus'],ttsIn:(n,m)=>`${n} spawns in ${m} minute${m!==1?'s':''}.`,ttsSpawned:n=>`${n} has spawned.`,ttsWbIn:(m)=>`World Boss spawns in ${m} minute${m!==1?'s':''}.`,ttsWbSpawned:`World Boss has spawned.`},
-  ja:{brand:'ASTRA',dash:'ダッシュボード',bsTab:'ボス',live:'オンライン',offline:'オフライン',nextSpawn:'次のスポーン',upcoming:'予定',today:'今日',tomorrow:'明日',noSpawns:'スポーンなし',schedTag:'スケジュール',schedTitle:'予定',ivTag:'インターバル',ivTitle:'インターバル',every:'毎',lv:'Lv.',spawned:'出現中',now:'今',updated:'更新',ago:'前',tracker:'追跡',hiddenClass:'隠しクラス',history:'履歴',killed:'討伐',missed:'取り逃し',days:['日','月','火','水','木','金','土'],timeRemaining:'残り時間',nm:['ベナトゥス','ビオレント','エゴ','クレメンティス','リベラ','アラネオ','アンドゥミエル','サピルス','ネウトロ','レディ·ダリア','将軍アクレウス','テュメレ','アメンティス','ブラウドモア','ミラベ','ワニタス','メトゥス','デュプリカン','シュライヤー','リンゴル','ロデリック','ガレス','ティトル','ラルバ','カテナ','アウラーク','セクレタ','オルド','アスタ','スポル','シャイフロック','ベンジー','リビティーナ','ラカゼス','イカルシア','モティ','カマリア','ネバ','トゥミエル','ルクス'],ttsIn:(n,m)=>`${n}は${m}分後に出現します。`,ttsSpawned:n=>`${n}が出現しました。`,ttsWbIn:(m)=>`ワールドボスは${m}分後に出現します。`,ttsWbSpawned:`ワールドボスが出現しました。`},
-  ko:{brand:'ASTRA',dash:'대시보드',bsTab:'보스',live:'온라인',offline:'오프라인',nextSpawn:'다음 스폰',upcoming:'예정',today:'오늘',tomorrow:'내일',noSpawns:'스폰 없음',schedTag:'일정',schedTitle:'일정',ivTag:'간격',ivTitle:'간격',every:'매',lv:'레벨',spawned:'출현중',now:'지금',updated:'업데이트',ago:'전',tracker:'추적',hiddenClass:'비밀 클래스',history:'활동',killed:'처치',missed:'놓침',days:['일','월','화','수','목','금','토'],timeRemaining:'남은 시간',nm:['베나투스','비오렌트','에고','클레멘티스','리베라','아라네오','안두미엘','사피루스','네우트로','레이디 달리아','장군 아클레우스','튜메레','아멘티스','남작 브라우드모어','미라베','와니타스','메투스','듀플리칸','슈라이어','링고르','로데릭','가레스','티토르','라르바','카테나','아우라크','세크레타','오르도','아스타','스포르','샤이플록','벤지','리비티나','라카제스','이카루시아','모티','카말리아','네바','투미엘','루크스'],ttsIn:(n,m)=>`${n}${koParticle(n,'subj')} ${m}분 후에 출현합니다.`,ttsSpawned:n=>`${n}${koParticle(n,'subj')} 출현했습니다.`,ttsWbIn:(m)=>`월드 보스가 ${m}분 후 출현합니다.`,ttsWbSpawned:`월드 보스가 출현했습니다.`}
+  en:{brand:'ASTRA',dash:'Dashboard',bsTab:'Bosses',live:'Live',offline:'Offline',nextSpawn:'Next Spawn',upcoming:'Upcoming',today:'Today',tomorrow:'Tomorrow',noSpawns:'No spawns',schedTag:'Schedule',schedTitle:'SCHEDULED',ivTag:'Interval',ivTitle:'Interval',every:'Every',lv:'Lv.',spawned:'SPAWNED',now:'Now',updated:'Updated',ago:'ago',tracker:'TRACKER',hiddenClass:'HIDDEN CLASS',history:'Activity',killed:'killed',missed:'missed',days:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],timeRemaining:'Time Remaining',relic:'Relic',relicLevels:'Relic Levels',current:'Current',goal:'Goal',totalTP:'Total Temporal Pieces',rareDism:'Rare dismantles (84 TP each)',epicDism:'Epic dismantles (450 TP each)',marketPrices:'Live Market Prices',origin:'Origin',refresh:'Refresh',bestPerTP:'Best $/TP',buyQty:(n,t)=>'Buy '+fmtNum(n)+'\u00D7 '+t+' Chest',updated:'Updated',mktLoading:'Fetching market prices...',mktErr:'Offline — showing cached prices',mktEmpty:'Set your relic goals above to see market prices',mktNoL:'No chest listings on Origin market',priceLabel:'Price',recoTitle:'Recommended Purchase',nm:['Venatus','Viorent','Ego','Clemantis','Livera','Araneo','Undomiel','Saphirus','Neutro','Lady Dalia','General Aquleus','Thymele','Amentis','Baron Braudmore','Milavy','Wannitas','Metus','Duplican','Shuliar','Ringor','Roderick','Gareth','Titore','Larba','Catena','Auraq','Secreta','Ordo','Asta','Supore','Chaiflock','Benji','Libitina','Rakajeth','Icaruthia','Motti','Camalia','Nevaeh','Tumier','Lucus'],ttsIn:(n,m)=>`${n} spawns in ${m} minute${m!==1?'s':''}.`,ttsSpawned:n=>`${n} has spawned.`,ttsWbIn:(m)=>`World Boss spawns in ${m} minute${m!==1?'s':''}.`,ttsWbSpawned:`World Boss has spawned.`},
+  ja:{brand:'ASTRA',dash:'ダッシュボード',bsTab:'ボス',live:'オンライン',offline:'オフライン',nextSpawn:'次のスポーン',upcoming:'予定',today:'今日',tomorrow:'明日',noSpawns:'スポーンなし',schedTag:'スケジュール',schedTitle:'予定',ivTag:'インターバル',ivTitle:'インターバル',every:'毎',lv:'Lv.',spawned:'出現中',now:'今',updated:'更新',ago:'前',tracker:'追跡',hiddenClass:'隠しクラス',history:'履歴',killed:'討伐',missed:'取り逃し',days:['日','月','火','水','木','金','土'],timeRemaining:'残り時間',relic:'レリック',relicLevels:'レリックレベル',current:'現在',goal:'目標',totalTP:'必要TP合計',rareDism:'レア分解（TP 84/個）',epicDism:'エピック分解（TP 450/個）',marketPrices:'ライブ市場価格',origin:'Origin',refresh:'更新',bestPerTP:'最安 $/TP',buyQty:(n,t)=>t+'チェスト '+fmtNum(n)+'個を購入',updated:'更新',mktLoading:'市場価格を取得中...',mktErr:'オフライン — キャッシュ表示',mktEmpty:'上でレリック目標を設定してください',mktNoL:'Origin市場に出品なし',priceLabel:'価格',recoTitle:'推奨購入',nm:['ベナトゥス','ビオレント','エゴ','クレメンティス','リベラ','アラネオ','アンドゥミエル','サピルス','ネウトロ','レディ·ダリア','将軍アクレウス','テュメレ','アメンティス','ブラウドモア','ミラベ','ワニタス','メトゥス','デュプリカン','シュライヤー','リンゴル','ロデリック','ガレス','ティトル','ラルバ','カテナ','アウラーク','セクレタ','オルド','アスタ','スポル','シャイフロック','ベンジー','リビティーナ','ラカゼス','イカルシア','モティ','カマリア','ネバ','トゥミエル','ルクス'],ttsIn:(n,m)=>`${n}は${m}分後に出現します。`,ttsSpawned:n=>`${n}が出現しました。`,ttsWbIn:(m)=>`ワールドボスは${m}分後に出現します。`,ttsWbSpawned:`ワールドボスが出現しました。`},
+  ko:{brand:'ASTRA',dash:'대시보드',bsTab:'보스',live:'온라인',offline:'오프라인',nextSpawn:'다음 스폰',upcoming:'예정',today:'오늘',tomorrow:'내일',noSpawns:'스폰 없음',schedTag:'일정',schedTitle:'일정',ivTag:'간격',ivTitle:'간격',every:'매',lv:'레벨',spawned:'출현중',now:'지금',updated:'업데이트',ago:'전',tracker:'추적',hiddenClass:'비밀 클래스',history:'활동',killed:'처치',missed:'놓침',days:['일','월','화','수','목','금','토'],timeRemaining:'남은 시간',relic:'유물',relicLevels:'유물 레벨',current:'현재',goal:'목표',totalTP:'필요 TP 합계',rareDism:'레어 분해 (TP 84/개)',epicDism:'에픽 분해 (TP 450/개)',marketPrices:'실시간 시장 가격',origin:'Origin',refresh:'새로고침',bestPerTP:'최저 $/TP',buyQty:(n,t)=>t+' 상자 '+fmtNum(n)+'개 구매',updated:'업데이트',mktLoading:'시장 가격 불러오는 중...',mktErr:'오프라인 — 캐시 표시',mktEmpty:'위에서 유물 목표를 설정하세요',mktNoL:'Origin 시장에 등록 없음',priceLabel:'가격',recoTitle:'추천 구매',nm:['베나투스','비오렌트','에고','클레멘티스','리베라','아라네오','안두미엘','사피루스','네우트로','레이디 달리아','장군 아클레우스','튜메레','아멘티스','남작 브라우드모어','미라베','와니타스','메투스','듀플리칸','슈라이어','링고르','로데릭','가레스','티토르','라르바','카테나','아우라크','세크레타','오르도','아스타','스포르','샤이플록','벤지','리비티나','라카제스','이카루시아','모티','카말리아','네바','투미엘','루크스'],ttsIn:(n,m)=>`${n}${koParticle(n,'subj')} ${m}분 후에 출현합니다.`,ttsSpawned:n=>`${n}${koParticle(n,'subj')} 출현했습니다.`,ttsWbIn:(m)=>`월드 보스가 ${m}분 후 출현합니다.`,ttsWbSpawned:`월드 보스가 출현했습니다.`}
 };
 
     function lsSet(k,v){try{localStorage.setItem(k,v)}catch(e){}}
@@ -100,11 +100,26 @@ function langNext(){
       $('schedBtnLbl').textContent=t('schedTag');
       $('navTracker').textContent=t('tracker');
       $('navHidden').textContent=t('hiddenClass');
+      $('relicNavLbl').textContent=t('relic');
+      $('relicLbl').textContent=t('relicLevels');
+      $('relicTotalLbl').textContent=t('totalTP');
+      $('mktLbl').textContent=t('marketPrices');
+      $('mktRealm').textContent=t('origin');
+      $('mktRefresh').setAttribute('aria-label',t('refresh'));
+      document.querySelectorAll('#relicSettings .relic-row').forEach(row=>{
+        const f=row.querySelectorAll('.relic-field-label');
+        if(f[0])f[0].textContent=t('current');
+        if(f[1])f[1].textContent=t('goal');
+      });
+      $('relicCurLbl').textContent=t('current');
+      $('relicGoalLbl').textContent=t('goal');
+      $('relicTotalSub').textContent='';
       $('langText').textContent=FLAGS[lang];
       const lp=$('livePill'),lt=$('liveText');
       const isOn=lp.classList.contains('on');
       lt.textContent=isOn?t('live'):t('offline');
       $('nextCdLabel').textContent = t('timeRemaining');
+      rRelic();
     }
 
     let alarmOn=false;
@@ -207,6 +222,7 @@ function langNext(){
 
     function p2(n){return String(n).padStart(2,'0')}
     function now(){return Date.now()}
+    function fmtNum(n){return (Number(n)||0).toLocaleString('en-US')}
 
     const LOC={en:'en-US',ja:'ja-JP',ko:'ko-KR'};
     const fmtDCache=new Map(),fmtTCache=new Map();
@@ -367,6 +383,162 @@ function langNext(){
     }
 
     function rAll(){rNext();rUpcoming();rSched();rInt();rHidden();rNextCd()}
+
+    const RELIC_COST=[
+0,15,25,36,48,62,78,96,116,138,163,192,225,263,306,355,410,471,539,614,697,790,890,990,1090,1190,1340,1490,1760,1964,2172,2400,2650,2924,3224,3552,3910,4300,4724,5184,5682,6220,6800,7424,8094,8812,9580,10400,11274,12204,13192,14240,15350,16524,17764,19072,20450,21900,23424,25024,26702,28460,30300,32224,34234,36332,38520,40800,43174,45644,48212,50880,53650,56524,59504,62592,65790,69100,72524,76064,79722,83500,87400,91424,95574,99852,104260,108800,113474,118284,123232,128320,133550,138924,144444,150112,155930,161900,168024,174304];
+    const RELIC_STORM_COST=[
+0,5000,5104,5219,5346,5485,5637,5802,5981,6174,6382,6610,6860,7134,7434,7762,8120,8510,8934,9394,9892,10430,11010,11634,12304,13022,13790,14610,15484,16414,17402,18450,19560,20734,21974,23282,24660,26110,27634,29234,30912,32670,34510,36434,38444,40542,42730,45010,47384,49854,52422,55090,57860,60734,63714,66802,70000,73310,76734,80274,83932,87710,91610,95634,99784,104062,108470,113010,117684,122494,127442,132530,137760,143134,148654,154322,160140,166110,172234,178514,184952,191550,198310,205234,212324,219582,227010,234610,242384,250334,258462,266770,275260,283934,292794,301842,311080,320510,330134,339954];
+    const RELIC_TABLES=[RELIC_COST,RELIC_COST,RELIC_COST,RELIC_STORM_COST];
+    const RELIC_NAMES=['Origin of Destruction','Barrier Protection','Crystal of Life','Magic Storm'];
+    const CHESTS=[
+      {key:'T1',qty:1000},
+      {key:'T2',qty:5000},
+      {key:'T3',qty:10000},
+      {key:'T4',qty:50000},
+      {key:'T5',qty:100000}
+    ];
+    const CURR={usd:{sym:'$',rate:'usd'},php:{sym:'\u20B1',rate:'php'},jpy:{sym:'\u00A5',rate:'jpy'},krw:{sym:'\u20A9',rate:'krw'}};
+    const RELIC_API='https://relic-prices.arianthonyungsod.workers.dev/prices';
+    const LS_PKEY='astraprices';
+
+    let relicState=[[1,1],[1,1],[1,1],[1,1]];
+    let relicPrices=null,relicFx=null,relicUpdated=null,relicCurrency='usd',relicLoading=false;
+
+    function relicTP(from,to,idx){
+      const tbl=RELIC_TABLES[idx];
+      if(!tbl||!(from>=1)||!(to>from)||to>tbl.length)return 0;
+      let s=0;
+      for(let i=from;i<to;i++)s+=tbl[i];
+      return s;
+    }
+    function relicCurConv(usdt){
+      const r=(relicFx&&relicFx[CURR[relicCurrency].rate])||0;
+      return r>0?(usdt*r):(relicCurrency==='usd'?usdt:null);
+    }
+    function relicFmt(usdt){
+      const v=relicCurConv(usdt);
+      if(v===null)return '\u2014';
+      return CURR[relicCurrency].sym+fmtNum(v.toFixed(relicCurrency==='usd'?2:0));
+    }
+    function cachePrices(){
+      if(!relicPrices)return;
+      lsSet(LS_PKEY,JSON.stringify({p:relicPrices,fx:relicFx,u:relicUpdated,ts:Date.now()}));
+    }
+    function readCache(){
+      try{
+        const raw=lsGet(LS_PKEY);
+        if(!raw)return;
+        const d=JSON.parse(raw);
+        if(d&&d.p&&typeof d.p==='object'){relicPrices=d.p;relicFx=d.fx||null;relicUpdated=d.u||null;}
+      }catch(e){}
+    }
+    async function loadPrices(force){
+      if(relicLoading)return;
+      relicLoading=true;
+      rRelic();
+      try{
+        const r=await fetch(RELIC_API+(force?'?force=1':''));
+        if(!r.ok)throw Error(r.status);
+        const d=await r.json();
+        if(!d.success)throw Error(d.message||'bad');
+        relicPrices=d.prices||null;
+        relicFx=d.fx||null;
+        relicUpdated=d.lastUpdated||null;
+        $('mktSave').textContent='';
+        cachePrices();
+      }catch(e){
+        readCache();
+        $('mktSave').textContent=t('mktErr');
+      }finally{
+        relicLoading=false;
+        rRelic();
+      }
+    }
+    function mktUpdatedLabel(){
+      if(!relicUpdated)return '--';
+      const mins=Math.floor((now()-new Date(relicUpdated).getTime())/60000);
+      let s;
+      if(mins<1)s='just now';
+      else if(mins<60)s=mins+'m ago';
+      else{s=Math.floor(mins/60);s=s<24?s+'h ago':Math.floor(s/24)+'d ago'}
+      return t('updated')+': '+s;
+    }
+    function rRelic(){
+      let total=0,per=[];
+      for(let i=0;i<4;i++){
+        const tp=relicTP(relicState[i][0],relicState[i][1],i);
+        per.push(tp);total+=tp;
+      }
+      for(let i=0;i<4;i++){
+        const row=$('relicRow'+i);
+        $('relicName'+i).textContent=RELIC_NAMES[i];
+        $('relicFrom'+i).value=relicState[i][0];
+        $('relicTo'+i).value=relicState[i][1];
+        $('relicTp'+i).textContent=per[i]>0?fmtNum(per[i]):'0';
+        row.classList.toggle('active',per[i]>0);
+      }
+      $('relicTotal').textContent=fmtNum(total);
+      $('relicTotalSub').textContent=total>0?(''+fmtNum(Math.ceil(total/84))+' / '+fmtNum(Math.ceil(total/450))):'';
+      $('mktUpdated').textContent=mktUpdatedLabel();
+      renderMkt(total);
+    }
+    function renderMkt(total){
+      const state=$('mktState'),wrap=$('mktTableWrap'),rows=$('mktRows'),reco=$('mktReco'),save=$('mktSave');
+      $('mktCurHead').textContent=CURR[relicCurrency].sym+' '+t('priceLabel');
+      const showCur=[...document.querySelectorAll('.mkt-currency .seg-btn')];
+      showCur.forEach(b=>{
+        const avail=relicCurrency==='usd'||((relicFx&&relicFx[CURR[b.dataset.cur].rate])||0)>0;
+        b.classList.toggle('active',b.dataset.cur===relicCurrency);
+        b.classList.toggle('off',!avail);
+      });
+      if(relicLoading){
+        state.textContent=t('mktLoading');state.classList.add('show');wrap.hidden=true;reco.hidden=true;save.hidden=true;
+        return;
+      }
+      if(!relicPrices){
+        state.textContent=t('mktErr');state.classList.add('show');wrap.hidden=true;reco.hidden=true;save.hidden=true;
+        return;
+      }
+      state.classList.remove('show');
+      const availTiers=CHESTS.filter(c=>relicPrices[c.key]);
+      if(!availTiers.length){
+        wrap.hidden=true;reco.hidden=true;save.hidden=true;
+        state.textContent=t('mktNoL');state.classList.add('show');
+        return;
+      }
+      if(total<=0){
+        wrap.hidden=true;reco.hidden=true;save.hidden=true;
+        state.textContent=t('mktEmpty');state.classList.add('show');
+        return;
+      }
+      state.classList.remove('show');
+      wrap.hidden=false;
+      let best=null;
+      const priced=availTiers.map(c=>{
+        const u=relicPrices[c.key].priceUSDT;
+        const row={key:c.key,qty:c.qty,usdt:u,cpt:u/c.qty};
+        if(!best||row.cpt<best.cpt)best=row;
+        return row;
+      });
+      rows.innerHTML=priced.map(row=>{
+        const isBest=row===best;
+        const q=Math.ceil(total/row.qty);
+        return '<tr class="'+(isBest?'best':'')+'"><td class="l">'+row.key+(isBest?'<span class="best-badge">'+t('bestPerTP')+'</span>':'')+'</td><td class="r">'+fmtNum(row.qty)+'</td><td class="r">$'+row.usdt.toFixed(2)+'</td><td class="r">'+relicFmt(row.usdt*q)+'</td></tr>';
+      }).join('');
+      const q=Math.ceil(total/best.qty);
+      const totalCost=relicFmt(best.usdt*q);
+      reco.hidden=false;
+      reco.innerHTML='<div class="reco-title">'+t('recoTitle')+'</div><div class="reco-line">'+t('buyQty')(q,best.key)+'</div><div class="reco-total">'+totalCost+'</div>';
+    }
+    function rRelicSoft(){
+      if(!$('pageRelic').classList.contains('active'))return;
+      $('mktUpdated').textContent=mktUpdatedLabel();
+    }
+    function resetRelic(){
+      relicState=[[1,1],[1,1],[1,1],[1,1]];
+      relicCurrency='usd';
+      rRelic();
+    }
 
     const MARQUEE_SEL='.interval-row-name';
     function fitPanelCards(root){
@@ -628,12 +800,37 @@ function langNext(){
     $('langBtn').onclick=langNext;
     $('alarmBtn').onclick=toggleAlarm;
 
+    for(let i=0;i<4;i++)(function(idx){
+      const from=$('relicFrom'+idx),to=$('relicTo'+idx);
+      const upd=()=>{
+        let a=parseInt(from.value,10)||1,b=parseInt(to.value,10)||1;
+        a=Math.max(1,Math.min(100,a));
+        b=Math.max(2,Math.min(100,b));
+        if(b<=a)b=Math.min(100,a+1);
+        from.value=a;to.value=b;
+        relicState[idx]=[a,b];
+        rRelic();
+      };
+      from.addEventListener('input',upd);
+      to.addEventListener('input',upd);
+    })(i);
+
+    $('mktRefresh').onclick=()=>loadPrices(true);
+    document.querySelectorAll('.mkt-currency .seg-btn').forEach(b=>b.onclick=()=>{
+      if(b.classList.contains('off'))return;
+      relicCurrency=b.dataset.cur;
+      rRelic();
+    });
+
     document.querySelectorAll('.nav-btn').forEach(btn=>btn.onclick=()=>{
+      const leavingRelic=$('pageRelic').classList.contains('active')&&btn.dataset.page!=='relic';
       document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
       btn.classList.add('active');
       document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-      $('page'+(btn.dataset.page==='tracker'?'Tracker':'Hidden')).classList.add('active');
-      requestAnimationFrame(()=>{fitPairTexts();fitExpandedCards();fitCollapsedCards();const ap=document.querySelector('.page.active');if(ap){fitPanelCards(ap);initMarquees(ap)}});
+      if(leavingRelic)resetRelic();
+      const PAGES={tracker:'pageTracker',hidden:'pageHidden',relic:'pageRelic'};
+      $((PAGES[btn.dataset.page]||'pageTracker')).classList.add('active');
+      requestAnimationFrame(()=>{fitPairTexts();fitExpandedCards();fitCollapsedCards();const ap=document.querySelector('.page.active');if(ap){fitPanelCards(ap);initMarquees(ap)};if(ap&&ap===document.getElementById('pageRelic'))rRelic();});
     });
 
     document.addEventListener('click',(e)=>{
@@ -798,6 +995,7 @@ function langNext(){
         time.textContent=al?fmtShort(tm-n):'--';
         time.className='interval-row-time '+(al?'live':'na');
       });
+      rRelicSoft();
     }
 
     try{
@@ -808,6 +1006,9 @@ function langNext(){
       listenData();
       pollData();
       rAll();
+      readCache();
+      rRelic();
+      loadPrices();
       setInterval(ttsCheck,3000);
       setInterval(softTick,30000);
     }catch(e){$('exportInfo').querySelector('span').textContent='Init error: '+e.message}
