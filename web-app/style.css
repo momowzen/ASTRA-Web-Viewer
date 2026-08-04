@@ -596,10 +596,10 @@
     .relic-num { appearance: none; -moz-appearance: textfield; -webkit-appearance: none; width: 3.75rem; height: 2.15rem; background: rgba(15,23,42,0.75); border: 1px solid var(--glass-border); border-left: none; border-right: none; color: var(--text-primary); font-family: var(--font-mono, monospace); font-weight: 600; text-align: center; box-sizing: content-box; }
     .relic-num::-webkit-inner-spin-button, .relic-num::-webkit-outer-spin-button { -webkit-appearance: none; appearance: none; margin: 0; }
     .relic-num:focus { outline: none; border-color: var(--electric-cyan); }
-    .relic-result { grid-area: result; display: flex; flex-direction: column; align-items: flex-end; gap: 3px; text-align: right; justify-content: center; min-width: 6rem; min-height: 3.2rem; }
-    .relic-result-cp { font-family: var(--font-mono, monospace); font-size: 0.62rem; font-weight: 600; font-variant-numeric: tabular-nums; }
-    .relic-result-pieces { font-family: var(--font-mono, monospace); font-size: 1.15rem; font-weight: 700; font-variant-numeric: tabular-nums; }
-    .relic-result-price { font-family: var(--font-mono, monospace); font-size: 0.88rem; font-weight: 600; color: var(--alive-green); font-variant-numeric: tabular-nums; }
+    .relic-result { grid-area: result; display: flex; flex-direction: column; align-items: flex-end; gap: 3px; text-align: right; justify-content: flex-start; min-width: 6rem; height: 3.4rem; overflow: hidden; white-space: nowrap; }
+    .relic-result-cp { font-family: var(--font-mono, monospace); font-size: 0.62rem; font-weight: 600; font-variant-numeric: tabular-nums; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
+    .relic-result-pieces { font-family: var(--font-mono, monospace); font-size: 1.15rem; font-weight: 700; font-variant-numeric: tabular-nums; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
+    .relic-result-price { font-family: var(--font-mono, monospace); font-size: 0.88rem; font-weight: 600; color: var(--alive-green); font-variant-numeric: tabular-nums; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
 
     .relic-grand { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-3); margin-top: var(--space-1); }
     .relic-grand-cell { background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); border-radius: var(--radius-lg); padding: var(--space-3) var(--space-4); text-align: center; }
