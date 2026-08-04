@@ -725,7 +725,7 @@ function langNext(){
       const need=multi?Math.max(...panels):panels.reduce((a,b)=>a+b,0);
       if(need<=avail||need<=0)return;
       const s=Math.max(0.4,avail/need);
-      grid.style.transformOrigin='top center';
+      grid.style.transformOrigin='center center';
       grid.style.transform='scale('+s+')';
     }
     function fitPanelCards(root){
