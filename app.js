@@ -686,16 +686,15 @@ function langNext(){
       if(!relicPrices){clear(t('mktErr'));return;}
       const rows=pricedRows();
       if(!rows.length){clear(t('mktNoL'));return;}
-      if(total<=0){clear(t('mktEmpty'));return;}
       state.classList.remove('show');
       const byKey={};rows.forEach(r=>byKey[r.key]=r);
       const ordered=CHESTS.filter(c=>byKey[c.key]).map(c=>byKey[c.key]);
       const best=rows[0];
       const pick=relicTier&&byKey[relicTier]?byKey[relicTier]:best;
-      const q=Math.ceil(total/pick.qty),cost=relicFmt(pick.usdt*q);
+      const q=total>0?Math.ceil(total/pick.qty):1,cost=relicFmt(pick.usdt*q);
       chestSum.innerHTML='<div class="mkt-chest-sum"><div class="mcs-main"><span class="mcs-label">'+t('buyQty')(q,pick.key)+'</span><span class="mcs-total">'+cost+'</span></div><div class="mcs-sub"><span class="value-tag">'+t('bestTag')+'</span><span>'+pick.key+' · '+fmtNum(pick.qty)+' '+t('piecesNeeded')+'</span></div></div>';
       tier.innerHTML=ordered.map(row=>{
-        const need=Math.ceil(total/row.qty);
+        const need=total>0?Math.ceil(total/row.qty):1;
         const isBest=row===best;
         const isSel=row.key===relicTier;
         return '<div class="tier-row'+(isBest?' best-value':'')+(isSel?' selected':'')+'" data-tier="'+row.key+'"><span class="tier-name">'+row.key+(isBest&&!isSel?'<span class="value-tag">'+t('bestTag')+'</span>':'')+'</span><span class="tier-per1k">'+relicFmt(row.per1k)+t('per1k')+'</span><span class="tier-qty">'+fmtNum(need)+' '+t('chests')+'</span><span class="tier-cost">'+relicFmt(row.usdt*need)+'</span></div>';
