@@ -84,8 +84,15 @@ export default {
         return json({ ...mem.json, cached: true });
       }
 
-      const prices = await fetchCheapest(realmCode);
-      if (!Object.keys(prices).length) throw new Error('no listings');
+      const cheap = await fetchCheapest(realmCode);
+      if (!Object.keys(cheap).length) throw new Error('no listings');
+
+      // Build the prices object in the { tier: { priceUSDT } } shape the app expects
+      const prices = {};
+      for (const tier of ['T1','T2','T3','T4','T5']) {
+        if (cheap[tier]) prices[tier] = { priceUSDT: cheap[tier] };
+      }
+      if (!Object.keys(prices).length) throw new Error('no prices');
 
       const fx = await getFx();
       if (fx.php <= 0) fx.php = 0;
