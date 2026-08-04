@@ -570,57 +570,120 @@
     .relic-page { overflow-y: auto; }
     .relic-scroll { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
     .relic-grid { flex: 1; min-height: 0; display: grid; grid-template-columns: 1.25fr 1fr; grid-template-rows: 1fr; gap: var(--space-4); }
+    .relic-grid > .panel { min-height: 0; }
 
-    .relic-body { display: flex; flex-direction: column; gap: var(--space-3); }
-    .relic-row { display: grid; grid-template-columns: auto 1fr minmax(9.5rem, auto); align-items: center; gap: var(--space-3); padding: var(--space-3) var(--space-4); border-radius: var(--radius-lg); background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); transition: border-color var(--duration-normal) var(--ease-smooth), background-color var(--duration-normal) var(--ease-smooth); }
-    .relic-row.active { border-color: var(--glass-border-strong); background: rgba(255,255,255,0.03); }
+    .relic-body { display: flex; flex-direction: column; gap: var(--space-3); overflow-y: auto; }
+    .relic-card { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-3) var(--space-4); border-radius: var(--radius-lg); background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); transition: border-color var(--duration-normal) var(--ease-smooth), background-color var(--duration-normal) var(--ease-smooth); }
+    .relic-card.active { border-color: var(--glass-border-strong); background: rgba(255,255,255,0.03); }
+    .relic-card-top { display: flex; align-items: center; gap: var(--space-2); }
     .relic-dot { width: 0.625rem; height: 0.625rem; border-radius: 50%; flex-shrink: 0; }
     .relic-dot.re-0 { background: #ef4444; box-shadow: 0 0 10px rgba(239,68,68,0.45); }
     .relic-dot.re-1 { background: #3b82f6; box-shadow: 0 0 10px rgba(59,130,246,0.45); }
     .relic-dot.re-2 { background: #22c55e; box-shadow: 0 0 10px rgba(34,197,94,0.45); }
     .relic-dot.re-3 { background: #eab308; box-shadow: 0 0 10px rgba(234,179,8,0.45); }
     .relic-name { font-family: var(--font-display); font-weight: 600; font-size: 0.8rem; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.02em; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .relic-cp { margin-left: auto; font-family: var(--font-mono, monospace); font-weight: 600; font-size: 0.72rem; color: var(--soft-gold); white-space: nowrap; }
     .relic-inputs { display: flex; align-items: flex-end; gap: var(--space-2); }
     .relic-field { display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 0; }
     .relic-field-label { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-tertiary); }
+    .relic-numwrap { display: flex; align-items: center; }
+    .relic-stepper { appearance: none; border: 1px solid var(--glass-border); background: rgba(255,255,255,0.04); color: var(--text-tertiary); font-family: var(--font-mono, monospace); font-size: 1rem; line-height: 1; width: 1.75rem; height: 2.15rem; cursor: pointer; transition: background-color var(--duration-fast) var(--ease-smooth), color var(--duration-fast) var(--ease-smooth); touch-action: manipulation; user-select: none; }
+    .relic-stepper:first-child { border-radius: var(--radius-md) 0 0 var(--radius-md); }
+    .relic-stepper:last-child { border-radius: 0 var(--radius-md) var(--radius-md) 0; }
+    .relic-stepper:hover { color: var(--text-primary); background: rgba(255,255,255,0.08); }
+    .relic-stepper:active { transform: scale(0.94); }
     .relic-arrow { color: var(--text-tertiary); font-size: 0.9rem; padding-bottom: 1.1rem; }
-    .relic-num { appearance: none; -moz-appearance: textfield; -webkit-appearance: none; width: 3.75rem; background: rgba(15,23,42,0.75); border: 1px solid var(--glass-border); color: var(--text-primary); font-family: var(--font-mono, monospace); font-weight: 600; text-align: center; padding: var(--space-1) var(--space-2); border-radius: var(--radius-md); box-sizing: content-box; }
+    .relic-num { appearance: none; -moz-appearance: textfield; -webkit-appearance: none; width: 3.75rem; height: 2.15rem; background: rgba(15,23,42,0.75); border: 1px solid var(--glass-border); border-left: none; border-right: none; color: var(--text-primary); font-family: var(--font-mono, monospace); font-weight: 600; text-align: center; box-sizing: content-box; }
     .relic-num::-webkit-inner-spin-button, .relic-num::-webkit-outer-spin-button { -webkit-appearance: none; }
-    .relic-num:focus { outline: 2px solid var(--electric-cyan); outline-offset: 1px; border-color: var(--electric-cyan); }
-    .relic-tp { font-family: var(--font-mono, monospace); font-weight: 600; font-size: 0.85rem; color: var(--electric-cyan); white-space: nowrap; text-align: right; min-width: 2.5rem; }
-    .relic-total { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-3); flex-wrap: wrap; padding: var(--space-3) var(--space-4); border-radius: var(--radius-lg); background: linear-gradient(135deg, rgba(139,92,246,0.09), rgba(34,211,238,0.05)); border: 1px solid var(--glass-border-strong); }
-    .relic-total-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-secondary); }
-    .relic-total-value { font-family: var(--font-mono, monospace); font-size: 1.5rem; font-weight: 700; color: var(--text-primary); }
-    .relic-total-sub { font-size: 0.68rem; color: var(--text-tertiary); padding: 0 var(--space-2); margin-top: -0.5rem; }
+    .relic-num:focus { outline: none; border-color: var(--electric-cyan); }
+    .relic-result { display: flex; flex-direction: column; gap: var(--space-2); }
+    .relic-result-empty { font-size: 0.72rem; color: var(--text-tertiary); padding: var(--space-2); border: 1px dashed var(--glass-border); border-radius: var(--radius-md); text-align: center; }
+    .relic-result-head { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-3); }
+    .relic-result-pieces { font-family: var(--font-mono, monospace); font-size: 1.35rem; font-weight: 700; line-height: 1.1; font-variant-numeric: tabular-nums; }
+    .relic-result-label { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-tertiary); }
+    .relic-result-cost { text-align: right; }
+    .relic-result-price { font-family: var(--font-mono, monospace); font-size: 0.95rem; font-weight: 600; color: var(--alive-green); }
+    .relic-result-cp { font-size: 0.62rem; color: var(--soft-gold); margin-top: 2px; }
+    .relic-result-stats { display: flex; flex-direction: column; gap: var(--space-1); border-top: 1px solid var(--glass-border); padding-top: var(--space-2); }
+    .relic-result-row { display: flex; align-items: baseline; gap: var(--space-2); font-size: 0.7rem; }
+    .relic-result-row .rs-name { color: var(--text-thirdary, var(--text-tertiary)); flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .relic-result-row .rs-val { font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .relic-result-row .rs-cp { color: var(--soft-gold); font-size: 0.62rem; white-space: nowrap; }
+
+    .relic-grand { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-3); margin-top: var(--space-1); }
+    .relic-grand-cell { background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); border-radius: var(--radius-lg); padding: var(--space-3) var(--space-4); text-align: center; }
+    .relic-grand-label { display: block; font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-tertiary); margin-bottom: var(--space-1); }
+    .relic-grand-value { display: block; font-family: var(--font-mono, monospace); font-size: 1.4rem; font-weight: 700; color: var(--text-primary); font-variant-numeric: tabular-nums; }
+    .relic-grand-value.gold { color: var(--soft-gold); }
+    .relic-grand-value:empty::before { content: '0'; }
+
+    .relic-graph { display: flex; flex-direction: column; gap: var(--space-2); margin-top: var(--space-3); }
+    .relic-graph-row { display: flex; align-items: center; gap: var(--space-3); }
+    .relic-graph-row .rg-label { flex-shrink: 0; width: 7.5rem; font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .relic-graph-row .rg-val { flex-shrink: 0; width: 5rem; font-family: var(--font-mono, monospace); font-size: 0.7rem; color: var(--text-tertiary); text-align: right; font-variant-numeric: tabular-nums; }
+    .bar-track { flex: 1; height: 1.2rem; background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border); border-radius: var(--radius-full); overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: var(--radius-full); transition: width var(--duration-normal) var(--ease-smooth); display: flex; align-items: center; border-right: 1.5px solid; }
+    .bar-fill span { font-size: 0.6rem; font-weight: 600; color: var(--text-primary); padding: 0 var(--space-2); white-space: nowrap; }
 
     .mkt-actions { display: flex; align-items: center; gap: var(--space-2); }
     .mkt-realm { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: var(--space-1) var(--space-2); border-radius: var(--radius-full); color: var(--soft-gold); border: 1px solid rgba(245,158,11,0.35); background: rgba(245,158,11,0.08); }
     .mkt-refresh svg { animation: none; }
+    .mkt-alert-toggle.on { color: var(--alive-green); border-color: rgba(52,211,153,0.4); background: rgba(52,211,153,0.12); }
     .mkt-body { display: flex; flex-direction: column; gap: var(--space-3); }
     .mkt-status { display: flex; flex-direction: column; gap: var(--space-2); }
     .mkt-updated { font-size: 0.68rem; color: var(--text-tertiary); }
     .mkt-currency .seg-btn.off { opacity: 0.4; pointer-events: none; }
     .mkt-state { display: none; font-size: 0.82rem; color: var(--text-tertiary); text-align: center; padding: var(--space-6) 0; }
     .mkt-state.show { display: block; }
-    .mkt-reco[hidden], .mkt-table-wrap[hidden], .mkt-state[hidden], .mkt-save[hidden] { display: none !important; }
-    .mkt-table-wrap { overflow-x: auto; }
-    .mkt-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
-    .mkt-table th { text-align: left; font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-tertiary); padding: var(--space-2); border-bottom: 1px solid var(--glass-border); }
-    .mkt-table th.r, .mkt-table td.r { text-align: right; }
-    .mkt-table td { padding: var(--space-2); border-bottom: 1px solid rgba(255,255,255,0.04); color: var(--text-secondary); font-variant-numeric: tabular-nums; }
-    .mkt-table tr.best td { color: var(--text-primary); background: rgba(52,211,153,0.10); border-left: 2px solid var(--alive-green); }
-    .best-badge { display: inline-flex; margin-left: 0.35rem; font-size: 0.58rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--alive-green); border: 1px solid rgba(52,211,153,0.4); background: rgba(52,211,153,0.12); padding: 0 4px; border-radius: var(--radius-full); vertical-align: middle; }
-    .mkt-reco { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-3) var(--space-4); border-radius: var(--radius-lg); border: 1px solid rgba(52,211,153,0.3); background: rgba(52,211,153,0.06); }
-    .reco-title { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--alive-green); }
-    .reco-line { font-size: 0.82rem; color: var(--text-secondary); }
-    .reco-total { font-family: var(--font-mono, monospace); font-size: 1.35rem; font-weight: 700; color: var(--text-primary); }
+    .mkt-save[hidden], .mkt-radar[hidden], .mkt-chest[hidden], .tier-list[hidden] { display: none !important; }
+
+    .mkt-radar-card { border: 1px solid rgba(52,211,153,0.3); background: rgba(52,211,153,0.06); border-radius: var(--radius-lg); padding: var(--space-3) var(--space-4); }
+    .mkt-radar-card.warn { border-color: rgba(245,158,11,0.35); background: rgba(245,158,11,0.06); }
+    .mkt-radar-title { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--alive-green); }
+    .mkt-radar-card.warn .mkt-radar-title { color: var(--soft-gold); }
+    .mkt-radar-sub { margin-top: 2px; font-size: 0.72rem; color: var(--text-tertiary); font-variant-numeric: tabular-nums; }
+
+    .mkt-chest-sum { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-3) var(--space-4); border-radius: var(--radius-lg); background: linear-gradient(135deg, rgba(52,211,153,0.08), rgba(139,92,246,0.04)); border: 1px solid rgba(52,211,153,0.3); }
+    .mcs-main { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-3); flex-wrap: wrap; }
+    .mcs-label { font-size: 0.78rem; color: var(--text-secondary); }
+    .mcs-total { font-family: var(--font-mono, monospace); font-size: 1.4rem; font-weight: 700; color: var(--text-primary); }
+    .mcs-sub { display: flex; align-items: center; gap: var(--space-2); font-size: 0.68rem; color: var(--text-tertiary); }
+
+    .value-tag { display: inline-flex; font-size: 0.55rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; color: var(--alive-green); border: 1px solid rgba(52,211,153,0.32); background: rgba(52,211,153,0.08); border-radius: var(--radius-full); padding: 0 5px; white-space: nowrap; }
+
+    .tier-list { display: flex; flex-direction: column; gap: var(--space-1); }
+    .tier-row { display: grid; grid-template-columns: 1fr 5rem 6rem 6.5rem; gap: var(--space-2); align-items: center; padding: var(--space-2) var(--space-3); border-radius: var(--radius-md); background: rgba(255,255,255,0.018); border: 1px solid var(--glass-border); font-size: 0.72rem; }
+    .tier-row.best-value { background: rgba(52,211,153,0.07); border-color: rgba(52,211,153,0.28); }
+    .tier-row .tier-name { display: flex; align-items: center; gap: var(--space-2); font-weight: 600; color: var(--text-primary); white-space: nowrap; }
+    .tier-row .tier-per1k, .tier-row .tier-qty, .tier-row .tier-cost { text-align: right; color: var(--text-secondary); font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .tier-row .tier-cost { color: var(--alive-green); font-weight: 600; }
     .mkt-save { font-size: 0.7rem; color: var(--soft-gold); }
+
+    .cp-ref-panel { margin-top: var(--space-4); }
+    .cp-ref-body { display: flex; flex-direction: column; gap: var(--space-3); }
+    .cp-tabs { display: flex; gap: var(--space-1); flex-wrap: wrap; }
+    .cp-tab { appearance: none; border: 1px solid var(--glass-border); background: transparent; color: var(--text-tertiary); font-family: var(--font-display); font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: var(--space-1) var(--space-3); border-radius: var(--radius-full); cursor: pointer; transition: color var(--duration-fast) var(--ease-smooth), border-color var(--duration-fast) var(--ease-smooth), background-color var(--duration-fast) var(--ease-smooth); }
+    .cp-tab:hover { color: var(--text-secondary); border-color: var(--glass-border-strong); }
+    .cp-tab.active { color: var(--c, var(--astral-purple)); border-color: currentColor; background: color-mix(in srgb, var(--c, var(--astral-purple)) 12%, transparent); }
+    .cp-panel { display: flex; flex-direction: column; gap: var(--space-1); }
+    .cp-row { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-1) var(--space-2); border-radius: var(--radius-md); font-size: 0.78rem; }
+    .cp-row:hover { background: rgba(255,255,255,0.03); }
+    .cp-row .cp-stat { flex: 1 1 auto; min-width: 0; color: var(--text-secondary); }
+    .cp-row .cp-unit { font-size: 0.62rem; color: var(--text-tertiary); white-space: nowrap; }
+    .cp-row .cp-val { font-family: var(--font-mono, monospace); font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
 
     @media (max-width: 900px) {
       .relic-grid { grid-template-columns: 1fr; grid-template-rows: auto; overflow-y: auto; }
+      .relic-grid > .panel { min-height: auto; }
+      .relic-grid .panel:last-child { grid-column: auto; grid-row: auto; }
+      .relic-graph-row .rg-label { width: 6rem; }
     }
     @media (max-width: 480px) {
-      .relic-row { grid-template-columns: auto 1fr; grid-template-rows: auto auto; row-gap: var(--space-2); }
-      .relic-inputs { grid-column: 1 / -1; justify-content: flex-end; }
+      .relic-inputs { justify-content: flex-start; flex-wrap: wrap; }
+      .relic-grand { gap: var(--space-2); }
+      .relic-grand-cell { padding: var(--space-2); }
+      .relic-grand-value { font-size: 1.1rem; }
+      .tier-row { grid-template-columns: 1fr 3.5rem 4.5rem 5rem; font-size: 0.66rem; }
+      .relic-graph-row .rg-label { width: 4.5rem; }
     }
   
