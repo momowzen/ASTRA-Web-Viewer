@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=20260805">
+    <link rel="stylesheet" href="style.css?v=20260805b">
 </head>
 <body>
 
@@ -140,79 +140,134 @@
             </div>
             <div class="panel-body relic-body" id="relicSettings">
 
-              <div class="relic-row" id="relicRow0">
-                <span class="relic-dot re-0" aria-hidden="true"></span>
-                <span class="relic-name" id="relicName0"></span>
-                <div class="relic-inputs">
-                  <div class="relic-field">
-                    <input type="number" class="relic-num" id="relicFrom0" min="1" max="100" value="1" inputmode="numeric">
-                    <span class="relic-field-label" id="relicCurLbl">Current</span>
-                  </div>
-                  <span class="relic-arrow">&rarr;</span>
-                  <div class="relic-field">
-                    <input type="number" class="relic-num" id="relicTo0" min="1" max="100" value="1" inputmode="numeric">
-                    <span class="relic-field-label" id="relicGoalLbl">Goal</span>
-                  </div>
+              <div class="relic-card" id="relicRow0">
+                <div class="relic-card-top">
+                  <span class="relic-dot re-0" aria-hidden="true"></span>
+                  <span class="relic-name" id="relicName0"></span>
+                  <span class="relic-cp" id="relicCp0"></span>
                 </div>
-                <span class="relic-tp" id="relicTp0">0</span>
-              </div>
-
-              <div class="relic-row" id="relicRow1">
-                <span class="relic-dot re-1" aria-hidden="true"></span>
-                <span class="relic-name" id="relicName1"></span>
                 <div class="relic-inputs">
                   <div class="relic-field">
-                    <input type="number" class="relic-num" id="relicFrom1" min="1" max="100" value="1" inputmode="numeric">
                     <span class="relic-field-label">Current</span>
+                    <div class="relic-numwrap">
+                      <button type="button" class="relic-stepper" data-idx="0" data-field="from" data-dir="-1" aria-label="Decrease current">&#8722;</button>
+                      <input type="number" class="relic-num" id="relicFrom0" min="1" max="100" value="1" inputmode="numeric">
+                      <button type="button" class="relic-stepper" data-idx="0" data-field="from" data-dir="1" aria-label="Increase current">+</button>
+                    </div>
                   </div>
                   <span class="relic-arrow">&rarr;</span>
                   <div class="relic-field">
-                    <input type="number" class="relic-num" id="relicTo1" min="1" max="100" value="1" inputmode="numeric">
                     <span class="relic-field-label">Goal</span>
+                    <div class="relic-numwrap">
+                      <button type="button" class="relic-stepper" data-idx="0" data-field="to" data-dir="-1" aria-label="Decrease goal">&#8722;</button>
+                      <input type="number" class="relic-num" id="relicTo0" min="1" max="100" value="1" inputmode="numeric">
+                      <button type="button" class="relic-stepper" data-idx="0" data-field="to" data-dir="1" aria-label="Increase goal">+</button>
+                    </div>
                   </div>
                 </div>
-                <span class="relic-tp" id="relicTp1">0</span>
+                <div class="relic-result" id="relicResult0"></div>
               </div>
 
-              <div class="relic-row" id="relicRow2">
-                <span class="relic-dot re-2" aria-hidden="true"></span>
-                <span class="relic-name" id="relicName2"></span>
+              <div class="relic-card" id="relicRow1">
+                <div class="relic-card-top">
+                  <span class="relic-dot re-1" aria-hidden="true"></span>
+                  <span class="relic-name" id="relicName1"></span>
+                  <span class="relic-cp" id="relicCp1"></span>
+                </div>
                 <div class="relic-inputs">
                   <div class="relic-field">
-                    <input type="number" class="relic-num" id="relicFrom2" min="1" max="100" value="1" inputmode="numeric">
                     <span class="relic-field-label">Current</span>
+                    <div class="relic-numwrap">
+                      <button type="button" class="relic-stepper" data-idx="1" data-field="from" data-dir="-1">&#8722;</button>
+                      <input type="number" class="relic-num" id="relicFrom1" min="1" max="100" value="1" inputmode="numeric">
+                      <button type="button" class="relic-stepper" data-idx="1" data-field="from" data-dir="1">+</button>
+                    </div>
                   </div>
                   <span class="relic-arrow">&rarr;</span>
                   <div class="relic-field">
-                    <input type="number" class="relic-num" id="relicTo2" min="1" max="100" value="1" inputmode="numeric">
                     <span class="relic-field-label">Goal</span>
+                    <div class="relic-numwrap">
+                      <button type="button" class="relic-stepper" data-idx="1" data-field="to" data-dir="-1">&#8722;</button>
+                      <input type="number" class="relic-num" id="relicTo1" min="1" max="100" value="1" inputmode="numeric">
+                      <button type="button" class="relic-stepper" data-idx="1" data-field="to" data-dir="1">+</button>
+                    </div>
                   </div>
                 </div>
-                <span class="relic-tp" id="relicTp2">0</span>
+                <div class="relic-result" id="relicResult1"></div>
               </div>
 
-              <div class="relic-row" id="relicRow3">
-                <span class="relic-dot re-3" aria-hidden="true"></span>
-                <span class="relic-name" id="relicName3"></span>
+              <div class="relic-card" id="relicRow2">
+                <div class="relic-card-top">
+                  <span class="relic-dot re-2" aria-hidden="true"></span>
+                  <span class="relic-name" id="relicName2"></span>
+                  <span class="relic-cp" id="relicCp2"></span>
+                </div>
                 <div class="relic-inputs">
                   <div class="relic-field">
-                    <input type="number" class="relic-num" id="relicFrom3" min="1" max="100" value="1" inputmode="numeric">
                     <span class="relic-field-label">Current</span>
+                    <div class="relic-numwrap">
+                      <button type="button" class="relic-stepper" data-idx="2" data-field="from" data-dir="-1">&#8722;</button>
+                      <input type="number" class="relic-num" id="relicFrom2" min="1" max="100" value="1" inputmode="numeric">
+                      <button type="button" class="relic-stepper" data-idx="2" data-field="from" data-dir="1">+</button>
+                    </div>
                   </div>
                   <span class="relic-arrow">&rarr;</span>
                   <div class="relic-field">
-                    <input type="number" class="relic-num" id="relicTo3" min="1" max="100" value="1" inputmode="numeric">
                     <span class="relic-field-label">Goal</span>
+                    <div class="relic-numwrap">
+                      <button type="button" class="relic-stepper" data-idx="2" data-field="to" data-dir="-1">&#8722;</button>
+                      <input type="number" class="relic-num" id="relicTo2" min="1" max="100" value="1" inputmode="numeric">
+                      <button type="button" class="relic-stepper" data-idx="2" data-field="to" data-dir="1">+</button>
+                    </div>
                   </div>
                 </div>
-                <span class="relic-tp" id="relicTp3">0</span>
+                <div class="relic-result" id="relicResult2"></div>
               </div>
 
-              <div class="relic-total">
-                <span class="relic-total-label" id="relicTotalLbl">Total Temporal Pieces</span>
-                <span class="relic-total-value" id="relicTotal">0</span>
+              <div class="relic-card" id="relicRow3">
+                <div class="relic-card-top">
+                  <span class="relic-dot re-3" aria-hidden="true"></span>
+                  <span class="relic-name" id="relicName3"></span>
+                  <span class="relic-cp" id="relicCp3"></span>
+                </div>
+                <div class="relic-inputs">
+                  <div class="relic-field">
+                    <span class="relic-field-label">Current</span>
+                    <div class="relic-numwrap">
+                      <button type="button" class="relic-stepper" data-idx="3" data-field="from" data-dir="-1">&#8722;</button>
+                      <input type="number" class="relic-num" id="relicFrom3" min="1" max="100" value="1" inputmode="numeric">
+                      <button type="button" class="relic-stepper" data-idx="3" data-field="from" data-dir="1">+</button>
+                    </div>
+                  </div>
+                  <span class="relic-arrow">&rarr;</span>
+                  <div class="relic-field">
+                    <span class="relic-field-label">Goal</span>
+                    <div class="relic-numwrap">
+                      <button type="button" class="relic-stepper" data-idx="3" data-field="to" data-dir="-1">&#8722;</button>
+                      <input type="number" class="relic-num" id="relicTo3" min="1" max="100" value="1" inputmode="numeric">
+                      <button type="button" class="relic-stepper" data-idx="3" data-field="to" data-dir="1">+</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="relic-result" id="relicResult3"></div>
               </div>
-              <div class="relic-total-sub" id="relicTotalSub"></div>
+
+              <div class="relic-grand">
+                <div class="relic-grand-cell">
+                  <span class="relic-grand-label" id="relicGrandLblP">Pieces</span>
+                  <span class="relic-grand-value" id="relicGrandPieces">0</span>
+                </div>
+                <div class="relic-grand-cell">
+                  <span class="relic-grand-label" id="relicGrandLblU">Upgrades</span>
+                  <span class="relic-grand-value" id="relicGrandUp">0</span>
+                </div>
+                <div class="relic-grand-cell">
+                  <span class="relic-grand-label" id="relicGrandLblC">Combat Power</span>
+                  <span class="relic-grand-value gold" id="relicGrandCp">+0</span>
+                </div>
+              </div>
+
+              <div class="relic-graph" id="relicGraph"></div>
 
             </div>
           </div>
@@ -221,17 +276,20 @@
             <div class="panel-header">
               <div class="panel-title">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 6 1 22 23 22 23 6"></polyline><path d="M12 22c-4 0-6-4-6-8s2-8 6-8 6 4 6 8-2 8-6 8z"></path><line x1="8" y1="12" x2="16" y2="12"></line><line x1="8" y1="16" x2="16" y2="16"></line></svg>
-                <span id="mktLbl">Live Market Prices</span>
+                <span id="mktLbl">Chest Market</span>
               </div>
               <div class="mkt-actions">
                 <span class="mkt-realm" id="mktRealm">Origin</span>
                 <button class="icon-btn mkt-refresh" id="mktRefresh" title="Refresh" aria-label="Refresh market prices">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"></path><polyline points="21 3 21 9 15 9"></polyline></svg>
                 </button>
+                <button class="icon-btn mkt-alert-toggle" id="mktAlert" title="Deal radar" aria-pressed="false">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                </button>
               </div>
             </div>
             <div class="panel-body mkt-body" id="mktBody">
-              <div class="mkt-status" id="mktStatus">
+              <div class="mkt-status">
                 <span class="mkt-updated" id="mktUpdated">--</span>
                 <div class="segmented mkt-currency" role="tablist" aria-label="Currency">
                   <button type="button" class="seg-btn active" data-cur="usd" role="tab" aria-selected="true">USDt</button>
@@ -241,23 +299,22 @@
                 </div>
               </div>
               <div class="mkt-state" id="mktState"></div>
-              <div class="mkt-table-wrap" id="mktTableWrap" hidden>
-                <table class="mkt-table">
-                  <thead>
-                    <tr>
-                      <th class="l">Tier</th>
-                      <th class="r">TP/Chest</th>
-                      <th class="r">USDt</th>
-                      <th class="r" id="mktCurHead">Price</th>
-                    </tr>
-                  </thead>
-                  <tbody id="mktRows"></tbody>
-                </table>
-              </div>
-              <div class="mkt-reco" id="mktReco" hidden></div>
+              <div class="mkt-radar" id="mktRadar" hidden></div>
+              <div class="mkt-chest" id="chestSummary"></div>
+              <div class="tier-list" id="tierList"></div>
               <div class="mkt-save" id="mktSave" hidden></div>
             </div>
           </div>
+        </div>
+
+        <div class="panel cp-ref-panel">
+          <div class="panel-header">
+            <div class="panel-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 0 0 0 20 10 10 0 0 0 9.9-8H12V2z"></path><circle cx="12" cy="12" r="10"></circle></svg>
+              <span id="cpRefLbl">CP Reference</span>
+            </div>
+          </div>
+          <div class="panel-body cp-ref-body" id="cpRefBody"></div>
         </div>
       </div>
     </div>
@@ -270,6 +327,6 @@
 
   <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
-    <script src="app.js?v=20260805"></script>
+    <script src="app.js?v=20260805b"></script>
 </body>
 </html>
