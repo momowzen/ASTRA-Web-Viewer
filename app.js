@@ -586,7 +586,7 @@ function langNext(){
       const title=isSnipe?(t('radarSnipe')+' '+sig.tier.toUpperCase()):(t('radarBest')+' '+best.key.toUpperCase());
       const sub=isSnipe
         ?('$'+sig.per1k.toFixed(2)+t('per1k')+' '+sig.drop.toFixed(1)+'% '+t('snipe'))
-        :('$'+best.per1k.toFixed(2)+t('per1k')+' = '+t('best'));
+        :('$'+best.per1k.toFixed(2)+t('per1k'));
       el.hidden=false;
       el.innerHTML='<div class="mkt-radar-card '+(isSnipe?'warn':'')+'"><div class="mkt-radar-top"><div><div class="mkt-radar-title">'+title+'</div><div class="mkt-radar-sub">'+sub+'</div></div></div></div>';
     }
