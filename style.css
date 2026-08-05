@@ -230,10 +230,14 @@
     .lang-btn .lang-flag { font-size: 1.05rem; line-height: 1; }
 
     .astra-nav { flex-shrink: 0; display: flex; justify-content: center; padding: var(--space-1); }
-    .nav-pill { display: inline-flex; gap: var(--space-1); padding: var(--space-1); background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: var(--radius-full); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); box-shadow: var(--shadow-md), inset 0 1px 0 var(--glass-highlight); }
-    .nav-btn { appearance: none; border: none; background: transparent; color: var(--text-secondary); font-family: var(--font-display); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: var(--space-2) var(--space-4); border-radius: var(--radius-full); cursor: pointer; position: relative; min-height: 2.5rem; user-select: none; touch-action: manipulation; -webkit-tap-highlight-color: transparent; transition: color var(--duration-normal) var(--ease-smooth); }
+    .nav-pill { position: relative; display: flex; width: 100%; gap: var(--space-1); padding: var(--space-1); background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: var(--radius-full); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); box-shadow: var(--shadow-md), inset 0 1px 0 var(--glass-highlight); }
+    .nav-indicator { position: absolute; top: var(--space-1); bottom: var(--space-1); left: 0; width: 0; border-radius: var(--radius-full); background: linear-gradient(135deg, var(--astral-purple), var(--electric-cyan)); opacity: 0.16; box-shadow: 0 0 14px rgba(139, 92, 246, 0.28); transition: left var(--duration-normal) var(--ease-spring), width var(--duration-normal) var(--ease-spring); pointer-events: none; will-change: left, width; }
+    .nav-btn { appearance: none; border: none; background: transparent; color: var(--text-secondary); font-family: var(--font-display); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: var(--space-2) var(--space-4); border-radius: var(--radius-full); cursor: pointer; position: relative; min-height: 2.5rem; user-select: none; touch-action: manipulation; -webkit-tap-highlight-color: transparent; flex: 1; min-width: 0; display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: color var(--duration-normal) var(--ease-smooth); }
+    .nav-btn svg { width: 1.05rem; height: 1.05rem; flex-shrink: 0; opacity: 0.85; transition: opacity var(--duration-normal) var(--ease-smooth); }
     .nav-btn:hover { color: var(--text-primary); }
-    .nav-btn.active { color: var(--text-primary); background: rgba(255, 255, 255, 0.06); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25); }
+    .nav-btn:hover svg { opacity: 1; }
+    .nav-btn.active { color: var(--text-primary); background: rgba(255, 255, 255, 0.04); }
+    .nav-btn.active svg { opacity: 1; }
     .nav-btn.active::before { content: ''; position: absolute; inset: 0; border-radius: var(--radius-full); padding: 1px; background: linear-gradient(135deg, var(--astral-purple), var(--electric-cyan)); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; opacity: 0.6; }
 
     .page { display: none; flex: 1; min-height: 0; flex-direction: column; gap: var(--space-4); overscroll-behavior: contain; animation: page-in var(--duration-slow) var(--ease-out-expo); }
@@ -540,7 +544,8 @@
 
     @media (max-width: 480px) {
       .astra-header { padding: var(--space-2) var(--space-3); }
-      .nav-btn { padding: var(--space-2) var(--space-3); font-size: 0.68rem; }
+      .nav-btn { padding: var(--space-2) var(--space-2); font-size: 0.68rem; min-height: 2.75rem; gap: var(--space-1); }
+      .nav-btn svg { width: 0.95rem; height: 0.95rem; }
       .panel-header { flex-wrap: wrap; }
       .live-pill { padding: var(--space-1) var(--space-2); font-size: 0.65rem; }
       .live-pill .dot { width: 5px; height: 5px; }
@@ -564,6 +569,7 @@
       .schedule-grid, .interval-grid { grid-template-columns: 1fr; }
       .hero-status-ring { width: 4rem; height: 4rem; }
       .skill-block-text { min-height: 0; -webkit-line-clamp: 3; }
+      .nav-btn svg { width: 0.85rem; height: 0.85rem; }
     }
 
     /* ---- Relic section ---- */

@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=20260806v">
+    <link rel="stylesheet" href="style.css?v=20260806w">
 </head>
 <body>
 
@@ -53,9 +53,10 @@
 
     <nav class="astra-nav" aria-label="Main navigation">
       <div class="nav-pill">
-        <button class="nav-btn active" data-page="tracker" id="navTracker">Tracker</button>
-        <button class="nav-btn" data-page="hidden" id="navHidden">Hidden Class</button>
-        <button class="nav-btn" data-page="relic" id="navRelic"><span id="relicNavLbl">Relic</span></button>
+        <div class="nav-indicator" aria-hidden="true"></div>
+        <button class="nav-btn active" data-page="tracker" id="navTracker"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"></circle><line x1="12" y1="2" x2="12" y2="5"></line><line x1="12" y1="19" x2="12" y2="22"></line><line x1="2" y1="12" x2="5" y2="12"></line><line x1="19" y1="12" x2="22" y2="12"></line><circle cx="12" cy="12" r="2"></circle></svg><span>Tracker</span></button>
+        <button class="nav-btn" data-page="hidden" id="navHidden"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"></path><circle cx="12" cy="12" r="3"></circle></svg><span>Hidden Class</span></button>
+        <button class="nav-btn" data-page="relic" id="navRelic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l4 6-10 12L2 9z"></path><path d="M2 9h20"></path></svg><span id="relicNavLbl">Relic</span></button>
       </div>
     </nav>
 
@@ -310,9 +311,10 @@
 
   <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
-    <script src="app.js?v=20260806v"></script>
+    <script src="app.js?v=20260806w"></script>
 </body>
 </html>
+
 
 
 
