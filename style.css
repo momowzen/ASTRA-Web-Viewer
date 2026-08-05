@@ -651,18 +651,28 @@
 
     @media (max-width: 900px) {
       .relic-page { overflow-y: auto; }
-      .relic-scroll { overflow: visible; align-items: stretch; justify-content: flex-start; }
-      .relic-grid { grid-template-columns: 1fr; grid-template-rows: auto; grid-auto-rows: auto; overflow: visible; transform: none; }
+      .relic-scroll { flex: none; min-height: 0; overflow: visible; align-items: stretch; justify-content: flex-start; }
+      .relic-grid { flex: none; grid-template-columns: 1fr; grid-template-rows: auto; grid-auto-rows: auto; overflow: visible; transform: none; gap: var(--space-3); }
       .relic-grid > .panel { min-height: 0; }
       .relic-grid .panel:last-child { grid-column: auto; grid-row: auto; }
-      .relic-body { justify-content: flex-start; }
+      .relic-body { justify-content: flex-start; overflow: visible; }
+      .mkt-body { overflow: visible; }
+
+      .relic-name, .relic-cp { font-size: clamp(0.72rem, 2.4vw, 0.8rem); }
+      .relic-result-pieces { font-size: clamp(1rem, 3.4vw, 1.15rem); }
+      .relic-result-price { font-size: clamp(0.78rem, 2.6vw, 0.88rem); }
+      .relic-grand-value { font-size: clamp(1.1rem, 3.8vw, 1.4rem); }
+      .relic-num { width: clamp(3rem, 12vw, 3.75rem); }
     }
     @media (max-width: 480px) {
       .relic-inputs { justify-content: flex-start; flex-wrap: wrap; }
-      .relic-grand { gap: var(--space-2); }
+      .relic-field { min-width: 0; }
+      .relic-card { grid-template-columns: 1fr; grid-template-areas: "top" "inputs" "result"; }
+      .relic-result { min-width: 0; height: auto; align-items: flex-start; text-align: left; }
+      .relic-grand { gap: var(--space-2); grid-template-columns: 1fr 1fr 1fr; }
       .relic-grand-cell { padding: var(--space-2); }
-      .relic-grand-value { font-size: 1.1rem; }
+      .relic-grand-value { font-size: clamp(1rem, 4vw, 1.1rem); }
       .tier-row { grid-template-columns: minmax(0,1fr) auto auto auto; font-size: 0.66rem; }
-      .relic-graph-row .rg-label { width: 4.5rem; }
+      .mcs-total { font-size: clamp(1.1rem, 4vw, 1.4rem); }
     }
   
