@@ -734,8 +734,8 @@ function langNext(){
       const multi=(getComputedStyle(grid).gridTemplateColumns.trim().split(/\s+/).filter(Boolean).length)>1;
       const need=multi?Math.max(...panels):panels.reduce((a,b)=>a+b,0);
       if(need<=avail||need<=0)return;
-      const s=Math.max(0.4,avail/need);
-      grid.style.transformOrigin='center center';
+      const s=Math.max(0.35,avail/need);
+      grid.style.transformOrigin='center top';
       grid.style.transform='scale('+s+')';
     }
     function fitPanelCards(root){
@@ -1066,6 +1066,7 @@ function langNext(){
       const PAGES={tracker:'pageTracker',hidden:'pageHidden',relic:'pageRelic'};
       $((PAGES[btn.dataset.page]||'pageTracker')).classList.add('active');
       requestAnimationFrame(()=>{fitPairTexts();fitExpandedCards();fitCollapsedCards();const ap=document.querySelector('.page.active');if(ap){fitPanelCards(ap);initMarquees(ap)};if(ap&&ap===document.getElementById('pageRelic'))rRelic();});
+      requestAnimationFrame(()=>{requestAnimationFrame(fitRelic);});
     });
 
     document.addEventListener('click',(e)=>{
