@@ -572,7 +572,7 @@
     .relic-grid { flex: 1 1 auto; min-height: 0; width: 100%; display: grid; grid-template-columns: 1.25fr 1fr; grid-template-rows: 1fr; gap: var(--space-4); transform-origin: center center; }
     .relic-grid > .panel { min-height: 0; }
 
-    .relic-body { display: flex; flex-direction: column; gap: var(--space-3); overflow-x: hidden; overflow-y: auto; }
+    .relic-body { display: flex; flex-direction: column; gap: var(--space-3); overflow: hidden; justify-content: flex-start; }
     .relic-card { display: grid; grid-template-columns: 1fr auto; grid-template-areas: "top top" "inputs result"; gap: var(--space-2) var(--space-4); padding: var(--space-3) var(--space-4); border-radius: var(--radius-lg); background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); transition: border-color var(--duration-normal) var(--ease-smooth), background-color var(--duration-normal) var(--ease-smooth); }
     .relic-card.active { border-color: var(--glass-border-strong); background: rgba(255,255,255,0.03); }
     .relic-card-top { grid-area: top; display: flex; align-items: center; gap: var(--space-2); }
@@ -592,7 +592,8 @@
     .relic-stepper:last-child { border-radius: 0 var(--radius-md) var(--radius-md) 0; }
     .relic-stepper:hover { color: var(--text-primary); background: rgba(255,255,255,0.08); }
     .relic-stepper:active { transform: scale(0.94); }
-    .relic-arrow { color: var(--text-tertiary); font-size: 0.9rem; padding-bottom: 1.1rem; }
+    .relic-arrow { display: flex; align-items: center; justify-content: center; height: 2.15rem; color: var(--text-tertiary); }
+    .relic-arrow svg { width: 0.7rem; height: 0.7rem; }
     .relic-num { appearance: none; -moz-appearance: textfield; -webkit-appearance: none; width: 3.75rem; height: 2.15rem; background: rgba(15,23,42,0.75); border: 1px solid var(--glass-border); border-left: none; border-right: none; color: var(--text-primary); font-family: var(--font-mono, monospace); font-weight: 600; text-align: center; box-sizing: content-box; }
     .relic-num::-webkit-inner-spin-button, .relic-num::-webkit-outer-spin-button { -webkit-appearance: none; appearance: none; margin: 0; }
     .relic-num:focus { outline: none; border-color: var(--electric-cyan); }
@@ -622,7 +623,7 @@
     .mkt-refresh.locked { cursor: not-allowed; opacity: 0.6; font-family: var(--font-mono, monospace); font-size: 0.8rem; font-weight: 700; color: var(--text-primary); pointer-events: none; }
     .mkt-refresh.locked:hover { transform: none; }
     .mkt-alert-toggle.on { color: var(--alive-green); border-color: rgba(52,211,153,0.4); background: rgba(52,211,153,0.12); }
-    .mkt-body { display: flex; flex-direction: column; gap: var(--space-3); overflow-x: hidden; overflow-y: auto; }
+    .mkt-body { display: flex; flex-direction: column; gap: var(--space-3); overflow: hidden; }
     .mkt-status { display: flex; flex-direction: column; gap: var(--space-2); }
     .mkt-updated { font-size: 0.68rem; color: var(--text-tertiary); }
     .mkt-currency .seg-btn.off { opacity: 0.4; pointer-events: none; }
