@@ -572,7 +572,7 @@
     .relic-grid { flex: 1 1 auto; min-height: 0; width: 100%; display: grid; grid-template-columns: 1.25fr 1fr; grid-template-rows: 1fr; gap: var(--space-4); transform-origin: center center; }
     .relic-grid > .panel { min-height: 0; }
 
-    .relic-body { display: flex; flex-direction: column; gap: var(--space-3); overflow: hidden; justify-content: flex-start; }
+    .relic-body { display: flex; flex-direction: column; gap: var(--space-3); overflow: hidden; justify-content: space-evenly; }
     .relic-card { display: grid; grid-template-columns: 1fr auto; grid-template-areas: "top top" "inputs result"; gap: var(--space-2) var(--space-4); padding: var(--space-3) var(--space-4); border-radius: var(--radius-lg); background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); transition: border-color var(--duration-normal) var(--ease-smooth), background-color var(--duration-normal) var(--ease-smooth); }
     .relic-card.active { border-color: var(--glass-border-strong); background: rgba(255,255,255,0.03); }
     .relic-card-top { grid-area: top; display: flex; align-items: center; gap: var(--space-2); }
@@ -608,14 +608,6 @@
     .relic-grand-value { display: block; font-family: var(--font-mono, monospace); font-size: 1.4rem; font-weight: 700; color: var(--text-primary); font-variant-numeric: tabular-nums; }
     .relic-grand-value.gold { color: var(--soft-gold); }
     .relic-grand-value:empty::before { content: '0'; }
-
-    .relic-graph { display: flex; flex-direction: column; gap: var(--space-2); margin-top: var(--space-3); }
-    .relic-graph-row { display: flex; align-items: center; gap: var(--space-3); }
-    .relic-graph-row .rg-label { flex-shrink: 0; width: 7.5rem; font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .relic-graph-row .rg-val { flex-shrink: 0; width: 5rem; font-family: var(--font-mono, monospace); font-size: 0.7rem; color: var(--text-tertiary); text-align: right; font-variant-numeric: tabular-nums; }
-    .bar-track { flex: 1; height: 1.2rem; background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border); border-radius: var(--radius-full); overflow: hidden; }
-    .bar-fill { height: 100%; border-radius: var(--radius-full); transition: width var(--duration-normal) var(--ease-smooth); display: flex; align-items: center; border-right: 1.5px solid; }
-    .bar-fill span { font-size: 0.6rem; font-weight: 600; color: var(--text-primary); padding: 0 var(--space-2); white-space: nowrap; }
 
     .mkt-actions { display: flex; align-items: center; gap: var(--space-2); }
     .mkt-realm { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: var(--space-1) var(--space-2); border-radius: var(--radius-full); color: var(--soft-gold); border: 1px solid rgba(245,158,11,0.35); background: rgba(245,158,11,0.08); }
