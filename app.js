@@ -347,7 +347,7 @@ function langNext(){
       h='<div class="boss-list">'+list.map((x,i)=>{
         const rem=x.t-n;
         const cls=statusClassFor(rem);
-        return '<div class="boss-card '+cls+'" data-t="'+x.t+'"><div class="boss-card-main"><span class="boss-card-name">'+bn(x.b)+'</span></div><div class="boss-card-time"><span class="boss-card-time-value">'+fmtT(x.t)+'</span></div></div>';
+        return '<div class="boss-card '+cls+'" data-t="'+x.t+'"><div class="boss-card-main"><span class="boss-card-name">'+bn(x.b)+'</span></div><div class="boss-card-time"><span class="boss-card-time-value">'+fmtT(x.t)+'</span><span class="boss-card-time-label">'+fmtD(x.t)+'</span></div></div>';
       }).join('')+'</div>';
       if(h===lastUpHtml)return;
       e.innerHTML=h;lastUpHtml=h;initMarquees(e);
