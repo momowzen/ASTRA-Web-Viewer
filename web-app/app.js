@@ -1134,7 +1134,7 @@ function langNext(){
     document.addEventListener('touchcancel',ptrReset,{passive:true});
 
     let currentView='interval';
-    const segBtns=document.querySelectorAll('.segmented .seg-btn');
+    const segBtns=document.querySelectorAll('.segmented .seg-btn[data-view]');
     const viewBodies={interval:$('ivGrid'),schedule:$('schedGrid')};
     segBtns.forEach(btn=>{
       btn.addEventListener('click',()=>{
