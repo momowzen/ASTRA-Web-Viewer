@@ -582,7 +582,8 @@ function langNext(){
       const best=rows[0];
       const c1=rows.filter(r=>r.key==='T1')[0];
       const isSnipe=sig&&(sig.drop>=6||(c1&&(1-best.per1k/c1.per1k)*100>=4));
-      const title=isSnipe?(t('radarSnipe')+' '+sig.tier.toUpperCase()):(t('radarBest')+' '+best.key.toUpperCase());
+      const chestTitle=row=>row.key+'\u00A0'+t('gPieces')+' '+t('chest')+' x'+fmtNum(row.qty);
+      const title=isSnipe?(t('radarSnipe')+' '+sig.tier.toUpperCase()):(t('radarBest')+' '+chestTitle(best));
       const sub=isSnipe
         ?('$'+sig.per1k.toFixed(2)+t('per1k')+' '+sig.drop.toFixed(1)+'% '+t('snipe'))
         :('$'+best.per1k.toFixed(2)+t('per1k'));
