@@ -115,6 +115,7 @@ function langNext(){
       lt.textContent=isOn?t('live'):t('offline');
       $('nextCdLabel').textContent = t('timeRemaining');
       rRelic();
+      requestAnimationFrame(()=>requestAnimationFrame(positionNavIndicator));
     }
 
     let alarmOn=false;
@@ -1047,6 +1048,18 @@ function langNext(){
       rRelic();
     }));
 
+    function positionNavIndicator(){
+      const pill=document.querySelector('.nav-pill');
+      const active=document.querySelector('.nav-btn.active');
+      const ind=pill&&pill.querySelector('.nav-indicator');
+      if(!pill||!active||!ind)return;
+      const pillLeft=pill.getBoundingClientRect().left;
+      const r=active.getBoundingClientRect();
+      ind.style.left=Math.max(0,r.left-pillLeft)+'px';
+      ind.style.width=Math.max(0,r.width)+'px';
+    }
+    function debounceNav(fn,ms){let t;return()=>{clearTimeout(t);t=setTimeout(fn,ms)}}
+
     document.querySelectorAll('.nav-btn').forEach(btn=>btn.onclick=()=>{
       const leavingRelic=$('pageRelic').classList.contains('active')&&btn.dataset.page!=='relic';
       document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
@@ -1057,6 +1070,7 @@ function langNext(){
       $((PAGES[btn.dataset.page]||'pageTracker')).classList.add('active');
       requestAnimationFrame(()=>{fitPairTexts();fitExpandedCards();fitCollapsedCards();const ap=document.querySelector('.page.active');if(ap){fitPanelCards(ap);initMarquees(ap)};if(ap&&ap===document.getElementById('pageRelic'))rRelic();});
       requestAnimationFrame(()=>{requestAnimationFrame(fitRelic);});
+      requestAnimationFrame(positionNavIndicator);
     });
 
     document.addEventListener('click',(e)=>{
@@ -1257,6 +1271,10 @@ function langNext(){
       setInterval(ttsCheck,3000);
       setInterval(softTick,30000);
       setInterval(checkForUpdate,120000);
+      const onNavResize=debounceNav(positionNavIndicator,150);
+      window.addEventListener('resize',onNavResize);
+      requestAnimationFrame(()=>requestAnimationFrame(positionNavIndicator));
+      if(document.fonts&&document.fonts.ready){document.fonts.ready.then(()=>requestAnimationFrame(positionNavIndicator));}
     }catch(e){$('exportInfo').querySelector('span').textContent='Init error: '+e.message}
     
   
