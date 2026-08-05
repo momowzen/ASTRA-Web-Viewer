@@ -568,7 +568,7 @@
 
     /* ---- Relic section ---- */
     .relic-page { overflow: hidden; }
-    .relic-scroll { flex: 1; min-height: 0; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    .relic-scroll { flex: 1; min-height: 0; overflow: hidden; display: flex; align-items: stretch; justify-content: center; }
     .relic-grid { flex: 1 1 auto; min-height: 0; width: 100%; display: grid; grid-template-columns: 1.25fr 1fr; grid-template-rows: 1fr; gap: var(--space-4); transform-origin: center center; }
     .relic-grid > .panel { min-height: 0; }
 
@@ -619,6 +619,8 @@
     .mkt-actions { display: flex; align-items: center; gap: var(--space-2); }
     .mkt-realm { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: var(--space-1) var(--space-2); border-radius: var(--radius-full); color: var(--soft-gold); border: 1px solid rgba(245,158,11,0.35); background: rgba(245,158,11,0.08); }
     .mkt-refresh svg { animation: none; }
+    .mkt-refresh.locked { cursor: not-allowed; opacity: 0.6; font-family: var(--font-mono, monospace); font-size: 0.8rem; font-weight: 700; color: var(--text-primary); pointer-events: none; }
+    .mkt-refresh.locked:hover { transform: none; }
     .mkt-alert-toggle.on { color: var(--alive-green); border-color: rgba(52,211,153,0.4); background: rgba(52,211,153,0.12); }
     .mkt-body { display: flex; flex-direction: column; gap: var(--space-3); overflow-x: hidden; overflow-y: auto; }
     .mkt-status { display: flex; flex-direction: column; gap: var(--space-2); }
