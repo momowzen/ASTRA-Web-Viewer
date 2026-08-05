@@ -282,7 +282,7 @@ function langNext(){
         $('nextLoc').textContent=locOf(bb.id);
         const isInt=!!bb.rs;$('nextTag').textContent=isInt?t('ivTag'):t('schedTag');
         $('nextTag').className='hero-tag '+(isInt?'interval':'scheduled');
-        $('nextAt').textContent=fmtT(bs.getTime())+' '+fmtD(bs.getTime());
+        $('nextAt').textContent=fmtD(bs.getTime())+' '+fmtT(bs.getTime());
         nxtBoss=bb;nxtTime=bs;
         const im=$('heroBossImg'),url='assets/'+bb.id+'.png';
         if(im.getAttribute('src')!==url){im.style.opacity=0;im.onload=()=>{im.style.opacity=1};im.src=url}
@@ -347,8 +347,7 @@ function langNext(){
       h='<div class="boss-list">'+list.map((x,i)=>{
         const rem=x.t-n;
         const cls=statusClassFor(rem);
-        const label=rem<=0?t('spawned'):(lang==='ko'?fmtShort(rem)+' \uD6C4':lang==='ja'?'\u3042\u3068'+fmtShort(rem):'In '+fmtShort(rem));
-        return '<div class="boss-card '+cls+'" data-t="'+x.t+'"><div class="boss-card-main"><span class="boss-card-name">'+bn(x.b)+'</span><div class="boss-card-meta"><span>'+t('lv')+x.b.lvl+'</span><span>.</span><span>'+fmtD(x.t)+'</span></div></div><div class="boss-card-time"><span class="boss-card-time-value">'+fmtT(x.t)+'</span><span class="boss-card-time-label">'+label+'</span></div></div>';
+        return '<div class="boss-card '+cls+'" data-t="'+x.t+'"><div class="boss-card-main"><span class="boss-card-name">'+bn(x.b)+'</span></div><div class="boss-card-time"><span class="boss-card-time-value">'+fmtT(x.t)+'</span></div></div>';
       }).join('')+'</div>';
       if(h===lastUpHtml)return;
       e.innerHTML=h;lastUpHtml=h;initMarquees(e);
@@ -1227,8 +1226,6 @@ function langNext(){
         const rem=tm-n;
         const cls='boss-card '+statusClassFor(rem);
         if(card.className!==cls)card.className=cls;
-        const lbl=card.querySelector('.boss-card-time-label');
-        if(lbl)lbl.textContent=rem<=0?t('spawned'):(lang==='ko'?fmtShort(rem)+' \uD6C4':lang==='ja'?'\u3042\u3068'+fmtShort(rem):'In '+fmtShort(rem));
       });
       document.querySelectorAll('#ivGrid .interval-row[data-t]').forEach(row=>{
         const tm=+row.dataset.t;
