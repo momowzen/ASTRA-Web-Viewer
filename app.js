@@ -711,6 +711,7 @@ function langNext(){
       const scroll=$('relicScroll'),grid=document.querySelector('#pageRelic .relic-grid');
       if(!scroll||!grid)return;
       grid.style.removeProperty('transform');
+      if(window.matchMedia('(max-width: 900px)').matches)return;
       const avail=scroll.clientHeight;
       if(avail<=0)return;
       const panels=[];

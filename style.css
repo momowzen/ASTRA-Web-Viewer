@@ -650,10 +650,12 @@
     .mkt-save { font-size: 0.7rem; color: var(--soft-gold); }
 
     @media (max-width: 900px) {
-      .relic-grid { grid-template-columns: 1fr; grid-template-rows: auto; grid-auto-rows: minmax(0, 1fr); overflow: hidden; }
+      .relic-page { overflow-y: auto; }
+      .relic-scroll { overflow: visible; align-items: stretch; justify-content: flex-start; }
+      .relic-grid { grid-template-columns: 1fr; grid-template-rows: auto; grid-auto-rows: auto; overflow: visible; transform: none; }
       .relic-grid > .panel { min-height: 0; }
       .relic-grid .panel:last-child { grid-column: auto; grid-row: auto; }
-      .relic-graph-row .rg-label { width: 6rem; }
+      .relic-body { justify-content: flex-start; }
     }
     @media (max-width: 480px) {
       .relic-inputs { justify-content: flex-start; flex-wrap: wrap; }
