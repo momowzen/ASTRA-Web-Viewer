@@ -692,7 +692,7 @@ function langNext(){
       const best=rows[0];
       const pick=relicTier&&byKey[relicTier]?byKey[relicTier]:best;
       const q=total>0?Math.ceil(total/pick.qty):1,cost=relicFmt(pick.usdt*q);
-      chestSum.innerHTML='<div class="mkt-chest-sum"><div class="mcs-main"><span class="mcs-label">'+t('buyQty')(q,pick.key)+'</span><span class="mcs-total">'+cost+'</span></div><div class="mcs-sub"><span class="value-tag">'+t('bestTag')+'</span><span>'+pick.key+' · '+fmtNum(pick.qty)+' '+t('piecesNeeded')+'</span></div></div>';
+      chestSum.innerHTML='<div class="mkt-chest-sum"><div class="mcs-main"><span class="mcs-label">'+t('buyQty')(q,pick.key)+'</span><span class="mcs-total">'+cost+'</span></div></div>';
       tier.innerHTML=ordered.map(row=>{
         const need=total>0?Math.ceil(total/row.qty):1;
         const isBest=row===best;
