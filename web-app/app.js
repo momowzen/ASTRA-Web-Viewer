@@ -1200,6 +1200,25 @@ function langNext(){
     }
     if(window.speechSynthesis){window.speechSynthesis.getVoices();window.speechSynthesis.addEventListener('voiceschanged',()=>syncVoices());setTimeout(()=>syncVoices(),500)}
 
+    function checkForUpdate(){
+      try{
+        fetch('version.json?_='+Date.now(),{cache:'no-store'})
+          .then(r=>{if(!r.ok)throw Error(r.status);return r.json()})
+          .then(d=>{
+            const v=d&&d.v;
+            if(!v)return;
+            const prev=lsGet('astraver');
+            if(prev&&prev!==v){
+              try{localStorage.removeItem(LS_PKEY);localStorage.removeItem(PRICE_MEMORY_KEY)}catch(e){}
+              location.reload();
+            }else if(!prev){
+              lsSet('astraver',v);
+            }
+          })
+          .catch(()=>{});
+      }catch(e){}
+    }
+
     function softTick(){
       const n=now();
       document.querySelectorAll('#upcomingList .boss-card[data-t]').forEach(card=>{
@@ -1227,6 +1246,7 @@ function langNext(){
       alarmOn=lsGet('astraalarm')==='1';
       applyLang();
       updateAlarmBtn();
+      checkForUpdate();
       listenData();
       pollData();
       rAll();
@@ -1235,6 +1255,7 @@ function langNext(){
       loadPrices();
       setInterval(ttsCheck,3000);
       setInterval(softTick,30000);
+      setInterval(checkForUpdate,120000);
     }catch(e){$('exportInfo').querySelector('span').textContent='Init error: '+e.message}
     
   

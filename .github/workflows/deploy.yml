@@ -11,6 +11,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Write version file
+        run: echo "{\"v\":\"${{ github.sha }}\",\"t\":\"$(date +%s)\"}" > web-app/version.json
+
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:
