@@ -635,7 +635,8 @@
     .mcs-total { font-family: var(--font-mono, monospace); font-size: 1.4rem; font-weight: 700; color: var(--text-primary); }
     .mcs-sub { display: flex; align-items: center; gap: var(--space-2); font-size: 0.68rem; color: var(--text-tertiary); }
 
-    .value-tag { display: inline-flex; font-size: 0.55rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; color: var(--alive-green); border: 1px solid rgba(52,211,153,0.32); background: rgba(52,211,153,0.08); border-radius: var(--radius-full); padding: 0 5px; white-space: nowrap; }
+    .chk-ico { position: relative; flex-shrink: 0; width: 14px; height: 14px; border-radius: 50%; background: var(--alive-green); box-shadow: 0 0 8px rgba(52,211,153,0.55); }
+    .chk-ico::after { content: ''; position: absolute; left: 4px; top: 3px; width: 5px; height: 8px; border: solid #06100d; border-width: 0 2px 2px 0; transform: rotate(45deg); }
 
     .tier-list { display: flex; flex-direction: column; gap: var(--space-1); }
     .tier-row { display: grid; grid-template-columns: minmax(0,1fr) auto auto auto; gap: var(--space-2); align-items: center; padding: var(--space-2) var(--space-3); border-radius: var(--radius-md); background: rgba(255,255,255,0.018); border: 1px solid var(--glass-border); font-size: 0.72rem; cursor: pointer; transition: background-color var(--duration-fast) var(--ease-smooth), border-color var(--duration-fast) var(--ease-smooth); }
@@ -680,7 +681,6 @@
 
       .mcs-total { font-size: clamp(1.1rem, 4vw, 1.4rem); }
       .tier-row { font-size: clamp(0.6rem, 2.4vw, 0.72rem); }
-      .value-tag { font-size: clamp(0.5rem, 1.9vw, 0.58rem); }
     }
     @media (max-width: 480px) {
       .relic-card { grid-template-columns: 1fr auto; grid-template-areas: "top top" "inputs result"; }

@@ -685,7 +685,7 @@ function langNext(){
         const need=total>0?Math.ceil(total/row.qty):1;
         const isBest=row===best;
         const isSel=row.key===relicTier;
-        return '<div class="tier-row'+(isBest?' best-value':'')+(isSel?' selected':'')+'" data-tier="'+row.key+'"><span class="tier-name"><span>'+row.key+'</span>'+(isBest?'<span class="value-tag">'+t('bestTag')+'</span>':'')+'</span><span class="tier-per1k">'+relicFmt(row.per1k)+t('per1k')+'</span><span class="tier-qty">'+fmtCompact(need)+' '+(need===1?t('chest'):t('chests'))+'</span><span class="tier-cost">'+relicFmt(row.usdt*need)+'</span></div>';
+        return '<div class="tier-row'+(isBest?' best-value':'')+(isSel?' selected':'')+'" data-tier="'+row.key+'"><span class="tier-name"><span>'+row.key+'</span>'+(isBest?'<i class="chk-ico" title="'+t('bestTag')+'"></i>':'')+'</span><span class="tier-per1k">'+relicFmt(row.per1k)+t('per1k')+'</span><span class="tier-qty">'+fmtCompact(need)+' '+(need===1?t('chest'):t('chests'))+'</span><span class="tier-cost">'+relicFmt(row.usdt*need)+'</span></div>';
       }).join('');
       tier.hidden=false;chestSum.hidden=false;
     }
