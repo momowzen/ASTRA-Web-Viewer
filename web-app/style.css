@@ -501,7 +501,7 @@
       .astra-header { padding: var(--space-2) var(--space-3); min-height: 2.75rem; display: flex; flex-wrap: wrap; }
       .astra-header > .brand { order: 1; flex: 1 1 auto; }
       .astra-header > .header-actions { order: 2; }
-      .astra-header > .nav-pill { order: 3; flex-basis: 100%; max-width: none; margin-top: 2px; }
+      .astra-header > .nav-pill { order: 3; flex-basis: 100%; max-width: none; margin-top: 2px; justify-content: center; }
       .brand-text { font-size: 1.1rem; }
       .brand-logo { width: 1.75rem; height: 1.75rem; }
       .icon-btn { width: 2.5rem; height: 2.5rem; }
