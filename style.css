@@ -650,29 +650,42 @@
     .mkt-save { font-size: 0.7rem; color: var(--soft-gold); }
 
     @media (max-width: 900px) {
-      .relic-page { overflow-y: auto; }
+      .relic-page.active { overflow-y: auto; }
       .relic-scroll { flex: none; min-height: 0; overflow: visible; align-items: stretch; justify-content: flex-start; }
       .relic-grid { flex: none; grid-template-columns: 1fr; grid-template-rows: auto; grid-auto-rows: auto; overflow: visible; transform: none; gap: var(--space-3); }
       .relic-grid > .panel { min-height: 0; }
       .relic-grid .panel:last-child { grid-column: auto; grid-row: auto; }
-      .relic-body { justify-content: flex-start; overflow: visible; }
+      .relic-body { justify-content: flex-start; overflow: visible; gap: var(--space-2); }
       .mkt-body { overflow: visible; }
 
-      .relic-name, .relic-cp { font-size: clamp(0.72rem, 2.4vw, 0.8rem); }
-      .relic-result-pieces { font-size: clamp(1rem, 3.4vw, 1.15rem); }
-      .relic-result-price { font-size: clamp(0.78rem, 2.6vw, 0.88rem); }
-      .relic-grand-value { font-size: clamp(1.1rem, 3.8vw, 1.4rem); }
-      .relic-num { width: clamp(3rem, 12vw, 3.75rem); }
+      .relic-card { padding: var(--space-2) var(--space-3); gap: var(--space-1) var(--space-3); }
+
+      .relic-dot { width: 0.7rem; height: 0.7rem; }
+      .relic-name, .relic-cp, .relic-field-label { font-size: clamp(0.6rem, 2.2vw, 0.72rem); }
+      .relic-stepper { width: clamp(1.4rem, 5vw, 1.6rem); height: clamp(1.6rem, 6vw, 1.85rem); font-size: 0.85rem; }
+      .relic-arrow { height: clamp(1.6rem, 6vw, 1.85rem); }
+      .relic-arrow svg { width: 0.6rem; height: 0.6rem; }
+      .relic-num { width: clamp(2.3rem, 9vw, 3rem); height: clamp(1.6rem, 6vw, 1.85rem); font-size: clamp(0.7rem, 2.6vw, 0.85rem); }
+      .relic-inputs { gap: var(--space-1) var(--space-2); align-items: flex-end; }
+
+      .relic-result { min-width: 0; height: 2.6rem; gap: 1px; }
+      .relic-result-cp { font-size: clamp(0.5rem, 1.9vw, 0.62rem); }
+      .relic-result-pieces { font-size: clamp(0.85rem, 3vw, 1.05rem); }
+      .relic-result-price { font-size: clamp(0.66rem, 2.4vw, 0.82rem); }
+
+      .relic-grand { gap: var(--space-2); margin-top: 0; }
+      .relic-grand-cell { padding: var(--space-2) var(--space-3); }
+      .relic-grand-label { font-size: clamp(0.5rem, 2vw, 0.62rem); }
+      .relic-grand-value { font-size: clamp(0.95rem, 3.6vw, 1.2rem); }
+
+      .mcs-total { font-size: clamp(1.1rem, 4vw, 1.4rem); }
+      .tier-row { font-size: clamp(0.6rem, 2.4vw, 0.72rem); }
+      .value-tag { font-size: clamp(0.5rem, 1.9vw, 0.58rem); }
     }
     @media (max-width: 480px) {
-      .relic-inputs { justify-content: flex-start; flex-wrap: wrap; }
+      .relic-card { grid-template-columns: 1fr auto; grid-template-areas: "top top" "inputs result"; }
+      .relic-inputs { flex-wrap: nowrap; justify-content: flex-start; }
       .relic-field { min-width: 0; }
-      .relic-card { grid-template-columns: 1fr; grid-template-areas: "top" "inputs" "result"; }
-      .relic-result { min-width: 0; height: auto; align-items: flex-start; text-align: left; }
-      .relic-grand { gap: var(--space-2); grid-template-columns: 1fr 1fr 1fr; }
-      .relic-grand-cell { padding: var(--space-2); }
-      .relic-grand-value { font-size: clamp(1rem, 4vw, 1.1rem); }
-      .tier-row { grid-template-columns: minmax(0,1fr) auto auto auto; font-size: 0.66rem; }
-      .mcs-total { font-size: clamp(1.1rem, 4vw, 1.4rem); }
+      .relic-result { min-width: 0; height: 2.4rem; }
     }
   
