@@ -472,7 +472,9 @@ function langNext(){
     function relicFmt(usdt){
       const v=relicCurConv(usdt);
       if(v===null)return '\u2014';
-      return CURR[relicCurrency].sym+fmtNum(v.toFixed(relicCurrency==='usd'?2:0));
+      const fixed=v.toFixed(relicCurrency==='usd'?2:0).split('.');
+      fixed[0]=fmtNum(fixed[0]);
+      return CURR[relicCurrency].sym+fixed.join('.');
     }
     function cachePrices(){
       if(!relicPrices)return;
