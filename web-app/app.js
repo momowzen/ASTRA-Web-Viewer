@@ -576,7 +576,7 @@ function langNext(){
 
     function renderRadar(){
       const el=$('mktRadar');if(!el)return;
-      if(!relicPrices){el.hidden=true;return;}
+      if(relicLoading||!relicPrices){el.hidden=true;return;}
       const rows=pricedRows();
       if(!rows.length){el.hidden=true;return;}
       const sig=analyzePriceMemory();
@@ -1022,7 +1022,28 @@ function langNext(){
       rRelic();
     });
 
-    $('mktRefresh').onclick=()=>loadPrices(true);
+    const refreshBtn=$('mktRefresh');
+    refreshBtn.onclick=()=>{
+      if(refreshBtn.dataset.lock)return;
+      loadPrices(true);
+      let left=5;
+      refreshBtn.dataset.lock='1';
+      refreshBtn.classList.add('locked');
+      refreshBtn.textContent='';
+      const tick=()=>{
+        refreshBtn.textContent=left;
+        if(left<=0){
+          delete refreshBtn.dataset.lock;
+          refreshBtn.classList.remove('locked');
+          refreshBtn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"></path><polyline points="21 3 21 9 15 9"></polyline></svg>';
+          clearInterval(iv);
+          return;
+        }
+        left--;
+      };
+      tick();
+      const iv=setInterval(tick,1000);
+    };
     document.querySelectorAll('.mkt-currency .seg-btn').forEach(b=>b.onclick=()=>{
       if(b.classList.contains('off'))return;
       relicCurrency=b.dataset.cur;
