@@ -658,21 +658,10 @@ function langNext(){
       $('relicGrandPieces').textContent=fmtNum(total);
       $('relicGrandUp').textContent=fmtNum(gUp);
       $('relicGrandCp').textContent='+'+fmtNum(gCP);
-      renderGraph(per);
       $('mktUpdated').textContent=mktUpdatedLabel();
       renderMkt(total);
       renderRadar();
       fitRelic();
-    }
-    function renderGraph(per){
-      const c=$('relicGraph');if(!c)return;
-      const max=Math.max(per[1]||0,per[3]||0,1);
-      c.innerHTML=RELIC_NAMES.map((n,i)=>{
-        const cost=per[i],hex=RELIC_COLORS[i];
-        const pct=cost>0?(cost/max*100).toFixed(2):0;
-        return '<div class="relic-graph-row"><div class="rg-label" style="color:'+hex+'">'+n+'</div><div class="rg-val">'+relicFmt(relicPieceCost(cost))+'</div><div class="bar-track"><div class="bar-fill" style="width:'+pct+'%;background:'+(cost>0?hex+'26':'transparent')+';border-color:'+hex+'">'+(cost>0?'<span>'+fmtNum(cost)+'</span>':'')+'</div></div></div>';
-      }).join('');
-      c.hidden=false;
     }
     function renderMkt(total){
       const state=$('mktState'),save=$('mktSave'),chestSum=$('chestSummary'),tier=$('tierList');
