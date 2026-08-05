@@ -1208,6 +1208,7 @@ function langNext(){
             if(!v)return;
             const prev=lsGet('astraver');
             if(prev&&prev!==v){
+              lsSet('astraver',v);
               try{localStorage.removeItem(LS_PKEY);localStorage.removeItem(PRICE_MEMORY_KEY)}catch(e){}
               location.reload();
             }else if(!prev){
