@@ -621,7 +621,10 @@ function langNext(){
       if(!host)return;
       const rows=pricedRows();
       if(!rows.length){host.innerHTML='';return;}
-      if(total<=0)return;
+      if(total<=0){
+        host.innerHTML='<div class="mkt-insight-card mkt-insight-empty">'+t('setGoal')+'</div>';
+        return;
+      }
       const per=[],bd=[];let gCP=0;
       for(let i=0;i<4;i++){
         per.push(relicTP(relicState[i][0],relicState[i][1],i));

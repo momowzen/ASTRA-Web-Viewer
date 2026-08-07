@@ -650,6 +650,7 @@
     .mkt-save { font-size: 0.7rem; color: var(--soft-gold); }
 
     .mkt-insight { flex: 1 1 auto; min-height: 0; overflow: hidden; display: flex; flex-direction: column; gap: calc(var(--space-2) * var(--fit, 1)); --fit: 1; }
+    .mkt-insight-empty { display: flex; align-items: center; justify-content: center; text-align: center; min-height: calc(3rem * var(--fit, 1)); font-size: calc(0.72rem * var(--fit, 1)); color: var(--text-tertiary); }
     .mkt-insight-card { display: flex; flex-direction: column; gap: calc(var(--space-2) * var(--fit, 1)); padding: calc(var(--space-3) * var(--fit, 1)); border-radius: var(--radius-lg); background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); }
     .mkt-insight-title { font-size: calc(0.62rem * var(--fit, 1)); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-secondary); display: flex; align-items: baseline; gap: var(--space-2); }
     .mkt-insight-sub { font-size: calc(0.58rem * var(--fit, 1)); letter-spacing: 0.04em; text-transform: none; color: var(--soft-gold); }
