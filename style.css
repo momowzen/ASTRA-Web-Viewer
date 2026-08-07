@@ -65,11 +65,11 @@
       --font-body: 'Inter', system-ui, sans-serif;
       --font-mono: 'JetBrains Mono', 'Cascadia Code', ui-monospace, monospace;
 
-      --radius-sm: 0.5rem;
-      --radius-md: 0.75rem;
-      --radius-lg: 1rem;
-      --radius-xl: 1.25rem;
-      --radius-2xl: 1.5rem;
+      --radius-sm: 0.375rem;
+      --radius-md: 0.5rem;
+      --radius-lg: 0.625rem;
+      --radius-xl: 0.75rem;
+      --radius-2xl: 1rem;
       --radius-full: 9999px;
 
       --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
@@ -368,13 +368,6 @@
     .interval-row-time.live { color: var(--alive-green); text-shadow: 0 0 10px var(--alive-green-glow); }
     .interval-row-time.na { color: var(--text-tertiary); }
 
-    .marquee { text-overflow: clip; }
-    .marquee .marq-track { display: inline-block; white-space: nowrap; animation: marquee-loop var(--marq-t, 8s) linear infinite; will-change: transform; }
-    .marquee .marq-track > span { display: inline-block; padding-right: 24px; }
-    .marquee:hover .marq-track { animation-play-state: paused; }
-    @keyframes marquee-loop { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-    @media (prefers-reduced-motion: reduce) { .marquee .marq-track { animation: none; } }
-
     .hidden-page { gap: 0; overflow: hidden; position: relative; }
     .hidden-scroll { flex: 1; min-height: 0; overflow-y: auto; padding: var(--space-1); overscroll-behavior: contain; }
     .hidden-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: var(--space-4); align-content: start; }
@@ -464,7 +457,7 @@
       .interval-rows { flex: 1; min-height: 0; overflow: hidden; display: flex; flex-direction: column; }
     }
 
-    .status-bar { flex-shrink: 0; display: flex; align-items: center; justify-content: center; gap: var(--space-2); padding: var(--space-2) var(--space-4); font-size: 0.7rem; font-weight: 500; color: var(--text-tertiary); text-align: center; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: var(--radius-full); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+    .status-bar { flex-shrink: 0; display: flex; align-items: center; justify-content: center; gap: var(--space-2); padding: var(--space-2) var(--space-4); font-size: 0.7rem; font-weight: 500; color: var(--text-tertiary); text-align: center; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: var(--radius-lg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
     .status-bar svg { width: 0.85rem; height: 0.85rem; stroke-width: 2.5; opacity: 0.7; }
     .status-bar.online { color: var(--alive-green-dim); }
     .status-bar.offline { color: var(--danger-red); }
@@ -498,13 +491,15 @@
       :root { --app-gutter: 0.75rem; }
       .astra-header, .nav-pill, .hero-next, .panel, .class-card, .status-bar { backdrop-filter: none; -webkit-backdrop-filter: none; }
       .nebula, .aurora, .stars { animation: none; }
-      .astra-header { padding: var(--space-2) var(--space-3); min-height: 2.75rem; display: flex; flex-wrap: wrap; }
+      .astra-header { padding: var(--space-2) var(--space-3); min-height: 2.75rem; display: flex; flex-wrap: wrap; gap: var(--space-2); }
       .astra-header > .brand { order: 1; flex: 1 1 auto; }
       .astra-header > .header-actions { order: 2; }
-      .astra-header > .nav-pill { order: 3; flex-basis: 100%; max-width: none; margin-top: 2px; justify-content: center; }
+      .astra-header > .nav-pill { order: 3; flex-basis: 100%; max-width: none; margin-top: 2px; justify-content: center; padding: 2px; }
+      .nav-pill > .nav-btn { min-height: 2.2rem; padding: 0.3rem var(--space-3); font-size: 0.72rem; }
+      .nav-indicator { top: 0.2rem; bottom: 0.2rem; }
       .brand-text { font-size: 1.1rem; }
       .brand-logo { width: 1.75rem; height: 1.75rem; }
-      .icon-btn { width: 2.5rem; height: 2.5rem; }
+      .icon-btn { width: 1.75rem; height: 1.75rem; }
       .page.active { overflow: hidden; }
       .hero-next { grid-template-columns: auto 1fr; gap: var(--space-4); padding: var(--space-4); }
       .hero-countdown { grid-column: 1 / -1; align-items: center; flex-direction: column; justify-content: center; border-top: 1px solid var(--glass-border); padding-top: var(--space-3); margin-top: var(--space-1); gap: var(--space-2); }
@@ -546,8 +541,9 @@
     }
 
     @media (max-width: 480px) {
-      .astra-header { padding: var(--space-2) var(--space-3); }
-      .nav-btn { padding: var(--space-2) var(--space-2); font-size: 0.68rem; min-height: 2.75rem; gap: var(--space-1); }
+      .astra-header { padding: var(--space-2) var(--space-3); gap: var(--space-1); }
+      .astra-header .header-actions .icon-btn { width: 1.5rem; height: 1.5rem; }
+      .nav-btn { padding: 0.25rem var(--space-2); font-size: 0.65rem; min-height: 2rem; gap: var(--space-1); }
       .panel-header { flex-wrap: wrap; }
       .live-pill { padding: var(--space-1) var(--space-2); font-size: 0.65rem; }
       .live-pill .dot { width: 5px; height: 5px; }
@@ -578,6 +574,8 @@
     .relic-scroll { flex: 1; min-height: 0; overflow: hidden; display: flex; align-items: stretch; justify-content: center; }
     .relic-grid { flex: 1 1 auto; min-height: 0; width: 100%; display: grid; grid-template-columns: 1.25fr 1fr; grid-template-rows: 1fr; gap: var(--space-4); transform-origin: center center; }
     .relic-grid > .panel { min-height: 0; }
+    .relic-grid > .panel .panel-header { height: 3.25rem; box-sizing: border-box; }
+    .relic-grid > .panel:first-child .panel-count { min-width: 1.5rem; height: 1.5rem; display: inline-flex; align-items: center; justify-content: center; font-size: 0.68rem; padding: 0 0.5rem; }
 
     .relic-body { display: flex; flex-direction: column; gap: var(--space-3); overflow: hidden; justify-content: space-evenly; }
     .relic-card { display: grid; grid-template-columns: 1fr auto; grid-template-areas: "top top" "inputs result"; gap: var(--space-2) var(--space-4); padding: var(--space-3) var(--space-4); border-radius: var(--radius-lg); background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); transition: border-color var(--duration-normal) var(--ease-smooth), background-color var(--duration-normal) var(--ease-smooth); }
@@ -617,15 +615,19 @@
     .relic-grand-value:empty::before { content: '0'; }
 
     .mkt-actions { display: flex; align-items: center; gap: var(--space-2); }
-    .mkt-realm { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: var(--space-1) var(--space-2); border-radius: var(--radius-full); color: var(--soft-gold); border: 1px solid rgba(245,158,11,0.35); background: rgba(245,158,11,0.08); }
+    .mkt-realm { font-size: 0.60rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.15rem 0.55rem; border-radius: var(--radius-full); color: var(--soft-gold); border: 1px solid rgba(245,158,11,0.35); background: rgba(245,158,11,0.08); }
     .mkt-refresh svg { animation: none; }
     .mkt-refresh.locked { cursor: not-allowed; opacity: 0.6; font-family: var(--font-mono, monospace); font-size: 0.8rem; font-weight: 700; color: var(--text-primary); pointer-events: none; }
     .mkt-refresh.locked:hover { transform: none; }
+    .mkt-refresh { width: 1.5rem; height: 1.5rem; }
+    .mkt-refresh svg { width: 0.9rem; height: 0.9rem; animation: none; }
     .mkt-alert-toggle.on { color: var(--alive-green); border-color: rgba(52,211,153,0.4); background: rgba(52,211,153,0.12); }
     .mkt-body { display: flex; flex-direction: column; gap: var(--space-3); overflow: hidden; }
-    .mkt-status { display: flex; flex-direction: column; gap: var(--space-2); }
-    .mkt-updated { font-size: 0.68rem; color: var(--text-tertiary); }
+    .mkt-status { display: flex; flex-direction: column; gap: var(--space-1); padding-top: var(--space-1); }
+    .mkt-updated { font-size: 0.62rem; color: var(--text-tertiary); text-transform: uppercase; font-weight: 600; letter-spacing: 0.04em; }
     .mkt-currency .seg-btn.off { opacity: 0.4; pointer-events: none; }
+    .mkt-currency { padding: 2px; gap: 1px; }
+    .mkt-currency .seg-btn { font-size: 0.58rem; padding: 0.25rem 0.7rem; }
     .mkt-state { display: none; font-size: 0.82rem; color: var(--text-tertiary); text-align: center; padding: var(--space-6) 0; }
     .mkt-state.show { display: block; }
     .mkt-save[hidden], .mkt-radar[hidden], .mkt-chest[hidden], .tier-list[hidden] { display: none !important; }
@@ -636,32 +638,40 @@
     .mkt-radar-card.warn .mkt-radar-title { color: var(--soft-gold); }
     .mkt-radar-sub { margin-top: 2px; font-size: 0.72rem; color: var(--text-tertiary); font-variant-numeric: tabular-nums; }
 
-    .mkt-chest-sum { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-3) var(--space-4); border-radius: var(--radius-lg); background: linear-gradient(135deg, rgba(52,211,153,0.08), rgba(139,92,246,0.04)); border: 1px solid rgba(52,211,153,0.3); }
-    .mcs-main { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-3); flex-wrap: wrap; }
-    .mcs-label { font-size: 0.78rem; color: var(--text-secondary); }
-    .mcs-total { font-family: var(--font-mono, monospace); font-size: 1.4rem; font-weight: 700; color: var(--text-primary); }
-    .mcs-sub { display: flex; align-items: center; gap: var(--space-2); font-size: 0.68rem; color: var(--text-tertiary); }
+    .mkt-deal-card { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-3) var(--space-4); border-radius: var(--radius-lg); background: linear-gradient(135deg, rgba(52,211,153,0.08), rgba(139,92,246,0.04)); border: 1px solid rgba(52,211,153,0.3); }
+    .mkt-deal-title { display: flex; align-items: center; gap: var(--space-2); font-size: clamp(0.66rem, 1.2vw, 0.72rem); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding-bottom: var(--space-2); border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .mkt-radar-label { color: var(--text-tertiary); white-space: nowrap; }
+    .mkt-deal-title [data-warn] { color: var(--soft-gold); }
+    .mkt-radar-name { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-transform: none; }
+    .mkt-deal-body { display: flex; align-items: center; gap: var(--space-3); }
+    .mkt-deal-body .tier-ico { flex-shrink: 0; display: inline-flex; padding: 2px; width: 34px; height: 34px; border-radius: 8px; }
+    .mkt-deal-body .tier-img { display: block; width: 30px; height: 30px; border-radius: 6px; object-fit: contain; border: 1px solid var(--glass-border); }
+    .mkt-deal-body .mdt-main { display: flex; flex-direction: column; min-width: 0; flex: 1; }
+    .mkt-deal-body .mcs-label { font-size: clamp(0.74rem, 1.4vw, 0.84rem); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .mcs-label { font-size: clamp(0.74rem, 1.4vw, 0.84rem); color: var(--text-secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .mcs-total { font-family: var(--font-mono, monospace); font-size: clamp(1.1rem, 2.6vw, 1.4rem); font-weight: 700; color: var(--text-primary); white-space: nowrap; }
 
-    .chk-ico { position: relative; flex-shrink: 0; width: 14px; height: 14px; border-radius: 50%; background: var(--alive-green); box-shadow: 0 0 8px rgba(52,211,153,0.55); }
-    .chk-ico::after { content: ''; position: absolute; left: 4px; top: 3px; width: 5px; height: 8px; border: solid #06100d; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+    .chk-ico { flex-shrink: 0; width: 16px; height: 16px; }
+    .chk-ico::before { content: ''; display: block; width: 100%; height: 100%; background: var(--alive-green); -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23000000"><path d="M2 21V9h4v12H2zm20-9c0-1.1-.9-2-2-2h-6.3l.9-4.3c.1-.6 0-1.2-.3-1.7L13.6 3.6 7 9.5V21h11.4c1.1 0 2-.8 2.2-1.9l1.3-7C22 11.8 22 11.4 22 11z"/></svg>') no-repeat center / contain; mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23000000"><path d="M2 21V9h4v12H2zm20-9c0-1.1-.9-2-2-2h-6.3l.9-4.3c.1-.6 0-1.2-.3-1.7L13.6 3.6 7 9.5V21h11.4c1.1 0 2-.8 2.2-1.9l1.3-7C22 11.8 22 11.4 22 11z"/></svg>') no-repeat center / contain; }
 
     .tier-list { display: flex; flex-direction: column; gap: var(--space-1); }
-    .tier-row { display: grid; grid-template-columns: minmax(0,1fr) auto auto auto; gap: var(--space-2); align-items: center; padding: var(--space-2) var(--space-3); border-radius: var(--radius-md); background: rgba(255,255,255,0.018); border: 1px solid var(--glass-border); font-size: 0.72rem; cursor: pointer; transition: background-color var(--duration-fast) var(--ease-smooth), border-color var(--duration-fast) var(--ease-smooth); }
+    .tier-row { display: grid; grid-template-columns: auto minmax(0,1fr) auto; gap: var(--space-3); align-items: center; padding: var(--space-2) var(--space-3); border-radius: var(--radius-md); background: rgba(255,255,255,0.018); border: 1px solid var(--glass-border); font-size: clamp(0.64rem, 1.3vw, 0.72rem); cursor: pointer; transition: background-color var(--duration-fast) var(--ease-smooth), border-color var(--duration-fast) var(--ease-smooth); }
+    .tier-row .tier-ico { flex-shrink: 0; display: inline-flex; padding: 2px; }
+    .tier-row .tier-ico.g, .mkt-deal-body .tier-ico.g { background: rgba(255,255,255,0.05); }
+    .tier-row .tier-img { display: block; width: 26px; height: 26px; border-radius: 6px; object-fit: contain; border: 1px solid var(--glass-border); }
     .tier-row:hover { background: rgba(255,255,255,0.04); border-color: var(--glass-border-strong); }
     .tier-row.selected { background: rgba(139,92,246,0.10); border-color: rgba(139,92,246,0.45); }
     .tier-row.best-value { background: rgba(52,211,153,0.07); border-color: rgba(52,211,153,0.28); }
     .tier-row.selected.best-value { background: rgba(139,92,246,0.10); border-color: rgba(139,92,246,0.45); }
-    .tier-row .tier-name { display: flex; align-items: center; gap: var(--space-2); font-weight: 600; color: var(--text-primary); white-space: nowrap; overflow: hidden; }
-    .tier-row .tier-name > span:first-child { flex-shrink: 0; }
-    .tier-row .tier-per1k, .tier-row .tier-qty, .tier-row .tier-cost { text-align: right; color: var(--text-secondary); font-variant-numeric: tabular-nums; white-space: nowrap; }
-    .tier-row .tier-cost { color: var(--alive-green); font-weight: 600; }
+    .tier-row .tier-name { display: flex; align-items: center; gap: var(--space-2); font-weight: 600; color: var(--text-primary); white-space: nowrap; overflow: hidden; min-width: 0; }
+    .tier-row .tier-name .tier-real { font-weight: 600; overflow: hidden; text-overflow: ellipsis; }
+    .tier-row .tier-cost { text-align: right; color: var(--alive-green); font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; font-size: clamp(0.72rem, 1.4vw, 0.85rem); }
     .mkt-save { font-size: 0.7rem; color: var(--soft-gold); }
 
     @media (max-width: 900px) {
       .relic-page.active { overflow-y: auto; }
       .relic-scroll { flex: none; min-height: 0; overflow: visible; align-items: stretch; justify-content: flex-start; }
-      .relic-grid { flex: none; grid-template-columns: 1fr; grid-template-rows: auto; grid-auto-rows: auto; overflow: visible; transform: none; gap: var(--space-3); }
-      .relic-grid > .panel { min-height: 0; }
+.relic-grid { flex: none; grid-template-columns: 1fr; grid-template-rows: auto; grid-auto-rows: auto; overflow: visible; transform: none; gap: var(--space-3); }
       .relic-grid .panel:last-child { grid-column: auto; grid-row: auto; }
       .relic-body { justify-content: flex-start; overflow: visible; gap: var(--space-2); }
       .mkt-body { overflow: visible; }
@@ -687,7 +697,15 @@
       .relic-grand-value { font-size: clamp(0.95rem, 3.6vw, 1.2rem); }
 
       .mcs-total { font-size: clamp(1.1rem, 4vw, 1.4rem); }
-      .tier-row { font-size: clamp(0.6rem, 2.4vw, 0.72rem); }
+      .tier-row { font-size: clamp(0.62rem, 2.4vw, 0.74rem); gap: var(--space-2); padding: var(--space-2); }
+      .tier-row .tier-cost { font-size: clamp(0.74rem, 2.8vw, 0.88rem); }
+      .tier-row .tier-name { font-size: clamp(0.62rem, 2.2vw, 0.72rem); }
+      
+      .mkt-status { gap: var(--space-1); padding-top: var(--space-1); }
+      .mkt-updated { font-size: 0.60rem; }
+      .mkt-currency { flex-wrap: wrap; justify-content: flex-start; }
+      .mkt-currency .seg-btn { font-size: 0.56rem; padding: 0.35rem 0.7rem; min-height: 2rem; }
+      .mkt-realm { font-size: 0.58rem; padding: 0.2rem 0.6rem; }
     }
     @media (max-width: 480px) {
       .relic-card { grid-template-columns: 1fr auto; grid-template-areas: "top top" "inputs result"; }

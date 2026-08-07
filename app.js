@@ -64,9 +64,9 @@
     const TO=9*3600000;
 
     const LANG={
-  en:{brand:'ASTRA',dash:'Dashboard',bsTab:'Bosses',live:'Live',offline:'Offline',nextSpawn:'Next Spawn',upcoming:'Upcoming',today:'Today',tomorrow:'Tomorrow',noSpawns:'No spawns',schedTag:'Schedule',schedTitle:'SCHEDULED',ivTag:'Interval',ivTitle:'Interval',every:'Every',lv:'Lv.',spawned:'SPAWNED',now:'Now',updated:'Updated',ago:'ago',tracker:'TRACKER',hiddenClass:'HIDDEN CLASS',history:'Activity',killed:'killed',missed:'missed',days:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],timeRemaining:'Time Remaining',relic:'Relic',relicLevels:'Relic Levels',current:'Current',goal:'Goal',totalTP:'Total Temporal Pieces',rareDism:'Rare dismantles (84 TP each)',epicDism:'Epic dismantles (450 TP each)',marketPrices:'Live Market Prices',origin:'Origin',refresh:'Refresh',bestPerTP:'Best $/TP',buyQty:(n,t)=>'Buy '+t+' Chest x'+fmtNum(n),updated:'Updated',mktLoading:'Fetching market prices...',mktErr:'Offline — showing cached prices',mktEmpty:'Set your relic goals above to see market prices',mktNoL:'No chest listings on Origin market',priceLabel:'Price',recoTitle:'Recommended Purchase',gPieces:'Temporal Piece',gUp:'Total Levels',gCp:'Combat Power',cpRef:'CP Reference',chestMarket:'Temporal Piece Market',radarBtn:'Deal radar',per1k:'/1k',chests:'Chests',chest:'Chest',setGoal:'Set levels to calculate',radarSnipe:'Snipe candidate:',radarBest:'Best value:',radarScore:'score',piecesNeeded:'pieces needed',cpTotal:'CP total',bestTag:'Best / 1k',viewBest:'View Best',radarWarm:'Deal Radar warming up',radarWarmSub:'Loading tier baselines...',alertOn:'Radar On',alertOff:'Radar Off',att:'Attack',def:'Defense',res:'Resource',pve:'PvE',pvp:'PvP',oth:'Other',snipe:'snipe',best:'best',memDeal:'Memory deal',cpUnit:'per',nm:['Venatus','Viorent','Ego','Clemantis','Livera','Araneo','Undomiel','Saphirus','Neutro','Lady Dalia','General Aquleus','Thymele','Amentis','Baron Braudmore','Milavy','Wannitas','Metus','Duplican','Shuliar','Ringor','Roderick','Gareth','Titore','Larba','Catena','Auraq','Secreta','Ordo','Asta','Supore','Chaiflock','Benji','Libitina','Rakajeth','Icaruthia','Motti','Camalia','Nevaeh','Tumier','Lucus'],ttsIn:(n,m)=>`${n} spawns in ${m} minute${m!==1?'s':''}.`,ttsSpawned:n=>`${n} has spawned.`,ttsWbIn:(m)=>`World Boss spawns in ${m} minute${m!==1?'s':''}.`,ttsWbSpawned:`World Boss has spawned.`,age:(m)=>{if(m<1)return 'just now';if(m<60)return m+'m ago';const h=Math.floor(m/60);return h<24?h+'h ago':Math.floor(h/24)+'d ago'},relicNames:['Origin of Destruction','Barrier Protection','Crystal of Life','Magic Storm']},
-  ja:{brand:'ASTRA',dash:'ダッシュボード',bsTab:'ボス',live:'オンライン',offline:'オフライン',nextSpawn:'次のスポーン',upcoming:'予定',today:'今日',tomorrow:'明日',noSpawns:'スポーンなし',schedTag:'スケジュール',schedTitle:'予定',ivTag:'インターバル',ivTitle:'インターバル',every:'毎',lv:'Lv.',spawned:'出現中',now:'今',updated:'更新',ago:'前',tracker:'追跡',hiddenClass:'隠しクラス',history:'履歴',killed:'討伐',missed:'取り逃し',days:['日','月','火','水','木','金','土'],timeRemaining:'残り時間',relic:'レリック',relicLevels:'レリックレベル',current:'現在',goal:'目標',totalTP:'必要TP合計',rareDism:'レア分解（TP 84/個）',epicDism:'エピック分解（TP 450/個）',marketPrices:'ライブ市場価格',origin:'Origin',refresh:'更新',bestPerTP:'最安 $/TP',buyQty:(n,t)=>t+'チェスト x'+fmtNum(n)+'を購入',updated:'更新',mktLoading:'市場価格を取得中...',mktErr:'オフライン — キャッシュ表示',mktEmpty:'上でレリック目標を設定してください',mktNoL:'Origin市場に出品なし',priceLabel:'価格',recoTitle:'推奨購入',gPieces:'テンポラルピース',gUp:'合計レベル',gCp:'戦闘力',cpRef:'CP参考',chestMarket:'テンポラルピース市場',radarBtn:'お買い得レーダー',per1k:'/1k',chests:'チェスト',chest:'チェスト',setGoal:'レベルを設定すると計算します',radarSnipe:'スナイプ候補:',radarBest:'最良値:',radarScore:'スコア',piecesNeeded:'必要ピース',cpTotal:'CP合計',bestTag:'最良/1k',viewBest:'最良を表示',radarWarm:'レーダー起動中…',radarWarmSub:'各ティアの基準価格を調査中',alertOn:'レーダーON',alertOff:'レーダーOFF',att:'攻撃',def:'防御',res:'資源',pve:'PvE',pvp:'PvP',oth:'その他',snipe:'狙い目',best:'最良',memDeal:'メモリー特価',cpUnit:'単位',nm:['ベナトゥス','ビオレント','エゴ','クレメンティス','リベラ','アラネオ','アンドゥミエル','サピルス','ネウトロ','レディ·ダリア','将軍アクレウス','テュメレ','アメンティス','ブラウドモア','ミラベ','ワニタス','メトゥス','デュプリカン','シュライヤー','リンゴル','ロデリック','ガレス','ティトル','ラルバ','カテナ','アウラーク','セクレタ','オルド','アスタ','スポル','シャイフロック','ベンジー','リビティーナ','ラカゼス','イカルシア','モティ','カマリア','ネバ','トゥミエル','ルクス'],ttsIn:(n,m)=>`${n}は${m}分後に出現します。`,ttsSpawned:n=>`${n}が出現しました。`,ttsWbIn:(m)=>`ワールドボスは${m}分後に出現します。`,ttsWbSpawned:`ワールドボスが出現しました。`,age:(m)=>{if(m<1)return 'たった今';if(m<60)return m+'分前';const h=Math.floor(m/60);return h<24?h+'時間前':Math.floor(h/24)+'日前'},relicNames:['破壊の根源','結界の守護','生命の結晶','魔力の嵐']},
-  ko:{brand:'ASTRA',dash:'대시보드',bsTab:'보스',live:'온라인',offline:'오프라인',nextSpawn:'다음 스폰',upcoming:'예정',today:'오늘',tomorrow:'내일',noSpawns:'스폰 없음',schedTag:'일정',schedTitle:'일정',ivTag:'간격',ivTitle:'간격',every:'매',lv:'레벨',spawned:'출현중',now:'지금',updated:'업데이트',ago:'전',tracker:'추적',hiddenClass:'비밀 클래스',history:'활동',killed:'처치',missed:'놓침',days:['일','월','화','수','목','금','토'],timeRemaining:'남은 시간',relic:'유물',relicLevels:'유물 레벨',current:'현재',goal:'목표',totalTP:'필요 TP 합계',rareDism:'레어 분해 (TP 84/개)',epicDism:'에픽 분해 (TP 450/개)',marketPrices:'실시간 시장 가격',origin:'Origin',refresh:'새로고침',bestPerTP:'최저 $/TP',buyQty:(n,t)=>t+' 상자 x'+fmtNum(n)+' 구매',updated:'업데이트',mktLoading:'시장 가격 불러오는 중...',mktErr:'오프라인 — 캐시 표시',mktEmpty:'위에서 유물 목표를 설정하세요',mktNoL:'Origin 시장에 등록 없음',priceLabel:'가격',recoTitle:'추천 구매',gPieces:'시간 조각',gUp:'총 레벨',gCp:'전투력',cpRef:'CP 참고',chestMarket:'시간 조각 시장',radarBtn:'딜 레이더',per1k:'/1k',chests:'상자',chest:'상자',setGoal:'레벨을 설정하면 계산합니다',radarSnipe:'스나이프 후보:',radarBest:'최적 가치:',radarScore:'점수',piecesNeeded:'필요 조각',cpTotal:'CP 합계',bestTag:'최적/1k',viewBest:'최적 보기',radarWarm:'레이더 준비 중…',radarWarmSub:'각 티어 기준 가격 분석 중',alertOn:'레이더 ON',alertOff:'레이더 OFF',att:'공격',def:'방어',res:'자원',pve:'PvE',pvp:'PvP',oth:'기타',snipe:'노려야 할',best:'최적',memDeal:'메모리 특가',cpUnit:'단위',nm:['베나투스','비오렌트','에고','클레멘티스','리베라','아라네오','안두미엘','사피루스','네우트로','레이디 달리아','장군 아클레우스','튜메레','아멘티스','남작 브라우드모어','미라베','와니타스','메투스','듀플리칸','슈라이어','링고르','로데릭','가레스','티토르','라르바','카테나','아우라크','세크레타','오르도','아스타','스포르','샤이플록','벤지','리비티나','라카제스','이카루시아','모티','카말리아','네바','투미엘','루크스'],ttsIn:(n,m)=>`${n}${koParticle(n,'subj')} ${m}분 후에 출현합니다.`,ttsSpawned:n=>`${n}${koParticle(n,'subj')} 출현했습니다.`,ttsWbIn:(m)=>`월드 보스가 ${m}분 후 출현합니다.`,ttsWbSpawned:`월드 보스가 출현했습니다.`,age:(m)=>{if(m<1)return '방금 전';if(m<60)return m+'분 전';const h=Math.floor(m/60);return h<24?h+'시간 전':Math.floor(h/24)+'일 전'},relicNames:['파괴의 근원','결계의 수호','생명의 수정','마력의 폭풍']},
+  en:{brand:'ASTRA',dash:'Dashboard',bsTab:'Bosses',live:'Live',offline:'Offline',nextSpawn:'Next Spawn',upcoming:'Upcoming',today:'Today',tomorrow:'Tomorrow',noSpawns:'No spawns',schedTag:'Schedule',schedTitle:'SCHEDULED',ivTag:'Interval',ivTitle:'Interval',every:'Every',lv:'Lv.',spawned:'SPAWNED',now:'Now',updated:'Updated',ago:'ago',tracker:'TRACKER',hiddenClass:'HIDDEN CLASS',history:'Activity',killed:'killed',missed:'missed',days:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],timeRemaining:'Time Remaining',relic:'Relic',relicLevels:'Relic Levels',current:'Current',goal:'Goal',totalTP:'Total Temporal Pieces',rareDism:'Rare dismantles (84 TP each)',epicDism:'Epic dismantles (450 TP each)',marketPrices:'Live Market Prices',origin:'Origin',refresh:'Refresh',bestPerTP:'Best $/TP',buyQty:(n,t)=>'Buy '+t+' ['+fmtNum(n)+']',updated:'Updated',mktLoading:'Fetching market prices...',mktErr:'Offline — showing cached prices',mktEmpty:'Set your relic goals above to see market prices',mktNoL:'No chest listings on Origin market',priceLabel:'Price',recoTitle:'Recommended Purchase',gPieces:'Temporal Piece',gUp:'Total Levels',gCp:'Combat Power',cpRef:'CP Reference',chestMarket:'Temporal Piece Market',radarBtn:'Deal radar',per1k:'/1k',chests:'Chests',chest:'Chest',setGoal:'Set levels to calculate',radarSnipe:'Snipe candidate:',radarBest:'Best value:',radarScore:'score',piecesNeeded:'pieces needed',cpTotal:'CP total',bestTag:'Best / 1k',viewBest:'View Best',radarWarm:'Deal Radar warming up',radarWarmSub:'Loading tier baselines...',alertOn:'Radar On',alertOff:'Radar Off',att:'Attack',def:'Defense',res:'Resource',pve:'PvE',pvp:'PvP',oth:'Other',snipe:'snipe',best:'best',memDeal:'Memory deal',cpUnit:'per',nm:['Venatus','Viorent','Ego','Clemantis','Livera','Araneo','Undomiel','Saphirus','Neutro','Lady Dalia','General Aquleus','Thymele','Amentis','Baron Braudmore','Milavy','Wannitas','Metus','Duplican','Shuliar','Ringor','Roderick','Gareth','Titore','Larba','Catena','Auraq','Secreta','Ordo','Asta','Supore','Chaiflock','Benji','Libitina','Rakajeth','Icaruthia','Motti','Camalia','Nevaeh','Tumier','Lucus'],ttsIn:(n,m)=>`${n} spawns in ${m} minute${m!==1?'s':''}.`,ttsSpawned:n=>`${n} has spawned.`,ttsWbIn:(m)=>`World Boss spawns in ${m} minute${m!==1?'s':''}.`,ttsWbSpawned:`World Boss has spawned.`,age:(m)=>{if(m<1)return 'just now';if(m<60)return m+'m ago';const h=Math.floor(m/60);return h<24?h+'h ago':Math.floor(h/24)+'d ago'},relicNames:['Origin of Destruction','Barrier Protection','Crystal of Life','Magic Storm']},
+  ja:{brand:'ASTRA',dash:'ダッシュボード',bsTab:'ボス',live:'オンライン',offline:'オフライン',nextSpawn:'次のスポーン',upcoming:'予定',today:'今日',tomorrow:'明日',noSpawns:'スポーンなし',schedTag:'スケジュール',schedTitle:'予定',ivTag:'インターバル',ivTitle:'インターバル',every:'毎',lv:'Lv.',spawned:'出現中',now:'今',updated:'更新',ago:'前',tracker:'追跡',hiddenClass:'隠しクラス',history:'履歴',killed:'討伐',missed:'取り逃し',days:['日','月','火','水','木','金','土'],timeRemaining:'残り時間',relic:'レリック',relicLevels:'レリックレベル',current:'現在',goal:'目標',totalTP:'必要TP合計',rareDism:'レア分解（TP 84/個）',epicDism:'エピック分解（TP 450/個）',marketPrices:'ライブ市場価格',origin:'Origin',refresh:'更新',bestPerTP:'最安 $/TP',buyQty:(n,t)=>t+' を購入 ['+fmtNum(n)+']',updated:'更新',mktLoading:'市場価格を取得中...',mktErr:'オフライン — キャッシュ表示',mktEmpty:'上でレリック目標を設定してください',mktNoL:'Origin市場に出品なし',priceLabel:'価格',recoTitle:'推奨購入',gPieces:'テンポラルピース',gUp:'合計レベル',gCp:'戦闘力',cpRef:'CP参考',chestMarket:'テンポラルピース市場',radarBtn:'お買い得レーダー',per1k:'/1k',chests:'チェスト',chest:'チェスト',setGoal:'レベルを設定すると計算します',radarSnipe:'スナイプ候補:',radarBest:'最良値:',radarScore:'スコア',piecesNeeded:'必要ピース',cpTotal:'CP合計',bestTag:'最良/1k',viewBest:'最良を表示',radarWarm:'レーダー起動中…',radarWarmSub:'各ティアの基準価格を調査中',alertOn:'レーダーON',alertOff:'レーダーOFF',att:'攻撃',def:'防御',res:'資源',pve:'PvE',pvp:'PvP',oth:'その他',snipe:'狙い目',best:'最良',memDeal:'メモリー特価',cpUnit:'単位',nm:['ベナトゥス','ビオレント','エゴ','クレメンティス','リベラ','アラネオ','アンドゥミエル','サピルス','ネウトロ','レディ·ダリア','将軍アクレウス','テュメレ','アメンティス','ブラウドモア','ミラベ','ワニタス','メトゥス','デュプリカン','シュライヤー','リンゴル','ロデリック','ガレス','ティトル','ラルバ','カテナ','アウラーク','セクレタ','オルド','アスタ','スポル','シャイフロック','ベンジー','リビティーナ','ラカゼス','イカルシア','モティ','カマリア','ネバ','トゥミエル','ルクス'],ttsIn:(n,m)=>`${n}は${m}分後に出現します。`,ttsSpawned:n=>`${n}が出現しました。`,ttsWbIn:(m)=>`ワールドボスは${m}分後に出現します。`,ttsWbSpawned:`ワールドボスが出現しました。`,age:(m)=>{if(m<1)return 'たった今';if(m<60)return m+'分前';const h=Math.floor(m/60);return h<24?h+'時間前':Math.floor(h/24)+'日前'},relicNames:['破壊の根源','結界の守護','生命の結晶','魔力の嵐']},
+  ko:{brand:'ASTRA',dash:'대시보드',bsTab:'보스',live:'온라인',offline:'오프라인',nextSpawn:'다음 스폰',upcoming:'예정',today:'오늘',tomorrow:'내일',noSpawns:'스폰 없음',schedTag:'일정',schedTitle:'일정',ivTag:'간격',ivTitle:'간격',every:'매',lv:'레벨',spawned:'출현중',now:'지금',updated:'업데이트',ago:'전',tracker:'추적',hiddenClass:'비밀 클래스',history:'활동',killed:'처치',missed:'놓침',days:['일','월','화','수','목','금','토'],timeRemaining:'남은 시간',relic:'유물',relicLevels:'유물 레벨',current:'현재',goal:'목표',totalTP:'필요 TP 합계',rareDism:'레어 분해 (TP 84/개)',epicDism:'에픽 분해 (TP 450/개)',marketPrices:'실시간 시장 가격',origin:'Origin',refresh:'새로고침',bestPerTP:'최저 $/TP',buyQty:(n,t)=>t+' 구매 ['+fmtNum(n)+']',updated:'업데이트',mktLoading:'시장 가격 불러오는 중...',mktErr:'오프라인 — 캐시 표시',mktEmpty:'위에서 유물 목표를 설정하세요',mktNoL:'Origin 시장에 등록 없음',priceLabel:'가격',recoTitle:'추천 구매',gPieces:'시간 조각',gUp:'총 레벨',gCp:'전투력',cpRef:'CP 참고',chestMarket:'시간 조각 시장',radarBtn:'딜 레이더',per1k:'/1k',chests:'상자',chest:'상자',setGoal:'레벨을 설정하면 계산합니다',radarSnipe:'스나이프 후보:',radarBest:'최적 가치:',radarScore:'점수',piecesNeeded:'필요 조각',cpTotal:'CP 합계',bestTag:'최적/1k',viewBest:'최적 보기',radarWarm:'레이더 준비 중…',radarWarmSub:'각 티어 기준 가격 분석 중',alertOn:'레이더 ON',alertOff:'레이더 OFF',att:'공격',def:'방어',res:'자원',pve:'PvE',pvp:'PvP',oth:'기타',snipe:'노려야 할',best:'최적',memDeal:'메모리 특가',cpUnit:'단위',nm:['베나투스','비오렌트','에고','클레멘티스','리베라','아라네오','안두미엘','사피루스','네우트로','레이디 달리아','장군 아클레우스','튜메레','아멘티스','남작 브라우드모어','미라베','와니타스','메투스','듀플리칸','슈라이어','링고르','로데릭','가레스','티토르','라르바','카테나','아우라크','세크레타','오르도','아스타','스포르','샤이플록','벤지','리비티나','라카제스','이카루시아','모티','카말리아','네바','투미엘','루크스'],ttsIn:(n,m)=>`${n}${koParticle(n,'subj')} ${m}분 후에 출현합니다.`,ttsSpawned:n=>`${n}${koParticle(n,'subj')} 출현했습니다.`,ttsWbIn:(m)=>`월드 보스가 ${m}분 후 출현합니다.`,ttsWbSpawned:`월드 보스가 출현했습니다.`,age:(m)=>{if(m<1)return '방금 전';if(m<60)return m+'분 전';const h=Math.floor(m/60);return h<24?h+'시간 전':Math.floor(h/24)+'일 전'},relicNames:['파괴의 근원','결계의 수호','생명의 수정','마력의 폭풍']},
 };
 
     function lsSet(k,v){try{localStorage.setItem(k,v)}catch(e){}}
@@ -81,10 +81,9 @@ function langNext(){
   const ls=['en','ja','ko'];
   lang=ls[(ls.indexOf(lang)+1)%ls.length];
   lsSet('astralang',lang);
-  applyLang();rAll();
-  const say={en:'Language set to English.',ja:'\u8A00\u8A9E\u3092\u65E5\u672C\u8A9E\u306B\u8A2D\u5B9A\u3057\u307E\u3057\u305F\u3002',ko:'\uC5B8\uC5B4\uAC00 \uD55C\uAD6D\uC5B4\uB85C \uBCC0\uACBD\uB418\uC5C8\uC2B5\uB2C8\uB2E4.'};
-  const fb={en:'Language set to English.',ja:'Language set to Japanese.',ko:'Language set to Korean.'};
-  if(window.speechSynthesis){syncVoices();speak(say[lang],fb[lang])}
+  applyLang();
+  loadPrices(true);
+  rAll();
 }
 
 
@@ -243,7 +242,7 @@ function langNext(){
     }
     const UNITS={en:{d:'d',h:'h',m:'m',s:'s'},ja:{d:'\u65E5',h:'\u6642\u9593',m:'\u5206',s:'\u79D2'},ko:{d:'\uC77C',h:'\uC2DC\uAC04',m:'\uBD84',s:'\uCD08'}};
     function fmtDur(ms){if(ms<=0)return t('spawned');const s=Math.floor(ms/1000),d=Math.floor(s/86400),h=Math.floor((s%86400)/3600),m=Math.floor((s%3600)/60),u=UNITS[lang],sp=lang==='ja'?'':' ';return d?`${d}${u.d}${sp}${h}${u.h}`:h?`${h}${u.h}${sp}${m}${u.m}`:`${m}${u.m}${sp}${p2(s%60)}${u.s}`}
-    function fmtShort(ms){if(ms<=0)return t('now');const s=Math.floor(ms/1000),d=Math.floor(s/86400),h=Math.floor((s%86400)/3600),m=Math.floor((s%3600)/60),u=UNITS[lang],sp=lang==='ja'?'':' ';return d?`${d}${u.d}${sp}${h}${u.h}`:h?`${h}${u.h}${sp}${m}${u.m}`:`${m}${u.m}`}
+    function fmtShort(ms){if(ms<=0)return t('now');const s=Math.floor(ms/1000),d=Math.floor(s/86400),h=Math.floor((s%86400)/3600),m=Math.floor((s%3600)/60),u=UNITS[lang];return d?`${d}${u.d}`:h?`${h}${u.h}`:`${m}${u.m}`}
     function fmtInt(s){const h=Math.floor(s/3600),m=Math.floor((s%3600)/60),u=UNITS[lang],sp=lang==='ja'?'':' ';return m?`${h}${u.h}${sp}${m}${u.m}`:`${h}${u.h}`}
 
     function nextSpawn(b){return nextSpawnAt(b,now())}
@@ -351,7 +350,7 @@ function langNext(){
         return '<div class="boss-card '+cls+'" data-t="'+x.t+'"><div class="boss-card-main"><span class="boss-card-name">'+bn(x.b)+'</span></div><div class="boss-card-time"><span class="boss-card-time-value">'+fmtT(x.t)+'</span><span class="boss-card-time-label">'+fmtD(x.t)+'</span></div></div>';
       }).join('')+'</div>';
       if(h===lastUpHtml)return;
-      e.innerHTML=h;lastUpHtml=h;initMarquees(e);
+      e.innerHTML=h;lastUpHtml=h;
     }
 
     let lastSchedHtml='';
@@ -365,7 +364,7 @@ function langNext(){
         return '<div class="day-card '+(d.d===cd?'today':'')+'"><div class="day-header"><span>'+d.n+'</span><span>'+(d.d===cd?t('today'):'')+'</span></div><div class="day-events">'+(d.es.length?d.es.map(e=>'<div class="day-event"><span class="day-event-name">'+bn(e.b)+'</span><span class="day-event-time">'+e.t+'</span></div>').join(''):'<div class="day-empty">--</div>')+'</div></div>';
       }).join('')+'</div>';
       if(h===lastSchedHtml)return;
-      const sg=$('schedGrid');sg.innerHTML=h;lastSchedHtml=h;fitPanelCards(sg);initMarquees(sg);
+      const sg=$('schedGrid');sg.innerHTML=h;lastSchedHtml=h;fitPanelCards(sg);
     }
 
     let lastIntHtml='';
@@ -376,7 +375,7 @@ function langNext(){
         return '<div class="interval-card '+(isNext?'highlight':'')+'"><div class="interval-header"><div class="interval-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg><span>'+t('every')+' '+fmtInt(g.s)+'</span></div><span class="interval-count">'+g.b.length+'</span></div><div class="interval-rows">'+g.b.map(b=>{const et=timers[b.id]?.endTime,al=et&&et>n;return'<div class="interval-row" data-t="'+(et||0)+'"><span class="interval-row-name">'+bn(b)+'</span><span class="interval-row-time '+(al?'live':'na')+'">'+(al?fmtShort(et-n):'--')+'</span></div>'}).join('')+'</div></div>';
       }).join('')+'</div>';
       if(h===lastIntHtml)return;
-      const ig=$('ivGrid');ig.innerHTML=h;lastIntHtml=h;fitPanelCards(ig);initMarquees(ig);
+      const ig=$('ivGrid');ig.innerHTML=h;lastIntHtml=h;fitPanelCards(ig);
     }
 
     function rAll(){rNext();rUpcoming();rSched();rInt();rHidden();rNextCd()}
@@ -395,6 +394,11 @@ function langNext(){
       {key:'T5',qty:100000}
     ];
     const CURR={usd:{sym:'$',rate:'usd'},php:{sym:'\u20B1',rate:'php'},jpy:{sym:'\u00A5',rate:'jpy'},krw:{sym:'\u20A9',rate:'krw'}};
+    // NEXT Market grade palette (from next-market css vars) + tile gradients (142deg)
+    const NEXT_BG_COLOR={NONE:'#ffffff',GREEN:'#34d361',BLUE:'#3b9cff',MAGENTA:'#9d66ff',ORANGE:'#ff9500',RED:'#ef4444',YELLOW:'#ffc83d'};
+    const NEXT_BG_TILE={NONE:'linear-gradient(142deg,#282a2b,#4c4c4c)',GREY:'linear-gradient(142deg,#474a4c,#6a6e71)',GREEN:'linear-gradient(142deg,#243128,#325539)',BLUE:'linear-gradient(142deg,#1d273b,#214075)',MAGENTA:'linear-gradient(142deg,#282131,#422958)',YELLOW:'linear-gradient(142deg,#46391c,#8b6a1b)',ORANGE:'linear-gradient(142deg,#37291f,#6f441b)',RED:'linear-gradient(142deg,#412022,#7e1b1d)'};
+    function gradeColor(g){return NEXT_BG_COLOR[g]||'';}
+    function gradeBg(g){return NEXT_BG_TILE[g]||'';}
     const RELIC_API='https://relic-prices.arianthonyungsod.workers.dev/prices';
     const LS_PKEY='astraprices';
 
@@ -473,7 +477,7 @@ function langNext(){
     function relicFmt(usdt){
       const v=relicCurConv(usdt);
       if(v===null)return '\u2014';
-      const fixed=v.toFixed(relicCurrency==='usd'?2:0).split('.');
+      const fixed=v.toFixed(2).split('.');
       fixed[0]=fmtNum(fixed[0]);
       return CURR[relicCurrency].sym+fixed.join('.');
     }
@@ -494,7 +498,7 @@ function langNext(){
       relicLoading=true;
       rRelic();
       try{
-        const url=RELIC_API+(force?'?force=1&_='+Date.now():'?_='+Date.now());
+        const url=RELIC_API+'?lang='+lang+(force?'&force=1&_='+Date.now():'&_='+Date.now());
         const r=await fetch(url,{cache:'no-store'});
         if(!r.ok)throw Error(r.status);
         const d=await r.json();
@@ -521,8 +525,9 @@ function langNext(){
     function pricedRows(){
       if(!relicPrices)return[];
       return CHESTS.filter(c=>relicPrices[c.key]).map(c=>{
-        const usdt=relicPrices[c.key].priceUSDT;
-        return {key:c.key,qty:c.qty,usdt,per1k:usdt/c.qty*1000};
+        const p=relicPrices[c.key];
+        const usdt=p.priceUSDT;
+        return {key:c.key,qty:c.qty,usdt,per1k:usdt/c.qty*1000,name:p.name||c.key,imageUrl:p.imageUrl||'',bg:p.bg||'NONE'};
       }).sort((a,b)=>a.per1k-b.per1k);
     }
 
@@ -554,7 +559,7 @@ function langNext(){
         if(base&&row.per1k<base*0.94){
           const drop=(1-row.per1k/base)*100;
           const key=row.key+'|'+row.per1k.toFixed(2)+'|'+Math.floor(nowMs/600000);
-          if(!sig||drop>sig.drop)sig={tier:row.key,label:row.key,per1k:row.per1k,base,drop,key};
+          if(!sig||drop>sig.drop)sig={tier:row.key,label:row.key,name:row.name,bg:row.bg,per1k:row.per1k,base,drop,key};
         }
         prev.push({usdtPer1k:row.per1k,at:nowMs});
         tm.samples=prev.slice(-24);mem.tiers[row.key]=tm;
@@ -574,22 +579,25 @@ function langNext(){
       return sig;
     }
 
-    function renderRadar(){
-      const el=$('mktRadar');if(!el)return;
-      if(relicLoading||!relicPrices){el.hidden=true;return;}
+function renderRadar(){
+      const tt=$('mktDealTitle');if(!tt)return;
+      if(relicLoading||!relicPrices){tt.innerHTML='';return;}
       const rows=pricedRows();
-      if(!rows.length){el.hidden=true;return;}
-      const sig=analyzePriceMemory();
+      if(!rows.length){tt.innerHTML='';return;}
       const best=rows[0];
+      const sig=analyzePriceMemory();
+      const pick=bests(sig,rows);
       const c1=rows.filter(r=>r.key==='T1')[0];
       const isSnipe=sig&&(sig.drop>=6||(c1&&(1-best.per1k/c1.per1k)*100>=4));
-      const chestTitle=row=>row.key+'\u00A0'+t('gPieces')+' '+t('chest')+' x'+fmtNum(row.qty);
-      const title=isSnipe?(t('radarSnipe')+' '+sig.tier.toUpperCase()):(t('radarBest')+' '+chestTitle(best));
-      const sub=isSnipe
-        ?('$'+sig.per1k.toFixed(2)+t('per1k')+' '+sig.drop.toFixed(1)+'% '+t('snipe'))
-        :('$'+best.per1k.toFixed(2)+t('per1k'));
-      el.hidden=false;
-      el.innerHTML='<div class="mkt-radar-card '+(isSnipe?'warn':'')+'"><div class="mkt-radar-top"><div><div class="mkt-radar-title">'+title+'</div><div class="mkt-radar-sub">'+sub+'</div></div></div></div>';
+      const label=isSnipe?t('radarSnipe'):t('radarBest');
+      const name=pick.name&&pick.name!==pick.key?pick.name:pick.key;
+      const col=gradeColor(pick.bg);
+      tt.innerHTML='<span class="mkt-radar-label" '+(isSnipe?'data-warn="1"':'')+'>'+label+'</span> <span class="mkt-radar-name" style="color:'+(col||'')+'">'+name+'</span>';
+    }
+    function bests(sig,rows){
+      if(!sig)return rows[0];
+      const hit=rows.find(r=>r.key===sig.tier);
+      return hit||rows[0];
     }
 
     function playPing(){
@@ -682,13 +690,20 @@ function langNext(){
       const best=rows[0];
       const pick=relicTier&&byKey[relicTier]?byKey[relicTier]:best;
       const q=total>0?Math.ceil(total/pick.qty):1,cost=relicFmt(pick.usdt*q);
-      chestSum.innerHTML='<div class="mkt-chest-sum"><div class="mcs-main"><span class="mcs-label">'+t('buyQty')(q,pick.key)+'</span><span class="mcs-total">'+cost+'</span></div></div>';
+      const pickName=(pick.name&&pick.name!==pick.key)?pick.name:pick.key;
+      const pickBg=gradeBg(pick.bg),pickCol=gradeColor(pick.bg);
+      const buyPrefix=lang==='en'?'Buy ':lang==='ja'?'':lang==='ko'?'':'Buy ';
+      const buySuffix=lang==='en'?'':lang==='ja'?' を購入':lang==='ko'?' 구매':'';
+      chestSum.innerHTML='<div class="mkt-deal-card"><div class="mkt-deal-title" id="mktDealTitle"></div><div class="mkt-deal-body"><span class="tier-ico '+(pickBg?'g':'')+'" '+(pickBg?'style="background:'+pickBg+'"':'')+'><img class="tier-img" src="'+pick.imageUrl+'" alt="" loading="lazy" onerror="this.style.display=\'none\'"></span><div class="mdt-main"><span class="mcs-label">'+buyPrefix+'<span style="color:'+(pickCol||'')+'">'+pickName+'</span>'+buySuffix+' ['+fmtNum(q)+']</span><span class="mcs-total">'+cost+'</span></div></div></div>';
       tier.innerHTML=ordered.map(row=>{
         const need=total>0?Math.ceil(total/row.qty):1;
         const isBest=row===best;
         const isSel=row.key===relicTier;
-        return '<div class="tier-row'+(isBest?' best-value':'')+(isSel?' selected':'')+'" data-tier="'+row.key+'"><span class="tier-name"><span>'+row.key+'</span>'+(isBest?'<i class="chk-ico" title="'+t('bestTag')+'"></i>':'')+'</span><span class="tier-per1k">'+relicFmt(row.per1k)+t('per1k')+'</span><span class="tier-qty">'+fmtCompact(need)+' '+(need===1?t('chest'):t('chests'))+'</span><span class="tier-cost">'+relicFmt(row.usdt*need)+'</span></div>';
+        const rowName=(row.name&&row.name!==row.key)?row.name:row.key;
+        const rc=gradeColor(row.bg),rb=gradeBg(row.bg);
+        return '<div class="tier-row'+(isBest?' best-value':'')+(isSel?' selected':'')+'" data-tier="'+row.key+'">'+(row.imageUrl?'<span class="tier-ico '+(rb?'g':'')+'" '+(rb?'style="background:'+rb+'"':'')+'><img class="tier-img" src="'+row.imageUrl+'" alt="" loading="lazy" onerror="this.style.display=\'none\'"></span>':'')+'<span class="tier-name"><span class="tier-real" style="color:'+(rc||'')+'">'+rowName+'</span>'+(isBest?'<i class="chk-ico" title="'+t('bestTag')+'"></i>':'')+'</span><span class="tier-cost">'+relicFmt(row.usdt)+'</span></div>';
       }).join('');
+      renderRadar();
       tier.hidden=false;chestSum.hidden=false;
     }
     function rRelicSoft(){
@@ -705,7 +720,6 @@ function langNext(){
       rRelic();
     }
 
-    const MARQUEE_SEL='.interval-row-name';
     function fitRelic(){
       const page=$('pageRelic');
       if(!page||!page.classList.contains('active'))return;
@@ -751,37 +765,6 @@ function langNext(){
         cards.forEach(c=>c.style.setProperty('font-size',cur+'px'));
       }
       cards.forEach(c=>c.style.setProperty('font-size',cur+'px'));
-    }
-
-    function initMarquees(root){
-      root.querySelectorAll(MARQUEE_SEL).forEach(el=>{
-        const box=el.clientWidth;
-        const tr0=el.querySelector(':scope > .marq-track');
-        let tw=tr0?tr0.firstElementChild.scrollWidth-24:el.scrollWidth;
-        if(!(tw>0)&&el.textContent){
-          const sp=document.createElement('span');
-          sp.style.cssText='position:absolute;visibility:hidden;left:0;top:0;white-space:nowrap;font:inherit';
-          sp.textContent=tr0?tr0.firstElementChild.textContent:el.textContent;
-          document.body.appendChild(sp);
-          tw=sp.getBoundingClientRect().width;
-          sp.remove();
-        }
-        const overflow=tw-box;
-        if(overflow>0){
-          el.classList.add('marquee');
-          let tr=el.querySelector(':scope > .marq-track');
-          if(!tr){
-            const html=el.innerHTML;
-            el.innerHTML='<span class="marq-track"><span>'+html+'</span><span class="marq-copy" aria-hidden="true">'+html+'</span></span>';
-            tr=el.querySelector('.marq-track');
-          }
-          tr.style.setProperty('--marq-t',Math.max(4,(tw+24)/60).toFixed(2)+'s');
-        }else{
-          el.classList.remove('marquee');
-          if(tr0)el.innerHTML=tr0.firstElementChild.innerHTML;
-          el.style.removeProperty('--marq-t');
-        }
-      });
     }
 
     const HIDDEN_CLASSES=[{className:"Sword Master",skillName:"Exalted Will",skill:"Basic Attacks have a 25% chance of dealing Extra Combined Damage.",pairs:[{skills:[{name:"Deathblow",type:"Enhance"},{name:"Time Haste",type:"Trick"}]},{skills:[{name:"Secreta's Talent",type:"Recon"},{name:"Parry",type:"Defense"}]},{skills:[{name:"Wild Dance",type:"Combat"},{name:"Deliberate Attack",type:"Support"}]}],milestones:[{lvl:100,desc:"Melee Defense Penetration +50"},{lvl:200,desc:"Movement Speed +8%"},{lvl:300,desc:"Attack Speed +8%"},{lvl:400,desc:"Attack Power +70"},{lvl:500,desc:"Melee Attack +50 / All Damage +3.5%"},{lvl:600,desc:"On hit, reduce Damage Received for next 3 hits (10 sec)."},{lvl:700,desc:"Defense Power +100"},{lvl:800,desc:"Deals Combined Damage to the target, and drains the target's MP and Stamina equal to 80% of Max MP and Max Stamina."}]},
@@ -1068,7 +1051,7 @@ function langNext(){
       if(leavingRelic)resetRelic();
       const PAGES={tracker:'pageTracker',hidden:'pageHidden',relic:'pageRelic'};
       $((PAGES[btn.dataset.page]||'pageTracker')).classList.add('active');
-      requestAnimationFrame(()=>{fitPairTexts();fitExpandedCards();fitCollapsedCards();const ap=document.querySelector('.page.active');if(ap){fitPanelCards(ap);initMarquees(ap)};if(ap&&ap===document.getElementById('pageRelic'))rRelic();});
+      requestAnimationFrame(()=>{fitPairTexts();fitExpandedCards();fitCollapsedCards();const ap=document.querySelector('.page.active');if(ap){fitPanelCards(ap)};if(ap&&ap===document.getElementById('pageRelic'))rRelic();});
       requestAnimationFrame(()=>{requestAnimationFrame(fitRelic);});
       requestAnimationFrame(positionNavIndicator);
     });
@@ -1107,7 +1090,7 @@ function langNext(){
     });
 
     let fitTimer;
-    window.addEventListener('resize',()=>{clearTimeout(fitTimer);fitTimer=setTimeout(()=>{fitPairTexts();fitExpandedCards();fitCollapsedCards();const ap=document.querySelector('.page.active');if(ap){fitPanelCards(ap);initMarquees(ap)};fitRelic()},150);});
+    window.addEventListener('resize',()=>{clearTimeout(fitTimer);fitTimer=setTimeout(()=>{fitPairTexts();fitExpandedCards();fitCollapsedCards();const ap=document.querySelector('.page.active');if(ap){fitPanelCards(ap)};fitRelic()},150);});
     if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{fitPairTexts();fitExpandedCards();fitCollapsedCards();const ap=document.querySelector('.page.active');if(ap)fitPanelCards(ap);fitRelic()});
 
     const ptrEl=$('ptrIndicator');
@@ -1163,7 +1146,6 @@ function langNext(){
         Object.entries(viewBodies).forEach(([k,el])=>{if(k!==currentView) el.hidden=true;});
         $('viewTitle').textContent=t(currentView==='schedule'?'schedTitle':'ivTitle');
         fitPanelCards(viewBodies[currentView]);
-        initMarquees(viewBodies[currentView]);
       });
     });
 
