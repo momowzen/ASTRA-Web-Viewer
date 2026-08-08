@@ -93,7 +93,9 @@ function langNext(){
       document.title=t('brand');
       $('brand').querySelector('.brand-text').textContent=t('brand');
       $('nextLbl').textContent=t('nextSpawn');
-      $('upcomingLbl').textContent=t('upcoming');
+      $('upcomingLbl').textContent=t(currentUpView==='tomorrow'?'tomorrow':'today');
+      $('upTodayLbl').textContent=t('today');
+      $('upTmrwLbl').textContent=t('tomorrow');
       $('viewTitle').textContent=t(currentView==='schedule'?'schedTitle':'ivTitle');
       $('ivBtnLbl').textContent=t('ivTag');
       $('schedBtnLbl').textContent=t('schedTag');
@@ -331,26 +333,26 @@ function langNext(){
     setInterval(rNextCdTick,1000)
     document.addEventListener('visibilitychange',()=>{if(!document.hidden)rNextCd()});
 
-    let lastUpHtml='';
+    let lastUpHtml={today:'',tomorrow:''};
     function rUpcoming(){
-      const n=now(),list=[];
-      for(const b of BOSSES){const x=nextSpawn(b);if(x&&x.getTime()>n)list.push({b,t:x.getTime()})}
-      list.sort((a,b)=>a.t-b.t)
-      const e=$('upcomingList');$('upcomingSub').textContent=list.length;
-      let h;
-      if(!list.length){
-        h='<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><p>'+t('noSpawns')+'</p></div>';
-        if(h===lastUpHtml)return;
-        e.innerHTML=h;lastUpHtml=h;
-        return;
+      const n=now(),tKey=Math.floor((n+TO)/86400000),tmKey=tKey+1;
+      const list={today:[],tomorrow:[]};
+      for(const b of BOSSES){const x=nextSpawn(b);if(x&&x.getTime()>n)list[Math.floor((x.getTime()+TO)/86400000)===tKey?'today':'tomorrow'].push({b,t:x.getTime()})}
+      list.today.sort((a,b)=>a.t-b.t);list.tomorrow.sort((a,b)=>a.t-b.t);
+      for(const v of ['today','tomorrow']){
+        const e=v==='today'?$('upcomingList'):$('upcomingTmrw');
+        let h;
+        if(!list[v].length){
+          h='<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><p>'+t('noSpawns')+'</p></div>';
+        }else{
+          h='<div class="boss-list">'+list[v].map(x=>{
+            const rem=x.t-n;
+            const cls=statusClassFor(rem);
+            return '<div class="boss-card '+cls+'" data-t="'+x.t+'"><div class="boss-card-main"><span class="boss-card-name">'+bn(x.b)+'</span></div><div class="boss-card-time"><span class="boss-card-time-value">'+fmtT(x.t)+'</span></div></div>';
+          }).join('')+'</div>';
+        }
+        if(h!==lastUpHtml[v]){e.innerHTML=h;lastUpHtml[v]=h;}
       }
-      h='<div class="boss-list">'+list.map((x,i)=>{
-        const rem=x.t-n;
-        const cls=statusClassFor(rem);
-        return '<div class="boss-card '+cls+'" data-t="'+x.t+'"><div class="boss-card-main"><span class="boss-card-name">'+bn(x.b)+'</span></div><div class="boss-card-time"><span class="boss-card-time-value">'+fmtT(x.t)+'</span><span class="boss-card-time-label">'+fmtD(x.t)+'</span></div></div>';
-      }).join('')+'</div>';
-      if(h===lastUpHtml)return;
-      e.innerHTML=h;lastUpHtml=h;
     }
 
     let lastSchedHtml='';
@@ -1099,7 +1101,7 @@ function fitRelic(){
     },{passive:true});
     document.addEventListener('touchcancel',ptrReset,{passive:true});
 
-    let currentView='interval';
+    let currentView='interval',currentUpView='today';
     const segBtns=document.querySelectorAll('.segmented .seg-btn[data-view]');
     const viewBodies={interval:$('ivGrid'),schedule:$('schedGrid')};
     segBtns.forEach(btn=>{
@@ -1113,6 +1115,21 @@ function fitRelic(){
         Object.entries(viewBodies).forEach(([k,el])=>{if(k!==currentView) el.hidden=true;});
         $('viewTitle').textContent=t(currentView==='schedule'?'schedTitle':'ivTitle');
         fitPanelCards(viewBodies[currentView]);
+      });
+    });
+    const upSegBtns=document.querySelectorAll('.segmented .seg-btn[data-upview]');
+    const upViewBodies={today:$('upcomingList'),tomorrow:$('upcomingTmrw')};
+    upSegBtns.forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        currentUpView=btn.dataset.upview;
+        upSegBtns.forEach(b=>{
+          b.classList.toggle('active',b===btn);
+          b.setAttribute('aria-selected',b===btn?'true':'false');
+        });
+        upViewBodies[currentUpView].hidden=false;
+        Object.entries(upViewBodies).forEach(([k,el])=>{if(k!==currentUpView) el.hidden=true;});
+        $('upcomingLbl').textContent=t(currentUpView==='tomorrow'?'tomorrow':'today');
+        rUpcoming();
       });
     });
 
@@ -1187,7 +1204,7 @@ function fitRelic(){
 
     function softTick(){
       const n=now();
-      document.querySelectorAll('#upcomingList .boss-card[data-t]').forEach(card=>{
+      document.querySelectorAll('#upcomingList .boss-card[data-t],#upcomingTmrw .boss-card[data-t]').forEach(card=>{
         const tm=+card.dataset.t;
         if(!tm)return;
         const rem=tm-n;
