@@ -1289,6 +1289,9 @@ function fitRelic(){
       setInterval(checkForUpdate,120000);
       const onNavResize=debounceNav(positionNavIndicator,150);
       window.addEventListener('resize',onNavResize);
+      document.addEventListener('visibilitychange',()=>{
+        document.querySelector('.bg-canvas').classList.toggle('bg-still',document.hidden);
+      });
       requestAnimationFrame(()=>requestAnimationFrame(positionNavIndicator));
       if(document.fonts&&document.fonts.ready){document.fonts.ready.then(()=>requestAnimationFrame(positionNavIndicator));}
     }catch(e){$('exportInfo').querySelector('span').textContent='Init error: '+e.message}

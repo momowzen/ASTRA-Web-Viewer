@@ -142,14 +142,18 @@
     }
     .bg-canvas::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 50% 50%, transparent 60%, rgba(0,0,0,0.55) 100%); z-index: 2; }
 
-    .nebula { position: absolute; border-radius: 50%; filter: blur(48px); opacity: 0.55; }
-    .nebula-1 { width: 60vw; height: 60vw; top: -20%; left: -10%; background: radial-gradient(circle, var(--astral-purple-glow), transparent 70%); }
-    .nebula-2 { width: 45vw; height: 45vw; bottom: -15%; right: -10%; background: radial-gradient(circle, rgba(34,211,238,0.35), transparent 70%); }
-    .nebula-3 { width: 35vw; height: 35vw; top: 40%; left: 60%; background: radial-gradient(circle, rgba(245,158,11,0.25), transparent 70%); }
+    .nebula { position: absolute; border-radius: 50%; filter: blur(48px); opacity: 0.55; animation: nebula-drift 24s ease-in-out infinite; will-change: transform; }
+    .nebula-1 { width: 60vw; height: 60vw; top: -20%; left: -10%; background: radial-gradient(circle, var(--astral-purple-glow), transparent 70%); animation-delay: 0s; }
+    .nebula-2 { width: 45vw; height: 45vw; bottom: -15%; right: -10%; background: radial-gradient(circle, rgba(34,211,238,0.35), transparent 70%); animation-delay: -8s; }
+    .nebula-3 { width: 35vw; height: 35vw; top: 40%; left: 60%; background: radial-gradient(circle, rgba(245,158,11,0.25), transparent 70%); animation-delay: -16s; }
+    @keyframes nebula-drift { 0%, 100% { transform: translate(0, 0) scale(1); } 33% { transform: translate(3%, 2%) scale(1.05); } 66% { transform: translate(-2%, 3%) scale(0.98); } }
 
     .stars {
       position: absolute;
-      inset: 0;
+      top: 0;
+      left: 0;
+      width: calc(100% + 2000px);
+      height: 100%;
       background-image:
         radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.85), transparent),
         radial-gradient(1.5px 1.5px at 50px 80px, rgba(255,255,255,0.65), transparent),
@@ -187,7 +191,10 @@
         radial-gradient(1px 1px at 1900px 160px, rgba(255,255,255,0.5), transparent);
       background-size: 2000px 200px;
       opacity: 0.4;
+      animation: star-scroll 180s linear infinite;
+      will-change: transform;
     }
+    @keyframes star-scroll { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-2000px, 0, 0); } }
 
     .aurora { position: absolute; inset: -15% -25%; background:
         radial-gradient(ellipse 46% 30% at 28% 24%, rgba(148,163,184,0.16), transparent 62%),
@@ -195,8 +202,11 @@
         radial-gradient(ellipse 26% 20% at 55% 48%, rgba(139,92,246,0.14), transparent 65%),
         radial-gradient(ellipse 34% 26% at 68% 60%, rgba(34,211,238,0.10), transparent 65%),
         radial-gradient(ellipse 52% 20% at 47% 40%, rgba(255,255,255,0.05), transparent 72%);
-      transform: rotate(-18deg);
+      animation: aurora-shift 22s ease-in-out infinite;
+      will-change: transform;
       opacity: 0.85; }
+    @keyframes aurora-shift { 0%, 100% { transform: rotate(-18deg) translateX(-2%) skewX(-1deg); } 50% { transform: rotate(-18deg) translateX(2%) skewX(1deg); } }
+    .bg-still .nebula, .bg-still .stars, .bg-still .aurora { animation-play-state: paused; }
 
     .vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 50%, transparent 50%, rgba(0,0,0,0.6) 100%); z-index: 3; pointer-events: none; }
 
@@ -218,10 +228,12 @@
     .live-pill .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; position: relative; }
     .live-pill .dot::after { content: ''; position: absolute; inset: -3px; border-radius: 50%; border: 1px solid currentColor; opacity: 0; transform: scale(0.5); transition: all var(--duration-normal) var(--ease-smooth); }
     .live-pill.on { color: var(--alive-green); border-color: rgba(52, 211, 153, 0.35); background: rgba(52, 211, 153, 0.08); box-shadow: 0 0 16px rgba(52, 211, 153, 0.12); }
-    .live-pill.on .dot { box-shadow: 0 0 10px var(--alive-green); }
-    .live-pill.on .dot::after { opacity: 0.5; }
+    .live-pill.on .dot { box-shadow: 0 0 10px var(--alive-green); animation: pulse-dot 2s ease-in-out infinite; }
+    .live-pill.on .dot::after { opacity: 0.5; animation: pulse-ring 2s ease-out infinite; }
     .live-pill.off { color: var(--danger-red); border-color: rgba(239, 68, 68, 0.25); background: rgba(239, 68, 68, 0.06); }
     .live-pill.off .dot { box-shadow: 0 0 6px var(--danger-red); }
+    @keyframes pulse-dot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.65; transform: scale(0.85); } }
+    @keyframes pulse-ring { 0% { transform: scale(0.5); opacity: 0.5; } 100% { transform: scale(2.2); opacity: 0; } }
     @keyframes page-in { from { opacity: 0; } to { opacity: 1; } }
 
     .icon-btn { appearance: none; border: 1px solid var(--glass-border); background: rgba(15, 23, 42, 0.5); color: var(--text-secondary); width: 2.25rem; height: 2.25rem; border-radius: var(--radius-md); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; user-select: none; touch-action: manipulation; -webkit-tap-highlight-color: transparent; transition: color var(--duration-normal) var(--ease-smooth), border-color var(--duration-normal) var(--ease-smooth), background-color var(--duration-normal) var(--ease-smooth), transform var(--duration-normal) var(--ease-spring), box-shadow var(--duration-normal) var(--ease-smooth); }
