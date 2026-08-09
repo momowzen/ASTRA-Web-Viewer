@@ -64,9 +64,9 @@
     const TO=9*3600000;
 
     const LANG={
-  en:{brand:'ASTRA',dash:'Dashboard',bsTab:'Bosses',live:'Live',offline:'Offline',nextSpawn:'Next Spawn',upcoming:'Upcoming',today:'Today',tomorrow:'Tomorrow',noSpawns:'No spawns',schedTag:'Schedule',schedTitle:'SCHEDULED',ivTag:'Interval',ivTitle:'Interval',every:'Every',lv:'Lv.',spawned:'SPAWNED',now:'Now',updated:'Updated',ago:'ago',tracker:'TRACKER',hiddenClass:'HIDDEN CLASS',history:'Activity',killed:'killed',missed:'missed',days:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],timeRemaining:'Time Remaining',relic:'Relic',relicLevels:'Relic Levels',current:'Current',goal:'Goal',totalTP:'Total Temporal Pieces',rareDism:'Rare dismantles (84 TP each)',epicDism:'Epic dismantles (450 TP each)',marketPrices:'Live Market Prices',origin:'Origin',refresh:'Refresh',bestPerTP:'Best $/TP',buyQty:(n,t)=>'Buy '+t+' ['+fmtNum(n)+']',updated:'Updated',mktLoading:'Fetching market prices...',mktErr:'Offline — showing cached prices',mktEmpty:'Set your relic goals above to see market prices',mktNoL:'No chest listings on Origin market',priceLabel:'Price',recoTitle:'Recommended Purchase',gPieces:'Temporal Piece',gUp:'Total Levels',gCp:'Combat Power',cpRef:'CP Reference',chestMarket:'Temporal Piece Market',per1k:'/1k',chests:'Chests',chest:'Chest',setGoal:'Set levels to calculate',piecesNeeded:'pieces needed',cpTotal:'CP total',bestTag:'Best / 1k',viewBest:'View Best',att:'Attack',def:'Defense',res:'Resource',pve:'PvE',pvp:'PvP',oth:'Other',snipe:'snipe',best:'best',memDeal:'Memory deal',cpUnit:'per',nm:['Venatus','Viorent','Ego','Clemantis','Livera','Araneo','Undomiel','Saphirus','Neutro','Lady Dalia','General Aquleus','Thymele','Amentis','Baron Braudmore','Milavy','Wannitas','Metus','Duplican','Shuliar','Ringor','Roderick','Gareth','Titore','Larba','Catena','Auraq','Secreta','Ordo','Asta','Supore','Chaiflock','Benji','Libitina','Rakajeth','Icaruthia','Motti','Camalia','Nevaeh','Tumier','Lucus'],ttsIn:(n,m)=>`${n} spawns in ${m} minute${m!==1?'s':''}.`,ttsSpawned:n=>`${n} has spawned.`,ttsWbIn:(m)=>`World Boss spawns in ${m} minute${m!==1?'s':''}.`,ttsWbSpawned:`World Boss has spawned.`,age:(m)=>{if(m<1)return 'just now';if(m<60)return m+'m ago';const h=Math.floor(m/60);return h<24?h+'h ago':Math.floor(h/24)+'d ago'},relicNames:['Origin of Destruction','Barrier Protection','Crystal of Life','Magic Storm'],mktInsight:'Cost & Efficiency',mktCostCp:'per 1 CP',mktBestTier:'Best tier to buy',mktBestTip:'Cheapest per 1,000 pieces.',mktCalc:'How it is calculated',mktCalcPieces:'Pieces needed = sum of level costs',mktCalcCp:'CP gained = milestones + base stat',mktCalcCost:'Cost = pieces / chest size x price',mktTable:'Relic Efficiency',mktHRelic:'Relic',mktHLevel:'Level',mktHCp:'CP',mktHCost:'Cost',mktHCpCur:'per CP',mktSavings:'Savings',mktSavingsMsg:'Buying the cheapest tier saves',mktAlreadyBest:'You are already buying the best-value chest',mktEffic:'most CP per currency',mktFromTo:'to',mktPerChunk:'per 1,000'},
-  ja:{brand:'ASTRA',dash:'ダッシュボード',bsTab:'ボス',live:'オンライン',offline:'オフライン',nextSpawn:'次のスポーン',upcoming:'予定',today:'今日',tomorrow:'明日',noSpawns:'スポーンなし',schedTag:'スケジュール',schedTitle:'予定',ivTag:'インターバル',ivTitle:'インターバル',every:'毎',lv:'Lv.',spawned:'出現中',now:'今',updated:'更新',ago:'前',tracker:'追跡',hiddenClass:'隠しクラス',history:'履歴',killed:'討伐',missed:'取り逃し',days:['日','月','火','水','木','金','土'],timeRemaining:'残り時間',relic:'レリック',relicLevels:'レリックレベル',current:'現在',goal:'目標',totalTP:'必要TP合計',rareDism:'レア分解（TP 84/個）',epicDism:'エピック分解（TP 450/個）',marketPrices:'ライブ市場価格',origin:'Origin',refresh:'更新',bestPerTP:'最安 $/TP',buyQty:(n,t)=>t+' を購入 ['+fmtNum(n)+']',updated:'更新',mktLoading:'市場価格を取得中...',mktErr:'オフライン — キャッシュ表示',mktEmpty:'上でレリック目標を設定してください',mktNoL:'Origin市場に出品なし',priceLabel:'価格',recoTitle:'推奨購入',gPieces:'テンポラルピース',gUp:'合計レベル',gCp:'戦闘力',cpRef:'CP参考',chestMarket:'テンポラルピース市場',per1k:'/1k',chests:'チェスト',chest:'チェスト',setGoal:'レベルを設定すると計算します',piecesNeeded:'必要ピース',cpTotal:'CP合計',bestTag:'最良/1k',viewBest:'最良を表示',att:'攻撃',def:'防御',res:'資源',pve:'PvE',pvp:'PvP',oth:'その他',snipe:'狙い目',best:'最良',memDeal:'メモリー特価',cpUnit:'単位',nm:['ベナトゥス','ビオレント','エゴ','クレメンティス','リベラ','アラネオ','アンドゥミエル','サピルス','ネウトロ','レディ·ダリア','将軍アクレウス','テュメレ','アメンティス','ブラウドモア','ミラベ','ワニタス','メトゥス','デュプリカン','シュライヤー','リンゴル','ロデリック','ガレス','ティトル','ラルバ','カテナ','アウラーク','セクレタ','オルド','アスタ','スポル','シャイフロック','ベンジー','リビティーナ','ラカゼス','イカルシア','モティ','カマリア','ネバ','トゥミエル','ルクス'],ttsIn:(n,m)=>`${n}は${m}分後に出現します。`,ttsSpawned:n=>`${n}が出現しました。`,ttsWbIn:(m)=>`ワールドボスは${m}分後に出現します。`,ttsWbSpawned:`ワールドボスが出現しました。`,age:(m)=>{if(m<1)return 'たった今';if(m<60)return m+'分前';const h=Math.floor(m/60);return h<24?h+'時間前':Math.floor(h/24)+'日前'},relicNames:['破壊の根源','結界の守護','生命の結晶','魔力の嵐'],mktInsight:'コストと効率',mktCostCp:'CPあたり',mktBestTier:'購入する最良のティア',mktBestTip:'1,000個あたり最安。',mktCalc:'計算方法',mktCalcPieces:'必要ピース = レベルコストの合計',mktCalcCp:'獲得CP = マイルストーン + 基礎ステータス',mktCalcCost:'コスト = ピース ÷ 箱サイズ × 価格',mktTable:'レリック効率',mktHRelic:'レリック',mktHLevel:'レベル',mktHCp:'CP',mktHCost:'コスト',mktHCpCur:'CPあたり',mktSavings:'節約',mktSavingsMsg:'最安ティアを買うと節約',mktAlreadyBest:'すでに最良の箱を購入しています',mktEffic:'通貨あたりCPが最も高い',mktFromTo:'→',mktPerChunk:'1,000個あたり'},
-  ko:{brand:'ASTRA',dash:'대시보드',bsTab:'보스',live:'온라인',offline:'오프라인',nextSpawn:'다음 스폰',upcoming:'예정',today:'오늘',tomorrow:'내일',noSpawns:'스폰 없음',schedTag:'일정',schedTitle:'일정',ivTag:'간격',ivTitle:'간격',every:'매',lv:'레벨',spawned:'출현중',now:'지금',updated:'업데이트',ago:'전',tracker:'추적',hiddenClass:'비밀 클래스',history:'활동',killed:'처치',missed:'놓침',days:['일','월','화','수','목','금','토'],timeRemaining:'남은 시간',relic:'유물',relicLevels:'유물 레벨',current:'현재',goal:'목표',totalTP:'필요 TP 합계',rareDism:'레어 분해 (TP 84/개)',epicDism:'에픽 분해 (TP 450/개)',marketPrices:'실시간 시장 가격',origin:'Origin',refresh:'새로고침',bestPerTP:'최저 $/TP',buyQty:(n,t)=>t+' 구매 ['+fmtNum(n)+']',updated:'업데이트',mktLoading:'시장 가격 불러오는 중...',mktErr:'오프라인 — 캐시 표시',mktEmpty:'위에서 유물 목표를 설정하세요',mktNoL:'Origin 시장에 등록 없음',priceLabel:'가격',recoTitle:'추천 구매',gPieces:'시간 조각',gUp:'총 레벨',gCp:'전투력',cpRef:'CP 참고',chestMarket:'시간 조각 시장',per1k:'/1k',chests:'상자',chest:'상자',setGoal:'레벨을 설정하면 계산합니다',piecesNeeded:'필요 조각',cpTotal:'CP 합계',bestTag:'최적/1k',viewBest:'최적 보기',att:'공격',def:'방어',res:'자원',pve:'PvE',pvp:'PvP',oth:'기타',snipe:'노려야 할',best:'최적',memDeal:'메모리 특가',cpUnit:'단위',nm:['베나투스','비오렌트','에고','클레멘티스','리베라','아라네오','안두미엘','사피루스','네우트로','레이디 달리아','장군 아클레우스','튜메레','아멘티스','남작 브라우드모어','미라베','와니타스','메투스','듀플리칸','슈라이어','링고르','로데릭','가레스','티토르','라르바','카테나','아우라크','세크레타','오르도','아스타','스포르','샤이플록','벤지','리비티나','라카제스','이카루시아','모티','카말리아','네바','투미엘','루크스'],ttsIn:(n,m)=>`${n}${koParticle(n,'subj')} ${m}분 후에 출현합니다.`,ttsSpawned:n=>`${n}${koParticle(n,'subj')} 출현했습니다.`,ttsWbIn:(m)=>`월드 보스가 ${m}분 후 출현합니다.`,ttsWbSpawned:`월드 보스가 출현했습니다.`,age:(m)=>{if(m<1)return '방금 전';if(m<60)return m+'분 전';const h=Math.floor(m/60);return h<24?h+'시간 전':Math.floor(h/24)+'일 전'},relicNames:['파괴의 근원','결계의 수호','생명의 수정','마력의 폭풍'],mktInsight:'비용 및 효율',mktCostCp:'CP당',mktBestTier:'구매 최적 티어',mktBestTip:'1,000개당 최저.',mktCalc:'계산 방법',mktCalcPieces:'필요 조각 = 레벨 비용 합계',mktCalcCp:'획득 CP = 마일스톤 + 기본 스탯',mktCalcCost:'비용 = 조각 ÷ 상자 크기 × 가격',mktTable:'유물 효율',mktHRelic:'유물',mktHLevel:'레벨',mktHCp:'CP',mktHCost:'비용',mktHCpCur:'CP당',mktSavings:'절약',mktSavingsMsg:'최저 티어 구매 시 절약',mktAlreadyBest:'이미 최고 가치 상자를 구매 중입니다',mktEffic:'통화당 CP 최대',mktFromTo:'→',mktPerChunk:'1,000개당'},
+  en:{brand:'ASTRA',dash:'Dashboard',bsTab:'Bosses',live:'Live',offline:'Offline',nextSpawn:'Next Spawn',upcoming:'Upcoming',today:'Today',tomorrow:'Tomorrow',noSpawns:'No spawns',schedTag:'Schedule',schedTitle:'SCHEDULED',ivTag:'Interval',ivTitle:'Interval',every:'Every',lv:'Lv.',spawned:'SPAWNED',now:'Now',updated:'Updated',ago:'ago',tracker:'TRACKER',hiddenClass:'HIDDEN CLASS',history:'Activity',killed:'killed',missed:'missed',days:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],timeRemaining:'Time Remaining',relic:'Relic',relicLevels:'Relic Levels',current:'Current',goal:'Goal',totalTP:'Total Temporal Pieces',rareDism:'Rare dismantles (84 TP each)',epicDism:'Epic dismantles (450 TP each)',marketPrices:'Live Market Prices',origin:'Origin',refresh:'Refresh',bestPerTP:'Best $/TP',buyQty:(n,t)=>'Buy '+t+' ['+fmtNum(n)+']',updated:'Updated',mktLoading:'Fetching market prices...',mktErr:'Offline — showing cached prices',mktEmpty:'Set your relic goals above to see market prices',mktNoL:'No chest listings on Origin market',priceLabel:'Price',recoTitle:'Recommended Purchase',gPieces:'Temporal Piece',gUp:'Total Levels',gCp:'Combat Power',cpRef:'CP Reference',chestMarket:'Temporal Piece Market',per1k:'/1k',chests:'Chests',chest:'Chest',setGoal:'Set levels to calculate',piecesNeeded:'pieces needed',cpTotal:'CP total',bestTag:'Best / 1k',viewBest:'View Best',att:'Attack',def:'Defense',res:'Resource',pve:'PvE',pvp:'PvP',oth:'Other',snipe:'snipe',best:'best',memDeal:'Memory deal',cpUnit:'per',nm:['Venatus','Viorent','Ego','Clemantis','Livera','Araneo','Undomiel','Saphirus','Neutro','Lady Dalia','General Aquleus','Thymele','Amentis','Baron Braudmore','Milavy','Wannitas','Metus','Duplican','Shuliar','Ringor','Roderick','Gareth','Titore','Larba','Catena','Auraq','Secreta','Ordo','Asta','Supore','Chaiflock','Benji','Libitina','Rakajeth','Icaruthia','Motti','Camalia','Nevaeh','Tumier','Lucus'],ttsIn:(n,m)=>`${n} spawns in ${m} minute${m!==1?'s':''}.`,ttsSpawned:n=>`${n} has spawned.`,ttsWbIn:(m)=>`World Boss spawns in ${m} minute${m!==1?'s':''}.`,ttsWbSpawned:`World Boss has spawned.`,age:(m)=>{if(m<1)return 'just now';if(m<60)return m+'m ago';const h=Math.floor(m/60);return h<24?h+'h ago':Math.floor(h/24)+'d ago'},relicNames:['Origin of Destruction','Barrier Protection','Crystal of Life','Magic Storm'],mktInsight:'Cost & Efficiency',mktCostCp:'per 1 CP',mktBestTier:'Best tier to buy',mktBestTip:'Cheapest per 1,000 pieces.',mktCalc:'How it is calculated',mktCalcPieces:'Pieces needed = sum of level costs',mktCalcCp:'CP gained = milestones + base stat',mktCalcCost:'Cost = pieces / chest size x price',mktTable:'Relic Efficiency',mktHRelic:'Relic',mktHLevel:'Level',mktHCp:'CP',mktHCost:'Cost',mktHCpCur:'per CP',mktSavings:'Savings',mktSavingsMsg:'Buying the cheapest tier saves',mktAlreadyBest:'You are already buying the best-value chest',mktEffic:'most CP per currency',mktFromTo:'to',mktPerChunk:'per 1,000',mktExpand:'Expand details',mktCollapse:'Collapse'},
+  ja:{brand:'ASTRA',dash:'ダッシュボード',bsTab:'ボス',live:'オンライン',offline:'オフライン',nextSpawn:'次のスポーン',upcoming:'予定',today:'今日',tomorrow:'明日',noSpawns:'スポーンなし',schedTag:'スケジュール',schedTitle:'予定',ivTag:'インターバル',ivTitle:'インターバル',every:'毎',lv:'Lv.',spawned:'出現中',now:'今',updated:'更新',ago:'前',tracker:'追跡',hiddenClass:'隠しクラス',history:'履歴',killed:'討伐',missed:'取り逃し',days:['日','月','火','水','木','金','土'],timeRemaining:'残り時間',relic:'レリック',relicLevels:'レリックレベル',current:'現在',goal:'目標',totalTP:'必要TP合計',rareDism:'レア分解（TP 84/個）',epicDism:'エピック分解（TP 450/個）',marketPrices:'ライブ市場価格',origin:'Origin',refresh:'更新',bestPerTP:'最安 $/TP',buyQty:(n,t)=>t+' を購入 ['+fmtNum(n)+']',updated:'更新',mktLoading:'市場価格を取得中...',mktErr:'オフライン — キャッシュ表示',mktEmpty:'上でレリック目標を設定してください',mktNoL:'Origin市場に出品なし',priceLabel:'価格',recoTitle:'推奨購入',gPieces:'テンポラルピース',gUp:'合計レベル',gCp:'戦闘力',cpRef:'CP参考',chestMarket:'テンポラルピース市場',per1k:'/1k',chests:'チェスト',chest:'チェスト',setGoal:'レベルを設定すると計算します',piecesNeeded:'必要ピース',cpTotal:'CP合計',bestTag:'最良/1k',viewBest:'最良を表示',att:'攻撃',def:'防御',res:'資源',pve:'PvE',pvp:'PvP',oth:'その他',snipe:'狙い目',best:'最良',memDeal:'メモリー特価',cpUnit:'単位',nm:['ベナトゥス','ビオレント','エゴ','クレメンティス','リベラ','アラネオ','アンドゥミエル','サピルス','ネウトロ','レディ·ダリア','将軍アクレウス','テュメレ','アメンティス','ブラウドモア','ミラベ','ワニタス','メトゥス','デュプリカン','シュライヤー','リンゴル','ロデリック','ガレス','ティトル','ラルバ','カテナ','アウラーク','セクレタ','オルド','アスタ','スポル','シャイフロック','ベンジー','リビティーナ','ラカゼス','イカルシア','モティ','カマリア','ネバ','トゥミエル','ルクス'],ttsIn:(n,m)=>`${n}は${m}分後に出現します。`,ttsSpawned:n=>`${n}が出現しました。`,ttsWbIn:(m)=>`ワールドボスは${m}分後に出現します。`,ttsWbSpawned:`ワールドボスが出現しました。`,age:(m)=>{if(m<1)return 'たった今';if(m<60)return m+'分前';const h=Math.floor(m/60);return h<24?h+'時間前':Math.floor(h/24)+'日前'},relicNames:['破壊の根源','結界の守護','生命の結晶','魔力の嵐'],mktInsight:'コストと効率',mktCostCp:'CPあたり',mktBestTier:'購入する最良のティア',mktBestTip:'1,000個あたり最安。',mktCalc:'計算方法',mktCalcPieces:'必要ピース = レベルコストの合計',mktCalcCp:'獲得CP = マイルストーン + 基礎ステータス',mktCalcCost:'コスト = ピース ÷ 箱サイズ × 価格',mktTable:'レリック効率',mktHRelic:'レリック',mktHLevel:'レベル',mktHCp:'CP',mktHCost:'コスト',mktHCpCur:'CPあたり',mktSavings:'節約',mktSavingsMsg:'最安ティアを買うと節約',mktAlreadyBest:'すでに最良の箱を購入しています',mktEffic:'通貨あたりCPが最も高い',mktFromTo:'→',mktPerChunk:'1,000個あたり',mktExpand:'詳細を展開',mktCollapse:'閉じる'},
+  ko:{brand:'ASTRA',dash:'대시보드',bsTab:'보스',live:'온라인',offline:'오프라인',nextSpawn:'다음 스폰',upcoming:'예정',today:'오늘',tomorrow:'내일',noSpawns:'스폰 없음',schedTag:'일정',schedTitle:'일정',ivTag:'간격',ivTitle:'간격',every:'매',lv:'레벨',spawned:'출현중',now:'지금',updated:'업데이트',ago:'전',tracker:'추적',hiddenClass:'비밀 클래스',history:'활동',killed:'처치',missed:'놓침',days:['일','월','화','수','목','금','토'],timeRemaining:'남은 시간',relic:'유물',relicLevels:'유물 레벨',current:'현재',goal:'목표',totalTP:'필요 TP 합계',rareDism:'레어 분해 (TP 84/개)',epicDism:'에픽 분해 (TP 450/개)',marketPrices:'실시간 시장 가격',origin:'Origin',refresh:'새로고침',bestPerTP:'최저 $/TP',buyQty:(n,t)=>t+' 구매 ['+fmtNum(n)+']',updated:'업데이트',mktLoading:'시장 가격 불러오는 중...',mktErr:'오프라인 — 캐시 표시',mktEmpty:'위에서 유물 목표를 설정하세요',mktNoL:'Origin 시장에 등록 없음',priceLabel:'가격',recoTitle:'추천 구매',gPieces:'시간 조각',gUp:'총 레벨',gCp:'전투력',cpRef:'CP 참고',chestMarket:'시간 조각 시장',per1k:'/1k',chests:'상자',chest:'상자',setGoal:'레벨을 설정하면 계산합니다',piecesNeeded:'필요 조각',cpTotal:'CP 합계',bestTag:'최적/1k',viewBest:'최적 보기',att:'공격',def:'방어',res:'자원',pve:'PvE',pvp:'PvP',oth:'기타',snipe:'노려야 할',best:'최적',memDeal:'메모리 특가',cpUnit:'단위',nm:['베나투스','비오렌트','에고','클레멘티스','리베라','아라네오','안두미엘','사피루스','네우트로','레이디 달리아','장군 아클레우스','튜메레','아멘티스','남작 브라우드모어','미라베','와니타스','메투스','듀플리칸','슈라이어','링고르','로데릭','가레스','티토르','라르바','카테나','아우라크','세크레타','오르도','아스타','스포르','샤이플록','벤지','리비티나','라카제스','이카루시아','모티','카말리아','네바','투미엘','루크스'],ttsIn:(n,m)=>`${n}${koParticle(n,'subj')} ${m}분 후에 출현합니다.`,ttsSpawned:n=>`${n}${koParticle(n,'subj')} 출현했습니다.`,ttsWbIn:(m)=>`월드 보스가 ${m}분 후 출현합니다.`,ttsWbSpawned:`월드 보스가 출현했습니다.`,age:(m)=>{if(m<1)return '방금 전';if(m<60)return m+'분 전';const h=Math.floor(m/60);return h<24?h+'시간 전':Math.floor(h/24)+'일 전'},relicNames:['파괴의 근원','결계의 수호','생명의 수정','마력의 폭풍'],mktInsight:'비용 및 효율',mktCostCp:'CP당',mktBestTier:'구매 최적 티어',mktBestTip:'1,000개당 최저.',mktCalc:'계산 방법',mktCalcPieces:'필요 조각 = 레벨 비용 합계',mktCalcCp:'획득 CP = 마일스톤 + 기본 스탯',mktCalcCost:'비용 = 조각 ÷ 상자 크기 × 가격',mktTable:'유물 효율',mktHRelic:'유물',mktHLevel:'레벨',mktHCp:'CP',mktHCost:'비용',mktHCpCur:'CP당',mktSavings:'절약',mktSavingsMsg:'최저 티어 구매 시 절약',mktAlreadyBest:'이미 최고 가치 상자를 구매 중입니다',mktEffic:'통화당 CP 최대',mktFromTo:'→',mktPerChunk:'1,000개당',mktExpand:'세부 정보 펼치기',mktCollapse:'닫기'},
 };
 
     function lsSet(k,v){try{localStorage.setItem(k,v)}catch(e){}}
@@ -108,6 +108,8 @@ function langNext(){
       $('relicGrandLblC').textContent=t('gCp');
       $('mktLbl').textContent=t('chestMarket');
       $('mktRealm').textContent=t('origin');
+      const mtBtn=$('mktDetailsToggle');
+      if(mtBtn){const lbl=$('mktDetailsToggleLbl');if(lbl)lbl.textContent=t(mktExpanded?'mktCollapse':'mktExpand');}
       $('mktRefresh').setAttribute('aria-label',t('refresh'));
       document.querySelectorAll('#relicSettings .relic-field-label').forEach((f,idx)=>f.textContent=idx%2===0?t('current'):t('goal'));
       $('langText').textContent=FLAGS[lang];
@@ -428,6 +430,7 @@ function langNext(){
     let relicState=[[1,1],[1,1],[1,1],[1,1]];
     let relicPrices=null,relicFx=null,relicUpdated=null,relicCurrency='usd',relicLoading=false;
     let relicTier='auto';
+    let mktExpanded=false;
     const PRICE_MEMORY_KEY='relic_price_memory_v1';
 
     const RELIC_IDS=['destruction','protection','life','storm'];
@@ -641,11 +644,13 @@ function langNext(){
     }
     function renderInsight(total){
       const host=$('mktInsight');
-      if(!host)return;
+      const syncToggle=(show)=>{const b=$('mktDetailsToggle');if(!b)return;b.hidden=!show;const lbl=$('mktDetailsToggleLbl');if(lbl)lbl.textContent=t(mktExpanded?'mktCollapse':'mktExpand');b.setAttribute('aria-expanded',mktExpanded?'true':'false');b.classList.toggle('open',mktExpanded);};
+      if(!host){syncToggle(false);return;}
       const rows=pricedRows();
-      if(!rows.length){host.innerHTML='';return;}
+      if(!rows.length){host.innerHTML='';syncToggle(false);return;}
       if(total<=0){
         host.innerHTML='<div class="mkt-insight-card mkt-insight-empty">'+t('setGoal')+'</div>';
+        syncToggle(false);
         return;
       }
       const per=[],bd=[];let gCP=0;
@@ -654,7 +659,7 @@ function langNext(){
         const b=relicBreakdown(i,relicState[i][0],relicState[i][1]);
         bd.push(b);gCP+=b.totalCP;
       }
-      if(gCP<=0)return;
+      if(gCP<=0){host.innerHTML='';syncToggle(false);return;}
       const totalCost=relicPieceCost(total);
       const costCP=(totalCost>0&&gCP>0)?(totalCost/gCP):null;
       const best=rows[0];
@@ -671,7 +676,8 @@ function langNext(){
       eff.sort((a,b)=>(a.cpc??1e18)-(b.cpc??1e18));
       let h='';
       h+='<div class="mkt-insight-card mkt-cost-card"><div class="mkt-insight-title">'+t('mktInsight')+'</div><div class="mkt-cost-cp"><span class="mkt-cost-cp-val">'+(costCP!==null?relicFmt(costCP):'\u2014')+'</span><span class="mkt-cost-cp-unit">'+t('mktCostCp')+'</span></div></div>';
-      h+='<div class="mkt-insight-card"><div class="mkt-insight-title">'+t('mktBestTier')+'</div><div class="mkt-best-row"><span class="tier-real" style="color:'+(gradeColor(best.bg)||'')+'">'+(best.name&&best.name!==best.key?best.name:best.key)+'</span><span class="mkt-best-meta">'+relicFmt(best.per1k)+' / '+fmtNum(1000)+'</span></div><div class="mkt-best-cta">'+t('mktBestTip')+' '+relicFmt(bestCost)+' <span class="mkt-qty">('+fmtNum(bestQ)+')</span></div></div>';
+      h+='<div class="mkt-insight-card mkt-best-card"><div class="mkt-insight-title">'+t('mktBestTier')+'</div><div class="mkt-best-row"><span class="tier-real" style="color:'+(gradeColor(best.bg)||'')+'">'+(best.name&&best.name!==best.key?best.name:best.key)+'</span><span class="mkt-best-meta">'+relicFmt(best.per1k)+' / '+fmtNum(1000)+'</span></div><div class="mkt-best-cta">'+t('mktBestTip')+' '+relicFmt(bestCost)+' <span class="mkt-qty">('+fmtNum(bestQ)+')</span></div></div>';
+      h+='<div class="mkt-details">';
       h+='<div class="mkt-insight-card"><div class="mkt-insight-title">'+t('mktCalc')+'</div><div class="mkt-calc-row"><span>'+t('mktCalcPieces')+'</span><b>'+fmtCompact(total)+'</b></div><div class="mkt-calc-row"><span>'+t('mktCalcCp')+'</span><b>+'+fmtCompact(gCP)+'</b></div><div class="mkt-calc-row"><span>'+t('mktCalcCost')+'</span><b>'+relicFmt(totalCost)+'</b></div></div>';
 
       if(eff.length){
@@ -681,7 +687,7 @@ function langNext(){
           const from=relicState[e.i][0],to=relicState[e.i][1];
           return '<div class="mkt-tbl-row"><span class="mkt-tbl-name"><span class="relic-dot re-'+e.i+'" aria-hidden="true"></span>'+name+'</span><span class="mkt-t-lv">'+fmtNum(from)+' '+t('mktFromTo')+' '+fmtNum(to)+'</span><span>+'+fmtCompact(e.cp)+'</span><span>'+relicFmt(e.cost)+'</span><span class="mkt-t-cpc">'+(e.cpc?relicFmt(e.cpc):'\u2014')+'</span></div>';
         }).join('');
-        h+='<div class="mkt-insight-card"><div class="mkt-insight-title">'+t('mktTable')+' <span class="mkt-insight-sub">'+t('mktEffic')+'</span></div>'+th+'</div>';
+        h+='<div class="mkt-insight-card mkt-table-card"><div class="mkt-insight-title">'+t('mktTable')+' <span class="mkt-insight-sub">'+t('mktEffic')+'</span></div>'+th+'</div>';
       }
 
       if(save>0){
@@ -689,7 +695,9 @@ function langNext(){
       }else{
         h+='<div class="mkt-insight-card mkt-save mkt-save-ok"><div class="mkt-insight-title">'+t('mktSavings')+'</div><div class="mkt-save-msg">'+t('mktAlreadyBest')+'</div></div>';
       }
+      h+='</div>';
       host.innerHTML=h;
+      syncToggle(true);
     }
     function rRelicSoft(){
       if(!$('pageRelic').classList.contains('active'))return;
@@ -699,17 +707,27 @@ function langNext(){
       relicState=[[1,1],[1,1],[1,1],[1,1]];
       relicCurrency='usd';
       relicTier='auto';
+      setMktExpanded(false);
       rRelic();
+    }
+    function setMktExpanded(v){
+      mktExpanded=!!v;
+      const mb=$('mktBody');
+      if(mb)mb.classList.toggle('expanded',mktExpanded);
+      const btn=$('mktDetailsToggle');
+      if(btn){const lbl=$('mktDetailsToggleLbl');if(lbl)lbl.textContent=t(mktExpanded?'mktCollapse':'mktExpand');btn.setAttribute('aria-expanded',mktExpanded?'true':'false');btn.classList.toggle('open',mktExpanded);}
+      requestAnimationFrame(()=>{fitRelic();fitMarketInsight()});
+      setTimeout(()=>{fitRelic();fitMarketInsight()},300);
     }
 
 function fitRelic(){
       const page=$('pageRelic');
       if(!page||!page.classList.contains('active'))return;
-      if(window.matchMedia('(max-width: 900px)').matches)return;
       const panel=document.querySelector('#pageRelic .relic-grid > .panel');
       const body=panel?panel.querySelector('.panel-body'):null;
       if(!body)return;
       body.style.removeProperty('transform');
+      if(window.matchMedia('(max-width: 900px)').matches)return;
       const avail=body.clientHeight;
       const need=body.scrollHeight;
       if(avail<=1||need<=avail+1)return;
@@ -720,10 +738,11 @@ function fitRelic(){
     function fitMarketInsight(){
       const page=$('pageRelic');
       if(!page||!page.classList.contains('active'))return;
-      if(window.matchMedia('(max-width: 900px)').matches)return;
       const ins=$('mktInsight');
       if(!ins||!ins.innerHTML)return;
       ins.style.setProperty('--fit','1');
+      if(window.matchMedia('(max-width: 900px)').matches)return;
+      if(mktExpanded)return;
       const avail=ins.clientHeight;
       if(avail<=1)return;
       let fit=1;
@@ -1020,6 +1039,11 @@ function fitRelic(){
       relicTier=(relicTier===key)?'auto':key;
       rRelic();
     }));
+    document.addEventListener('click',(e)=>{
+      const btn=e.target.closest('#mktDetailsToggle');
+      if(!btn)return;
+      setMktExpanded(!mktExpanded);
+    });
 
     function positionNavIndicator(){
       const pill=document.querySelector('.nav-pill');
