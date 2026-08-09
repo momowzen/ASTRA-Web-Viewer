@@ -324,7 +324,7 @@ function langNext(){
         if (ring) ring.style.strokeDashoffset = RING_CIRCUMFERENCE;
       }
     }
-    const SCHED_SPAWN_EXPIRE_MS=60000;
+    const SCHED_SPAWN_EXPIRE_MS=120000;
     function expireSchedSpawn(){
       if(nxtBoss&&nxtBoss.wr&&nxtTime&&now()-nxtTime.getTime()>=SCHED_SPAWN_EXPIRE_MS)rNext();
     }
@@ -333,16 +333,30 @@ function langNext(){
       const tr=$('pageTracker');
       if(tr&&!tr.classList.contains('active'))return;
       expireSchedSpawn();
+      visualRefresh();
       rNextCd();
     }
     setInterval(rNextCdTick,1000)
-    document.addEventListener('visibilitychange',()=>{if(!document.hidden){expireSchedSpawn();rNextCd()}});
+    document.addEventListener('visibilitychange',()=>{if(!document.hidden){expireSchedSpawn();visualRefresh();rNextCd()}});
 
     let lastUpHtml={today:'',tomorrow:''};
     function rUpcoming(){
       const n=now(),tKey=Math.floor((n+TO)/86400000),tmKey=tKey+1;
+      const dayKey=t=>Math.floor((t+TO)/86400000);
       const list={today:[],tomorrow:[]};
-      for(const b of BOSSES){const x=nextSpawn(b);if(x&&x.getTime()>n)list[Math.floor((x.getTime()+TO)/86400000)===tKey?'today':'tomorrow'].push({b,t:x.getTime()})}
+      const push=(b,t)=>{
+        if(t<=n){list.today.push({b,t});return}
+        list[dayKey(t)===tKey?'today':'tomorrow'].push({b,t});
+      };
+      for(const b of BOSSES){
+        if(b.rs){
+          const et=timers[b.id]?.endTime;
+          if(et)push(b,et);
+        }else if(b.wr){
+          const x=nextSpawn(b);if(x&&x.getTime()>n)push(b,x.getTime());
+          const p=prevSpawn(b,n);if(p&&n-p.getTime()<=SCHED_SPAWN_EXPIRE_MS)push(b,p.getTime());
+        }
+      }
       list.today.sort((a,b)=>a.t-b.t);list.tomorrow.sort((a,b)=>a.t-b.t);
       for(const v of ['today','tomorrow']){
         const e=v==='today'?$('upcomingList'):$('upcomingTmrw');
@@ -353,7 +367,7 @@ function langNext(){
           h='<div class="boss-list">'+list[v].map(x=>{
             const rem=x.t-n;
             const cls=statusClassFor(rem);
-            return '<div class="boss-card '+cls+'" data-t="'+x.t+'"><div class="boss-card-main"><span class="boss-card-name">'+bn(x.b)+'</span></div><div class="boss-card-time"><span class="boss-card-time-value">'+fmtT(x.t)+'</span></div></div>';
+            return '<div class="boss-card '+cls+'" data-t="'+x.t+'"><div class="boss-card-main"><span class="boss-card-name">'+bn(x.b)+'</span></div><div class="boss-card-time"><span class="boss-card-time-value">'+(rem<=0?t('spawned'):fmtT(x.t))+'</span></div></div>';
           }).join('')+'</div>';
         }
         if(h!==lastUpHtml[v]){e.innerHTML=h;lastUpHtml[v]=h;}
@@ -386,6 +400,8 @@ function langNext(){
     }
 
     function rAll(){rNext();rUpcoming();rSched();rInt();rHidden();rNextCd()}
+
+    function visualRefresh(){rUpcoming();rSched();rInt()}
 
     const RELIC_COST=[
 0,15,25,36,48,62,78,96,116,138,163,192,225,263,306,355,410,471,539,614,697,790,890,990,1090,1190,1340,1490,1760,1964,2172,2400,2650,2924,3224,3552,3910,4300,4724,5184,5682,6220,6800,7424,8094,8812,9580,10400,11274,12204,13192,14240,15350,16524,17764,19072,20450,21900,23424,25024,26702,28460,30300,32224,34234,36332,38520,40800,43174,45644,48212,50880,53650,56524,59504,62592,65790,69100,72524,76064,79722,83500,87400,91424,95574,99852,104260,108800,113474,118284,123232,128320,133550,138924,144444,150112,155930,161900,168024,174304];
@@ -1210,12 +1226,16 @@ function fitRelic(){
     function softTick(){
       const n=now();
       expireSchedSpawn();
+      visualRefresh();
       document.querySelectorAll('#upcomingList .boss-card[data-t],#upcomingTmrw .boss-card[data-t]').forEach(card=>{
         const tm=+card.dataset.t;
         if(!tm)return;
         const rem=tm-n;
         const cls='boss-card '+statusClassFor(rem);
         if(card.className!==cls)card.className=cls;
+        const val=card.querySelector('.boss-card-time-value');
+        const text=rem<=0?t('spawned'):fmtT(tm);
+        if(val&&val.textContent!==text)val.textContent=text;
       });
       document.querySelectorAll('#ivGrid .interval-row[data-t]').forEach(row=>{
         const tm=+row.dataset.t;
