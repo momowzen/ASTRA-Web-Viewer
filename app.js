@@ -324,14 +324,19 @@ function langNext(){
         if (ring) ring.style.strokeDashoffset = RING_CIRCUMFERENCE;
       }
     }
+    const SCHED_SPAWN_EXPIRE_MS=60000;
+    function expireSchedSpawn(){
+      if(nxtBoss&&nxtBoss.wr&&nxtTime&&now()-nxtTime.getTime()>=SCHED_SPAWN_EXPIRE_MS)rNext();
+    }
     function rNextCdTick(){
       if(document.hidden)return;
       const tr=$('pageTracker');
       if(tr&&!tr.classList.contains('active'))return;
+      expireSchedSpawn();
       rNextCd();
     }
     setInterval(rNextCdTick,1000)
-    document.addEventListener('visibilitychange',()=>{if(!document.hidden)rNextCd()});
+    document.addEventListener('visibilitychange',()=>{if(!document.hidden){expireSchedSpawn();rNextCd()}});
 
     let lastUpHtml={today:'',tomorrow:''};
     function rUpcoming(){
@@ -1204,6 +1209,7 @@ function fitRelic(){
 
     function softTick(){
       const n=now();
+      expireSchedSpawn();
       document.querySelectorAll('#upcomingList .boss-card[data-t],#upcomingTmrw .boss-card[data-t]').forEach(card=>{
         const tm=+card.dataset.t;
         if(!tm)return;
