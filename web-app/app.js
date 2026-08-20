@@ -348,7 +348,9 @@ function langNext(){
       const list={today:[],tomorrow:[]};
       const push=(b,t)=>{
         if(t<=n){list.today.push({b,t});return}
-        list[dayKey(t)===tKey?'today':'tomorrow'].push({b,t});
+        const dk=dayKey(t);
+        if(dk===tKey)list.today.push({b,t});
+        else if(dk===tmKey)list.tomorrow.push({b,t});
       };
       for(const b of BOSSES){
         if(b.rs){
