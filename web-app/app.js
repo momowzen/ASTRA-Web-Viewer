@@ -289,10 +289,14 @@ function langNext(){
         $('nextTag').className='hero-tag '+(isInt?'interval':'scheduled');
         $('nextAt').textContent=fmtD(bs.getTime())+' '+fmtT(bs.getTime());
         nxtBoss=bb;nxtTime=bs;
+        const gn=timers[bb.id]?.guild;
+        const gName=gn!=null?guildNames[String(gn)]:null;
+        const gEl=$('nextGuild');
+        if(gName){gEl.textContent=gName;gEl.className='hero-guild-badge guild-'+gn;gEl.hidden=false}else{gEl.hidden=true}
         const im=$('heroBossImg'),url='assets/'+bb.id+'.png';
         if(im.getAttribute('src')!==url){im.style.opacity=0;im.onload=()=>{im.style.opacity=1};im.src=url}
       }else if(nxtBoss){
-        $('nextName').textContent='--';$('nextLv').textContent='';$('nextLoc').textContent='';$('nextTag').textContent='';$('nextAt').textContent='';nxtBoss=null;nxtTime=null;
+        $('nextName').textContent='--';$('nextLv').textContent='';$('nextLoc').textContent='';$('nextTag').textContent='';$('nextAt').textContent='';$('nextGuild').hidden=true;nxtBoss=null;nxtTime=null;
         $('heroBossImg').style.opacity=0;
       }
     }
