@@ -217,6 +217,7 @@ function langNext(){
     }
 
     let timers={};
+    let guildNames={};
     let nxtBoss=null,nxtTime=null;
 
     function p2(n){return String(n).padStart(2,'0')}
@@ -371,7 +372,10 @@ function langNext(){
           h='<div class="boss-list">'+list[v].map(x=>{
             const rem=x.t-n;
             const cls=statusClassFor(rem);
-            return '<div class="boss-card '+cls+'" data-t="'+x.t+'"><div class="boss-card-main"><span class="boss-card-name">'+bn(x.b)+'</span></div><div class="boss-card-time"><span class="boss-card-time-value">'+(rem<=0?t('spawned'):fmtT(x.t))+'</span></div></div>';
+            const gn=timers[x.b.id]?.guild;
+            const gName=gn!=null?guildNames[String(gn)]:null;
+            const badge=gName?'<span class="guild-badge">'+gName+'</span>':'';
+            return '<div class="boss-card '+cls+'" data-t="'+x.t+'"><div class="boss-card-main"><span class="boss-card-name">'+bn(x.b)+'</span>'+badge+'</div><div class="boss-card-time"><span class="boss-card-time-value">'+(rem<=0?t('spawned'):fmtT(x.t))+'</span></div></div>';
           }).join('')+'</div>';
         }
         if(h!==lastUpHtml[v]){e.innerHTML=h;lastUpHtml[v]=h;}
@@ -1201,6 +1205,14 @@ function fitRelic(){
           }
         }
       },()=>{setOnline(false)});
+      db.doc('config/discordBot').onSnapshot({includeMetadataChanges:true},snap=>{
+        if(snap.exists){
+          const gn=snap.data().guildNames||{};
+          if(JSON.stringify(gn)!==JSON.stringify(guildNames)){
+            guildNames=gn;rUpcoming();
+          }
+        }
+      },()=>{});
     }
     async function pollData(){
       if(dataOnline)return;
@@ -1212,13 +1224,28 @@ function fitRelic(){
           const parsed={};
           for(const [id,val] of Object.entries(d.fields.timers.mapValue.fields)){
             const m=val.mapValue.fields;
-            parsed[id]={endTime:Number(m.endTime.integerValue||m.endTime.doubleValue),startedAt:Number(m.startedAt.integerValue||m.startedAt.doubleValue)};
+            parsed[id]={endTime:Number(m.endTime.integerValue||m.endTime.doubleValue),startedAt:Number(m.startedAt.integerValue||m.startedAt.doubleValue),guild:m.guild?Number(m.guild.integerValue||m.guild.doubleValue):undefined};
           }
           if(JSON.stringify(parsed)!==JSON.stringify(timers)){timers=parsed;rAll();ttsCheck();setOnline(true)}
         }
       }catch(e){setOnline(false)}
       $('exportInfo').querySelector('span').textContent='Last sync: '+new Date().toLocaleTimeString();
       setTimeout(pollData,30000);
+    }
+    async function pollGuildData(){
+      try{
+        const r=await fetch('https://firestore.googleapis.com/v1/projects/astra-boss-timer-759e5/databases/(default)/documents/config/discordBot?key=AIzaSyAboQqH7BmtLCO0ciHUvgGIUOU6SMzHnzo');
+        if(!r.ok)throw Error(r.status);
+        const d=await r.json();
+        if(d.fields&&d.fields.guildNames&&d.fields.guildNames.mapValue){
+          const gn={};
+          for(const [k,v] of Object.entries(d.fields.guildNames.mapValue.fields)){
+            gn[k]=v.stringValue||'';
+          }
+          guildNames=gn;
+        }
+      }catch(e){}
+      setTimeout(pollGuildData,60000);
     }
 
     function syncVoices(){
@@ -1282,6 +1309,7 @@ function fitRelic(){
       checkForUpdate();
       listenData();
       pollData();
+      pollGuildData();
       rAll();
       readCache();
       rRelic();
