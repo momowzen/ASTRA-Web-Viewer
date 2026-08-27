@@ -378,7 +378,7 @@ function langNext(){
             const cls=statusClassFor(rem);
             const gn=timers[x.b.id]?.guild;
             const gName=gn!=null?guildNames[String(gn)]:null;
-            const badge=gName?'<span class="guild-badge">'+gName+'</span>':'';
+            const badge=gName?'<span class="guild-badge guild-'+gn+'">'+gName+'</span>':'';
             return '<div class="boss-card '+cls+'" data-t="'+x.t+'"><div class="boss-card-main"><span class="boss-card-name">'+bn(x.b)+'</span>'+badge+'</div><div class="boss-card-time"><span class="boss-card-time-value">'+(rem<=0?t('spawned'):fmtT(x.t))+'</span></div></div>';
           }).join('')+'</div>';
         }
