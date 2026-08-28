@@ -290,7 +290,7 @@ function langNext(){
         $('nextTag').className='hero-tag '+(isInt?'interval':'scheduled');
         $('nextAt').textContent=fmtD(bs.getTime())+' '+fmtT(bs.getTime());
         nxtBoss=bb;nxtTime=bs;
-        const gn=timers[bb.id]?.guild??rotation[bb.id];
+        const gn=rotation[bb.id];
         const gName=gn!=null?guildNames[String(gn)]:null;
         const gEl=$('nextGuild');
         if(gName){gEl.textContent=gName;gEl.className='hero-guild-badge guild-'+gn;gEl.hidden=false}else{gEl.hidden=true}
@@ -377,7 +377,7 @@ function langNext(){
           h='<div class="boss-list">'+list[v].map(x=>{
             const rem=x.t-n;
             const cls=statusClassFor(rem);
-            const gn=timers[x.b.id]?.guild??rotation[x.b.id];
+            const gn=rem<=0?rotation[x.b.id]:timers[x.b.id]?.guild;
             const gName=gn!=null?guildNames[String(gn)]:null;
             const badge=gName?'<span class="guild-badge guild-'+gn+'">'+gName+'</span>':'';
             return '<div class="boss-card '+cls+'" data-t="'+x.t+'"><div class="boss-card-main"><span class="boss-card-name">'+bn(x.b)+'</span>'+badge+'</div><div class="boss-card-time"><span class="boss-card-time-value">'+(rem<=0?t('spawned'):fmtT(x.t))+'</span></div></div>';
