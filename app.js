@@ -229,12 +229,12 @@ function langNext(){
 
     const LOC={en:'en-US',ja:'ja-JP',ko:'ko-KR'};
     const fmtDCache=new Map(),fmtTCache=new Map();
-    function fmt(ms){return new Date(ms).toLocaleString(LOC[lang],{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:lang==='en',timeZone:'Asia/Tokyo'})}
+    function fmt(ms){return new Date(ms).toLocaleString(LOC[lang],{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:lang==='en'})}
     function fmtD(ms){
       const k=Math.floor(ms/86400000);
       const c=fmtDCache.get(k);
       if(c)return c;
-      const v=new Date(ms).toLocaleDateString(LOC[lang],{month:'short',day:'numeric',timeZone:'Asia/Tokyo'});
+      const v=new Date(ms).toLocaleDateString(LOC[lang],{month:'short',day:'numeric'});
       fmtDCache.set(k,v);
       return v;
     }
@@ -242,7 +242,7 @@ function langNext(){
       const k=Math.floor(ms/60000);
       const c=fmtTCache.get(k);
       if(c)return c;
-      const v=new Date(ms).toLocaleTimeString(LOC[lang],{hour:'2-digit',minute:'2-digit',hour12:lang==='en',timeZone:'Asia/Tokyo'});
+      const v=new Date(ms).toLocaleTimeString(LOC[lang],{hour:'2-digit',minute:'2-digit',hour12:lang==='en'});
       fmtTCache.set(k,v);
       return v;
     }
