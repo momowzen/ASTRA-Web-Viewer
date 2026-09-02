@@ -87,7 +87,7 @@ function langNext(){
 }
 
 
-    const FLAGS={en:'🇺🇸',ja:'🇯🇵',ko:'🇰🇷'};
+    const FLAGS={en:'EN',ja:'JP',ko:'KR'};
     function applyLang(){
       fmtDCache.clear();fmtTCache.clear();
       document.title=t('brand');
