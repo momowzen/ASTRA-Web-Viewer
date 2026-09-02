@@ -322,9 +322,9 @@
     .boss-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--status-color, var(--text-tertiary)); opacity: 0.6; transition: opacity var(--duration-normal) var(--ease-smooth); border-radius: var(--radius-lg) 0 0 var(--radius-lg); }
     .boss-card:hover { background: rgba(255,255,255,0.04); border-color: var(--glass-border-strong); box-shadow: var(--shadow-md); }
     .boss-card:hover::before { opacity: 1; box-shadow: 0 0 12px var(--status-color, transparent); }
-    .boss-card-main { display: flex; flex-direction: column; gap: var(--space-1); min-width: 0; flex: 1; }
+    .boss-card-main { display: flex; flex-direction: row; align-items: center; gap: var(--space-2); min-width: 0; flex: 1; }
     .boss-card-name { font-family: var(--font-display); font-size: 0.95rem; font-weight: 600; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2; }
-    .guild-badge { display: inline-flex; align-items: center; font-family: var(--font-display); font-size: 0.55rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.1rem 0.4rem; border-radius: var(--radius-full); white-space: nowrap; margin-top: 2px; width: fit-content; }
+    .guild-badge { display: inline-flex; align-items: center; font-family: var(--font-display); font-size: 0.55rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.1rem 0.4rem; border-radius: var(--radius-full); white-space: nowrap; flex-shrink: 0; }
     .guild-badge.guild-1, .hero-guild-badge.guild-1 { background: rgba(139, 92, 246, 0.12); color: var(--astral-purple); border: 1px solid rgba(139, 92, 246, 0.18); }
     .guild-badge.guild-2, .hero-guild-badge.guild-2 { background: rgba(34, 211, 238, 0.12); color: var(--electric-cyan); border: 1px solid rgba(34, 211, 238, 0.18); }
     .hero-guild-badge { font-family: var(--font-display); font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm); }
