@@ -224,7 +224,14 @@ function langNext(){
       if(rotation.bossGuild&&rotation.bossGuild[bossId]!=null){raw=String(rotation.bossGuild[bossId])}
       else if(rotation[bossId]!=null){raw=String(rotation[bossId])}
       if(raw==null)return null;
-      return guildNames[raw]||raw;
+      const display=guildNames[raw]||raw;
+      let idx=null;
+      if(rotation.order){
+        const i=rotation.order.indexOf(raw);
+        if(i>=0)idx=i;
+      }
+      if(idx==null&&rotation[raw]!=null)idx=Number(rotation[raw]);
+      return{display,idx};
     }
     let nxtBoss=null,nxtTime=null;
 
@@ -297,9 +304,9 @@ function langNext(){
         $('nextTag').className='hero-tag '+(isInt?'interval':'scheduled');
         $('nextAt').textContent=fmtD(bs.getTime())+' '+fmtT(bs.getTime());
         nxtBoss=bb;nxtTime=bs;
-        const gName=getGuildDisplay(bb.id);
+        const gd=getGuildDisplay(bb.id);
         const gEl=$('nextGuild');
-        if(gName){gEl.textContent=gName;gEl.className='hero-guild-badge';gEl.hidden=false}else{gEl.hidden=true}
+        if(gd){gEl.textContent=gd.display;gEl.className='hero-guild-badge guild-'+gd.idx;gEl.hidden=false}else{gEl.hidden=true}
         const im=$('heroBossImg'),url='assets/'+bb.id+'.png';
         if(im.getAttribute('src')!==url){im.style.opacity=0;im.onload=()=>{im.style.opacity=1};im.src=url}
       }else if(nxtBoss){
@@ -383,8 +390,8 @@ function langNext(){
           h='<div class="boss-list">'+list[v].map(x=>{
             const rem=x.t-n;
             const cls=statusClassFor(rem);
-            const gName=getGuildDisplay(x.b.id);
-            const badge=gName?'<span class="guild-badge">'+gName+'</span>':'';
+            const gd=getGuildDisplay(x.b.id);
+            const badge=gd?'<span class="guild-badge guild-'+gd.idx+'">'+gd.display+'</span>':'';
             return '<div class="boss-card '+cls+'" data-t="'+x.t+'"><div class="boss-card-main"><span class="boss-card-name">'+bn(x.b)+'</span>'+badge+'</div><div class="boss-card-time"><span class="boss-card-time-value">'+(rem<=0?t('spawned'):fmtT(x.t))+'</span></div></div>';
           }).join('')+'</div>';
         }
