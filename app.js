@@ -219,6 +219,13 @@ function langNext(){
     let timers={};
     let guildNames={};
     let rotation={};
+    function getGuildDisplay(bossId){
+      let raw=null;
+      if(rotation.bossGuild&&rotation.bossGuild[bossId]!=null){raw=String(rotation.bossGuild[bossId])}
+      else if(rotation[bossId]!=null){raw=String(rotation[bossId])}
+      if(raw==null)return null;
+      return guildNames[raw]||raw;
+    }
     let nxtBoss=null,nxtTime=null;
 
     function p2(n){return String(n).padStart(2,'0')}
@@ -290,10 +297,9 @@ function langNext(){
         $('nextTag').className='hero-tag '+(isInt?'interval':'scheduled');
         $('nextAt').textContent=fmtD(bs.getTime())+' '+fmtT(bs.getTime());
         nxtBoss=bb;nxtTime=bs;
-        const gn=rotation[bb.id];
-        const gName=gn!=null?guildNames[String(gn)]:null;
+        const gName=getGuildDisplay(bb.id);
         const gEl=$('nextGuild');
-        if(gName){gEl.textContent=gName;gEl.className='hero-guild-badge guild-'+gn;gEl.hidden=false}else{gEl.hidden=true}
+        if(gName){gEl.textContent=gName;gEl.className='hero-guild-badge';gEl.hidden=false}else{gEl.hidden=true}
         const im=$('heroBossImg'),url='assets/'+bb.id+'.png';
         if(im.getAttribute('src')!==url){im.style.opacity=0;im.onload=()=>{im.style.opacity=1};im.src=url}
       }else if(nxtBoss){
@@ -377,9 +383,8 @@ function langNext(){
           h='<div class="boss-list">'+list[v].map(x=>{
             const rem=x.t-n;
             const cls=statusClassFor(rem);
-            const gn=rotation[x.b.id];
-            const gName=gn!=null?guildNames[String(gn)]:null;
-            const badge=gName?'<span class="guild-badge guild-'+gn+'">'+gName+'</span>':'';
+            const gName=getGuildDisplay(x.b.id);
+            const badge=gName?'<span class="guild-badge">'+gName+'</span>':'';
             return '<div class="boss-card '+cls+'" data-t="'+x.t+'"><div class="boss-card-main"><span class="boss-card-name">'+bn(x.b)+'</span>'+badge+'</div><div class="boss-card-time"><span class="boss-card-time-value">'+(rem<=0?t('spawned'):fmtT(x.t))+'</span></div></div>';
           }).join('')+'</div>';
         }
@@ -1244,19 +1249,26 @@ function fitRelic(){
         const r=await fetch('https://firestore.googleapis.com/v1/projects/astra-boss-timer-759e5/databases/(default)/documents/config/discordBot?key=AIzaSyAboQqH7BmtLCO0ciHUvgGIUOU6SMzHnzo');
         if(!r.ok)throw Error(r.status);
         const d=await r.json();
-        if(d.fields&&d.fields.guildNames&&d.fields.guildNames.mapValue){
-          const gn={};
-          for(const [k,v] of Object.entries(d.fields.guildNames.mapValue.fields)){
-            gn[k]=v.stringValue||'';
+        function parseFsVal(v){
+          if(!v)return null;
+          if(v.stringValue!=null)return v.stringValue;
+          if(v.integerValue!=null)return Number(v.integerValue);
+          if(v.doubleValue!=null)return Number(v.doubleValue);
+          if(v.booleanValue!=null)return v.booleanValue;
+          if(v.nullValue!=null)return null;
+          if(v.arrayValue&&v.arrayValue.values)return v.arrayValue.values.map(parseFsVal);
+          if(v.mapValue&&v.mapValue.fields){
+            const o={};for(const[k,val] of Object.entries(v.mapValue.fields))o[k]=parseFsVal(val);return o;
           }
-          guildNames=gn;
+          return null;
         }
-        if(d.fields&&d.fields.rotation&&d.fields.rotation.mapValue){
-          const rot={};
-          for(const [k,v] of Object.entries(d.fields.rotation.mapValue.fields)){
-            rot[k]=Number(v.integerValue||v.doubleValue);
-          }
-          rotation=rot;
+        if(d.fields&&d.fields.guildNames){
+          const gn=parseFsVal(d.fields.guildNames);
+          if(gn&&typeof gn==='object')guildNames=gn;
+        }
+        if(d.fields&&d.fields.rotation){
+          const rot=parseFsVal(d.fields.rotation);
+          if(rot&&typeof rot==='object')rotation=rot;
         }
       }catch(e){}
       setTimeout(pollGuildData,60000);
